@@ -12,7 +12,7 @@ app.innerHTML = `
   </header>
   <main class="layout">
     <aside class="sidebar">
-      <div class="sidebar-heading"><div><p class="eyebrow">İÇİNDEKİLER</p><h2>Mevzuat</h2></div><span class="count-badge" id="section-count">—</span></div>
+      <div class="sidebar-heading"><div><p class="eyebrow">İÇİNDEKİLER</p><h2>Mevzuat</h2></div><div class="sidebar-actions"><span class="count-badge" id="section-count">—</span><button id="ipc-open" class="ipc-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button></div></div>
       <label class="search-field sidebar-search"><span aria-hidden="true">⌕</span><input id="section-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /></label>
       <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
     </aside>
@@ -89,4 +89,5 @@ async function loadManifest() {
 }
 
 $('#section-filter').addEventListener('input', (event) => renderSections(event.target.value));
+$('#ipc-open').addEventListener('click', () => window.open('/ipc.html', '_blank'));
 loadManifest().catch((error) => { $('#section-list').innerHTML = `<p class="error-state">${error.message}</p>`; });

@@ -21,6 +21,9 @@ h1 { font-size: 20px; letter-spacing: -.02em; }
 .sidebar-heading { display: flex; align-items: flex-end; justify-content: space-between; padding: 0 0 20px; }
 .sidebar h2 { font-size: clamp(30px, 4vw, 46px); line-height: 1; color: var(--navy); }
 .count-badge { padding: 7px 11px; border: 1px solid rgba(197,160,89,.45); border-radius: 999px; color: #775a19; background: #fff8e9; font-size: 11px; font-weight: 700; }
+.sidebar-actions { display: flex; align-items: center; gap: 7px; }
+.ipc-open { border: 1px solid rgba(197,160,89,.6); border-radius: 10px; padding: 7px 9px; color: #775a19; background: #fff8e9; font-size: 10px; font-weight: 700; cursor: pointer; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
+.ipc-open:hover { border-color: #c5a059; background: #ffefd7; transform: translateY(-1px); }
 .search-field { display: flex; align-items: center; gap: 9px; border: 1px solid #e3dccd; background: rgba(255,255,255,.76); border-radius: 14px; color: var(--muted); transition: border-color .2s, box-shadow .2s, transform .2s; box-shadow: 0 8px 24px rgba(26,43,75,.05); }
 .search-field:focus-within { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(197,160,89,.16), 0 12px 30px rgba(26,43,75,.08); transform: translateY(-1px); }
 .search-field > span:first-child { padding-left: 12px; font-size: 21px; line-height: 1; }
