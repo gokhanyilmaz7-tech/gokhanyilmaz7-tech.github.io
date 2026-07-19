@@ -14,6 +14,38 @@ const formatCell = (value) => {
 };
 const isHeaderRepeat = (row) => row[0] === 'Kanun Maddesi' || String(row[4] || '').startsWith('10 dan Az') || String(row[4] || '').startsWith('AZ TEHLİKELİ');
 const isMajor = (row) => /^MADDE\s+\d+/i.test(String(row[0] || '').trim());
+const isNote = (row) => /^\*{1,2}\s|^Not:/i.test(String(row[0] || '').trim());
+
+function rowArticleNumber(row) {
+  const label = String(row[0] || '').trim();
+  const description = String(row[2] || '').trim();
+  return (label.match(/^MADDE\s+(\d+)/i) || description.match(/^(\d+)\s*\//))?.[1] || '';
+}
+
+function shadeRows(rows) {
+  let currentArticle = '';
+  let firstTableShade = -1;
+  let lastGroup = '';
+  return rows.map((row) => {
+    const article = rowArticleNumber(row);
+    if (article) currentArticle = article;
+    if (isNote(row) || /^6331 sayılı Kanunun 24\. maddesi/i.test(String(row[0] || ''))) return 'shade-white';
+    if (/^(92|107)$/.test(article) || /^(92|107)$/.test(currentArticle)) return 'shade-gray';
+    if (article === '96' || currentArticle === '96') return 'shade-yellow';
+    if (currentArticle) {
+      const numericArticle = Number(currentArticle);
+      if (numericArticle >= 4 && numericArticle <= 30) {
+        const groupKey = numericArticle === 26 ? '26' : currentArticle;
+        if (groupKey !== lastGroup) {
+          lastGroup = groupKey;
+          firstTableShade += 1;
+        }
+        return firstTableShade % 2 === 0 ? 'shade-yellow' : 'shade-gray';
+      }
+    }
+    return 'shade-white';
+  });
+}
 
 function makeHeader(title) {
   return `<thead><tr class="ipc-title-row"><th colspan="14">${escapeHtml(title)}</th></tr><tr class="ipc-main-head"><th rowspan="3">Kanun Maddesi</th><th rowspan="3">Ceza Mad.</th><th rowspan="3">Kanun Maddesinde Sözü Edilen Fiil</th><th rowspan="3">2026 yılı için uygulanacak temel ceza miktarı<br>(Yeniden Değerleme Oranı %25,49)</th><th colspan="9">2026 Yılında Uygulanacak Ceza Miktarı (TL)</th><th rowspan="3">Açıklamalar</th></tr><tr class="ipc-group-head"><th colspan="3">10'dan Az Çalışanı Olan İşyerleri</th><th colspan="3">10-49 Çalışanı Olan İşyerleri</th><th colspan="3">50 ve Üzeri Çalışanı Olan İşyerleri</th></tr><tr class="ipc-sub-head"><th>AZ TEHLİKELİ<br>(Aynı miktarda)</th><th>TEHLİKELİ<br>(%25 artırılarak)</th><th>ÇOK TEHLİKELİ<br>(%50 artırılarak)</th><th>AZ TEHLİKELİ<br>(Aynı miktarda)</th><th>TEHLİKELİ<br>(%50 artırılarak)</th><th>ÇOK TEHLİKELİ<br>(%100 artırılarak)</th><th>AZ TEHLİKELİ<br>(%50 artırılarak)</th><th>TEHLİKELİ<br>(%100 artırılarak)</th><th>ÇOK TEHLİKELİ<br>(%200 artırılarak)</th></tr></thead>`;
@@ -33,8 +65,8 @@ function filterRows() {
 function render(rows, title) {
   table.querySelector('thead')?.remove();
   table.querySelector('colgroup')?.remove();
-  const columnWidths = [220, 90, 510, 190, ...Array(9).fill(130), 240];
-  table.insertAdjacentHTML('afterbegin', `<colgroup>${columnWidths.map((width) => `<col style="width:${width}px">`).join('')}</colgroup>`);
+  const columnWidths = ['12%', '5%', '24%', '8%', ...Array(9).fill('5.2%'), '4.2%'];
+  table.insertAdjacentHTML('afterbegin', `<colgroup>${columnWidths.map((width) => `<col style="width:${width}">`).join('')}</colgroup>`);
   table.querySelector('tbody').insertAdjacentHTML('beforebegin', makeHeader(title));
   const dataRows = rows.slice(6).filter((row) => !isHeaderRepeat(row) && row.some((cell) => cell !== null && cell !== '')).map((row) => {
     const normalized = [...row];
@@ -50,7 +82,8 @@ function render(rows, title) {
     madde96[3] = continuation[3] || 241992;
     dataRows.splice(madde96Index - 1, 3, madde96);
   }
-  tbody.innerHTML = dataRows.map((row) => `<tr class="ipc-data-row${isMajor(row) ? ' major' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell) => `<td>${escapeHtml(formatCell(cell))}</td>`).join('')}</tr>`).join('');
+  const shades = shadeRows(dataRows);
+  tbody.innerHTML = dataRows.map((row, index) => `<tr class="ipc-data-row ${shades[index]}${isMajor(row) ? ' major' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell) => `<td>${escapeHtml(formatCell(cell))}</td>`).join('')}</tr>`).join('');
   status.textContent = `${dataRows.length} ceza satırı · Excel tablosundan aktarıldı`;
   filterRows();
 }
