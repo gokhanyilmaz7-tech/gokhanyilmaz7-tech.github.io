@@ -104,9 +104,18 @@ function render(rows, title) {
     dataRows[16][2] = tahliyeParts.join(' ');
     dataRows.splice(17, 2);
   }
+  if (dataRows[13]?.[0]) dataRows[12][0] = dataRows[13][0];
   const shades = shadeRows(dataRows);
+  const mergedA = new Map([[12, 14]]);
+  const mergedB = new Map([[12, 13]]);
   const mergedC = new Map([[12, 13]]);
   const renderCell = (row, rowIndex, columnIndex) => {
+    const mergeMap = columnIndex === 0 ? mergedA : columnIndex === 1 ? mergedB : columnIndex === 2 ? mergedC : null;
+    if (mergeMap && [...mergeMap].some(([start, end]) => rowIndex > start && rowIndex <= end)) return '';
+    if (mergeMap && mergeMap.has(rowIndex)) {
+      const end = mergeMap.get(rowIndex);
+      return `<td rowspan="${end - rowIndex + 1}">${escapeHtml(formatCell(row[columnIndex]))}</td>`;
+    }
     if (columnIndex === 2 && [...mergedC].some(([start, end]) => rowIndex > start && rowIndex <= end)) return '';
     if (columnIndex === 2 && paragraphC.has(rowIndex)) {
       return `<td>${paragraphC.get(rowIndex).map(escapeHtml).join('<br><br>')}</td>`;
