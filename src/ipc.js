@@ -41,6 +41,15 @@ function render(rows, title) {
     if (/^MADDE\s+(92|96|107)\b/i.test(String(normalized[0] || '')) && !normalized.slice(3, 13).some((cell) => typeof cell === 'number')) normalized[3] = 241992;
     return normalized;
   });
+  const madde96Index = dataRows.findIndex((row) => /^MADDE\s+96\b/i.test(String(row[0] || '')));
+  if (madde96Index > 0 && dataRows[madde96Index + 1]) {
+    const continuation = dataRows[madde96Index - 1];
+    const madde96 = [...dataRows[madde96Index]];
+    madde96[1] = dataRows[madde96Index + 1][1] || '107/1-b';
+    madde96[2] = continuation[2] || 'İfade ve bilgilerine başvurulan işçilere işverenlerce telkinlerde bulunma, gerçeği saklamaya yahut değiştirmeye zorlama veyahut ilgili makamlara ifade vermeleri üzerine onlara karşı kötü davranışlarda bulunmak.';
+    madde96[3] = continuation[3] || 241992;
+    dataRows.splice(madde96Index - 1, 3, madde96);
+  }
   tbody.innerHTML = dataRows.map((row) => `<tr class="ipc-data-row${isMajor(row) ? ' major' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell) => `<td>${escapeHtml(formatCell(cell))}</td>`).join('')}</tr>`).join('');
   status.textContent = `${dataRows.length} ceza satırı · Excel tablosundan aktarıldı`;
   filterRows();
