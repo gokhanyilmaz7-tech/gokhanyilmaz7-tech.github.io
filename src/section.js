@@ -102,6 +102,7 @@ function formatLayoutPage(page, totalPages) {
     else groups.push({lines: [line]});
   });
   const records = groups.map((group, index) => {
+    const annotationOnly = group.lines.every((line) => line.kind === 'reference' || line.kind === 'info');
     const inner = group.lines.map((line) => line.html).join('');
     const copyParts = [];
     let mainRun = [];
@@ -119,7 +120,8 @@ function formatLayoutPage(page, totalPages) {
     const exactInner = group.lines.map((line) => `<div class="exact-line" style="left:${line.words[0].x * xScale}px;top:${line.y - top}px">${line.html.replace(/^<div[^>]*>|<\/div>$/g, '')}</div>`).join('');
     const common = `<button class="copy-provision" type="button" title="Bu hükmü biçimli olarak kopyala">Kopyala</button><div class="provision-content">`;
     const source = `<div class="copy-html-source">${copyParts.join('')}</div>`;
-    return {flow: `<article class="provision-card" data-block="${index}">${common}${inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
+    const annotationClass = annotationOnly ? ' annotation-card' : '';
+    return {flow: `<article class="provision-card${annotationClass}" data-block="${index}">${common}${inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
   });
   const hasFigures = (page.figures || []).length > 0;
   // Ek-1 ve Ek-2, PDF'de gerçek sütun koordinatlarıyla oluşturulmuş tablolardır.
@@ -156,9 +158,12 @@ function render(query = '') {
 }
 
 async function copyProvision(button) {
-  const source = button.closest('.provision-card').querySelector('.copy-html-source');
-  const html = `<div style="font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.35">${source.innerHTML}</div>`;
-  const plain = source.innerText;
+  const card = button.closest('.provision-card');
+  const groupId = card.dataset.copyGroup;
+  const cards = groupId ? [...document.querySelectorAll(`.provision-card[data-copy-group="${groupId}"]`)] : [card];
+  const sources = cards.map((item) => item.querySelector('.copy-html-source')).filter(Boolean);
+  const html = `<div style="font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.35">${sources.map((source) => source.innerHTML).join('')}</div>`;
+  const plain = sources.map((source) => source.innerText).join('\n\n');
   if (navigator.clipboard && window.ClipboardItem) {
     try {
       await navigator.clipboard.write([new ClipboardItem({
@@ -189,6 +194,21 @@ function moveResult(direction) {
   matches[matchIndex].element.scrollIntoView({behavior: 'smooth', block: 'center'});
 }
 
+function linkCrossPageAnnotations() {
+  const pages = [...content.querySelectorAll('.article-page')];
+  pages.forEach((page, index) => {
+    if (!index) return;
+    const previousCard = pages[index - 1].querySelector('.provision-card:last-of-type');
+    const annotationCard = page.querySelector('.provision-card:first-of-type.annotation-card');
+    if (!previousCard || !annotationCard || previousCard.classList.contains('annotation-card')) return;
+    const groupId = `cross-page-provision-${index}`;
+    previousCard.dataset.copyGroup = groupId;
+    annotationCard.dataset.copyGroup = groupId;
+    annotationCard.querySelector('.copy-provision').title = 'Bu hükmün dayanak ve bilgi notu ile birlikte tamamını kopyala';
+    previousCard.querySelector('.copy-provision').title = 'Bu hükmü dayanak ve bilgi notu ile birlikte tamamını kopyala';
+  });
+}
+
 async function load() {
   if (!id) throw new Error('Mevzuat seçilmedi.');
   const response = await fetch(`/sections/${id}.json`);
@@ -215,6 +235,7 @@ async function load() {
   document.title = data.title;
   meta.textContent = `${pages.length} sayfa · PDF ile aynı sayfa sırası ve yerleşim`;
   content.innerHTML = pages.map((page) => formatLayoutPage(page, 400)).join('');
+  linkCrossPageAnnotations();
   blocks = pages.map((page, index) => ({text: page.text, element: content.children[index]}));
   content.querySelectorAll('.copy-provision').forEach((button) => button.addEventListener('click', () => copyProvision(button)));
 }
