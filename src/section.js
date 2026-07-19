@@ -16,6 +16,25 @@ function normalize(value) { return value.toLocaleLowerCase('tr-TR').normalize('N
 function compact(value) { return normalize(value).replace(/\s+/g, ''); }
 function color(values) { return `rgb(${values.map((value) => Math.round(Number(value || 0) * 255)).join(', ')})`; }
 
+function mergeWordFragments(words) {
+  const merged = [];
+  words.slice().sort((a, b) => a.x - b.x).forEach((word) => {
+    const previous = merged[merged.length - 1];
+    if (!previous) { merged.push({...word}); return; }
+    const gap = word.x - (previous.x + previous.w);
+    const joinsAtZeroGap = gap <= 0.75;
+    const joinsSpacedLetters = gap <= 8 && previous.text.length <= 1 && word.text.length <= 1;
+    if (joinsAtZeroGap || joinsSpacedLetters) {
+      previous.text += word.text;
+      previous.w = Math.max(previous.x + previous.w, word.x + word.w) - previous.x;
+      previous.color = previous.color || word.color;
+      previous.bold = previous.bold || word.bold;
+      previous.italic = previous.italic || word.italic;
+    } else merged.push({...word});
+  });
+  return merged;
+}
+
 function formatLayoutPage(page, totalPages) {
   const scale = 96 / 72;
   const isChemicalTablePage = page.page >= 391 && page.page <= 400;
@@ -48,14 +67,16 @@ function formatLayoutPage(page, totalPages) {
     if (line) line.words.push(word); else lines.push({y: word.y, words: [word]});
   });
   const lineData = lines.filter((line) => !(line.y > page.height - 70 && line.words.some((word) => word.text === 'Sayfa'))).sort((a, b) => a.y - b.y).map((line, index) => {
+    line.words = mergeWordFragments(line.words);
     line.words = alignTableWords(line.words, line.y);
     const previous = lines[index - 1];
     const topGap = previous ? Math.max(0, line.y - previous.y - Math.max(...previous.words.map((word) => word.size))) * yScale : 0;
     const words = line.words.sort((a, b) => a.x - b.x).map((word, wordIndex) => {
       const next = line.words[wordIndex + 1];
       const gap = next ? Math.max(0, next.x - word.x - word.w) * xScale : 0;
+      const readableGap = Math.min(gap, 10);
       const displaySize = 12;
-      const style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};margin-right:${gap}px`;
+      const style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};margin-right:${readableGap}px`;
       const separator = next && (next.x - word.x - word.w) > 1.5 ? ' ' : '';
       return `<span class="word" style="${style}">${escapeHtml(word.text)}</span>${separator}`;
     }).join('');
@@ -73,7 +94,10 @@ function formatLayoutPage(page, totalPages) {
   const groups = [];
   lineData.forEach((line) => {
     const current = groups[groups.length - 1];
-    if (current && line.kind === 'main' && current.lines.some((item) => item.kind !== 'main')) groups.push({lines: [line]});
+    const isBoldHeading = line.kind === 'main' && line.words.length > 0 && line.words.every((word) => word.bold) && line.text.length < 160;
+    const previousIsBold = current?.lines.at(-1)?.words.every((word) => word.bold);
+    if (current && isBoldHeading && !previousIsBold) groups.push({lines: [line]});
+    else if (current && line.kind === 'main' && current.lines.some((item) => item.kind !== 'main')) groups.push({lines: [line]});
     else if (current) current.lines.push(line);
     else groups.push({lines: [line]});
   });
