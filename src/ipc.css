@@ -26,8 +26,14 @@ body { margin: 0; background: radial-gradient(circle at 8% 0%, rgba(197,160,89,.
 .ipc-table thead th { position: relative; }
 .ipc-title-row th { padding: 15px; color: #000; background: #fff; font: 700 17px/1.25 Georgia, serif; border-bottom-width: 3px; }
 .ipc-main-head th { color: #000; background: #fff; }
-.ipc-group-head th { color: #c00000; background: #fff; font-size: 12px; }
-.ipc-sub-head th { color: #c00000; background: #fff; font-size: 11px; }
+.ipc-group-head th { color: #fff; font-size: 11px; line-height: 1.15; padding: 8px 5px; }
+.ipc-group-head th:nth-child(1), .ipc-group-head th:nth-child(2), .ipc-group-head th:nth-child(3),
+.ipc-sub-head th:nth-child(-n+3) { background: #6ea6dc; }
+.ipc-group-head th:nth-child(4), .ipc-group-head th:nth-child(5), .ipc-group-head th:nth-child(6),
+.ipc-sub-head th:nth-child(n+4):nth-child(-n+6) { background: #76b982; }
+.ipc-group-head th:nth-child(7), .ipc-group-head th:nth-child(8), .ipc-group-head th:nth-child(9),
+.ipc-sub-head th:nth-child(n+7):nth-child(-n+9) { background: #d989a2; }
+.ipc-sub-head th { color: #fff; font-size: 9px; line-height: 1.15; padding: 6px 3px; }
 .ipc-table th:nth-child(1), .ipc-table td:nth-child(1) { width: 12%; }.ipc-table th:nth-child(2), .ipc-table td:nth-child(2) { width: 5%; }.ipc-table th:nth-child(3), .ipc-table td:nth-child(3) { width: 20%; text-align: left; }.ipc-table th:nth-child(4), .ipc-table td:nth-child(4) { width: 8%; }.ipc-table th:nth-child(n+5):nth-child(-n+13), .ipc-table td:nth-child(n+5):nth-child(-n+13) { width: 4.8%; min-width: 0; max-width: none; text-align: center; }.ipc-table th:nth-child(14), .ipc-table td:nth-child(14) { width: 11.8%; text-align: left; }
 .ipc-table th:nth-child(-n+3), .ipc-table td:nth-child(-n+3) { position: sticky; z-index: 2; }
 .ipc-table th:nth-child(1), .ipc-table td:nth-child(1) { left: 0; }
@@ -35,6 +41,9 @@ body { margin: 0; background: radial-gradient(circle at 8% 0%, rgba(197,160,89,.
 .ipc-table th:nth-child(3), .ipc-table td:nth-child(3) { left: 17%; }
 .ipc-table thead th:nth-child(-n+3) { z-index: 5; }
 .ipc-table thead th:nth-child(1), .ipc-table thead th:nth-child(2), .ipc-table thead th:nth-child(3) { background: #fff; }
+.ipc-table .ipc-group-head th:nth-child(-n+3), .ipc-table .ipc-sub-head th:nth-child(-n+3) { background: #6ea6dc; }
+.ipc-table .ipc-group-head th:nth-child(n+4):nth-child(-n+6), .ipc-table .ipc-sub-head th:nth-child(n+4):nth-child(-n+6) { background: #76b982; }
+.ipc-table .ipc-group-head th:nth-child(n+7):nth-child(-n+9), .ipc-table .ipc-sub-head th:nth-child(n+7):nth-child(-n+9) { background: #d989a2; }
 .ipc-data-row.shade-yellow td, .ipc-data-row.shade-yellow td:nth-child(-n+3) { background: #ffffcc; }
 .ipc-data-row.shade-gray td, .ipc-data-row.shade-gray td:nth-child(-n+3) { background: #d9d9d9; }
 .ipc-data-row.shade-white td, .ipc-data-row.shade-white td:nth-child(-n+3) { background: #fff; }
