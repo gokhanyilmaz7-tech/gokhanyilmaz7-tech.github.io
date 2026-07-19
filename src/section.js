@@ -298,7 +298,31 @@ document.addEventListener('copy', (event) => {
   event.clipboardData.setData('text/plain', selection.toString());
 });
 
+function returnToHome(event) {
+  event.preventDefault();
+  const homeUrl = new URL('/', window.location.origin).href;
+  const opener = window.opener;
+  if (opener && !opener.closed) {
+    try {
+      opener.location.href = homeUrl;
+      opener.focus();
+      window.close();
+      setTimeout(() => { if (!document.hidden) window.location.href = homeUrl; }, 180);
+      return;
+    } catch (error) { /* Tarayıcı sekme erişimini kısıtlarsa aşağıdaki yöntem kullanılır. */ }
+  }
+  const homeWindow = window.open(homeUrl, 'mevzuat-home');
+  if (homeWindow) {
+    homeWindow.focus();
+    window.close();
+    setTimeout(() => { if (!document.hidden) window.location.href = homeUrl; }, 180);
+  } else {
+    window.location.href = homeUrl;
+  }
+}
+
 search.addEventListener('input', (event) => render(event.target.value));
 document.querySelector('#previous').addEventListener('click', () => moveResult(-1));
 document.querySelector('#next').addEventListener('click', () => moveResult(1));
+document.querySelector('#home-return').addEventListener('click', returnToHome);
 load().catch((error) => { title.textContent = 'Yüklenemedi'; content.innerHTML = `<p class="error">${escapeHtml(error.message)}</p>`; });

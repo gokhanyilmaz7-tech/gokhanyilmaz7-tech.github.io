@@ -1,5 +1,8 @@
 import './styles.css';
 
+// Ana sayfanın sekmesini geri dönüşte yeniden bulabilmek için adlandırıyoruz.
+window.name = 'mevzuat-home';
+
 const app = document.querySelector('#app');
 app.innerHTML = `
   <header class="topbar">
