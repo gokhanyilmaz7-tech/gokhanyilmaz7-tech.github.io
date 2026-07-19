@@ -65,7 +65,7 @@ function filterRows() {
 function render(rows, title) {
   table.querySelector('thead')?.remove();
   table.querySelector('colgroup')?.remove();
-  const columnWidths = ['12%', '5%', '24%', '8%', ...Array(9).fill('5.2%'), '4.2%'];
+  const columnWidths = ['12%', '5%', '20%', '8%', ...Array(9).fill('4.8%'), '11.8%'];
   table.insertAdjacentHTML('afterbegin', `<colgroup>${columnWidths.map((width) => `<col style="width:${width}">`).join('')}</colgroup>`);
   table.querySelector('tbody').insertAdjacentHTML('beforebegin', makeHeader(title));
   const dataRows = rows.slice(6).filter((row) => !isHeaderRepeat(row) && row.some((cell) => cell !== null && cell !== '')).map((row) => {
@@ -83,7 +83,22 @@ function render(rows, title) {
     dataRows.splice(madde96Index - 1, 3, madde96);
   }
   const shades = shadeRows(dataRows);
-  tbody.innerHTML = dataRows.map((row, index) => `<tr class="ipc-data-row ${shades[index]}${isMajor(row) ? ' major' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell) => `<td>${escapeHtml(formatCell(cell))}</td>`).join('')}</tr>`).join('');
+  // Excel'de aynı fiile ait dikey olarak birleştirilmiş C sütunu hücrelerini koru.
+  if (dataRows[11] && !formatCell(dataRows[11][2])) {
+    dataRows[11][2] = dataRows[12]?.[2] || '';
+    if (dataRows[12]) dataRows[12][2] = '';
+  }
+  const mergedC = new Map([[0, 1], [18, 19]]);
+  const renderCell = (row, rowIndex, columnIndex) => {
+    if (columnIndex === 2 && rowIndex > 0 && [...mergedC.values()].includes(rowIndex)) return '';
+    if (columnIndex === 2 && mergedC.has(rowIndex)) {
+      const end = mergedC.get(rowIndex);
+      const values = dataRows.slice(rowIndex, end + 1).map((item) => formatCell(item[2])).filter(Boolean);
+      return `<td rowspan="${end - rowIndex + 1}">${values.map(escapeHtml).join('<br>')}</td>`;
+    }
+    return `<td>${escapeHtml(formatCell(row[columnIndex]))}</td>`;
+  };
+  tbody.innerHTML = dataRows.map((row, index) => `<tr class="ipc-data-row ${shades[index]}${isMajor(row) ? ' major' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell, columnIndex) => renderCell(row, index, columnIndex)).join('')}</tr>`).join('');
   status.textContent = `${dataRows.length} ceza satırı · Excel tablosundan aktarıldı`;
   filterRows();
 }

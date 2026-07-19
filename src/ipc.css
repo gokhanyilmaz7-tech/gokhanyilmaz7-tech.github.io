@@ -22,11 +22,13 @@ body { margin: 0; background: radial-gradient(circle at 8% 0%, rgba(197,160,89,.
 .ipc-table { width: 100%; min-width: 100%; border-collapse: collapse; table-layout: fixed; color: #000; font-family: 'Times New Roman', Times, serif; font-size: 13px; }
 .ipc-table th, .ipc-table td { padding: 9px 8px; border: 2px solid #000; vertical-align: middle; line-height: 1.3; }
 .ipc-table th { text-align: center; font-weight: 700; }
+.ipc-table thead { position: sticky; top: 0; z-index: 8; }
+.ipc-table thead th { position: relative; }
 .ipc-title-row th { padding: 15px; color: #000; background: #fff; font: 700 17px/1.25 Georgia, serif; border-bottom-width: 3px; }
 .ipc-main-head th { color: #000; background: #fff; }
 .ipc-group-head th { color: #c00000; background: #fff; font-size: 12px; }
 .ipc-sub-head th { color: #c00000; background: #fff; font-size: 11px; }
-.ipc-table th:nth-child(1), .ipc-table td:nth-child(1) { width: 12%; }.ipc-table th:nth-child(2), .ipc-table td:nth-child(2) { width: 5%; }.ipc-table th:nth-child(3), .ipc-table td:nth-child(3) { width: 24%; text-align: left; }.ipc-table th:nth-child(4), .ipc-table td:nth-child(4) { width: 8%; }.ipc-table th:nth-child(n+5):nth-child(-n+13), .ipc-table td:nth-child(n+5):nth-child(-n+13) { width: 5.2%; min-width: 0; max-width: none; text-align: center; }.ipc-table th:nth-child(14), .ipc-table td:nth-child(14) { width: 4.2%; text-align: left; }
+.ipc-table th:nth-child(1), .ipc-table td:nth-child(1) { width: 12%; }.ipc-table th:nth-child(2), .ipc-table td:nth-child(2) { width: 5%; }.ipc-table th:nth-child(3), .ipc-table td:nth-child(3) { width: 20%; text-align: left; }.ipc-table th:nth-child(4), .ipc-table td:nth-child(4) { width: 8%; }.ipc-table th:nth-child(n+5):nth-child(-n+13), .ipc-table td:nth-child(n+5):nth-child(-n+13) { width: 4.8%; min-width: 0; max-width: none; text-align: center; }.ipc-table th:nth-child(14), .ipc-table td:nth-child(14) { width: 11.8%; text-align: left; }
 .ipc-table th:nth-child(-n+3), .ipc-table td:nth-child(-n+3) { position: sticky; z-index: 2; }
 .ipc-table th:nth-child(1), .ipc-table td:nth-child(1) { left: 0; }
 .ipc-table th:nth-child(2), .ipc-table td:nth-child(2) { left: 12%; }
