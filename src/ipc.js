@@ -82,7 +82,6 @@ function render(rows, title) {
     madde96[3] = continuation[3] || 241992;
     dataRows.splice(madde96Index - 1, 3, madde96);
   }
-  const shades = shadeRows(dataRows);
   // Excel'de aynı fiile ait dikey olarak birleştirilmiş C sütunu hücrelerini koru.
   if (dataRows[11] && dataRows[12]) {
     dataRows[12].forEach((value, columnIndex) => {
@@ -92,9 +91,20 @@ function render(rows, title) {
       }
     });
   }
-  const mergedC = new Map([[0, 1], [17, 19]]);
+  const paragraphC = new Map();
+  const tahliyeParts = dataRows.slice(17, 20).map((row) => formatCell(row[2])).filter(Boolean);
+  if (tahliyeParts.length) {
+    paragraphC.set(17, tahliyeParts);
+    dataRows[17][2] = tahliyeParts.join(' ');
+    dataRows.splice(18, 2);
+  }
+  const shades = shadeRows(dataRows);
+  const mergedC = new Map([[0, 1]]);
   const renderCell = (row, rowIndex, columnIndex) => {
     if (columnIndex === 2 && [...mergedC].some(([start, end]) => rowIndex > start && rowIndex <= end)) return '';
+    if (columnIndex === 2 && paragraphC.has(rowIndex)) {
+      return `<td>${paragraphC.get(rowIndex).map(escapeHtml).join('<br><br>')}</td>`;
+    }
     if (columnIndex === 2 && mergedC.has(rowIndex)) {
       const end = mergedC.get(rowIndex);
       const values = dataRows.slice(rowIndex, end + 1).map((item) => formatCell(item[2])).filter(Boolean);
@@ -102,7 +112,7 @@ function render(rows, title) {
     }
     return `<td>${escapeHtml(formatCell(row[columnIndex]))}</td>`;
   };
-  tbody.innerHTML = dataRows.map((row, index) => `<tr class="ipc-data-row ${shades[index]}${isMajor(row) ? ' major' : ''}${index === 18 ? ' merge-continuation' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell, columnIndex) => renderCell(row, index, columnIndex)).join('')}</tr>`).join('');
+  tbody.innerHTML = dataRows.map((row, index) => `<tr class="ipc-data-row ${shades[index]}${isMajor(row) ? ' major' : ''}" data-row-text="${escapeHtml(row.map(formatCell).join(' '))}">${row.map((cell, columnIndex) => renderCell(row, index, columnIndex)).join('')}</tr>`).join('');
   status.textContent = `${dataRows.length} ceza satırı · Excel tablosundan aktarıldı`;
   filterRows();
 }
