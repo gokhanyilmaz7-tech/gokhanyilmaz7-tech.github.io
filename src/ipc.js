@@ -82,24 +82,30 @@ function render(rows, title) {
     madde96[3] = continuation[3] || 241992;
     dataRows.splice(madde96Index - 1, 3, madde96);
   }
-  // Excel'de aynı fiile ait dikey olarak birleştirilmiş C sütunu hücrelerini koru.
-  if (dataRows[11] && dataRows[12]) {
-    dataRows[12].forEach((value, columnIndex) => {
-      if (!formatCell(dataRows[11][columnIndex]) && formatCell(value)) {
-        dataRows[11][columnIndex] = value;
-        dataRows[12][columnIndex] = '';
+  // Excel'deki dikey olarak birleştirilmiş/boş devam satırlarını tek satırda tut.
+  const paragraphC = new Map();
+  const madde4Parts = dataRows.slice(0, 2).map((row) => formatCell(row[2])).filter(Boolean);
+  if (madde4Parts.length) {
+    paragraphC.set(0, madde4Parts);
+    dataRows[0][2] = madde4Parts.join(' ');
+    dataRows.splice(1, 1);
+  }
+  if (dataRows[10] && dataRows[11]) {
+    dataRows[11].forEach((value, columnIndex) => {
+      if (!formatCell(dataRows[10][columnIndex]) && formatCell(value)) {
+        dataRows[10][columnIndex] = value;
+        dataRows[11][columnIndex] = '';
       }
     });
   }
-  const paragraphC = new Map();
-  const tahliyeParts = dataRows.slice(17, 20).map((row) => formatCell(row[2])).filter(Boolean);
+  const tahliyeParts = dataRows.slice(16, 19).map((row) => formatCell(row[2])).filter(Boolean);
   if (tahliyeParts.length) {
-    paragraphC.set(17, tahliyeParts);
-    dataRows[17][2] = tahliyeParts.join(' ');
-    dataRows.splice(18, 2);
+    paragraphC.set(16, tahliyeParts);
+    dataRows[16][2] = tahliyeParts.join(' ');
+    dataRows.splice(17, 2);
   }
   const shades = shadeRows(dataRows);
-  const mergedC = new Map([[0, 1]]);
+  const mergedC = new Map([[12, 13]]);
   const renderCell = (row, rowIndex, columnIndex) => {
     if (columnIndex === 2 && [...mergedC].some(([start, end]) => rowIndex > start && rowIndex <= end)) return '';
     if (columnIndex === 2 && paragraphC.has(rowIndex)) {
