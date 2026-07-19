@@ -3,5 +3,6 @@ dist/
 .playwright-cli/
 output/
 outputs/
+build/
 .netlify/
 .DS_Store
