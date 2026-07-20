@@ -32,7 +32,7 @@ async function sha256(value) {
 
 async function passwordHash(password, salt = crypto.getRandomValues(new Uint8Array(16))) {
   const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits({name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256'}, key, 256);
+  const bits = await crypto.subtle.deriveBits({name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256'}, key, 256);
   return `pbkdf2$100000$${base64Url(salt)}$${base64Url(new Uint8Array(bits))}`;
 }
 
@@ -41,8 +41,16 @@ async function passwordMatches(password, encoded) {
   if (!iterations || !saltText || !expected) return false;
   const salt = fromBase64Url(saltText);
   const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits({name: 'PBKDF2', salt, iterations: Math.min(Number(iterations), 100000), hash: 'SHA-256'}, key, 256);
-  return base64Url(new Uint8Array(bits)) === expected;
+  const matches = async (count) => {
+    try {
+      const bits = await crypto.subtle.deriveBits({name: 'PBKDF2', salt, iterations: count, hash: 'SHA-256'}, key, 256);
+      return base64Url(new Uint8Array(bits)) === expected;
+    } catch {
+      return false;
+    }
+  };
+  if (await matches(Math.min(Number(iterations), 100000))) return true;
+  return Number(iterations) === 100000 && await matches(120000);
 }
 
 function cookie(request, name) {
