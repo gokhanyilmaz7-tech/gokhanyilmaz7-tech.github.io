@@ -98,8 +98,11 @@ function formatLayoutPage(page, totalPages) {
   lineData.forEach((line) => {
     const current = groups[groups.length - 1];
     const isBoldHeading = line.kind === 'main' && line.words.length > 0 && line.words.every((word) => word.bold) && line.text.length < 160;
+    const startsNumberedProvision = /^\s*\d+\s*[–—-]\s*/.test(line.text);
+    const currentHasNumberedProvision = current?.lines.some((item) => /^\s*\d+\s*[–—-]\s*/.test(item.text));
     const previousIsBold = current?.lines.at(-1)?.words.every((word) => word.bold);
-    if (current && isBoldHeading && !previousIsBold) groups.push({lines: [line]});
+    if (current && startsNumberedProvision && currentHasNumberedProvision) groups.push({lines: [line]});
+    else if (current && isBoldHeading && !previousIsBold) groups.push({lines: [line]});
     else if (current && line.kind === 'main' && current.lines.some((item) => item.kind !== 'main')) groups.push({lines: [line]});
     else if (current) current.lines.push(line);
     else groups.push({lines: [line]});
