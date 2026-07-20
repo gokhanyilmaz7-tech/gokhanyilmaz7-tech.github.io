@@ -57,18 +57,24 @@ function renderStream() {
 }
 
 function exportWord() {
-  const wordContent = (item) => {
-    if (!item.html) return `<p>${esc(item.text)}</p>`;
+  const wordContent = (item, index) => {
+    const number = `<span class="report-number">${index + 1}.</span>`;
+    if (!item.html) return `<p>${number} ${esc(item.text)}</p>`;
     const wrapper = document.createElement('div');
     wrapper.innerHTML = item.html;
     [...wrapper.querySelectorAll('*')].forEach((node) => {
       const style = `${node.getAttribute('style') || ''} ${node.style?.color || ''}`.toLowerCase();
       if (/color\s*:\s*(#1db500|rgb\(\s*29\s*,\s*181\s*,\s*0\s*\)|green)/i.test(style)) node.closest('p')?.remove() || node.remove();
     });
+    if (!item.title) {
+      const firstBlock = wrapper.querySelector('p, div');
+      if (firstBlock) firstBlock.insertAdjacentHTML('afterbegin', `${number} `);
+      else wrapper.insertAdjacentHTML('afterbegin', `<p>${number}</p>`);
+    }
     return wrapper.innerHTML;
   };
-  const reportHtml = items().map((item, index) => `<h2>${index + 1}.${item.title ? ` ${esc(item.title)}` : ''}</h2>${wordContent(item)}`).join('<hr>');
-  const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35}h1{font-size:20pt;color:#1a2b4b}h2{font-size:12pt;color:#1a2b4b;margin-bottom:4pt}.meta{color:#4285be;font-size:10pt}.reference{color:red}.info{color:#1db500}p{margin:0 0 7pt;text-align:justify}</style></head><body><h1>Mevzuat Rehberi - Raporum</h1>${reportHtml}</body></html>`;
+  const reportHtml = items().map((item, index) => `${item.title ? `<h2>${index + 1}. ${esc(item.title)}</h2>` : ''}${wordContent(item, index)}`).join('<hr>');
+  const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35}h1{font-size:20pt;color:#1a2b4b}h2{font-size:12pt;color:#1a2b4b;margin-bottom:4pt}.report-number{font-weight:700;display:inline-block;margin-right:6pt}.meta{color:#4285be;font-size:10pt}.reference{color:red}.info{color:#1db500}p{margin:0 0 7pt;text-align:justify;text-align-last:justify}</style></head><body><h1>Mevzuat Rehberi - Raporum</h1>${reportHtml}</body></html>`;
   const blob = new Blob([html], {type: 'application/msword'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
