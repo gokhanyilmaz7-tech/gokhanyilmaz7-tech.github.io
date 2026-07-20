@@ -38,7 +38,7 @@ function mergeWordFragments(words) {
   return merged;
 }
 
-function formatLayoutPage(page, totalPages) {
+function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   const scale = 96 / 72;
   const isChemicalTablePage = page.page >= 391 && page.page <= 400;
   // 12 punto metnin hücrelere rahat oturması için yalnızca Ek-1/Ek-2
@@ -126,12 +126,13 @@ function formatLayoutPage(page, totalPages) {
     const annotationClass = annotationOnly ? ' annotation-card' : '';
     return {flow: `<article class="provision-card${annotationClass}" data-block="${index}">${common}${inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
   });
+  const displayedRecords = skipFirstRecord ? records.slice(1) : records;
   const hasFigures = (page.figures || []).length > 0;
   // Ek-1 ve Ek-2, PDF'de gerçek sütun koordinatlarıyla oluşturulmuş tablolardır.
   // Bu sayfaları normal paragraf akışına sokmak sütunları kaydırır; metinleri
   // PDF koordinatlarında tutarak hem tablo görünümünü hem seçilebilirliği koruruz.
   const hasFixedLayout = hasFigures || (page.page >= 391 && page.page <= 400);
-  const blocks = (hasFixedLayout ? records.map((record) => record.exact) : records.map((record) => record.flow)).join('');
+  const blocks = (hasFixedLayout ? displayedRecords.map((record) => record.exact) : displayedRecords.map((record) => record.flow)).join('');
   const figures = (page.figures || []).map((figure) => `<figure class="embedded-figure" style="left:${figure.x * xScale}px;top:${figure.y * yScale}px;width:${figure.w * xScale}px;height:${figure.h * yScale}px"><img src="/${figure.src}" alt="Mevzuat içindeki şekil veya resim" loading="lazy"></figure>`).join('');
   const rules = hasFixedLayout ? (page.lines || []).map((line) => {
     const width = line.w > 0 ? line.w * xScale : Math.max(0.7, line.width * xScale);
@@ -271,7 +272,7 @@ async function load() {
   title.textContent = data.title;
   document.title = data.title;
   meta.textContent = `${pages.length} sayfa · PDF ile aynı sayfa sırası ve yerleşim`;
-  content.innerHTML = pages.map((page) => formatLayoutPage(page, 400)).join('');
+  content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
   linkCrossPageAnnotations();
   linkLongProvisions();
   blocks = pages.map((page, index) => ({text: page.text, element: content.children[index]}));
