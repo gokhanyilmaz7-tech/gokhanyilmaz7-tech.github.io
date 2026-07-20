@@ -106,6 +106,36 @@ async function auth(request, env, pathname) {
     if (raw) await env.DB.prepare('DELETE FROM sessions WHERE token_hash = ?').bind(base64Url(await sha256(raw))).run();
     return json({ok: true}, 200, {'set-cookie': `${SESSION_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`});
   }
+  if (pathname === '/api/auth/account' && (request.method === 'PATCH' || request.method === 'DELETE')) {
+    const user = await currentUser(request, env);
+    if (!user) return error('Oturum açmanız gerekiyor.', 401);
+    const body = await request.json().catch(() => null);
+    const currentPassword = String(body?.currentPassword || '');
+    const stored = await env.DB.prepare('SELECT password_hash, email FROM users WHERE id = ?').bind(user.id).first();
+    if (!stored || !(await passwordMatches(currentPassword, stored.password_hash))) return error('Mevcut şifre hatalı.', 401);
+    if (request.method === 'DELETE') {
+      await env.DB.batch([
+        env.DB.prepare('DELETE FROM favorite_items WHERE list_id IN (SELECT id FROM favorite_lists WHERE user_id = ?)').bind(user.id),
+        env.DB.prepare('DELETE FROM favorite_lists WHERE user_id = ?').bind(user.id),
+        env.DB.prepare('DELETE FROM favorite_order WHERE user_id = ?').bind(user.id),
+        env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(user.id),
+        env.DB.prepare('DELETE FROM users WHERE id = ?').bind(user.id),
+      ]);
+      return json({ok: true}, 200, {'set-cookie': `${SESSION_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`});
+    }
+    const email = String(body?.email || '').trim().toLowerCase();
+    const newPassword = String(body?.newPassword || '');
+    if (!email && !newPassword) return error('Yeni e-posta veya yeni şifre girin.');
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return error('Geçerli bir e-posta adresi girin.');
+    if (newPassword && newPassword.length < 8) return error('Yeni şifre en az 8 karakter olmalıdır.');
+    if (email && email !== stored.email) {
+      const duplicate = await env.DB.prepare('SELECT id FROM users WHERE email = ? AND id != ?').bind(email, user.id).first();
+      if (duplicate) return error('Bu e-posta başka bir hesapta kullanılıyor.', 409);
+    }
+    if (email) await env.DB.prepare('UPDATE users SET email = ? WHERE id = ?').bind(email, user.id).run();
+    if (newPassword) await env.DB.prepare('UPDATE users SET password_hash = ? WHERE id = ?').bind(await passwordHash(newPassword), user.id).run();
+    return json({user: {id: user.id, email: email || stored.email}});
+  }
   return null;
 }
 

@@ -51,17 +51,47 @@ function openDialog() {
   };
 }
 
+function openAccountSettings(user) {
+  document.querySelector('#account-dialog')?.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'account-dialog';
+  overlay.className = 'account-overlay';
+  overlay.innerHTML = `<section class="account-dialog" role="dialog" aria-modal="true" aria-labelledby="account-title"><button class="account-close" type="button" aria-label="Kapat">×</button><p class="eyebrow">HESAP AYARLARI</p><h2 id="account-title">Hesabınızı yönetin</h2><p class="account-help">Mevcut şifreniz doğrulanmadan e-posta veya şifre değiştirilemez.</p><form id="account-settings-form"><label>Mevcut şifre<input id="account-current-password" type="password" autocomplete="current-password" required></label><label>Yeni e-posta<input id="account-new-email" type="email" value="${user.email}" autocomplete="email"></label><label>Yeni şifre <span>(değiştirmek istemezseniz boş bırakın)</span><input id="account-new-password" type="password" minlength="8" autocomplete="new-password"></label><p id="account-message" class="account-message"></p><button class="account-submit" type="submit">Bilgileri güncelle</button></form><div class="account-danger-zone"><button id="account-logout" class="account-switch" type="button">Çıkış yap</button><button id="account-delete" class="account-delete" type="button">Hesabımı sil</button></div></section>`;
+  document.body.append(overlay);
+  const message = overlay.querySelector('#account-message');
+  overlay.querySelector('.account-close').onclick = () => overlay.remove();
+  overlay.onclick = (event) => { if (event.target === overlay) overlay.remove(); };
+  overlay.querySelector('#account-settings-form').onsubmit = async (event) => {
+    event.preventDefault();
+    message.textContent = 'Güncelleniyor…';
+    const response = await fetch('/api/auth/account', {method: 'PATCH', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({currentPassword: overlay.querySelector('#account-current-password').value, email: overlay.querySelector('#account-new-email').value, newPassword: overlay.querySelector('#account-new-password').value})});
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) { message.textContent = result.error || 'Güncelleme yapılamadı.'; return; }
+    userPromise = Promise.resolve(result.user);
+    message.textContent = 'Hesap bilgileriniz güncellendi.';
+    setTimeout(() => window.location.reload(), 500);
+  };
+  overlay.querySelector('#account-logout').onclick = async () => { await fetch('/api/auth/logout', {method: 'POST', credentials: 'same-origin'}); userPromise = Promise.resolve(null); window.location.reload(); };
+  overlay.querySelector('#account-delete').onclick = async () => {
+    if (!window.confirm('Hesabınız ve tüm favorileriniz kalıcı olarak silinsin mi?')) return;
+    message.textContent = 'Hesap siliniyor…';
+    const response = await fetch('/api/auth/account', {method: 'DELETE', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({currentPassword: overlay.querySelector('#account-current-password').value})});
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) { message.textContent = result.error || 'Hesap silinemedi.'; return; }
+    localStorage.removeItem('mevzuat-local-favorites');
+    window.location.href = '/';
+  };
+}
+
 export async function setupAccountUI() {
   const button = document.querySelector('#account-button');
   if (!button) return currentUser();
   const user = await currentUser();
-  button.textContent = user ? `Çıkış (${user.email})` : 'Giriş yap';
+  button.textContent = user ? 'Hesap ayarları' : 'Giriş yap';
   button.title = user ? 'Hesabınızdan çıkış yapın' : 'Ücretsiz hesapla giriş yapın';
   button.onclick = async () => {
     if (!user) return openDialog();
-    await fetch('/api/auth/logout', {method: 'POST', credentials: 'same-origin'});
-    userPromise = Promise.resolve(null);
-    window.location.reload();
+    return openAccountSettings(user);
   };
   return user;
 }
