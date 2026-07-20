@@ -66,6 +66,13 @@ function exportWord() {
       const style = `${node.getAttribute('style') || ''} ${node.style?.color || ''}`.toLowerCase();
       if (/color\s*:\s*(#1db500|rgb\(\s*29\s*,\s*181\s*,\s*0\s*\)|green)/i.test(style)) node.closest('p')?.remove() || node.remove();
     });
+    wrapper.querySelectorAll('p').forEach((paragraph) => {
+      const style = `${paragraph.getAttribute('style') || ''} ${paragraph.style?.color || ''}`.toLowerCase();
+      if (/color\s*:\s*(#ff0000|red)/i.test(style)) {
+        paragraph.style.textAlign = 'justify';
+        paragraph.style.textAlignLast = 'justify';
+      }
+    });
     if (!item.title) {
       const firstBlock = wrapper.querySelector('p, div');
       if (firstBlock) firstBlock.insertAdjacentHTML('afterbegin', `${number} `);
