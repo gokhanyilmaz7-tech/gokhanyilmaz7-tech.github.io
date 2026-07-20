@@ -147,8 +147,8 @@ async function favorites(request, env) {
     const lists = await env.DB.prepare('SELECT id, name, position FROM favorite_lists WHERE user_id = ? ORDER BY position, created_at').bind(user.id).all();
     const items = await env.DB.prepare('SELECT favorite_items.* FROM favorite_items JOIN favorite_lists ON favorite_lists.id = favorite_items.list_id WHERE favorite_lists.user_id = ? ORDER BY favorite_items.position, favorite_items.saved_at').bind(user.id).all();
     const order = await env.DB.prepare('SELECT item_id FROM favorite_order WHERE user_id = ? ORDER BY position').bind(user.id).all();
-    const reports = await env.DB.prepare('SELECT item_id, section_id, section_title, location, title, text, html, saved_at, position FROM report_items WHERE user_id = ? ORDER BY position, saved_at').bind(user.id).all();
-    const formatItem = ({list_id, item_id, section_id, section_title, saved_at, ...item}) => ({...item, id: item_id, sectionId: section_id, sectionTitle: section_title, savedAt: saved_at});
+    const reports = await env.DB.prepare('SELECT item_id, source_id, section_id, section_title, location, title, text, html, saved_at, position FROM report_items WHERE user_id = ? ORDER BY position, saved_at').bind(user.id).all();
+    const formatItem = ({list_id, item_id, source_id, section_id, section_title, saved_at, ...item}) => ({...item, id: item_id, sourceId: source_id || item_id, sectionId: section_id, sectionTitle: section_title, savedAt: saved_at});
     return json({lists: lists.results.map((list) => ({id: list.id, name: list.name, items: items.results.filter((item) => item.list_id === list.id).map(formatItem)})), order: order.results.map((item) => item.item_id), reports: reports.results.map(formatItem)});
   }
   if (request.method === 'PUT') {
@@ -168,7 +168,7 @@ async function favorites(request, env) {
       });
     });
     body.order.slice(0, 5000).forEach((itemId, position) => statements.push(env.DB.prepare('INSERT INTO favorite_order (user_id, item_id, position) VALUES (?, ?, ?)').bind(user.id, String(itemId), position)));
-    (Array.isArray(body.reports) ? body.reports : []).slice(0, 5000).forEach((item, position) => statements.push(env.DB.prepare('INSERT INTO report_items (user_id, item_id, section_id, section_title, location, title, text, html, saved_at, position) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').bind(user.id, String(item.id || randomId()), String(item.sectionId || ''), String(item.sectionTitle || ''), String(item.location || ''), String(item.title || ''), String(item.text || ''), String(item.html || ''), Number(item.savedAt || Date.now()), position)));
+    (Array.isArray(body.reports) ? body.reports : []).slice(0, 5000).forEach((item, position) => statements.push(env.DB.prepare('INSERT INTO report_items (user_id, item_id, source_id, section_id, section_title, location, title, text, html, saved_at, position) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').bind(user.id, String(item.id || randomId()), String(item.sourceId || item.id || ''), String(item.sectionId || ''), String(item.sectionTitle || ''), String(item.location || ''), String(item.title || ''), String(item.text || ''), String(item.html || ''), Number(item.savedAt || Date.now()), position)));
     await env.DB.batch(statements);
     return json({ok: true});
   }

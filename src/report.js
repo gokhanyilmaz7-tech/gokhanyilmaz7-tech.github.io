@@ -19,6 +19,7 @@ const saveWorkspace = async (data) => {
 
 export const reportItems = (data = readWorkspace()) => data.reports || [];
 export const allFavoriteItems = (data = readWorkspace()) => [...new Map(data.lists.flatMap((list) => list.items || []).map((item) => [item.id, item])).values()];
+export const reportSourceId = (item) => item.sourceId || item.id;
 
 function updateReportButtons(itemId, saved) {
   document.querySelectorAll(`[data-report-id="${CSS.escape(itemId)}"]`).forEach((button) => {
@@ -31,16 +32,24 @@ function updateReportButtons(itemId, saved) {
 
 export async function toggleReport(item) {
   const data = readWorkspace();
-  const index = data.reports.findIndex((entry) => entry.id === item.id);
+  const index = data.reports.findIndex((entry) => reportSourceId(entry) === item.id);
   if (index >= 0) {
     data.reports.splice(index, 1);
     await saveWorkspace(data);
-    updateReportButtons(item.id, false);
+    updateReportButtons(item.id, data.reports.some((entry) => reportSourceId(entry) === item.id));
     return false;
   }
-  data.reports.push({...item, title: item.title || '', savedAt: item.savedAt || Date.now()});
+  data.reports.push({...item, sourceId: item.id, title: item.title || '', savedAt: item.savedAt || Date.now()});
   await saveWorkspace(data);
   updateReportButtons(item.id, true);
+  return true;
+}
+
+export async function addReportCopy(item) {
+  const data = readWorkspace();
+  const sourceId = reportSourceId(item);
+  data.reports.push({...item, id: `${sourceId}-report-${crypto.randomUUID()}`, sourceId, title: '', savedAt: Date.now()});
+  await saveWorkspace(data);
   return true;
 }
 
@@ -53,9 +62,18 @@ export async function setupSectionReports({sectionId, sectionTitle}) {
     const item = {id: `${sectionId}-${page}-${button.dataset.reportId}`, sectionId, sectionTitle, location: `Sayfa ${page} · Hüküm ${button.dataset.reportId}`, text: card?.querySelector('.provision-content')?.innerText.trim() || '', html: card?.querySelector('.copy-html-source')?.innerHTML || '', title: ''};
     button.dataset.reportId = item.id;
     button.dataset.reportItem = JSON.stringify(item);
-    updateReportButtons(item.id, data.reports.some((entry) => entry.id === item.id));
+    const saved = data.reports.some((entry) => reportSourceId(entry) === item.id);
+    updateReportButtons(item.id, saved);
+    if (saved && !button.parentElement.querySelector('.report-repeat')) button.insertAdjacentHTML('afterend', reportRepeatButton(item, 'report-repeat'));
   });
   document.addEventListener('click', async (event) => {
+    const repeat = event.target.closest('.report-repeat');
+    if (repeat) {
+      event.preventDefault();
+      const item = JSON.parse(repeat.dataset.reportItem || '{}');
+      if (item.id) await addReportCopy(item);
+      return;
+    }
     const button = event.target.closest('.report-plus');
     if (!button) return;
     event.preventDefault();
@@ -66,6 +84,13 @@ export async function setupSectionReports({sectionId, sectionTitle}) {
 
 export function bindFavoriteReportButtons() {
   document.addEventListener('click', async (event) => {
+    const repeat = event.target.closest('.report-repeat');
+    if (repeat) {
+      event.preventDefault();
+      const item = allFavoriteItems().find((entry) => entry.id === repeat.dataset.reportId);
+      if (item) await addReportCopy(item);
+      return;
+    }
     const button = event.target.closest('.report-plus-card');
     if (!button) return;
     event.preventDefault();
@@ -75,3 +100,4 @@ export function bindFavoriteReportButtons() {
 }
 
 export const reportButton = (item, className = 'report-plus-card', reported = false) => `<button class="${className}${reported ? ' is-reported' : ''}" data-report-id="${esc(item.id)}" type="button" aria-label="${reported ? 'Raporunuzda' : 'Rapora ekle'}" title="${reported ? 'Rapordan çıkar' : 'Rapora ekle'}">${reported ? '✓' : '＋'}</button>`;
+export const reportRepeatButton = (item, className = 'report-repeat') => `<button class="${className}" data-report-id="${esc(item.id)}" data-report-item="${esc(JSON.stringify(item))}" type="button" aria-label="Aynı hükmü rapora tekrar ekle" title="Aynı hükmü rapora tekrar ekle">＋</button>`;
