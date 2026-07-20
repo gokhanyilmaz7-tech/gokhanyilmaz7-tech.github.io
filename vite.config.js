@@ -7,6 +7,7 @@ export default defineConfig({
         main: 'templates/index.html',
         mevzuat: 'templates/mevzuat.html',
         ipc: 'templates/ipc.html',
+        favoriler: 'templates/favoriler.html',
       },
     },
   },
