@@ -9,7 +9,7 @@ app.innerHTML = `
   <header class="topbar">
     <div class="brand-mark">M</div>
     <div><p class="eyebrow">TEFTİŞ DAYANAKLARI</p><h1>Mevzuat Rehberi</h1></div>
-    <div class="topbar-meta"><span class="status-dot"></span><span>Yerel mevzuat arşivi</span><button id="account-button" class="account-button" type="button">Giriş yap</button></div>
+    <div class="topbar-meta"><span class="status-dot"></span><span>Yerel mevzuat arşivi</span><button id="account-button" class="account-button" type="button">Giriş yap</button><button id="logout-button" class="logout-button" type="button" aria-label="Çıkış yap" title="Çıkış yap" hidden>⇥</button></div>
   </header>
   <main class="layout">
     <aside class="sidebar">

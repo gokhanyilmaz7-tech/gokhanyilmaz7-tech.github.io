@@ -86,9 +86,19 @@ function openAccountSettings(user) {
 export async function setupAccountUI() {
   const button = document.querySelector('#account-button');
   if (!button) return currentUser();
+  const logoutButton = document.querySelector('#logout-button');
   const user = await currentUser();
   button.textContent = user ? 'Hesap ayarları' : 'Giriş yap';
-  button.title = user ? 'Hesabınızdan çıkış yapın' : 'Ücretsiz hesapla giriş yapın';
+  button.title = user ? 'Hesap ayarlarını açın' : 'Ücretsiz hesapla giriş yapın';
+  if (logoutButton) {
+    logoutButton.hidden = !user;
+    logoutButton.onclick = async () => {
+      if (!window.confirm('Çıkış yapmak istiyor musunuz?')) return;
+      await fetch('/api/auth/logout', {method: 'POST', credentials: 'same-origin'});
+      userPromise = Promise.resolve(null);
+      window.location.reload();
+    };
+  }
   button.onclick = async () => {
     if (!user) return openDialog();
     return openAccountSettings(user);
