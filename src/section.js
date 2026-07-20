@@ -5,6 +5,8 @@ import {setupAccountUI} from './auth.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
+const requestedPage = params.get('page');
+const requestedBlock = params.get('block');
 const title = document.querySelector('#title');
 const content = document.querySelector('#content');
 const search = document.querySelector('#search');
@@ -160,6 +162,16 @@ function render(query = '') {
   if (matches.length) matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
 }
 
+function scrollToRequestedProvision() {
+  if (!requestedPage) return;
+  const page = [...content.querySelectorAll('.article-page')].find((entry) => entry.dataset.page === requestedPage);
+  const target = page && requestedBlock !== null ? page.querySelector(`.provision-card[data-block="${requestedBlock}"]`) : page;
+  if (!target) return;
+  target.classList.add('match-page');
+  target.scrollIntoView({behavior: 'smooth', block: 'center'});
+  setTimeout(() => target.classList.remove('match-page'), 2600);
+}
+
 async function copyProvision(button) {
   const card = button.closest('.provision-card');
   const groupId = button.dataset.copyMode === 'all' ? card.dataset.copyGroup : '';
@@ -277,6 +289,7 @@ async function load() {
   content.querySelectorAll('.copy-provision').forEach((button) => button.addEventListener('click', () => copyProvision(button)));
   await setupFavorites({sectionId: id, sectionTitle: data.title});
   await setupSectionReports({sectionId: id, sectionTitle: data.title});
+  scrollToRequestedProvision();
 }
 
 document.addEventListener('copy', (event) => {
