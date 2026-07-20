@@ -1,0 +1,13 @@
+name = "mevzuatrehberi"
+main = "worker/index.js"
+compatibility_date = "2026-07-20"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mevzuatrehberi"
+database_id = "f826a842-a4d9-4f51-a623-77913c985445"
+migrations_dir = "worker/migrations"

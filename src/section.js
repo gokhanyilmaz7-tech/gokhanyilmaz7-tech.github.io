@@ -1,5 +1,6 @@
 import './section.css';
 import {setupFavorites} from './favorites.js';
+import {setupAccountUI} from './auth.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -274,7 +275,7 @@ async function load() {
   linkLongProvisions();
   blocks = pages.map((page, index) => ({text: page.text, element: content.children[index]}));
   content.querySelectorAll('.copy-provision').forEach((button) => button.addEventListener('click', () => copyProvision(button)));
-  setupFavorites({sectionId: id, sectionTitle: data.title});
+  await setupFavorites({sectionId: id, sectionTitle: data.title});
 }
 
 document.addEventListener('copy', (event) => {
@@ -320,4 +321,5 @@ search.addEventListener('input', (event) => render(event.target.value));
 document.querySelector('#previous').addEventListener('click', () => moveResult(-1));
 document.querySelector('#next').addEventListener('click', () => moveResult(1));
 document.querySelector('#home-return').addEventListener('click', returnToHome);
+setupAccountUI();
 load().catch((error) => { title.textContent = 'Yüklenemedi'; content.innerHTML = `<p class="error">${escapeHtml(error.message)}</p>`; });

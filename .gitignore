@@ -1,8 +1,1 @@
-node_modules/
-dist/
-.playwright-cli/
-output/
-outputs/
-build/
-.netlify/
-.DS_Store
+.wrangler/

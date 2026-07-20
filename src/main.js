@@ -1,4 +1,5 @@
 import './styles.css';
+import {setupAccountUI} from './auth.js';
 
 // Ana sayfanın sekmesini geri dönüşte yeniden bulabilmek için adlandırıyoruz.
 window.name = 'mevzuat-home';
@@ -8,7 +9,7 @@ app.innerHTML = `
   <header class="topbar">
     <div class="brand-mark">M</div>
     <div><p class="eyebrow">TEFTİŞ DAYANAKLARI</p><h1>Mevzuat Rehberi</h1></div>
-    <div class="topbar-meta"><span class="status-dot"></span><span>Yerel mevzuat arşivi</span></div>
+    <div class="topbar-meta"><span class="status-dot"></span><span>Yerel mevzuat arşivi</span><button id="account-button" class="account-button" type="button">Giriş yap</button></div>
   </header>
   <main class="layout">
     <aside class="sidebar">
@@ -91,3 +92,4 @@ $('#section-filter').addEventListener('input', (event) => renderSections(event.t
 $('#ipc-open').addEventListener('click', () => window.open('/ipc.html', '_blank'));
 $('#favorites-open').addEventListener('click', () => window.open('/favoriler.html', '_blank'));
 loadManifest().catch((error) => { $('#section-list').innerHTML = `<p class="error-state">${error.message}</p>`; });
+setupAccountUI();

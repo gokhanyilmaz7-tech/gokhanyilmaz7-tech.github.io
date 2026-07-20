@@ -65,4 +65,4 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 .match-page { border-top-color: #d6ad3c; }
 .search-hit { border-radius: 2px; background: #f4c95d !important; box-shadow: 0 0 0 1px rgba(211,153,26,.25); }
 .error { color: #a14444; }
-@media (max-width: 600px) { .article-topbar { height: auto; gap: 14px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start; } .article-layout { padding: 18px 10px 45px; } .article-tools { align-items: stretch; flex-direction: column; } .result-actions { justify-content: flex-end; } .article-content { font-size: 16px; overflow-x: auto; } }
+@media (max-width: 760px) { .article-topbar { height: auto; gap: 10px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start; } .topbar-label { align-self: flex-end; } .article-layout { padding: 18px 10px 45px; } .article-tools { align-items: stretch; flex-direction: column; } .result-actions { justify-content: flex-end; } .article-content { font-size: 16px; overflow-x: auto; } }

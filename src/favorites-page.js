@@ -1,11 +1,12 @@
 import './favorites-page.css';
+import {hydrateFavorites, persistFavorites, setupAccountUI} from './auth.js';
 
 const KEY = 'mevzuat-local-favorites';
 const PENDING_KEY = 'mevzuat-pending-favorite';
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
 const uid = () => crypto.randomUUID();
 const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{"lists":[]}'); } catch { return {lists: []}; } };
-const save = (data) => localStorage.setItem(KEY, JSON.stringify(data));
+const save = (data) => { localStorage.setItem(KEY, JSON.stringify(data)); persistFavorites(data, KEY); };
 const normalizeFavoriteHtml = (html) => {
   let normalized = String(html || '').replaceAll('white-space:pre', 'white-space:normal');
   let previous;
@@ -149,4 +150,7 @@ const pendingRaw = localStorage.getItem(PENDING_KEY);
 const requestedId = new URLSearchParams(window.location.search).get('add');
 if (pendingRaw && requestedId) { try { pending = JSON.parse(pendingRaw); } catch { localStorage.removeItem(PENDING_KEY); } }
 document.querySelector('#favorites-search').addEventListener('input', renderStream);
+await setupAccountUI();
+const remoteFavorites = await hydrateFavorites(KEY);
+if (remoteFavorites) data = remoteFavorites;
 render();

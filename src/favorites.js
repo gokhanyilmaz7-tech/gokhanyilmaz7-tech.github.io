@@ -1,4 +1,5 @@
 import './favorites.css';
+import {currentUser, hydrateFavorites, persistFavorites} from './auth.js';
 
 const FAVORITES_KEY = 'mevzuat-local-favorites';
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
@@ -11,9 +12,10 @@ function favoriteIds() {
   return new Set(data.lists.flatMap((list) => list.items || []).map((item) => item.id));
 }
 
-export function setupFavorites({sectionId, sectionTitle}) {
+export async function setupFavorites({sectionId, sectionTitle}) {
   const topbar = document.querySelector('.article-topbar');
   if (!topbar || document.querySelector('#favorites-open')) return;
+  await hydrateFavorites(FAVORITES_KEY);
   topbar.insertAdjacentHTML('beforeend', '<a id="favorites-open" class="favorites-open" href="/favoriler.html">☆ Favorilerim</a>');
   const savedIds = favoriteIds();
   document.querySelectorAll('.favorite-star').forEach((button) => {
@@ -50,7 +52,7 @@ export function setupFavorites({sectionId, sectionTitle}) {
       const list = {id: uid(), name: input.value.trim(), items: []};
       data.lists.push(list); existingLists.push(list.id); input.value = ''; panel.querySelector('.favorite-save-new-list').hidden = true; renderLists();
     };
-    panel.querySelector('#favorite-save-submit').onclick = () => {
+    panel.querySelector('#favorite-save-submit').onclick = async () => {
       const listIds = [...panel.querySelectorAll('#favorite-save-lists input:checked')].map((input) => input.value);
       if (!listIds.length) { alert('En az bir favori listesi seçin veya yeni liste oluşturun.'); return; }
       const savedItem = {...item, title: panel.querySelector('.favorite-save-title').value.trim(), savedAt: Date.now()};
@@ -59,7 +61,7 @@ export function setupFavorites({sectionId, sectionTitle}) {
         list.items = list.items.filter((entry) => entry.id !== savedItem.id);
         if (listIds.includes(list.id)) list.items.push(savedItem);
       });
-      writeFavorites(data);
+      await persistFavorites(data, FAVORITES_KEY);
       button.classList.add('is-favorite'); button.textContent = '★'; button.setAttribute('aria-label', 'Bu hüküm favorilerde');
       closePanel();
     };
