@@ -52,6 +52,9 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 .provision-card:hover .copy-actions, .provision-card:focus-within .copy-actions { opacity: 1; }
 .copy-provision:hover { background: #ffefd7; transform: translateY(-1px); }
 .copy-source { font-family: 'Times New Roman', Times, serif; font-size: 12pt; }
+.report-plus { position:absolute; top:39px; left:-25px; z-index:4; display:grid; place-items:center; width:18px; height:18px; padding:0; border:0; color:#2679d0; background:transparent; font:700 18px/18px Arial,sans-serif; cursor:pointer; }
+.report-plus:hover { color:#0d65bd; text-shadow:0 0 8px rgba(49,136,223,.8); }
+.report-plus.is-reported { color:#fff; background:#2679d0; border-radius:4px; }
 .embedded-figure { position: absolute; z-index: 0; margin: 0; pointer-events: none; }
 .embedded-figure img { display: block; max-width: 100%; height: auto; }
 .page-title { margin: 0 0 28px; color: #f0369b; font-family: Arial, sans-serif; font-size: 24px; line-height: 1.25; text-align: center; }

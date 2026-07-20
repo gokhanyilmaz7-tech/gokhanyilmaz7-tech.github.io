@@ -1,5 +1,6 @@
 import './section.css';
 import {setupFavorites} from './favorites.js';
+import {setupSectionReports} from './report.js';
 import {setupAccountUI} from './auth.js';
 
 const params = new URLSearchParams(window.location.search);
@@ -120,7 +121,7 @@ function formatLayoutPage(page, totalPages) {
     const top = Math.max(0, Math.min(...group.lines.map((line) => line.y)) - 10);
     const bottom = Math.max(...group.lines.map((line) => line.y + line.height)) + 10;
     const exactInner = group.lines.map((line) => `<div class="exact-line" style="left:${line.words[0].x * xScale}px;top:${line.y - top}px">${line.html.replace(/^<div[^>]*>|<\/div>$/g, '')}</div>`).join('');
-    const common = `<button class="favorite-star" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">☆</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
+    const common = `<button class="favorite-star" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">☆</button><button class="report-plus" data-report-id="${index}" type="button" aria-label="Rapora ekle" title="Rapora ekle">＋</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
     const source = `<div class="copy-html-source">${copyParts.join('')}</div>`;
     const annotationClass = annotationOnly ? ' annotation-card' : '';
     return {flow: `<article class="provision-card${annotationClass}" data-block="${index}">${common}${inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
@@ -276,6 +277,7 @@ async function load() {
   blocks = pages.map((page, index) => ({text: page.text, element: content.children[index]}));
   content.querySelectorAll('.copy-provision').forEach((button) => button.addEventListener('click', () => copyProvision(button)));
   await setupFavorites({sectionId: id, sectionTitle: data.title});
+  await setupSectionReports({sectionId: id, sectionTitle: data.title});
 }
 
 document.addEventListener('copy', (event) => {
