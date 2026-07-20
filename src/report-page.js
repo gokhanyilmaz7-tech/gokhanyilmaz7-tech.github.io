@@ -68,7 +68,8 @@ function exportWord() {
     });
     wrapper.querySelectorAll('p').forEach((paragraph) => {
       const style = `${paragraph.getAttribute('style') || ''} ${paragraph.style?.color || ''}`.toLowerCase();
-      if (/color\s*:\s*(#ff0000|red)/i.test(style)) {
+      if (/(#ff0000|red|rgb\(\s*255)/i.test(style)) {
+        paragraph.setAttribute('align', 'justify');
         paragraph.style.textAlign = 'justify';
         paragraph.style.textAlignLast = 'justify';
       }
