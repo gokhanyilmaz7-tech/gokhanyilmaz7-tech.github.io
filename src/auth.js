@@ -3,7 +3,7 @@ import './auth.css';
 let userPromise;
 
 export async function currentUser() {
-  if (!userPromise) userPromise = fetch('/api/auth/me', {credentials: 'same-origin'}).then((response) => response.ok ? response.json() : {user: null}).then((result) => result.user || null).catch(() => null);
+  if (!userPromise) userPromise = fetch('/api/auth/me', {credentials: 'same-origin', cache: 'no-store'}).then((response) => response.ok ? response.json() : {user: null}).then((result) => result.user || null).catch(() => null);
   return userPromise;
 }
 

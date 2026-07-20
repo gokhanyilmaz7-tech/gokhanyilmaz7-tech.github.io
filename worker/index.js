@@ -4,7 +4,7 @@ const encoder = new TextEncoder();
 
 const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), {
   status,
-  headers: {'content-type': 'application/json; charset=utf-8', ...headers}
+  headers: {'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store, no-cache, must-revalidate', ...headers}
 });
 
 const error = (message, status = 400) => json({error: message}, status);
