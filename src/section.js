@@ -6,7 +6,6 @@ import {setupAccountUI} from './auth.js';
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const title = document.querySelector('#title');
-const meta = document.querySelector('#meta');
 const content = document.querySelector('#content');
 const search = document.querySelector('#search');
 const resultCount = document.querySelector('#result-count');
@@ -271,7 +270,6 @@ async function load() {
   const pages = await Promise.all(sectionPages.map((page) => fetch(`/layout/page-${String(page.page).padStart(3, '0')}.json`).then((result) => result.json())));
   title.textContent = data.title;
   document.title = data.title;
-  meta.textContent = `${pages.length} sayfa · PDF ile aynı sayfa sırası ve yerleşim`;
   content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
   linkCrossPageAnnotations();
   linkLongProvisions();
