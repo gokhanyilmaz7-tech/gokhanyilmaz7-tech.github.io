@@ -14,6 +14,7 @@ const resultCount = document.querySelector('#result-count');
 let blocks = [];
 let matches = [];
 let matchIndex = -1;
+let searchTimer;
 
 function escapeHtml(value) { return value.replace(/[&<>"']/g, (character) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[character])); }
 function normalize(value) { return value.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
@@ -146,20 +147,20 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   </section>`;
 }
 
-function render(query = '') {
+function render(query = '', {scroll = false} = {}) {
   const needle = compact(query.trim());
   blocks.forEach((block) => {
-    const found = needle && compact(block.text).includes(needle);
+    const found = needle && block.normalizedText.includes(needle);
     block.element.classList.toggle('match-page', Boolean(found));
-    block.element.querySelectorAll('.search-hit').forEach((word) => word.classList.remove('search-hit'));
+    block.words.forEach((word) => word.element.classList.remove('search-hit'));
     if (needle && found) {
-      block.element.querySelectorAll('.word').forEach((word) => { if (compact(word.textContent).includes(needle)) word.classList.add('search-hit'); });
+      block.words.forEach((word) => { if (word.normalizedText.includes(needle)) word.element.classList.add('search-hit'); });
     }
   });
   matches = blocks.filter((block) => block.element.classList.contains('match-page'));
   matchIndex = matches.length ? 0 : -1;
   resultCount.textContent = query.trim() ? `${matches.length} sayfa` : '';
-  if (matches.length) matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
+  if (scroll && matches.length) matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
 }
 
 function scrollToRequestedProvision() {
@@ -285,8 +286,19 @@ async function load() {
   content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
   linkCrossPageAnnotations();
   linkLongProvisions();
-  blocks = pages.map((page, index) => ({text: page.text, element: content.children[index]}));
-  content.querySelectorAll('.copy-provision').forEach((button) => button.addEventListener('click', () => copyProvision(button)));
+  blocks = pages.map((page, index) => ({
+    text: page.text,
+    normalizedText: compact(page.text),
+    element: content.children[index],
+    words: [...content.children[index].querySelectorAll('.word')].map((word) => ({
+      element: word,
+      normalizedText: compact(word.textContent || ''),
+    })),
+  }));
+  content.addEventListener('click', (event) => {
+    const button = event.target.closest('.copy-provision');
+    if (button) copyProvision(button);
+  });
   await setupFavorites({sectionId: id, sectionTitle: data.title});
   await setupSectionReports({sectionId: id, sectionTitle: data.title});
   scrollToRequestedProvision();
@@ -331,7 +343,15 @@ function returnToHome(event) {
   }
 }
 
-search.addEventListener('input', (event) => render(event.target.value));
+search.addEventListener('input', (event) => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => render(event.target.value, {scroll: true}), 120);
+});
+search.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter') return;
+  clearTimeout(searchTimer);
+  render(event.target.value, {scroll: true});
+});
 document.querySelector('#previous').addEventListener('click', () => moveResult(-1));
 document.querySelector('#next').addEventListener('click', () => moveResult(1));
 document.querySelector('#home-return').addEventListener('click', returnToHome);

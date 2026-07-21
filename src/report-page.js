@@ -10,6 +10,7 @@ const uid = () => crypto.randomUUID();
 const normalizeHtml = (html) => String(html || '').replaceAll('white-space:pre', 'white-space:normal');
 let data = readWorkspace();
 let sortMode = 'manual';
+let reportSearchTimer;
 
 const save = async () => { localStorage.setItem(KEY, JSON.stringify(data)); await persistFavorites(data, KEY); };
 const items = () => reportItems(data);
@@ -96,7 +97,10 @@ function exportWord() {
 
 function render() { renderTools(); renderStream(); }
 
-document.querySelector('#report-search').addEventListener('input', renderStream);
+document.querySelector('#report-search').addEventListener('input', () => {
+  clearTimeout(reportSearchTimer);
+  reportSearchTimer = setTimeout(renderStream, 100);
+});
 await setupAccountUI();
 const remote = await hydrateFavorites(KEY);
 if (remote) data = remote;

@@ -24,6 +24,7 @@ let data = read();
 let selectedList = 'all';
 let sortMode = 'manual';
 let pending = null;
+let favoritesSearchTimer;
 
 const context = document.querySelector('.eyebrow');
 if (context) {
@@ -152,7 +153,10 @@ function render() { renderTools(); renderPending(); renderStream(); }
 const pendingRaw = localStorage.getItem(PENDING_KEY);
 const requestedId = new URLSearchParams(window.location.search).get('add');
 if (pendingRaw && requestedId) { try { pending = JSON.parse(pendingRaw); } catch { localStorage.removeItem(PENDING_KEY); } }
-document.querySelector('#favorites-search').addEventListener('input', renderStream);
+document.querySelector('#favorites-search').addEventListener('input', () => {
+  clearTimeout(favoritesSearchTimer);
+  favoritesSearchTimer = setTimeout(renderStream, 100);
+});
 await setupAccountUI();
 const remoteFavorites = await hydrateFavorites(KEY);
 if (remoteFavorites) data = remoteFavorites;
