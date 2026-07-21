@@ -15,7 +15,6 @@ export default defineConfig({
         favoriler: 'favoriler.html',
         report: 'report.html',
         mevzuatBaglantilari: 'mevzuat-baglantilari.html',
-        noksanlikRaporu: 'noksanlik-raporu.html',
       },
     },
   },

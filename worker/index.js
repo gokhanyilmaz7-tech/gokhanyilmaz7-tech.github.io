@@ -181,6 +181,7 @@ export default {
     if (url.pathname.startsWith('/api/auth/')) return (await auth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname === '/api/favorites') return favorites(request, env);
     if (url.pathname === '/api/health') return json({ok: true});
+    if (url.pathname === '/noksanlik-raporu.html') return new Response('Not Found', {status: 404});
     return env.ASSETS.fetch(request);
   },
 };
