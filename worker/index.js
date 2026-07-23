@@ -1,4 +1,8 @@
 const SESSION_COOKIE = 'mevzuat_session';
+const APPLE_STATE_COOKIE = 'mevzuat_apple_state';
+const APPLE_NONCE_COOKIE = 'mevzuat_apple_nonce';
+const APPLE_RETURN_COOKIE = 'mevzuat_apple_return';
+const ADMIN_EMAIL = 'gokhanyilmaz7@icloud.com';
 const SESSION_DAYS = 30;
 const encoder = new TextEncoder();
 
@@ -62,8 +66,114 @@ async function currentUser(request, env) {
   const raw = cookie(request, SESSION_COOKIE);
   if (!raw) return null;
   const tokenHash = base64Url(await sha256(raw));
-  const row = await env.DB.prepare('SELECT users.id, users.email FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.token_hash = ? AND sessions.expires_at > ?').bind(tokenHash, Date.now()).first();
-  return row || null;
+  const row = await env.DB.prepare('SELECT users.id, users.email, users.apple_sub FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.token_hash = ? AND sessions.expires_at > ?').bind(tokenHash, Date.now()).first();
+  return row ? {...row, isAdmin: isAdmin(row)} : null;
+}
+
+function isAdmin(user) {
+  return Boolean(user?.apple_sub) && String(user.email).toLowerCase() === ADMIN_EMAIL;
+}
+
+function cookieHeader(name, value, maxAge = 600) {
+  return `${name}=${encodeURIComponent(value)}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${maxAge}`;
+}
+
+function clearCookieHeader(name) {
+  return cookieHeader(name, '', 0);
+}
+
+function base64UrlText(value) {
+  return base64Url(encoder.encode(value));
+}
+
+function decodeText(value) {
+  return new TextDecoder().decode(fromBase64Url(value));
+}
+
+function decodeJson(value) {
+  return JSON.parse(decodeText(value));
+}
+
+function pemToBytes(pem) {
+  const base64 = String(pem || '').replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\s/g, '');
+  const binary = atob(base64);
+  return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+}
+
+async function appleClientSecret(env) {
+  if (!env.APPLE_TEAM_ID || !env.APPLE_KEY_ID || !env.APPLE_PRIVATE_KEY || !env.APPLE_CLIENT_ID) throw new Error('Apple giriş yapılandırması eksik.');
+  const header = base64UrlText(JSON.stringify({alg: 'ES256', kid: env.APPLE_KEY_ID, typ: 'JWT'}));
+  const now = Math.floor(Date.now() / 1000);
+  const payload = base64UrlText(JSON.stringify({iss: env.APPLE_TEAM_ID, iat: now, exp: now + 86400 * 180, aud: 'https://appleid.apple.com', sub: env.APPLE_CLIENT_ID}));
+  const signingInput = `${header}.${payload}`;
+  const key = await crypto.subtle.importKey('pkcs8', pemToBytes(env.APPLE_PRIVATE_KEY), {name: 'ECDSA', namedCurve: 'P-256'}, false, ['sign']);
+  const signature = await crypto.subtle.sign({name: 'ECDSA', hash: 'SHA-256'}, key, encoder.encode(signingInput));
+  return `${signingInput}.${base64Url(new Uint8Array(signature))}`;
+}
+
+async function verifyAppleIdentityToken(idToken, env, nonce) {
+  const [headerText, payloadText, signatureText] = String(idToken || '').split('.');
+  if (!headerText || !payloadText || !signatureText) throw new Error('Apple kimlik belirteci geçersiz.');
+  const header = decodeJson(headerText);
+  const payload = decodeJson(payloadText);
+  const keys = await fetch('https://appleid.apple.com/auth/keys').then((response) => response.json());
+  const jwk = keys.keys?.find((key) => key.kid === header.kid);
+  if (!jwk) throw new Error('Apple doğrulama anahtarı bulunamadı.');
+  const key = await crypto.subtle.importKey('jwk', jwk, {name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256'}, false, ['verify']);
+  const valid = await crypto.subtle.verify({name: 'RSASSA-PKCS1-v1_5'}, key, fromBase64Url(signatureText), encoder.encode(`${headerText}.${payloadText}`));
+  const now = Math.floor(Date.now() / 1000);
+  if (!valid || payload.iss !== 'https://appleid.apple.com' || payload.aud !== env.APPLE_CLIENT_ID || Number(payload.exp) <= now || payload.nonce !== nonce) throw new Error('Apple hesabı doğrulanamadı.');
+  return payload;
+}
+
+async function appleAuth(request, env, pathname) {
+  if (pathname === '/api/auth/apple/start' && request.method === 'GET') {
+    if (!env.APPLE_CLIENT_ID || !env.APPLE_REDIRECT_URI) return error('Apple girişi henüz yapılandırılmadı.', 503);
+    const state = randomId(24);
+    const nonce = randomId(24);
+    const returnTo = new URL(request.url).searchParams.get('returnTo') || '/admin.html';
+    const safeReturnTo = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/admin.html';
+    const params = new URLSearchParams({response_type: 'code', response_mode: 'form_post', client_id: env.APPLE_CLIENT_ID, redirect_uri: env.APPLE_REDIRECT_URI, scope: 'name email', state, nonce});
+    const response = new Response(null, {status: 302, headers: {location: `https://appleid.apple.com/auth/authorize?${params}`}});
+    response.headers.append('set-cookie', cookieHeader(APPLE_STATE_COOKIE, state));
+    response.headers.append('set-cookie', cookieHeader(APPLE_NONCE_COOKIE, nonce));
+    response.headers.append('set-cookie', cookieHeader(APPLE_RETURN_COOKIE, safeReturnTo));
+    return response;
+  }
+  if (pathname === '/api/auth/apple/callback' && (request.method === 'POST' || request.method === 'GET')) {
+    const input = request.method === 'POST' ? await request.formData() : new URL(request.url).searchParams;
+    const state = String(input.get('state') || '');
+    const code = String(input.get('code') || '');
+    if (!state || state !== decodeURIComponent(cookie(request, APPLE_STATE_COOKIE))) return error('Apple oturum doğrulaması geçersiz.', 400);
+    if (!code) return error('Apple yetkilendirme kodu alınamadı.', 400);
+    try {
+      const clientSecret = await appleClientSecret(env);
+      const body = new URLSearchParams({client_id: env.APPLE_CLIENT_ID, client_secret: clientSecret, code, grant_type: 'authorization_code', redirect_uri: env.APPLE_REDIRECT_URI});
+      const tokenResponse = await fetch('https://appleid.apple.com/auth/token', {method: 'POST', headers: {'content-type': 'application/x-www-form-urlencoded'}, body});
+      const tokens = await tokenResponse.json();
+      if (!tokenResponse.ok || !tokens.id_token) throw new Error('Apple token doğrulaması başarısız.');
+      const identity = await verifyAppleIdentityToken(tokens.id_token, env, decodeURIComponent(cookie(request, APPLE_NONCE_COOKIE)));
+      const email = String(identity.email || '').trim().toLowerCase();
+      if (!email) throw new Error('Apple hesabından e-posta alınamadı.');
+      let user = await env.DB.prepare('SELECT id, email, apple_sub FROM users WHERE apple_sub = ? OR email = ?').bind(identity.sub, email).first();
+      if (!user) {
+        user = {id: randomId(), email};
+        await env.DB.prepare('INSERT INTO users (id, email, password_hash, apple_sub, created_at) VALUES (?, ?, ?, ?, ?)').bind(user.id, user.email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
+      } else {
+        await env.DB.prepare('UPDATE users SET email = ?, apple_sub = ? WHERE id = ?').bind(email, identity.sub, user.id).run();
+      }
+      const redirect = new URL(decodeURIComponent(cookie(request, APPLE_RETURN_COOKIE) || '/admin.html'), new URL(request.url).origin);
+      const response = new Response(null, {status: 302, headers: {location: redirect.toString()}});
+      response.headers.append('set-cookie', await createSession(user.id, env));
+      response.headers.append('set-cookie', clearCookieHeader(APPLE_STATE_COOKIE));
+      response.headers.append('set-cookie', clearCookieHeader(APPLE_NONCE_COOKIE));
+      response.headers.append('set-cookie', clearCookieHeader(APPLE_RETURN_COOKIE));
+      return response;
+    } catch (authError) {
+      return error(authError.message || 'Apple ile giriş yapılamadı.', 401);
+    }
+  }
+  return null;
 }
 
 async function createSession(userId, env) {
@@ -79,7 +189,7 @@ ${SESSION_COOKIE}=${token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${SE
 async function auth(request, env, pathname) {
   if (pathname === '/api/auth/me' && request.method === 'GET') {
     const user = await currentUser(request, env);
-    return user ? json({user}) : json({user: null});
+    return user ? json({user: {id: user.id, email: user.email, isAdmin: user.isAdmin}}) : json({user: null});
   }
   if (pathname === '/api/auth/register' && request.method === 'POST') {
     const body = await request.json().catch(() => null);
@@ -140,6 +250,17 @@ async function auth(request, env, pathname) {
   return null;
 }
 
+async function adminSummary(request, env) {
+  const user = await currentUser(request, env);
+  if (!user?.isAdmin) return error('Yönetici yetkisi gerekiyor.', 403);
+  const [users, lists, reports] = await Promise.all([
+    env.DB.prepare('SELECT id, email, apple_sub, created_at FROM users ORDER BY created_at DESC').all(),
+    env.DB.prepare('SELECT COUNT(*) AS count FROM favorite_lists').first(),
+    env.DB.prepare('SELECT COUNT(*) AS count FROM report_items').first(),
+  ]);
+  return json({user: {id: user.id, email: user.email, isAdmin: true}, counts: {users: Number(users.results.length), lists: Number(lists?.count || 0), reports: Number(reports?.count || 0)}, users: users.results.map((entry) => ({id: entry.id, email: entry.email, provider: entry.apple_sub ? 'Apple' : 'E-posta', createdAt: entry.created_at}))});
+}
+
 async function favorites(request, env) {
   const user = await currentUser(request, env);
   if (!user) return error('Oturum açmanız gerekiyor.', 401);
@@ -178,10 +299,16 @@ async function favorites(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith('/api/auth/apple/')) return (await appleAuth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname.startsWith('/api/auth/')) return (await auth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
+    if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
     if (url.pathname === '/api/favorites') return favorites(request, env);
     if (url.pathname === '/api/health') return json({ok: true});
     if (url.pathname === '/noksanlik-raporu.html') return new Response('Not Found', {status: 404});
+    if (url.pathname === '/admin.html') {
+      const user = await currentUser(request, env);
+      if (!user?.isAdmin) return new Response('Not Found', {status: 404});
+    }
     return env.ASSETS.fetch(request);
   },
 };

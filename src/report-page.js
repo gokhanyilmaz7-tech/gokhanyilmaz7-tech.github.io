@@ -1,6 +1,6 @@
 import './favorites-page.css';
 import './report-page.css';
-import {hydrateFavorites, persistFavorites, setupAccountUI} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI} from './auth.js';
 import {addReportCopy, readWorkspace, reportItems, reportRepeatButton, reportSourceId} from './report.js';
 
 const KEY = 'mevzuat-local-favorites';
@@ -21,10 +21,11 @@ function renderTools() {
   tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span><strong>${items().length} hüküm</strong></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'}>Tüm hükümleri çıkar</button>`;
   tools.querySelector('#report-sort').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
   tools.querySelector('#report-word').onclick = exportWord;
-  tools.querySelector('#report-clear').onclick = async () => { if (!items().length || !window.confirm('Rapordaki tüm hükümler çıkarılsın mı?')) return; data.reports = []; await save(); render(); };
+  tools.querySelector('#report-clear').onclick = async () => { if (!(await requireAccount()) || !items().length || !window.confirm('Rapordaki tüm hükümler çıkarılsın mı?')) return; data.reports = []; await save(); render(); };
 }
 
-function move(itemId, direction) {
+async function move(itemId, direction) {
+  if (!(await requireAccount())) return;
   const index = data.reports.findIndex((item) => item.id === itemId);
   const target = index + direction;
   if (index < 0 || target < 0 || target >= data.reports.length) return;
@@ -32,7 +33,8 @@ function move(itemId, direction) {
   sortMode = 'manual'; save(); render();
 }
 
-function moveTo(itemId, requested) {
+async function moveTo(itemId, requested) {
+  if (!(await requireAccount())) return;
   const position = Number.parseInt(requested, 10);
   const index = data.reports.findIndex((item) => item.id === itemId);
   if (!Number.isInteger(position) || position < 1 || position > data.reports.length || index < 0) return;
@@ -54,8 +56,8 @@ function renderStream() {
   }).join('') : '<div class="favorite-empty"><span>＋</span><h2>Raporunuz boş</h2><p>Seçili mevzuat veya favoriler sayfasında mavi artı simgesine tıklayarak hüküm ekleyebilirsiniz.</p></div>';
   stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
-  stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = () => { const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = prompt('Rapor başlığı:', item?.title || ''); if (title === null || !item) return; item.title = title.trim(); save(); render(); }; });
-  stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = () => { data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
+  stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = prompt('Rapor başlığı:', item?.title || ''); if (title === null || !item) return; item.title = title.trim(); save(); render(); }; });
+  stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
   stream.querySelectorAll('.report-repeat').forEach((button) => { button.onclick = async () => { const item = data.reports.find((entry) => entry.id === button.dataset.reportId); if (!item) return; await addReportCopy(item); data = readWorkspace(); render(); }; });
 }
 

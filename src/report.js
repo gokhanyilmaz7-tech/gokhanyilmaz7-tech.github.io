@@ -1,4 +1,4 @@
-import {hydrateFavorites, persistFavorites} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount} from './auth.js';
 
 const KEY = 'mevzuat-local-favorites';
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
@@ -31,6 +31,7 @@ function updateReportButtons(itemId, saved) {
 }
 
 export async function toggleReport(item) {
+  if (!(await requireAccount())) return false;
   const data = readWorkspace();
   const index = data.reports.findIndex((entry) => reportSourceId(entry) === item.id);
   if (index >= 0) {
@@ -46,6 +47,7 @@ export async function toggleReport(item) {
 }
 
 export async function addReportCopy(item) {
+  if (!(await requireAccount())) return false;
   const data = readWorkspace();
   const sourceId = reportSourceId(item);
   data.reports.push({...item, id: `${sourceId}-report-${crypto.randomUUID()}`, sourceId, title: '', savedAt: Date.now()});

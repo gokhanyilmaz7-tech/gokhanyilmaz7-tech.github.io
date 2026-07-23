@@ -1,5 +1,5 @@
 import './favorites.css';
-import {currentUser, hydrateFavorites, persistFavorites} from './auth.js';
+import {currentUser, hydrateFavorites, persistFavorites, requireAccount} from './auth.js';
 
 const FAVORITES_KEY = 'mevzuat-local-favorites';
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
@@ -68,10 +68,11 @@ export async function setupFavorites({sectionId, sectionTitle}) {
     panel.querySelector('.favorite-save-title').focus();
   };
 
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', async (event) => {
     const button = event.target.closest('.favorite-star');
     if (!button) return;
     event.preventDefault();
+    if (!(await requireAccount())) return;
     const card = button.closest('.provision-card');
     if (!card) return;
     const page = card.closest('.article-page')?.dataset.page || '0';

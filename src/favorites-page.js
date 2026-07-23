@@ -1,6 +1,6 @@
 import './favorites-page.css';
 import './report-link.css';
-import {hydrateFavorites, persistFavorites, setupAccountUI} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI} from './auth.js';
 import {bindFavoriteReportButtons, reportButton, reportRepeatButton, reportItems} from './report.js';
 
 const KEY = 'mevzuat-local-favorites';
@@ -52,7 +52,8 @@ function sortItems(items) {
       : (b.savedAt || 0) - (a.savedAt || 0));
 }
 
-function moveItem(itemId, direction) {
+async function moveItem(itemId, direction) {
+  if (!(await requireAccount())) return;
   if (selectedList === 'all') {
     const items = allItems();
     const index = items.findIndex((item) => item.id === itemId);
@@ -76,7 +77,8 @@ function moveItem(itemId, direction) {
   render();
 }
 
-function moveItemTo(itemId, requestedPosition) {
+async function moveItemTo(itemId, requestedPosition) {
+  if (!(await requireAccount())) return;
   const items = selectedList === 'all'
     ? allItems()
     : data.lists.find((entry) => entry.id === selectedList)?.items || [];
@@ -92,7 +94,8 @@ function moveItemTo(itemId, requestedPosition) {
   render();
 }
 
-function createList() {
+async function createList() {
+  if (!(await requireAccount())) return;
   const name = prompt('Liste adı:');
   if (!name?.trim()) return;
   const list = {id: uid(), name: name.trim(), items: []};
@@ -107,7 +110,8 @@ function renderTools() {
   tools.innerHTML = `<div class="side-tools-heading"><span>FAVORİ ARAÇLARI</span><strong>${allItems().length} hüküm</strong></div><div class="favorite-list-buttons"><button data-list="all" class="${selectedList === 'all' ? 'active' : ''}">☆ Tümü (${allItems().length})</button>${data.lists.map((list) => `<button data-list="${list.id}" class="${selectedList === list.id ? 'active' : ''}">▸ ${esc(list.name)} <small>${list.items.length}</small></button>`).join('')}</div><a class="side-tool-button report-link-button" href="/report.html">＋ Raporum</a><button id="new-favorite-list" class="side-tool-button">＋ Favori listesi oluştur</button><button id="rename-favorite-list" class="side-tool-button" ${selectedList === 'all' ? 'disabled' : ''}>✎ Liste başlığını değiştir</button><button id="sort-favorites" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button>`;
   tools.querySelectorAll('[data-list]').forEach((button) => { button.onclick = () => { selectedList = button.dataset.list; render(); }; });
   tools.querySelector('#new-favorite-list').onclick = createList;
-  tools.querySelector('#rename-favorite-list').onclick = () => {
+  tools.querySelector('#rename-favorite-list').onclick = async () => {
+    if (!(await requireAccount())) return;
     const list = data.lists.find((item) => item.id === selectedList);
     const name = list && prompt('Yeni liste başlığı:', list.name);
     if (!name?.trim()) return;
@@ -124,7 +128,8 @@ function renderPending() {
   editor.id = 'favorite-inline-editor';
   editor.innerHTML = `<div><p class="eyebrow">YENİ FAVORİ</p><h2>Hükmü favoriye al</h2><p>${esc(pending.location)} · ${esc(pending.sectionTitle)}</p></div><input id="pending-title" placeholder="Hatırlatıcı başlık (isteğe bağlı)" value="${esc(pending.title)}"><div class="pending-lists">${data.lists.map((list) => `<label><input type="checkbox" value="${list.id}" ${selectedList === list.id ? 'checked' : ''}> ${esc(list.name)}</label>`).join('') || '<small>Önce sağdan bir favori listesi oluşturun.</small>'}</div><div class="pending-actions"><button id="pending-save" class="primary-tool">Kaydet</button><button id="pending-cancel" class="side-tool-button">Vazgeç</button></div>`;
   document.querySelector('#favorites-stream').before(editor);
-  editor.querySelector('#pending-save').onclick = () => {
+  editor.querySelector('#pending-save').onclick = async () => {
+    if (!(await requireAccount())) return;
     const listIds = [...editor.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value);
     if (!listIds.length) { alert('En az bir liste seçin.'); return; }
     const item = {...pending, title: editor.querySelector('#pending-title').value.trim(), savedAt: Date.now()};
@@ -144,8 +149,8 @@ function renderStream() {
   stream.innerHTML = visible.length ? visible.map((item) => { const listItems = selectedList === 'all' ? allItems() : data.lists.find((list) => list.id === selectedList)?.items || []; const index = listItems.findIndex((entry) => entry.id === item.id); const moveButtons = `<div class="favorite-card-reorder" aria-label="Favori hükmü sırala"><button data-move="up" data-item="${item.id}" ${index <= 0 ? 'disabled' : ''} aria-label="Hükmü yukarı taşı" title="Yukarı taşı">↑</button><button data-move="down" data-item="${item.id}" ${index < 0 || index >= listItems.length - 1 ? 'disabled' : ''} aria-label="Hükmü aşağı taşı" title="Aşağı taşı">↓</button></div>`; const reported = reportItems(data).some((entry) => (entry.sourceId || entry.id) === item.id); return `<div class="favorite-provision-shell"><button class="favorite-card-position" data-position="${item.id}" type="button" aria-label="Sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportButton(item, 'report-plus-card', reported)}${reported ? reportRepeatButton(item) : ''}<article class="favorite-provision-card"><div class="favorite-card-main"><div class="favorite-card-meta">${esc(item.sectionTitle)}</div>${item.title ? `<h2>${esc(item.title)}</h2>` : ''}<div class="favorite-provision-rich-text">${item.html ? normalizeFavoriteHtml(item.html) : `<p>${esc(item.text)}</p>`}</div><a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a></div><div class="favorite-card-actions"><button data-edit="${item.id}">Başlığı değiştir</button><button data-remove="${item.id}">Listeden çıkar</button>${moveButtons}</div></article></div>`; }).join('') : '<div class="favorite-empty"><span>☆</span><h2>Henüz favori hüküm yok</h2><p>Seçili mevzuat sayfasında mavi yıldızlara tıklayarak hüküm ekleyebilirsiniz.</p></div>';
   stream.querySelectorAll('[data-position]').forEach((button) => { button.onclick = () => { const current = button.textContent.trim(); const position = prompt(`Yeni sıra numarası (1-${visible.length}):`, current); if (position === null) return; moveItemTo(button.dataset.position, position); }; });
   stream.querySelectorAll('[data-move]').forEach((button) => { button.onclick = () => moveItem(button.dataset.item, button.dataset.move === 'up' ? -1 : 1); });
-  stream.querySelectorAll('[data-edit]').forEach((button) => { button.onclick = () => { const item = allItems().find((entry) => entry.id === button.dataset.edit); const title = prompt('Favori başlığı:', item?.title || ''); if (title === null) return; item.title = title.trim(); save(data); renderStream(); }; });
-  stream.querySelectorAll('[data-remove]').forEach((button) => { button.onclick = () => { data.lists.forEach((list) => { list.items = list.items.filter((item) => item.id !== button.dataset.remove); }); save(data); render(); }; });
+  stream.querySelectorAll('[data-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = allItems().find((entry) => entry.id === button.dataset.edit); const title = prompt('Favori başlığı:', item?.title || ''); if (title === null) return; item.title = title.trim(); save(data); renderStream(); }; });
+  stream.querySelectorAll('[data-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.lists.forEach((list) => { list.items = list.items.filter((item) => item.id !== button.dataset.remove); }); save(data); render(); }; });
 }
 
 function render() { renderTools(); renderPending(); renderStream(); }
