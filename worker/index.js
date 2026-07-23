@@ -74,12 +74,12 @@ function isAdmin(user) {
   return Boolean(user?.apple_sub) && String(user.email).toLowerCase() === ADMIN_EMAIL;
 }
 
-function cookieHeader(name, value, maxAge = 600) {
-  return `${name}=${encodeURIComponent(value)}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${maxAge}`;
+function cookieHeader(name, value, maxAge = 600, sameSite = 'Lax') {
+  return `${name}=${encodeURIComponent(value)}; HttpOnly; Secure; SameSite=${sameSite}; Path=/; Max-Age=${maxAge}`;
 }
 
-function clearCookieHeader(name) {
-  return cookieHeader(name, '', 0);
+function clearCookieHeader(name, sameSite = 'Lax') {
+  return cookieHeader(name, '', 0, sameSite);
 }
 
 function base64UrlText(value) {
@@ -135,9 +135,9 @@ async function appleAuth(request, env, pathname) {
     const safeReturnTo = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/admin.html';
     const params = new URLSearchParams({response_type: 'code', response_mode: 'form_post', client_id: env.APPLE_CLIENT_ID, redirect_uri: env.APPLE_REDIRECT_URI, scope: 'name email', state, nonce});
     const response = new Response(null, {status: 302, headers: {location: `https://appleid.apple.com/auth/authorize?${params}`}});
-    response.headers.append('set-cookie', cookieHeader(APPLE_STATE_COOKIE, state));
-    response.headers.append('set-cookie', cookieHeader(APPLE_NONCE_COOKIE, nonce));
-    response.headers.append('set-cookie', cookieHeader(APPLE_RETURN_COOKIE, safeReturnTo));
+    response.headers.append('set-cookie', cookieHeader(APPLE_STATE_COOKIE, state, 600, 'None'));
+    response.headers.append('set-cookie', cookieHeader(APPLE_NONCE_COOKIE, nonce, 600, 'None'));
+    response.headers.append('set-cookie', cookieHeader(APPLE_RETURN_COOKIE, safeReturnTo, 600, 'None'));
     return response;
   }
   if (pathname === '/api/auth/apple/callback' && (request.method === 'POST' || request.method === 'GET')) {
@@ -165,9 +165,9 @@ async function appleAuth(request, env, pathname) {
       const redirect = new URL(decodeURIComponent(cookie(request, APPLE_RETURN_COOKIE) || '/admin.html'), new URL(request.url).origin);
       const response = new Response(null, {status: 302, headers: {location: redirect.toString()}});
       response.headers.append('set-cookie', await createSession(user.id, env));
-      response.headers.append('set-cookie', clearCookieHeader(APPLE_STATE_COOKIE));
-      response.headers.append('set-cookie', clearCookieHeader(APPLE_NONCE_COOKIE));
-      response.headers.append('set-cookie', clearCookieHeader(APPLE_RETURN_COOKIE));
+      response.headers.append('set-cookie', clearCookieHeader(APPLE_STATE_COOKIE, 'None'));
+      response.headers.append('set-cookie', clearCookieHeader(APPLE_NONCE_COOKIE, 'None'));
+      response.headers.append('set-cookie', clearCookieHeader(APPLE_RETURN_COOKIE, 'None'));
       return response;
     } catch (authError) {
       return error(authError.message || 'Apple ile giriş yapılamadı.', 401);
