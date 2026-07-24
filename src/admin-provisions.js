@@ -49,6 +49,20 @@ function blockNodes(root) {
   return [...root.querySelectorAll('p,h2,h3,li,div,section')].filter((node) => node !== root && !node.classList.contains('admin-override-content'));
 }
 
+function normalizeWordFlow(root) {
+  root.querySelectorAll('.word').forEach((word) => {
+    word.style.display = 'inline';
+    word.style.whiteSpace = 'normal';
+    word.style.marginRight = '0';
+    word.style.wordBreak = 'normal';
+    word.style.overflowWrap = 'normal';
+  });
+  root.querySelectorAll('p,h2,h3,h4,h5,h6,li,div,section').forEach((block) => {
+    block.style.wordBreak = 'normal';
+    block.style.hyphens = 'none';
+  });
+}
+
 function copyFormatTemplate(root) {
   formatTemplate = blockNodes(root).map((node) => ({tag: node.tagName.toLowerCase(), style: node.getAttribute('style') || '', list: node.closest('ol,ul')?.tagName.toLowerCase() || ''}));
   return formatTemplate.length;
@@ -74,6 +88,7 @@ function applyFormatTemplate(root) {
 function standardizeHtml(html) {
   const root = document.createElement('div');
   root.innerHTML = html || '';
+  normalizeWordFlow(root);
   let blocks = [...root.querySelectorAll('p,h2,h3,li,div,section')].filter((node) => !node.classList.contains('admin-override-content'));
   if (!blocks.length && root.textContent.trim()) {
     const paragraph = document.createElement('p');
@@ -97,7 +112,24 @@ function standardizeHtml(html) {
     block.style.fontFamily = "'Times New Roman', Times, serif";
     block.style.fontSize = '12pt';
     block.style.whiteSpace = 'normal';
-    block.style.overflowWrap = 'break-word';
+    block.style.overflowWrap = 'normal';
+    block.style.wordBreak = 'normal';
+    block.style.hyphens = 'none';
+  });
+  return root.innerHTML;
+}
+
+function justifyHtml(html) {
+  const root = document.createElement('div');
+  root.innerHTML = html || '';
+  normalizeWordFlow(root);
+  blockNodes(root).forEach((block) => {
+    block.style.textAlign = 'justify';
+    block.style.textAlignLast = 'left';
+    block.style.whiteSpace = 'normal';
+    block.style.overflowWrap = 'normal';
+    block.style.wordBreak = 'normal';
+    block.style.hyphens = 'none';
   });
   return root.innerHTML;
 }
@@ -125,7 +157,7 @@ function adjustFirstLineIndent(body, decrease = false) {
 }
 
 function normalizeInlineVisualLines(body) {
-  body.querySelectorAll('.pdf-line,.exact-line').forEach((line) => {
+  body.querySelectorAll('.exact-line').forEach((line) => {
     line.style.position = 'static';
     line.style.display = 'block';
     line.style.textIndent = '0';
@@ -135,19 +167,27 @@ function normalizeInlineVisualLines(body) {
     line.style.maxWidth = '100%';
     line.style.paddingLeft = '0';
     line.style.paddingRight = '0';
-    line.style.textAlign = 'left';
+    line.style.textAlign = 'justify';
     line.style.textAlignLast = 'left';
     line.style.whiteSpace = 'normal';
-    line.style.overflowWrap = 'break-word';
+    line.style.overflowWrap = 'normal';
+    line.style.wordBreak = 'normal';
+    line.style.hyphens = 'none';
   });
   body.querySelectorAll('p,h2,h3,h4,h5,h6,li').forEach((block) => {
     const text = block.textContent.trim();
     const compactHeading = /^h[2-6]$/.test(block.tagName.toLowerCase()) || (block.style.fontWeight && Number.parseInt(block.style.fontWeight, 10) >= 600 && text.length < 180);
     const reference = block.classList.contains('reference') || (/^\(/.test(text) && /(sayılı|madde|md\.)/i.test(text));
-    if (compactHeading || reference) {
-      block.style.textAlign = 'left';
-      block.style.textAlignLast = 'left';
-    }
+    block.style.textAlign = compactHeading || reference ? 'left' : 'justify';
+    block.style.textAlignLast = 'left';
+    block.style.textIndent = compactHeading || reference ? '0' : '4em';
+    block.style.marginLeft = '8%';
+    block.style.marginRight = '8%';
+    block.style.lineHeight = '2';
+    block.style.whiteSpace = 'normal';
+    block.style.overflowWrap = 'normal';
+    block.style.wordBreak = 'normal';
+    block.style.hyphens = 'none';
   });
 }
 
@@ -229,7 +269,6 @@ function startInlineEditor(card, context, existing, onSaved) {
   card.classList.add('admin-inline-editing');
   body.contentEditable = 'true';
   body.spellcheck = true;
-  normalizeInlineVisualLines(body);
   body.focus();
   const toolbar = document.createElement('div');
   toolbar.innerHTML = inlineToolbarMarkup();
@@ -239,7 +278,7 @@ function startInlineEditor(card, context, existing, onSaved) {
   const message = editorToolbar.querySelector('[data-inline-message]');
   bindInlineToolbar(editorToolbar, body);
   editorToolbar.querySelector('[data-inline-standardize]').onclick = () => { body.innerHTML = standardizeHtml(body.innerHTML); body.focus(); message.textContent = 'Standart görünüm uygulandı'; };
-  editorToolbar.querySelector('[data-inline-cancel]').onclick = () => { body.innerHTML = originalHtml; body.contentEditable = 'false'; editorToolbar.remove(); card.classList.remove('admin-inline-editing'); };
+  editorToolbar.querySelector('[data-inline-cancel]').onclick = () => { body.innerHTML = originalHtml; body.contentEditable = 'false'; editorToolbar.remove(); card.classList.remove('admin-inline-editing'); card.querySelector('[data-admin-save]')?.setAttribute('disabled', ''); };
   editorToolbar.querySelector('[data-inline-save]').onclick = async () => {
     message.textContent = 'Kaydediliyor…';
     const response = await fetch('/api/admin/provisions', {method: 'PUT', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({sectionId: context.sectionId, page: context.page, block: context.block, html: editorHtml(body), deleted: false})});
@@ -358,10 +397,30 @@ export function setupAdminProvisionEditor({sectionId, sectionTitle, overrides}) 
     let override = overrides.get(key);
     const actions = document.createElement('div');
     actions.className = 'admin-provision-actions';
-    actions.innerHTML = `<button type="button" data-admin-edit title="Bu hükmün metnini ve biçimini düzenle">Düzenle</button><button type="button" data-admin-standardize title="Bu hükmü ortak paragraf standardına getir">Standart hale getir</button><button type="button" data-admin-copy-format title="Bu hükmün paragraf biçimini kopyala">Biçimi kopyala</button><button type="button" data-admin-apply-format title="Kopyalanan paragraf biçimini bu hükme uygula">Biçimi uygula</button><button type="button" data-admin-revert title="Kaydedilmiş değişikliği kaldır ve kaynak haline dön" ${override ? '' : 'disabled'}>Önceki haline dön</button><button type="button" data-admin-delete title="Bu hükmü gizle">${override?.deleted ? 'Geri al' : 'Sil'}</button>`;
+    actions.innerHTML = `<button type="button" data-admin-edit title="Bu hükmün metnini ve biçimini düzenle">Düzenle</button><button type="button" data-admin-save title="Açık düzenlemedeki değişiklikleri kaydet" disabled>Kaydet</button><button type="button" data-admin-standardize title="Bu hükmü ortak paragraf standardına getir">Standart hale getir</button><button type="button" data-admin-justify title="Paragrafları iki yana yasla">İki yana yasla</button><button type="button" data-admin-copy-format title="Bu hükmün paragraf biçimini kopyala">Biçimi kopyala</button><button type="button" data-admin-apply-format title="Kopyalanan paragraf biçimini bu hükme uygula">Biçimi uygula</button><button type="button" data-admin-revert title="Kaydedilmiş değişikliği kaldır ve kaynak haline dön" ${override ? '' : 'disabled'}>Önceki haline dön</button><button type="button" data-admin-delete title="Bu hükmü gizle">${override?.deleted ? 'Geri al' : 'Sil'}</button>`;
+    let actionCloseTimer;
+    const keepActionsOpen = () => { clearTimeout(actionCloseTimer); card.classList.add('admin-actions-open'); };
+    const delayActionsClose = () => { clearTimeout(actionCloseTimer); actionCloseTimer = setTimeout(() => card.classList.remove('admin-actions-open'), 800); };
+    card.addEventListener('mouseenter', keepActionsOpen);
+    card.addEventListener('mouseleave', delayActionsClose);
+    card.addEventListener('focusin', keepActionsOpen);
+    card.addEventListener('focusout', delayActionsClose);
+    actions.addEventListener('mouseenter', keepActionsOpen);
+    actions.addEventListener('mouseleave', delayActionsClose);
     const revertButton = actions.querySelector('[data-admin-revert]');
+    const saveButton = actions.querySelector('[data-admin-save]');
     card.append(actions);
-    actions.querySelector('[data-admin-edit]').onclick = () => startInlineEditor(card, context, override, (saved) => { override = saved; overrides.set(key, saved); applyOverride(card, saved); revertButton.disabled = false; actions.querySelector('[data-admin-delete]').textContent = 'Sil'; });
+    actions.querySelector('[data-admin-edit]').onclick = () => { startInlineEditor(card, context, override, (saved) => { override = saved; overrides.set(key, saved); applyOverride(card, saved); revertButton.disabled = false; saveButton.disabled = true; actions.querySelector('[data-admin-delete]').textContent = 'Sil'; }); saveButton.disabled = false; };
+    saveButton.onclick = () => {
+      const inlineSave = card.querySelector('[data-inline-save]');
+      if (!inlineSave || !card.classList.contains('admin-inline-editing')) {
+        saveButton.disabled = true;
+        return;
+      }
+      saveButton.textContent = 'Kaydediliyor…';
+      inlineSave.click();
+      setTimeout(() => { saveButton.textContent = 'Kaydet'; }, 1200);
+    };
     actions.querySelector('[data-admin-standardize]').onclick = async () => {
       const sourceHtml = override?.html || card.querySelector('.copy-html-source')?.innerHTML || card.querySelector('.provision-content')?.innerHTML || '';
       const html = standardizeHtml(sourceHtml);
@@ -373,6 +432,18 @@ export function setupAdminProvisionEditor({sectionId, sectionTitle, overrides}) 
       revertButton.disabled = false;
       actions.querySelector('[data-admin-standardize]').textContent = 'Standart uygulandı';
       setTimeout(() => { actions.querySelector('[data-admin-standardize]').textContent = 'Standart hale getir'; }, 1500);
+    };
+    actions.querySelector('[data-admin-justify]').onclick = async () => {
+      const sourceHtml = override?.html || card.querySelector('.copy-html-source')?.innerHTML || card.querySelector('.provision-content')?.innerHTML || '';
+      const html = justifyHtml(sourceHtml);
+      const response = await fetch('/api/admin/provisions', {method: 'PUT', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({sectionId, page, block, html, deleted: false})});
+      if (!response.ok) return;
+      override = await response.json();
+      overrides.set(key, override);
+      applyOverride(card, override);
+      revertButton.disabled = false;
+      actions.querySelector('[data-admin-justify]').textContent = 'Uygulandı';
+      setTimeout(() => { actions.querySelector('[data-admin-justify]').textContent = 'İki yana yasla'; }, 1400);
     };
     actions.querySelector('[data-admin-copy-format]').onclick = () => {
       const source = document.createElement('div');
