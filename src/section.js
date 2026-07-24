@@ -1,7 +1,8 @@
 import './section.css';
 import {setupFavorites} from './favorites.js';
 import {setupSectionReports} from './report.js';
-import {setupAccountUI} from './auth.js';
+import {isAdminMode, setupAccountUI} from './auth.js';
+import {applyProvisionOverrides, loadProvisionOverrides, setupAdminProvisionEditor} from './admin-provisions.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -284,6 +285,10 @@ async function load() {
   title.textContent = data.title;
   document.title = data.title;
   content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
+  const user = await setupAccountUI();
+  const overrides = await loadProvisionOverrides(id);
+  applyProvisionOverrides(overrides, {showDeleted: Boolean(user?.isAdmin)});
+  if (user?.isAdmin && isAdminMode()) setupAdminProvisionEditor({sectionId: id, sectionTitle: data.title, overrides});
   linkCrossPageAnnotations();
   linkLongProvisions();
   blocks = pages.map((page, index) => ({
@@ -355,5 +360,4 @@ search.addEventListener('keydown', (event) => {
 document.querySelector('#previous').addEventListener('click', () => moveResult(-1));
 document.querySelector('#next').addEventListener('click', () => moveResult(1));
 document.querySelector('#home-return').addEventListener('click', returnToHome);
-setupAccountUI();
 load().catch((error) => { title.textContent = 'Yüklenemedi'; content.innerHTML = `<p class="error">${escapeHtml(error.message)}</p>`; });

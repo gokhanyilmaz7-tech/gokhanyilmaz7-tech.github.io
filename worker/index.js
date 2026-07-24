@@ -74,6 +74,11 @@ function isAdmin(user) {
   return Boolean(user?.apple_sub) && String(user.email).toLowerCase() === ADMIN_EMAIL;
 }
 
+function isLocalRequest(request) {
+  const hostname = new URL(request.url).hostname;
+  return hostname === 'localhost' || hostname === '127.0.0.1';
+}
+
 function cookieHeader(name, value, maxAge = 600, sameSite = 'Lax') {
   return `${name}=${encodeURIComponent(value)}; HttpOnly; Secure; SameSite=${sameSite}; Path=/; Max-Age=${maxAge}`;
 }
@@ -129,10 +134,18 @@ async function verifyAppleIdentityToken(idToken, env, nonce) {
 async function appleAuth(request, env, pathname) {
   if (pathname === '/api/auth/apple/start' && request.method === 'GET') {
     if (!env.APPLE_CLIENT_ID || !env.APPLE_REDIRECT_URI) return error('Apple girişi henüz yapılandırılmadı.', 503);
+    if (isLocalRequest(request)) return error('Apple ile giriş yerel HTTP adresinde tamamlanamaz. Canlı HTTPS adresini kullanın.', 400);
+    const requestUrl = new URL(request.url);
+    const returnTo = requestUrl.searchParams.get('returnTo') || '/admin.html';
+    const safeReturnTo = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/admin.html';
+    const callbackOrigin = new URL(env.APPLE_REDIRECT_URI).origin;
+    if (requestUrl.origin !== callbackOrigin) {
+      const canonicalStart = new URL('/api/auth/apple/start', callbackOrigin);
+      canonicalStart.searchParams.set('returnTo', safeReturnTo);
+      return Response.redirect(canonicalStart.toString(), 302);
+    }
     const state = randomId(24);
     const nonce = randomId(24);
-    const returnTo = new URL(request.url).searchParams.get('returnTo') || '/admin.html';
-    const safeReturnTo = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/admin.html';
     const params = new URLSearchParams({response_type: 'code', response_mode: 'form_post', client_id: env.APPLE_CLIENT_ID, redirect_uri: env.APPLE_REDIRECT_URI, scope: 'name email', state, nonce});
     const response = new Response(null, {status: 302, headers: {location: `https://appleid.apple.com/auth/authorize?${params}`}});
     response.headers.append('set-cookie', cookieHeader(APPLE_STATE_COOKIE, state, 600, 'None'));
@@ -164,7 +177,7 @@ async function appleAuth(request, env, pathname) {
       }
       const redirect = new URL(decodeURIComponent(cookie(request, APPLE_RETURN_COOKIE) || '/admin.html'), new URL(request.url).origin);
       const response = new Response(null, {status: 302, headers: {location: redirect.toString()}});
-      response.headers.append('set-cookie', await createSession(user.id, env));
+      response.headers.append('set-cookie', await createSession(user.id, env, request));
       response.headers.append('set-cookie', clearCookieHeader(APPLE_STATE_COOKIE, 'None'));
       response.headers.append('set-cookie', clearCookieHeader(APPLE_NONCE_COOKIE, 'None'));
       response.headers.append('set-cookie', clearCookieHeader(APPLE_RETURN_COOKIE, 'None'));
@@ -176,14 +189,14 @@ async function appleAuth(request, env, pathname) {
   return null;
 }
 
-async function createSession(userId, env) {
+async function createSession(userId, env, request) {
   const tokenBytes = crypto.getRandomValues(new Uint8Array(32));
   const token = base64Url(tokenBytes);
   const tokenHash = base64Url(await sha256(token));
   const expiresAt = Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000;
   await env.DB.prepare('INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)').bind(tokenHash, userId, expiresAt).run();
-  return `
-${SESSION_COOKIE}=${token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${SESSION_DAYS * 24 * 60 * 60}`.trim();
+  const secure = isLocalRequest(request) ? '' : ' Secure;';
+  return `${SESSION_COOKIE}=${token}; HttpOnly;${secure} SameSite=Lax; Path=/; Max-Age=${SESSION_DAYS * 24 * 60 * 60}`;
 }
 
 async function auth(request, env, pathname) {
@@ -201,7 +214,15 @@ async function auth(request, env, pathname) {
     if (existing) return error('Bu e-posta ile zaten bir hesap var.', 409);
     const id = randomId();
     await env.DB.prepare('INSERT INTO users (id, email, password_hash, created_at) VALUES (?, ?, ?, ?)').bind(id, email, await passwordHash(password), Date.now()).run();
-    return json({user: {id, email}}, 201, {'set-cookie': await createSession(id, env)});
+    return json({user: {id, email}}, 201, {'set-cookie': await createSession(id, env, request)});
+  }
+  if (pathname === '/api/auth/local-admin' && request.method === 'POST') {
+    if (!isLocalRequest(request)) return error('Yerel yönetici girişi yalnızca geliştirme adresinde kullanılabilir.', 404);
+    const existing = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(ADMIN_EMAIL).first();
+    const id = existing?.id || randomId();
+    if (existing) await env.DB.prepare('UPDATE users SET apple_sub = ? WHERE id = ?').bind('local-dev-admin', id).run();
+    else await env.DB.prepare('INSERT INTO users (id, email, password_hash, apple_sub, created_at) VALUES (?, ?, ?, ?, ?)').bind(id, ADMIN_EMAIL, await passwordHash(randomId()), 'local-dev-admin', Date.now()).run();
+    return json({user: {id, email: ADMIN_EMAIL, isAdmin: true}}, 200, {'set-cookie': await createSession(id, env, request)});
   }
   if (pathname === '/api/auth/login' && request.method === 'POST') {
     const body = await request.json().catch(() => null);
@@ -209,7 +230,7 @@ async function auth(request, env, pathname) {
     const password = String(body?.password || '');
     const user = await env.DB.prepare('SELECT id, email, password_hash FROM users WHERE email = ?').bind(email).first();
     if (!user || !(await passwordMatches(password, user.password_hash))) return error('E-posta veya şifre hatalı.', 401);
-    return json({user: {id: user.id, email: user.email}}, 200, {'set-cookie': await createSession(user.id, env)});
+    return json({user: {id: user.id, email: user.email}}, 200, {'set-cookie': await createSession(user.id, env, request)});
   }
   if (pathname === '/api/auth/logout' && request.method === 'POST') {
     const raw = cookie(request, SESSION_COOKIE);
@@ -261,6 +282,47 @@ async function adminSummary(request, env) {
   return json({user: {id: user.id, email: user.email, isAdmin: true}, counts: {users: Number(users.results.length), lists: Number(lists?.count || 0), reports: Number(reports?.count || 0)}, users: users.results.map((entry) => ({id: entry.id, email: entry.email, provider: entry.apple_sub ? 'Apple' : 'E-posta', createdAt: entry.created_at}))});
 }
 
+function cleanProvisionHtml(value) {
+  return String(value || '').slice(0, 100000)
+    .replace(/<\/?(?!\/?(?:p|div|span|strong|b|em|i|u|br|h2|h3|ol|ul|li)\b)[^>]*>/gi, '')
+    .replace(/<([a-z0-9]+)(?:\s+style="([^"]*)")?\s*>/gi, (match, tag, style = '') => {
+      const safeStyle = style.replace(/[^a-zA-Z0-9#%().,:;\s'"-]/g, '').slice(0, 1000);
+      return safeStyle ? `<${tag.toLowerCase()} style="${safeStyle}">` : `<${tag.toLowerCase()}>`;
+    });
+}
+
+async function adminProvisions(request, env) {
+  const user = await currentUser(request, env);
+  if (!user?.isAdmin) return error('Yönetici yetkisi gerekiyor.', 403);
+  const url = new URL(request.url);
+  if (request.method === 'GET') {
+    const sectionId = String(url.searchParams.get('sectionId') || '').trim();
+    if (!sectionId || !/^mevzuat-[0-9]+$/.test(sectionId)) return error('Mevzuat seçimi geçersiz.');
+    const result = await env.DB.prepare('SELECT section_id, page, block, html, deleted, updated_at FROM admin_provisions WHERE section_id = ? ORDER BY page, block').bind(sectionId).all();
+    return json({provisions: result.results.map((item) => ({...item, page: Number(item.page), block: Number(item.block), deleted: Boolean(item.deleted)}))});
+  }
+  if (request.method === 'PUT') {
+    const body = await request.json().catch(() => null);
+    const sectionId = String(body?.sectionId || '').trim();
+    const page = Number(body?.page);
+    const block = Number(body?.block);
+    if (!/^mevzuat-[0-9]+$/.test(sectionId) || !Number.isInteger(page) || page < 1 || !Number.isInteger(block) || block < 0) return error('Hüküm konumu geçersiz.');
+    const html = cleanProvisionHtml(body?.html);
+    const deleted = body?.deleted ? 1 : 0;
+    await env.DB.prepare('INSERT INTO admin_provisions (section_id, page, block, html, deleted, updated_at) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(section_id, page, block) DO UPDATE SET html = excluded.html, deleted = excluded.deleted, updated_at = excluded.updated_at').bind(sectionId, page, block, html, deleted, Date.now()).run();
+    return json({ok: true, sectionId, page, block, html, deleted: Boolean(deleted)});
+  }
+  if (request.method === 'DELETE') {
+    const sectionId = String(url.searchParams.get('sectionId') || '').trim();
+    const page = Number(url.searchParams.get('page'));
+    const block = Number(url.searchParams.get('block'));
+    if (!/^mevzuat-[0-9]+$/.test(sectionId) || !Number.isInteger(page) || !Number.isInteger(block)) return error('Hüküm konumu geçersiz.');
+    await env.DB.prepare('DELETE FROM admin_provisions WHERE section_id = ? AND page = ? AND block = ?').bind(sectionId, page, block).run();
+    return json({ok: true});
+  }
+  return error('İstek desteklenmiyor.', 405);
+}
+
 async function favorites(request, env) {
   const user = await currentUser(request, env);
   if (!user) return error('Oturum açmanız gerekiyor.', 401);
@@ -302,6 +364,7 @@ export default {
     if (url.pathname.startsWith('/api/auth/apple/')) return (await appleAuth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname.startsWith('/api/auth/')) return (await auth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
+    if (url.pathname === '/api/admin/provisions') return adminProvisions(request, env);
     if (url.pathname === '/api/favorites') return favorites(request, env);
     if (url.pathname === '/api/health') return json({ok: true});
     if (url.pathname === '/noksanlik-raporu.html') return new Response('Not Found', {status: 404});

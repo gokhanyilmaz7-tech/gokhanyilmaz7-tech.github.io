@@ -1,0 +1,5 @@
+.admin-inline-editing{margin-top:16px!important;padding-top:13px!important}.admin-inline-editing .inline-editor-toolbar{position:relative;top:auto;left:auto;right:auto;margin:0 0 14px;width:100%}
+.admin-provision-actions{position:relative!important;right:auto!important;bottom:auto!important;margin-top:14px;justify-content:flex-end}
+.admin-inline-editing .pdf-line,.admin-inline-editing .exact-line{position:static!important;display:block!important;margin-left:8%!important;margin-right:8%!important;white-space:normal!important;overflow-wrap:break-word!important}
+.admin-inline-editing .word{margin-right:0!important;white-space:normal!important}
+.admin-inline-editing .word{display:inline!important}
