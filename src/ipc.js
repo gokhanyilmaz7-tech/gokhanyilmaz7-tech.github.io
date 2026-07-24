@@ -5,6 +5,7 @@ const tbody = table.querySelector('tbody');
 const search = document.querySelector('#ipc-search');
 const result = document.querySelector('#ipc-result');
 const copyButton = document.querySelector('#ipc-copy');
+let filterTimer;
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[character]));
 const formatCell = (value) => {
   if (value === null || value === undefined || value === '') return '';
@@ -149,6 +150,9 @@ async function copyTable() {
   setTimeout(() => { copyButton.textContent = 'Tabloyu kopyala'; }, 1200);
 }
 
-search.addEventListener('input', filterRows);
+search.addEventListener('input', () => {
+  clearTimeout(filterTimer);
+  filterTimer = setTimeout(filterRows, 80);
+});
 copyButton.addEventListener('click', copyTable);
 fetch('/ipc-2026.json').then((response) => { if (!response.ok) throw new Error('Excel tablosu yüklenemedi.'); return response.json(); }).then((data) => render(data.values, data.values[0][0])).catch((error) => { console.error(error); });

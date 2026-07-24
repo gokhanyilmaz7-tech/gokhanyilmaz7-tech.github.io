@@ -1,18 +1,20 @@
 import './styles.css';
+import {setupAccountUI} from './auth.js';
 
 // Ana sayfanın sekmesini geri dönüşte yeniden bulabilmek için adlandırıyoruz.
 window.name = 'mevzuat-home';
 
 const app = document.querySelector('#app');
+let sectionSearchTimer;
 app.innerHTML = `
   <header class="topbar">
-    <div class="brand-mark">M</div>
+    <div class="brand-mark"><img src="/mevzuat-rehberi-icon.png" alt="" /></div>
     <div><p class="eyebrow">TEFTİŞ DAYANAKLARI</p><h1>Mevzuat Rehberi</h1></div>
-    <div class="topbar-meta"><span class="status-dot"></span><span>Yerel mevzuat arşivi</span></div>
+    <div class="topbar-meta"><span class="status-dot"></span><button id="account-button" class="account-button" type="button">Giriş yap</button><button id="logout-button" class="logout-button" type="button" aria-label="Çıkış yap" title="Çıkış yap" hidden>×</button></div>
   </header>
   <main class="layout">
     <aside class="sidebar">
-      <div class="sidebar-heading"><div><p class="eyebrow">İÇİNDEKİLER</p><h2>Mevzuat</h2></div><div class="sidebar-actions"><button id="ipc-open" class="ipc-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button></div></div>
+    <div class="sidebar-heading"><div><p class="eyebrow">İÇİNDEKİLER</p><h2>Mevzuat</h2></div><div class="sidebar-actions"><button id="ipc-open" class="ipc-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button><button id="favorites-open" class="ipc-open favorites-home-open" type="button" title="Favorilerimi aç">☆ Favorilerim</button><button id="report-open" class="ipc-open favorites-home-open" type="button" title="Raporum'u aç">＋ Raporum</button><button id="external-legislation-open" class="ipc-open favorites-home-open" type="button" title="Mevzuat bağlantıları sayfasını aç">↗ Mevzuat bağlantıları</button></div></div>
       <label class="search-field sidebar-search"><span aria-hidden="true">⌕</span><input id="section-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /></label>
       <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
     </aside>
@@ -87,6 +89,13 @@ async function loadManifest() {
   renderSections();
 }
 
-$('#section-filter').addEventListener('input', (event) => renderSections(event.target.value));
+$('#section-filter').addEventListener('input', (event) => {
+  clearTimeout(sectionSearchTimer);
+  sectionSearchTimer = setTimeout(() => renderSections(event.target.value), 80);
+});
 $('#ipc-open').addEventListener('click', () => window.open('/ipc.html', '_blank'));
+$('#favorites-open').addEventListener('click', () => window.open('/favoriler.html', '_blank'));
+$('#report-open').addEventListener('click', () => window.open('/report.html', '_blank'));
+$('#external-legislation-open').addEventListener('click', () => window.open('/mevzuat-baglantilari.html', '_blank'));
 loadManifest().catch((error) => { $('#section-list').innerHTML = `<p class="error-state">${error.message}</p>`; });
+setupAccountUI();

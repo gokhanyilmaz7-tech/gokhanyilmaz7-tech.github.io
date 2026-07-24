@@ -4,23 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#102a43" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/mevzuat-rehberi-icon.png" type="image/png" />
     <title>Mevzuat</title>
-    <script type="module" crossorigin src="/assets/mevzuat-cIqBrbqF.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/mevzuat-C1GkiSJv.css">
   </head>
   <body>
     <header class="article-topbar">
       <a id="home-return" class="back-link" href="/">← Mevzuat listesine dön</a>
-      <span class="topbar-label">DAYANAKLAR (GENEL)</span>
+      <span class="topbar-label">DAYANAKLAR (GENEL)</span><button id="account-button" class="account-button" type="button">Giriş yap</button><button id="logout-button" class="logout-button" type="button" aria-label="Çıkış yap" title="Çıkış yap" hidden>×</button>
     </header>
     <main class="article-layout">
       <article class="article-card">
         <div class="article-heading">
           <p class="eyebrow">SEÇİLİ MEVZUAT</p>
           <h1 id="title">Yükleniyor…</h1>
-          <p class="article-meta" id="meta"></p>
         </div>
         <div class="article-tools">
           <label class="article-search">
@@ -37,5 +33,6 @@
         <div id="content" class="article-content"><p>Mevzuat yükleniyor…</p></div>
       </article>
     </main>
+    <script type="module" src="/src/section.js"></script>
   </body>
 </html>

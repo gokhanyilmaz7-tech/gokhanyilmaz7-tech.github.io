@@ -1,15 +1,20 @@
 import './section.css';
+import {setupFavorites} from './favorites.js';
+import {setupSectionReports} from './report.js';
+import {setupAccountUI} from './auth.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
+const requestedPage = params.get('page');
+const requestedBlock = params.get('block');
 const title = document.querySelector('#title');
-const meta = document.querySelector('#meta');
 const content = document.querySelector('#content');
 const search = document.querySelector('#search');
 const resultCount = document.querySelector('#result-count');
 let blocks = [];
 let matches = [];
 let matchIndex = -1;
+let searchTimer;
 
 function escapeHtml(value) { return value.replace(/[&<>"']/g, (character) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[character])); }
 function normalize(value) { return value.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
@@ -35,7 +40,7 @@ function mergeWordFragments(words) {
   return merged;
 }
 
-function formatLayoutPage(page, totalPages) {
+function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   const scale = 96 / 72;
   const isChemicalTablePage = page.page >= 391 && page.page <= 400;
   // 12 punto metnin hücrelere rahat oturması için yalnızca Ek-1/Ek-2
@@ -74,7 +79,9 @@ function formatLayoutPage(page, totalPages) {
     const words = line.words.sort((a, b) => a.x - b.x).map((word, wordIndex) => {
       const next = line.words[wordIndex + 1];
       const gap = next ? Math.max(0, next.x - word.x - word.w) * xScale : 0;
-      const readableGap = Math.min(gap, 10);
+      // PDF'deki iki yana yaslı satırların gerçek kelime aralıklarını koru.
+      // Sabit bir üst sınır, özellikle uzun satırlarda PDF'nin sağ kenar hizasını bozuyordu.
+      const readableGap = Math.max(0, gap);
       const displaySize = 12;
       const style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};margin-right:${readableGap}px`;
       const separator = next && (next.x - word.x - word.w) > 1.5 ? ' ' : '';
@@ -87,7 +94,9 @@ function formatLayoutPage(page, totalPages) {
       const next = line.words[wordIndex + 1];
       const separator = next && (next.x - word.x - word.w) > 1.5;
       const style = `font-family:'Times New Roman',Times,serif;font-size:12pt;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])}`;
-      return `<span style="${style}">${escapeHtml(word.text)}</span>${separator ? `<span style="white-space:pre"> </span>` : ''}`;
+      // Normal boşluk kullan. Sabit genişlikli boşluk düğümleri, iki yana
+      // yaslamada kelimeler arasını gereksiz büyütüp satırları bozuyordu.
+      return `<span style="${style}">${escapeHtml(word.text)}</span>${separator ? ' ' : ''}`;
     }).join('');
     return {kind, words: line.words, y: line.y * yScale, height: Math.max(...line.words.map((word) => word.size)) * 1.6, text: line.words.map((word) => word.text).join(' '), html: `<div class="pdf-line" style="margin-left:${line.words[0].x * xScale}px;margin-top:${topGap}px">${words}</div>`, copyHtml};
   });
@@ -106,7 +115,7 @@ function formatLayoutPage(page, totalPages) {
     const inner = group.lines.map((line) => line.html).join('');
     const copyParts = [];
     let mainRun = [];
-    const gap = `<span style="white-space:pre;font-family:'Times New Roman',Times,serif;font-size:12pt"> </span>`;
+    const gap = ' ';
     const flushMain = () => { if (mainRun.length) { copyParts.push(`<p style="margin:0 0 7pt;line-height:1.35;font-family:'Times New Roman',Times,serif;font-size:12pt;color:#000">${mainRun.join(gap)}</p>`); mainRun = []; } };
     group.lines.forEach((line) => {
       const allBold = line.words.every((word) => word.bold);
@@ -118,17 +127,25 @@ function formatLayoutPage(page, totalPages) {
     const top = Math.max(0, Math.min(...group.lines.map((line) => line.y)) - 10);
     const bottom = Math.max(...group.lines.map((line) => line.y + line.height)) + 10;
     const exactInner = group.lines.map((line) => `<div class="exact-line" style="left:${line.words[0].x * xScale}px;top:${line.y - top}px">${line.html.replace(/^<div[^>]*>|<\/div>$/g, '')}</div>`).join('');
-    const common = `<div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
+    const common = `<button class="favorite-star" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">☆</button><button class="report-plus" data-report-id="${index}" type="button" aria-label="Rapora ekle" title="Rapora ekle">＋</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
     const source = `<div class="copy-html-source">${copyParts.join('')}</div>`;
     const annotationClass = annotationOnly ? ' annotation-card' : '';
-    return {flow: `<article class="provision-card${annotationClass}" data-block="${index}">${common}${inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
+    const groupText = group.lines.map((line) => line.text).join(' ');
+    const compactGroupText = compact(groupText);
+    const standardFlow = /madde6\/1\.a\b/i.test(compactGroupText)
+      || /isguvenligiuzmaniningorevlendirilmemesi/i.test(compactGroupText)
+      || /isyerihekimigorevlendirilmemesi/i.test(compactGroupText)
+      || /digersaglikpersoneligorevlendirilmemesi/i.test(compactGroupText);
+    const flowClass = standardFlow ? ' standard-flow-card' : '';
+    return {flow: `<article class="provision-card${annotationClass}${flowClass}" data-block="${index}">${common}${standardFlow ? copyParts.join('') : inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
   });
+  const displayedRecords = skipFirstRecord ? records.slice(1) : records;
   const hasFigures = (page.figures || []).length > 0;
   // Ek-1 ve Ek-2, PDF'de gerçek sütun koordinatlarıyla oluşturulmuş tablolardır.
   // Bu sayfaları normal paragraf akışına sokmak sütunları kaydırır; metinleri
   // PDF koordinatlarında tutarak hem tablo görünümünü hem seçilebilirliği koruruz.
   const hasFixedLayout = hasFigures || (page.page >= 391 && page.page <= 400);
-  const blocks = (hasFixedLayout ? records.map((record) => record.exact) : records.map((record) => record.flow)).join('');
+  const blocks = (hasFixedLayout ? displayedRecords.map((record) => record.exact) : displayedRecords.map((record) => record.flow)).join('');
   const figures = (page.figures || []).map((figure) => `<figure class="embedded-figure" style="left:${figure.x * xScale}px;top:${figure.y * yScale}px;width:${figure.w * xScale}px;height:${figure.h * yScale}px"><img src="/${figure.src}" alt="Mevzuat içindeki şekil veya resim" loading="lazy"></figure>`).join('');
   const rules = hasFixedLayout ? (page.lines || []).map((line) => {
     const width = line.w > 0 ? line.w * xScale : Math.max(0.7, line.width * xScale);
@@ -141,20 +158,30 @@ function formatLayoutPage(page, totalPages) {
   </section>`;
 }
 
-function render(query = '') {
+function render(query = '', {scroll = false} = {}) {
   const needle = compact(query.trim());
   blocks.forEach((block) => {
-    const found = needle && compact(block.text).includes(needle);
+    const found = needle && block.normalizedText.includes(needle);
     block.element.classList.toggle('match-page', Boolean(found));
-    block.element.querySelectorAll('.search-hit').forEach((word) => word.classList.remove('search-hit'));
+    block.words.forEach((word) => word.element.classList.remove('search-hit'));
     if (needle && found) {
-      block.element.querySelectorAll('.word').forEach((word) => { if (compact(word.textContent).includes(needle)) word.classList.add('search-hit'); });
+      block.words.forEach((word) => { if (word.normalizedText.includes(needle)) word.element.classList.add('search-hit'); });
     }
   });
   matches = blocks.filter((block) => block.element.classList.contains('match-page'));
   matchIndex = matches.length ? 0 : -1;
   resultCount.textContent = query.trim() ? `${matches.length} sayfa` : '';
-  if (matches.length) matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
+  if (scroll && matches.length) matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
+}
+
+function scrollToRequestedProvision() {
+  if (!requestedPage) return;
+  const page = [...content.querySelectorAll('.article-page')].find((entry) => entry.dataset.page === requestedPage);
+  const target = page && requestedBlock !== null ? page.querySelector(`.provision-card[data-block="${requestedBlock}"]`) : page;
+  if (!target) return;
+  target.classList.add('match-page');
+  target.scrollIntoView({behavior: 'smooth', block: 'center'});
+  setTimeout(() => target.classList.remove('match-page'), 2600);
 }
 
 async function copyProvision(button) {
@@ -267,12 +294,26 @@ async function load() {
   const pages = await Promise.all(sectionPages.map((page) => fetch(`/layout/page-${String(page.page).padStart(3, '0')}.json`).then((result) => result.json())));
   title.textContent = data.title;
   document.title = data.title;
-  meta.textContent = `${pages.length} sayfa · PDF ile aynı sayfa sırası ve yerleşim`;
-  content.innerHTML = pages.map((page) => formatLayoutPage(page, 400)).join('');
+  content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
+  await setupAccountUI();
   linkCrossPageAnnotations();
   linkLongProvisions();
-  blocks = pages.map((page, index) => ({text: page.text, element: content.children[index]}));
-  content.querySelectorAll('.copy-provision').forEach((button) => button.addEventListener('click', () => copyProvision(button)));
+  blocks = pages.map((page, index) => ({
+    text: page.text,
+    normalizedText: compact(page.text),
+    element: content.children[index],
+    words: [...content.children[index].querySelectorAll('.word')].map((word) => ({
+      element: word,
+      normalizedText: compact(word.textContent || ''),
+    })),
+  }));
+  content.addEventListener('click', (event) => {
+    const button = event.target.closest('.copy-provision');
+    if (button) copyProvision(button);
+  });
+  await setupFavorites({sectionId: id, sectionTitle: data.title});
+  await setupSectionReports({sectionId: id, sectionTitle: data.title});
+  scrollToRequestedProvision();
 }
 
 document.addEventListener('copy', (event) => {
@@ -314,7 +355,15 @@ function returnToHome(event) {
   }
 }
 
-search.addEventListener('input', (event) => render(event.target.value));
+search.addEventListener('input', (event) => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => render(event.target.value, {scroll: true}), 120);
+});
+search.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter') return;
+  clearTimeout(searchTimer);
+  render(event.target.value, {scroll: true});
+});
 document.querySelector('#previous').addEventListener('click', () => moveResult(-1));
 document.querySelector('#next').addEventListener('click', () => moveResult(1));
 document.querySelector('#home-return').addEventListener('click', returnToHome);
