@@ -1,10 +1,11 @@
 from pathlib import Path
 import json
+import sys
 import pdfplumber
 from pypdf import PdfReader
 from PIL import Image
 
-PDF = Path('/Users/gokhanyilmazmac/Library/Mobile Documents/com~apple~CloudDocs/1 - TEFTİŞ/Dayanak - İPC/Dayanaklar (Genel).pdf')
+PDF = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('source/dayanaklar.pdf')
 OUT = Path('public/layout')
 FIGURES = Path('public/figures')
 OUT.mkdir(parents=True, exist_ok=True)

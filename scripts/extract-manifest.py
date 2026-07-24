@@ -1,8 +1,9 @@
 from pathlib import Path
 import json
+import sys
 from pypdf import PdfReader
 
-PDF = Path('/Users/gokhanyilmazmac/Library/Mobile Documents/com~apple~CloudDocs/1 - TEFTİŞ/Dayanak - İPC/Dayanaklar (Genel).pdf')
+PDF = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('source/dayanaklar.pdf')
 OUT = Path('public/manifest.json')
 SECTIONS_OUT = Path('public/sections')
 

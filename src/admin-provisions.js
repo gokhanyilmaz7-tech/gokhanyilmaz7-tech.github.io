@@ -124,8 +124,17 @@ function justifyHtml(html) {
   root.innerHTML = html || '';
   normalizeWordFlow(root);
   blockNodes(root).forEach((block) => {
-    block.style.textAlign = 'justify';
+    const visualLine = block.classList.contains('pdf-line') || block.classList.contains('exact-line');
+    const tag = block.tagName.toLowerCase();
+    const text = block.textContent.trim();
+    const compactHeading = /^(h[1-6])$/.test(tag) || (block.style.fontWeight && Number.parseInt(block.style.fontWeight, 10) >= 600 && text.length < 180);
+    const reference = block.classList.contains('reference') || (/^\(/.test(text) && /(sayılı|madde|md\.)/i.test(text));
+    block.style.textAlign = visualLine || compactHeading || reference ? 'left' : 'justify';
     block.style.textAlignLast = 'left';
+    block.style.textIndent = visualLine || compactHeading || reference ? '0' : '4em';
+    block.style.margin = visualLine ? '0 8%' : '0 8% 7pt';
+    block.style.paddingLeft = '0';
+    block.style.paddingRight = '0';
     block.style.whiteSpace = 'normal';
     block.style.overflowWrap = 'normal';
     block.style.wordBreak = 'normal';

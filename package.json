@@ -8,6 +8,7 @@
     "dev:mobile": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
+    "update-source": "python3 scripts/update-source-pdf.py",
     "extract:manifest": "python3 scripts/extract-manifest.py",
     "extract:layout": "python3 scripts/extract-layout.py"
   },

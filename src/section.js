@@ -1,8 +1,7 @@
 import './section.css';
 import {setupFavorites} from './favorites.js';
 import {setupSectionReports} from './report.js';
-import {isAdminMode, setupAccountUI} from './auth.js';
-import {applyProvisionOverrides, loadProvisionOverrides, setupAdminProvisionEditor} from './admin-provisions.js';
+import {setupAccountUI} from './auth.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -80,7 +79,9 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     const words = line.words.sort((a, b) => a.x - b.x).map((word, wordIndex) => {
       const next = line.words[wordIndex + 1];
       const gap = next ? Math.max(0, next.x - word.x - word.w) * xScale : 0;
-      const readableGap = Math.min(gap, 10);
+      // PDF'deki iki yana yaslı satırların gerçek kelime aralıklarını koru.
+      // Sabit bir üst sınır, özellikle uzun satırlarda PDF'nin sağ kenar hizasını bozuyordu.
+      const readableGap = Math.max(0, gap);
       const displaySize = 12;
       const style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};margin-right:${readableGap}px`;
       const separator = next && (next.x - word.x - word.w) > 1.5 ? ' ' : '';
@@ -93,7 +94,9 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
       const next = line.words[wordIndex + 1];
       const separator = next && (next.x - word.x - word.w) > 1.5;
       const style = `font-family:'Times New Roman',Times,serif;font-size:12pt;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])}`;
-      return `<span style="${style}">${escapeHtml(word.text)}</span>${separator ? `<span style="white-space:pre"> </span>` : ''}`;
+      // Normal boşluk kullan. Sabit genişlikli boşluk düğümleri, iki yana
+      // yaslamada kelimeler arasını gereksiz büyütüp satırları bozuyordu.
+      return `<span style="${style}">${escapeHtml(word.text)}</span>${separator ? ' ' : ''}`;
     }).join('');
     return {kind, words: line.words, y: line.y * yScale, height: Math.max(...line.words.map((word) => word.size)) * 1.6, text: line.words.map((word) => word.text).join(' '), html: `<div class="pdf-line" style="margin-left:${line.words[0].x * xScale}px;margin-top:${topGap}px">${words}</div>`, copyHtml};
   });
@@ -112,7 +115,7 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     const inner = group.lines.map((line) => line.html).join('');
     const copyParts = [];
     let mainRun = [];
-    const gap = `<span style="white-space:pre;font-family:'Times New Roman',Times,serif;font-size:12pt"> </span>`;
+    const gap = ' ';
     const flushMain = () => { if (mainRun.length) { copyParts.push(`<p style="margin:0 0 7pt;line-height:1.35;font-family:'Times New Roman',Times,serif;font-size:12pt;color:#000">${mainRun.join(gap)}</p>`); mainRun = []; } };
     group.lines.forEach((line) => {
       const allBold = line.words.every((word) => word.bold);
@@ -127,7 +130,14 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     const common = `<button class="favorite-star" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">☆</button><button class="report-plus" data-report-id="${index}" type="button" aria-label="Rapora ekle" title="Rapora ekle">＋</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
     const source = `<div class="copy-html-source">${copyParts.join('')}</div>`;
     const annotationClass = annotationOnly ? ' annotation-card' : '';
-    return {flow: `<article class="provision-card${annotationClass}" data-block="${index}">${common}${inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
+    const groupText = group.lines.map((line) => line.text).join(' ');
+    const compactGroupText = compact(groupText);
+    const standardFlow = /madde6\/1\.a\b/i.test(compactGroupText)
+      || /isguvenligiuzmaniningorevlendirilmemesi/i.test(compactGroupText)
+      || /isyerihekimigorevlendirilmemesi/i.test(compactGroupText)
+      || /digersaglikpersoneligorevlendirilmemesi/i.test(compactGroupText);
+    const flowClass = standardFlow ? ' standard-flow-card' : '';
+    return {flow: `<article class="provision-card${annotationClass}${flowClass}" data-block="${index}">${common}${standardFlow ? copyParts.join('') : inner}</div>${source}</article>`, exact: `<article class="provision-card exact-card${annotationClass}" data-block="${index}" style="top:${top}px;height:${bottom - top}px">${common}${exactInner}</div>${source}</article>`};
   });
   const displayedRecords = skipFirstRecord ? records.slice(1) : records;
   const hasFigures = (page.figures || []).length > 0;
@@ -285,10 +295,7 @@ async function load() {
   title.textContent = data.title;
   document.title = data.title;
   content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
-  const user = await setupAccountUI();
-  const overrides = await loadProvisionOverrides(id);
-  applyProvisionOverrides(overrides, {showDeleted: Boolean(user?.isAdmin)});
-  if (user?.isAdmin && isAdminMode()) setupAdminProvisionEditor({sectionId: id, sectionTitle: data.title, overrides});
+  await setupAccountUI();
   linkCrossPageAnnotations();
   linkLongProvisions();
   blocks = pages.map((page, index) => ({

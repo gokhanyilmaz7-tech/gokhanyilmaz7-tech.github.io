@@ -9,13 +9,13 @@ npm install
 npm run dev
 ```
 
-PDF ve `manifest.json`, uygulamayı hazırlarken `public/` klasörüne konur. PDF güncellenirse:
+Kaynak PDF `source/dayanaklar.pdf` altında tutulur. Yeni PDF sürümünü yüklemek için:
 
 ```bash
-npm run extract:manifest
+npm run update-source -- "/Users/gokhanyilmazmac/Desktop/Dayanaklar (İSG MEVZUATI).pdf"
 ```
 
-Ardından `npm run dev` ile uygulamayı açın.
+Bu komut kaynak PDF’yi kopyalar, eski üretilmiş mevzuat/yerleşim verilerini yeniler ve `public/` içeriğini günceller. Ardından `npm run dev` ile uygulamayı açın. Web sayfasındaki hüküm düzenleme araçları bulunmaz; PDF tek kaynak olarak kullanılır.
 
 ## Yönetici girişi
 
