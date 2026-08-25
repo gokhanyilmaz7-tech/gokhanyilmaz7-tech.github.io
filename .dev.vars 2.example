@@ -1,0 +1,5 @@
+APPLE_TEAM_ID=APPLE_DEVELOPER_TEAM_ID
+APPLE_KEY_ID=APPLE_PRIVATE_KEY_ID
+APPLE_CLIENT_ID=com.example.mevzuatrehberi.web
+APPLE_REDIRECT_URI=https://www.isg-mevzuat-rehberi.com.tr/api/auth/apple/callback
+APPLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_APPLE_PRIVATE_KEY\n-----END PRIVATE KEY-----"
