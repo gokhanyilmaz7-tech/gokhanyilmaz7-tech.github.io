@@ -110,6 +110,49 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     else if (current) current.lines.push(line);
     else groups.push({lines: [line]});
   });
+
+  // --- BEGIN CUSTOM MERGE FOR MEVZUAT-3 ---
+  if (id === 'mevzuat-3') {
+    let visibleIndex = 148; // mevzuat-3 starts at 149
+    let globalIndexMap = [];
+    groups.forEach((group, i) => {
+        const annotationOnly = group.lines.every((line) => line.kind === 'reference' || line.kind === 'info');
+        if (!annotationOnly) {
+            visibleIndex++;
+        }
+        globalIndexMap.push(visibleIndex);
+    });
+
+    const mergeRanges = [
+        [268, 272],
+        [274, 279],
+        [281, 285],
+        [286, 289],
+        [290, 292],
+        [293, 296]
+    ];
+
+    for (const [start, end] of mergeRanges) {
+        let firstGroupIdx = -1;
+        for (let i = 0; i < groups.length; i++) {
+            if (globalIndexMap[i] === start && firstGroupIdx === -1) {
+                firstGroupIdx = i;
+            }
+            if (globalIndexMap[i] > start && globalIndexMap[i] <= end) {
+                // Merge this group into the firstGroup
+                groups[firstGroupIdx].lines.push(...groups[i].lines);
+                groups[i].lines = []; // Empty it, we will filter them out
+            }
+        }
+    }
+    // Remove emptied groups
+    for (let i = groups.length - 1; i >= 0; i--) {
+        if (groups[i].lines.length === 0) {
+            groups.splice(i, 1);
+        }
+    }
+  }
+  // --- END CUSTOM MERGE ---
   const records = groups.map((group, index) => {
     const annotationOnly = group.lines.every((line) => line.kind === 'reference' || line.kind === 'info');
     const inner = group.lines.map((line) => line.html).join('');
