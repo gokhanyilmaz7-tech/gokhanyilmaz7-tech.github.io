@@ -147,7 +147,7 @@ function renderStream() {
   }).join('') : '<div class="favorite-empty"> <div style="display: flex; gap: 4rem; justify-content: center; margin-bottom: 1rem;"> <div style="text-align: center;"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuattan Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #2e67d2;">Mevzuattan Ekle</p></div> <div style="text-align: center;"><button type="button" id="add-manual-deficiency" class="favorite-empty-star" aria-label="Manuel Ekle" title="Manuel Noksanlık Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block; color: #b91c1c;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #b91c1c;">Kendin Yaz</p></div> </div> <h2>Raporunuz boş</h2><p>Yukarıdaki butonları kullanarak rapora noksanlık veya mevzuat maddesi ekleyebilirsiniz.</p></div>';
   const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = openLegislationModal; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
-  stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = prompt('Rapor başlığı:', item?.title || ''); if (title === null || !item) return; item.title = title.trim(); save(); render(); }; });
+  stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = await customEditTitlePrompt(item?.title || '', item?.html || item?.text || ''); if (title === null || !item) return; item.title = title.trim(); await save(); render(); }; });
   stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
   stream.querySelectorAll('.report-repeat').forEach((button) => { button.onclick = async () => { const item = data.reports.find((entry) => entry.id === button.dataset.reportId); if (!item) return; await addReportCopy(item); data = readWorkspace(); render(); }; });
 }
@@ -416,41 +416,105 @@ function loadArchiveModal() {
 }
 
 
-function customTitlePrompt(maddeNo, fullText) {
+function bulkTitlePrompt(missingItems) {
   return new Promise((resolve) => {
-    const modalId = 'custom-title-prompt-modal';
+    const modalId = 'bulk-title-prompt-modal';
     if (document.getElementById(modalId)) document.getElementById(modalId).remove();
-    
-    const escapedText = String(fullText || 'İçerik bulunamadı').replace(/[&<>"']/g, function(m) {
-      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
-    });
+
+    const itemsHTML = missingItems.map((m, i) => {
+      const fullText = m.item.html || m.item.text || 'İçerik bulunamadı.';
+      const escapedText = String(fullText).replace(/[&<>"']/g, function(ch) {
+        return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[ch];
+      });
+      return `
+        <div style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0;">
+          <h3 style="margin: 0 0 0.75rem 0; font-size: 1.15rem; color: #b91c1c;">Eksik Başlık - Madde ${m.index + 1}</h3>
+          <div style="padding: 1rem; background: #f1f5f9; border-left: 4px solid #cbd5e1; color: #475f7b; font-size: 0.95rem; margin-bottom: 1rem; max-height: 250px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word;">${escapedText}</div>
+          <textarea id="${modalId}-input-${i}" rows="3" placeholder="Madde ${m.index + 1} için başlık giriniz..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1.05rem; outline: none; font-family: inherit; resize: vertical;"></textarea>
+        </div>
+      `;
+    }).join('');
 
     const modalHTML = `
       <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
-        <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.3);">
+        <div style="background: white; border-radius: 12px; width: 90%; max-width: 900px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 12px 24px rgba(0,0,0,0.3);">
           
-          <!-- Header -->
           <div style="padding: 1.25rem; background: #f8fafc; border-bottom: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 1.25rem; margin: 0; color: #b91c1c; font-weight: bold;">📝 NOKSANLIK BAŞLIĞI EKSİK! (Madde ${maddeNo})</h2>
-            <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; line-height: 1; color: #627d98; cursor: pointer; padding: 0 0.5rem;">&times;</button>
+            <h2 style="font-size: 1.25rem; margin: 0; color: #102a43; font-weight: bold;">⚠️ Word'e Aktarım Öncesi Eksik Başlıkları Tamamlayın</h2>
+            <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; cursor: pointer; color: #627d98;">&times;</button>
           </div>
           
-          <!-- Body / Noksanlık Metni -->
           <div style="padding: 1.25rem; overflow-y: auto; flex: 1; background: #fff;">
-            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Lütfen aşağıdaki madde için bir başlık giriniz:</p>
-            <div style="padding: 1rem; background: #f1f5f9; border-left: 4px solid #cbd5e1; color: #475f7b; font-size: 0.95rem; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word;">${escapedText}</div>
+            ${itemsHTML}
           </div>
           
-          <!-- Footer / Input and Actions -->
-          <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 1rem;">
-            <textarea id="${modalId}-input" rows="3" placeholder="Raporda görünecek başlığı buraya yazın..." style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1rem; color: #334e68; outline: none; resize: vertical; font-family: inherit;"></textarea>
-            
-            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
-              <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; color: #627d98; font-weight: 600; cursor: pointer;">Vazgeç</button>
-              <button id="${modalId}-submit" style="padding: 0.75rem 2rem; background: #2e67d2; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; box-shadow: 0 2px 4px rgba(46, 103, 210, 0.2);">Kaydet ve İlerle</button>
-            </div>
+          <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; color: #627d98; font-weight: 600;">İptal ve Geri Dön</button>
+            <button id="${modalId}-submit" style="padding: 0.75rem 2rem; background: #2e67d2; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(46, 103, 210, 0.2);">Tümünü Kaydet ve Aktar</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const modalEl = document.getElementById(modalId);
+    if(missingItems.length > 0) setTimeout(() => document.getElementById(`${modalId}-input-0`).focus(), 50);
+
+    const cleanup = () => modalEl.remove();
+
+    document.getElementById(modalId + '-cancel').onclick = () => { cleanup(); resolve(null); };
+    document.getElementById(modalId + '-close').onclick = () => { cleanup(); resolve(null); };
+    document.getElementById(modalId + '-submit').onclick = () => {
+      const results = [];
+      for(let i=0; i<missingItems.length; i++) {
+         const inputEl = document.getElementById(`${modalId}-input-${i}`);
+         const val = inputEl.value.trim();
+         if(!val) {
+            inputEl.style.borderColor = '#b91c1c';
+            alert(`Lütfen Madde ${missingItems[i].index + 1} için başlık girin.`);
+            inputEl.focus();
+            return;
+         }
+         results.push(val);
+      }
+      cleanup();
+      resolve(results);
+    };
+  });
+}
+
+function customEditTitlePrompt(currentTitle, fullText) {
+  return new Promise((resolve) => {
+    const modalId = 'custom-edit-title-modal';
+    if (document.getElementById(modalId)) document.getElementById(modalId).remove();
+
+    let previewHtml = '';
+    if (fullText) {
+      const escapedText = String(fullText).replace(/[&<>"']/g, function(m) {
+        return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
+      });
+      previewHtml = `<div style="padding: 1rem; background: #f1f5f9; border-left: 4px solid #cbd5e1; color: #475f7b; font-size: 0.95rem; line-height: 1.5; max-height: 30vh; overflow-y: auto; margin-bottom: 1rem; white-space: pre-wrap; word-wrap: break-word;">${escapedText}</div>`;
+    }
+
+    const modalHTML = `
+      <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
+        <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.3);">
+          
+          <div style="padding: 1.25rem; background: #f8fafc; border-bottom: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 1.25rem; margin: 0; color: #102a43; font-weight: bold;">✏️ BAŞLIĞI DÜZENLE</h2>
+            <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; cursor: pointer; color: #627d98;">&times;</button>
           </div>
           
+          <div style="padding: 1.25rem; background: #fff;">
+            ${previewHtml}
+            <textarea id="${modalId}-input" rows="3" placeholder="Başlığı buraya yazın..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; outline: none; font-family: inherit;">${currentTitle || ''}</textarea>
+          </div>
+          
+          <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; color: #627d98; font-weight: 600;">İptal</button>
+            <button id="${modalId}-submit" style="padding: 0.75rem 2rem; background: #2e67d2; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(46, 103, 210, 0.2);">Kaydet</button>
+          </div>
         </div>
       </div>
     `;
@@ -459,43 +523,34 @@ function customTitlePrompt(maddeNo, fullText) {
 
     const modalEl = document.getElementById(modalId);
     const inputEl = document.getElementById(modalId + '-input');
-    const cancelBtn = document.getElementById(modalId + '-cancel');
-    const submitBtn = document.getElementById(modalId + '-submit');
-    const closeBtn = document.getElementById(modalId + '-close');
-
-    setTimeout(() => inputEl.focus(), 50);
+    setTimeout(() => {
+       inputEl.focus();
+       inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length);
+    }, 50);
 
     const cleanup = () => modalEl.remove();
 
-    cancelBtn.onclick = () => { cleanup(); resolve(null); };
-    closeBtn.onclick = () => { cleanup(); resolve(null); };
-    submitBtn.onclick = () => {
-      const val = inputEl.value.trim();
-      if (!val) {
-        inputEl.style.borderColor = '#e12d39';
-        alert('Lütfen bir başlık girin veya Vazgeçbutonuna basarak iptal edin.');
-        return;
-      }
+    document.getElementById(modalId + '-cancel').onclick = () => { cleanup(); resolve(null); };
+    document.getElementById(modalId + '-close').onclick = () => { cleanup(); resolve(null); };
+    document.getElementById(modalId + '-submit').onclick = () => {
       cleanup();
-      resolve(val);
+      resolve(inputEl.value);
     };
-
-    inputEl.addEventListener('focus', () => inputEl.style.borderColor = '#2e67d2');
-    inputEl.addEventListener('blur', () => inputEl.style.borderColor = '#cbd5e1');
   });
 }
 
 async function ensureTitles() {
-  for (let i = 0; i < data.reports.length; i++) {
-    const item = data.reports[i];
-    if (!item.title || !item.title.trim()) {
-      const title = await customTitlePrompt(i + 1, item.html || item.text || 'İçerik bulunamadı.');
-      if (title === null) {
-        alert('İşlem iptal edildi.\nWord\'e aktarım yapabilmek için tüm maddelere birer başlık girmeniz gerekmektedir.');
-        return false;
-      }
-      item.title = title.trim();
-    }
+  const missing = data.reports.map((item, i) => ({item, index: i})).filter(x => !x.item.title || !x.item.title.trim());
+  if (!missing.length) return true;
+
+  const results = await bulkTitlePrompt(missing);
+  if (!results) {
+    alert('Word\'e aktarım işlemi iptal edildi.\nTüm eksik maddelere birer başlık girmeden işlem yapılamaz.');
+    return false;
+  }
+
+  for (let i = 0; i < missing.length; i++) {
+    missing[i].item.title = results[i].trim();
   }
   await save();
   render();
