@@ -33,6 +33,43 @@ function updateReportButtons(itemId, saved) {
 export async function toggleReport(item) {
   if (!(await requireAccount())) return false;
   const data = readWorkspace();
+  const injectionId = localStorage.getItem('pending-legislation-injection');
+  
+  if (injectionId) {
+      const targetIndex = data.reports.findIndex(x => x.id === injectionId);
+      if (targetIndex >= 0) {
+          const manualItem = data.reports[targetIndex];
+          
+          let cleanHtml = item.html || '';
+          if (cleanHtml) {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(cleanHtml, 'text/html');
+              [...doc.querySelectorAll('*')].forEach(n => {
+                  let s = (n.getAttribute('style')||'') + ' ' + (n.style?.color||'');
+                  s = s.toLowerCase();
+                  if(/color\s*:\s*(#1db500|rgb\(\s*29\s*,\s*181\s*,\s*0\s*\)|green)/.test(s)) {
+                      n.closest('p') ? n.closest('p').remove() : n.remove();
+                  }
+              });
+              cleanHtml = doc.body.innerHTML;
+          }
+
+          manualItem.html = cleanHtml;
+          manualItem.text = item.text || '';
+          manualItem.sectionId = item.sectionId;
+          manualItem.sectionTitle = item.sectionTitle;
+          manualItem.location = item.location;
+          manualItem.sourceId = item.id;
+          
+          await saveWorkspace(data);
+          localStorage.removeItem('pending-legislation-injection'); // done
+          
+          alert("Hüküm seçildi, rapora bağlandı! Noksanlık raporuna geri dönebilirsiniz.");
+          try { window.close(); } catch(e){}
+          return true;
+      }
+  }
+
   const index = data.reports.findIndex((entry) => reportSourceId(entry) === item.id);
   if (index >= 0) {
     data.reports.splice(index, 1);
