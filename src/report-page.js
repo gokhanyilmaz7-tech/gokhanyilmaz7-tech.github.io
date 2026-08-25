@@ -19,7 +19,7 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
   const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998;">📝 Başlıkları Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
   <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
   <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
@@ -27,6 +27,7 @@ function renderTools() {
   tools.querySelector('#report-archive-load').onclick = loadArchiveModal;
   tools.querySelector('#report-sort').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
   tools.querySelector('#report-word').onclick = exportWord;
+  tools.querySelector('#report-word-titles').onclick = exportWordTitles;
   tools.querySelector('#report-clear').onclick = async () => { if (!(await requireAccount()) || !items().length || !window.confirm('Rapordaki tüm hükümler çıkarılsın mı?')) return; data.reports = []; await save(); render(); };
 }
 
@@ -328,4 +329,60 @@ function loadArchiveModal() {
 
   document.getElementById(modalId + '-close').onclick = () => modalEl.remove();
   modalEl.onclick = (e) => { if (e.target === modalEl) modalEl.remove(); };
+}
+
+
+async function ensureTitles() {
+  for (let i = 0; i < data.reports.length; i++) {
+    const item = data.reports[i];
+    if (!item.title || !item.title.trim()) {
+      const preview = item.text ? (item.text.length > 100 ? item.text.substring(0, 100) + '...' : item.text) : 'İçerik Bulunamadı';
+      const promptText = `NOKSANLIK BAŞLIĞI EKSİK! (Madde ${i + 1})\n\nLütfen aşağıdaki madde için bir başlık giriniz:\n\n"${preview}"`;
+      const title = prompt(promptText);
+      if (title === null || !title.trim()) {
+        alert('İşlem iptal edildi. Word aktarımı için tüm başlıklara ihtiyaç var.');
+        return false;
+      }
+      item.title = title.trim();
+    }
+  }
+  await save();
+  render();
+  return true;
+}
+
+async function exportWordTitles() {
+  if (!items().length) return alert('Raporunuzda hüküm bulunmuyor.');
+  
+  const ok = await ensureTitles();
+  if (!ok) return;
+
+  const companyName = document.getElementById('report-company-name').value.trim() || '...................................................';
+  const sgkNo = document.getElementById('report-sgk-no').value.trim() || '................................';
+  const hazardClass = document.getElementById('report-hazard-class').value || '................................';
+  const femaleCount = document.getElementById('report-female-count').value || '......';
+  const maleCount = document.getElementById('report-male-count').value || '......';
+  
+  const headerHtml = `
+    <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIK BAŞLIKLARI</h1>
+    <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt;">
+      <tr><td width="25%" style="padding: 4pt 0;"><strong>İşyeri Ünvanı:</strong></td><td style="padding: 4pt 0;">${esc(companyName)}</td></tr>
+      <tr><td style="padding: 4pt 0;"><strong>SGK Numarası:</strong></td><td style="padding: 4pt 0;">${esc(sgkNo)}</td></tr>
+      <tr><td style="padding: 4pt 0;"><strong>Tehlike Sınıfı:</strong></td><td style="padding: 4pt 0;">${esc(hazardClass)}</td></tr>
+      <tr><td style="padding: 4pt 0;"><strong>Çalışan Sayısı:</strong></td><td style="padding: 4pt 0;">Kadın: ${femaleCount} &nbsp;&nbsp;&nbsp; Erkek: ${maleCount}</td></tr>
+    </table>
+  `;
+  
+  const reportHtml = items().map((item, index) => {
+    return `<p style="margin-bottom: 8pt; font-size: 12pt; text-align: left; text-align-last: left; margin: 0 0 10pt 0;"><strong>${index + 1}.</strong> ${esc(item.title)}</p>`;
+  }).join('');
+
+  const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35}h1{font-size:18pt;color:#1a2b4b}</style></head><body>${headerHtml}${reportHtml}</body></html>`;
+  const blob = new Blob([html], {type: 'application/msword'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `noksanlik-basliklari-${new Date().toISOString().slice(0, 10)}.doc`;
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
