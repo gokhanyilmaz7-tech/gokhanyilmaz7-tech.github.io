@@ -332,15 +332,82 @@ function loadArchiveModal() {
 }
 
 
+function customTitlePrompt(maddeNo, fullText) {
+  return new Promise((resolve) => {
+    const modalId = 'custom-title-prompt-modal';
+    if (document.getElementById(modalId)) document.getElementById(modalId).remove();
+    
+    const escapedText = String(fullText || 'İçerik bulunamadı').replace(/[&<>"']/g, function(m) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
+    });
+
+    const modalHTML = `
+      <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
+        <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.3);">
+          
+          <!-- Header -->
+          <div style="padding: 1.25rem; background: #f8fafc; border-bottom: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 1.25rem; margin: 0; color: #b91c1c; font-weight: bold;">📝 NOKSANLIK BAŞLIĞI EKSİK! (Madde ${maddeNo})</h2>
+            <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; line-height: 1; color: #627d98; cursor: pointer; padding: 0 0.5rem;">&times;</button>
+          </div>
+          
+          <!-- Body / Noksanlık Metni -->
+          <div style="padding: 1.25rem; overflow-y: auto; flex: 1; background: #fff;">
+            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Lütfen aşağıdaki madde için bir başlık giriniz:</p>
+            <div style="padding: 1rem; background: #f1f5f9; border-left: 4px solid #cbd5e1; color: #475f7b; font-size: 0.95rem; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word;">${escapedText}</div>
+          </div>
+          
+          <!-- Footer / Input and Actions -->
+          <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 1rem;">
+            <textarea id="${modalId}-input" rows="3" placeholder="Raporda görünecek başlığı buraya yazın..." style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1rem; color: #334e68; outline: none; resize: vertical; font-family: inherit;"></textarea>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+              <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; color: #627d98; font-weight: 600; cursor: pointer;">Vazgeç</button>
+              <button id="${modalId}-submit" style="padding: 0.75rem 2rem; background: #2e67d2; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; box-shadow: 0 2px 4px rgba(46, 103, 210, 0.2);">Kaydet ve İlerle</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const modalEl = document.getElementById(modalId);
+    const inputEl = document.getElementById(modalId + '-input');
+    const cancelBtn = document.getElementById(modalId + '-cancel');
+    const submitBtn = document.getElementById(modalId + '-submit');
+    const closeBtn = document.getElementById(modalId + '-close');
+
+    setTimeout(() => inputEl.focus(), 50);
+
+    const cleanup = () => modalEl.remove();
+
+    cancelBtn.onclick = () => { cleanup(); resolve(null); };
+    closeBtn.onclick = () => { cleanup(); resolve(null); };
+    submitBtn.onclick = () => {
+      const val = inputEl.value.trim();
+      if (!val) {
+        inputEl.style.borderColor = '#e12d39';
+        alert('Lütfen bir başlık girin veya Vazgeçbutonuna basarak iptal edin.');
+        return;
+      }
+      cleanup();
+      resolve(val);
+    };
+
+    inputEl.addEventListener('focus', () => inputEl.style.borderColor = '#2e67d2');
+    inputEl.addEventListener('blur', () => inputEl.style.borderColor = '#cbd5e1');
+  });
+}
+
 async function ensureTitles() {
   for (let i = 0; i < data.reports.length; i++) {
     const item = data.reports[i];
     if (!item.title || !item.title.trim()) {
-      const preview = item.text ? (item.text.length > 100 ? item.text.substring(0, 100) + '...' : item.text) : 'İçerik Bulunamadı';
-      const promptText = `NOKSANLIK BAŞLIĞI EKSİK! (Madde ${i + 1})\n\nLütfen aşağıdaki madde için bir başlık giriniz:\n\n"${preview}"`;
-      const title = prompt(promptText);
-      if (title === null || !title.trim()) {
-        alert('İşlem iptal edildi. Word aktarımı için tüm başlıklara ihtiyaç var.');
+      const title = await customTitlePrompt(i + 1, item.html || item.text || 'İçerik bulunamadı.');
+      if (title === null) {
+        alert('İşlem iptal edildi.\nWord\'e aktarım yapabilmek için tüm maddelere birer başlık girmeniz gerekmektedir.');
         return false;
       }
       item.title = title.trim();
