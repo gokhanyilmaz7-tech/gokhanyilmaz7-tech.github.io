@@ -187,12 +187,25 @@ function exportWord() {
   
   const headerHtml = `
     <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIK RAPORU</h1>
-    <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt;">
-      <tr><td width="25%" style="padding: 4pt 0;"><strong>İşyeri Ünvanı:</strong></td><td style="padding: 4pt 0;">${esc(companyName)}</td></tr>
-      <tr><td style="padding: 4pt 0;"><strong>SGK Numarası:</strong></td><td style="padding: 4pt 0;">${esc(sgkNo)}</td></tr>
-      <tr><td style="padding: 4pt 0;"><strong>Tehlike Sınıfı:</strong></td><td style="padding: 4pt 0;">${esc(hazardClass)}</td></tr>
-      <tr><td style="padding: 4pt 0;"><strong>Çalışan Sayısı:</strong></td><td style="padding: 4pt 0;">Kadın: ${femaleCount} &nbsp;&nbsp;&nbsp; Erkek: ${maleCount}</td></tr>
+    <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt; border: 1px solid #8ea9db;">
+      <tr>
+        <td width="30%" style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>İşyeri Ünvanı</strong></td>
+        <td style="background-color: #1f4e78; color: white; padding: 6pt; border: 1px solid #8ea9db;"><strong>${esc(companyName)}</strong></td>
+      </tr>
+      <tr>
+        <td style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>SGK Numarası</strong></td>
+        <td style="background-color: #eef6fc; padding: 6pt; border: 1px solid #8ea9db;">${esc(sgkNo)}</td>
+      </tr>
+      <tr>
+        <td style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>Tehlike Sınıfı</strong></td>
+        <td style="background-color: #eef6fc; padding: 6pt; border: 1px solid #8ea9db;">${esc(hazardClass)}</td>
+      </tr>
+      <tr>
+        <td style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>Çalışan Sayısı</strong></td>
+        <td style="background-color: #eef6fc; padding: 6pt; border: 1px solid #8ea9db;">Kadın: ${femaleCount} &nbsp;&nbsp;&nbsp; Erkek: ${maleCount}</td>
+      </tr>
     </table>
+    <p>&nbsp;</p>
   `;
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35}h1{font-size:18pt;color:#1a2b4b}h2{font-size:12pt;color:#1a2b4b;margin-bottom:4pt}.report-number{font-weight:700;display:inline-block;margin-right:6pt}.meta{color:#4285be;font-size:10pt}.reference{color:red}.info{color:#1db500}p{margin:0 0 7pt;text-align:justify;text-align-last:justify}</style></head><body>${headerHtml}${reportHtml}</body></html>`;
   const blob = new Blob([html], {type: 'application/msword'});
@@ -572,12 +585,25 @@ async function exportWordTitles() {
   
   const headerHtml = `
     <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIKLAR</h1>
-    <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt;">
-      <tr><td width="25%" style="padding: 4pt 0;"><strong>İşyeri Ünvanı:</strong></td><td style="padding: 4pt 0;">${esc(companyName)}</td></tr>
-      <tr><td style="padding: 4pt 0;"><strong>SGK Numarası:</strong></td><td style="padding: 4pt 0;">${esc(sgkNo)}</td></tr>
-      <tr><td style="padding: 4pt 0;"><strong>Tehlike Sınıfı:</strong></td><td style="padding: 4pt 0;">${esc(hazardClass)}</td></tr>
-      <tr><td style="padding: 4pt 0;"><strong>Çalışan Sayısı:</strong></td><td style="padding: 4pt 0;">Kadın: ${femaleCount} &nbsp;&nbsp;&nbsp; Erkek: ${maleCount}</td></tr>
+    <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt; border: 1px solid #8ea9db;">
+      <tr>
+        <td width="30%" style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>İşyeri Ünvanı</strong></td>
+        <td style="background-color: #1f4e78; color: white; padding: 6pt; border: 1px solid #8ea9db;"><strong>${esc(companyName)}</strong></td>
+      </tr>
+      <tr>
+        <td style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>SGK Numarası</strong></td>
+        <td style="background-color: #eef6fc; padding: 6pt; border: 1px solid #8ea9db;">${esc(sgkNo)}</td>
+      </tr>
+      <tr>
+        <td style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>Tehlike Sınıfı</strong></td>
+        <td style="background-color: #eef6fc; padding: 6pt; border: 1px solid #8ea9db;">${esc(hazardClass)}</td>
+      </tr>
+      <tr>
+        <td style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>Çalışan Sayısı</strong></td>
+        <td style="background-color: #eef6fc; padding: 6pt; border: 1px solid #8ea9db;">Kadın: ${femaleCount} &nbsp;&nbsp;&nbsp; Erkek: ${maleCount}</td>
+      </tr>
     </table>
+    <p>&nbsp;</p>
   `;
   
   const reportHtml = items().map((item, index) => {
