@@ -87,7 +87,22 @@ function exportWord() {
     return wrapper.innerHTML;
   };
   const reportHtml = items().map((item, index) => `${item.title ? `<h2>${index + 1}. ${esc(item.title)}</h2>` : ''}${wordContent(item, index)}`).join('<hr>');
-  const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35}h1{font-size:20pt;color:#1a2b4b}h2{font-size:12pt;color:#1a2b4b;margin-bottom:4pt}.report-number{font-weight:700;display:inline-block;margin-right:6pt}.meta{color:#4285be;font-size:10pt}.reference{color:red}.info{color:#1db500}p{margin:0 0 7pt;text-align:justify;text-align-last:justify}</style></head><body><h1>Mevzuat Rehberi - Noksanlık Raporu</h1>${reportHtml}</body></html>`;
+  const companyName = document.getElementById('report-company-name').value.trim() || '...................................................';
+  const sgkNo = document.getElementById('report-sgk-no').value.trim() || '................................';
+  const hazardClass = document.getElementById('report-hazard-class').value || '................................';
+  const femaleCount = document.getElementById('report-female-count').value || '......';
+  const maleCount = document.getElementById('report-male-count').value || '......';
+  
+  const headerHtml = `
+    <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIK RAPORU</h1>
+    <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt;">
+      <tr><td width="25%" style="padding: 4pt 0;"><strong>İşyeri Ünvanı:</strong></td><td style="padding: 4pt 0;">${esc(companyName)}</td></tr>
+      <tr><td style="padding: 4pt 0;"><strong>SGK Numarası:</strong></td><td style="padding: 4pt 0;">${esc(sgkNo)}</td></tr>
+      <tr><td style="padding: 4pt 0;"><strong>Tehlike Sınıfı:</strong></td><td style="padding: 4pt 0;">${esc(hazardClass)}</td></tr>
+      <tr><td style="padding: 4pt 0;"><strong>Çalışan Sayısı:</strong></td><td style="padding: 4pt 0;">Kadın: ${femaleCount} &nbsp;&nbsp;&nbsp; Erkek: ${maleCount}</td></tr>
+    </table>
+  `;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35}h1{font-size:18pt;color:#1a2b4b}h2{font-size:12pt;color:#1a2b4b;margin-bottom:4pt}.report-number{font-weight:700;display:inline-block;margin-right:6pt}.meta{color:#4285be;font-size:10pt}.reference{color:red}.info{color:#1db500}p{margin:0 0 7pt;text-align:justify;text-align-last:justify}</style></head><body>${headerHtml}${reportHtml}</body></html>`;
   const blob = new Blob([html], {type: 'application/msword'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');

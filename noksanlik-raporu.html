@@ -6,16 +6,10 @@
     <meta name="theme-color" content="#102a43" />
   <link rel="icon" href="/mevzuat-rehberi-icon.png" type="image/png" />
     <title>Noksanlık Raporu | Mevzuat Rehberi</title>
-    <script type="module" crossorigin src="/assets/report-w4ZHIf8P.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="modulepreload" crossorigin href="/assets/auth-D2Fpd3TS.js">
-    <link rel="modulepreload" crossorigin href="/assets/report-D4okbJGz.js">
-    <link rel="stylesheet" crossorigin href="/assets/auth-CGVxdAY4.css">
-    <link rel="stylesheet" crossorigin href="/assets/report-DfCJ20TY.css">
-    <link rel="stylesheet" crossorigin href="/assets/favorites-page-DOVesDvy.css">
   </head>
   <body>
     <header class="article-topbar"><a class="back-link" href="/">← Mevzuat listesine dön</a><span class="topbar-label">NOKSANLIK RAPORU</span><button id="account-button" class="account-button" type="button">Giriş yap</button><button id="logout-button" class="logout-button" type="button" aria-label="Çıkış yap" title="Çıkış yap" hidden>×</button></header>
-    <main class="favorites-layout report-layout"><section class="favorites-card"><div class="article-heading"><p class="eyebrow report-context">NOKSANLIK RAPORU</p><h1>Noksanlık Raporu</h1></div><div class="favorites-tools"><label class="article-search"><input id="report-search" type="search" placeholder="Raporda ara…" autocomplete="off" /><span id="report-result"></span></label></div><div id="report-stream" class="favorites-stream"></div></section><aside id="report-side-tools" class="favorites-side-tools" aria-label="Rapor araçları"></aside></main>
+    <main class="favorites-layout report-layout"><section class="favorites-card"><div class="article-heading"><p class="eyebrow report-context">NOKSANLIK RAPORU</p><input type="text" id="report-company-name" placeholder="İşyeri Ünvanı Girmek İçin Tıklayın" class="report-company-input" /><div class="report-meta-grid"><input type="text" id="report-sgk-no" placeholder="SGK Numarası" class="report-meta-input" /><select id="report-hazard-class" class="report-meta-input"><option value="" disabled selected>Tehlike Sınıfı Seçin</option><option value="Az Tehlikeli">Az Tehlikeli</option><option value="Tehlikeli">Tehlikeli</option><option value="Çok Tehlikeli">Çok Tehlikeli</option></select><input type="number" id="report-female-count" placeholder="Kadın Çalışan Sayısı" min="0" class="report-meta-input" /><input type="number" id="report-male-count" placeholder="Erkek Çalışan Sayısı" min="0" class="report-meta-input" /></div></div><div class="favorites-tools"><label class="article-search"><input id="report-search" type="search" placeholder="Raporda ara…" autocomplete="off" /><span id="report-result"></span></label></div><div id="report-stream" class="favorites-stream"></div></section><aside id="report-side-tools" class="favorites-side-tools" aria-label="Rapor araçları"></aside></main>
+    <script type="module" src="/src/report-page.js"></script>
   </body>
 </html>
