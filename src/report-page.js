@@ -19,8 +19,8 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
   const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span><strong>${items().length} hüküm</strong></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
-  <div class="side-tools-heading"><span>ARŞİV</span><strong>${archivesCount} kayıt</strong></div>
+  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
   <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
   tools.querySelector('#report-archive-save').onclick = saveArchive;
