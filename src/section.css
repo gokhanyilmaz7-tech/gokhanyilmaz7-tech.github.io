@@ -26,7 +26,7 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 .result-actions button { width: 38px; height: 38px; border: 1px solid #e3dccd; border-radius: 11px; color: var(--navy); background: #fff; cursor: pointer; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
 .result-actions button:hover { border-color: var(--gold); background: #fff8e9; transform: translateY(-2px); }
 .copy-tip { margin: 11px 0 36px; color: #8193a4; font-size: 11px; }
-.article-content { color: #000; font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.5; }
+.article-content { color: #000; font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.5; counter-reset: provision-counter; }
 .article-page { padding-top: 27px; border-top: 1px solid #e9eef2; }
 .article-page + .article-page { margin-top: 38px; }
 .page-marker { margin-bottom: 26px; color: #9aaaba; font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; user-select: none; -webkit-user-select: none; }
@@ -73,6 +73,49 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 .match-page { border-top-color: #d6ad3c; }
 .search-hit { border-radius: 2px; background: #f4c95d !important; box-shadow: 0 0 0 1px rgba(211,153,26,.25); }
 .error { color: #a14444; }
-@media (max-width: 760px) { .article-topbar { height: auto; gap: 10px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start; } .topbar-label { align-self: flex-end; } .article-layout { padding: 18px 10px 45px; } .article-tools { align-items: stretch; flex-direction: column; } .result-actions { justify-content: flex-end; } .article-content { font-size: 16px; overflow-x: auto; } }
+
+.provision-card:not(.annotation-card) {
+    counter-increment: provision-counter;
+}
+.provision-card:not(.annotation-card)::after {
+    content: counter(provision-counter);
+    position: absolute;
+    top: 50%;
+    right: -24px;
+    transform: translateY(-50%);
+    background: #fdfbf7;
+    color: rgba(26,43,75,0.7);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    box-shadow: 0 4px 12px rgba(26,43,75,0.06);
+    border: 1px solid #ebe4d7;
+    z-index: 10;
+    font-family: Inter, sans-serif;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    pointer-events: none;
+}
+.provision-card:not(.annotation-card):hover::after {
+    background: rgba(197,160,89, 0.15);
+    color: #c5a059;
+    border-color: rgba(197,160,89, 0.52);
+    transform: translateY(-50%) scale(1.05);
+}
+@media (max-width: 760px) {
+    .provision-card:not(.annotation-card)::after {
+        right: -8px;
+        top: calc(100% - 15px);
+        box-shadow: 0 2px 6px rgba(26,43,75,0.1);
+        transform: none;
+    }
+    .provision-card:not(.annotation-card):hover::after {
+        transform: scale(1.05);
+    }
+ .article-topbar { height: auto; gap: 10px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start; } .topbar-label { align-self: flex-end; } .article-layout { padding: 18px 10px 45px; } .article-tools { align-items: stretch; flex-direction: column; } .result-actions { justify-content: flex-end; } .article-content { font-size: 16px; overflow-x: auto; } }
 @media (max-width: 860px) and (min-width: 761px) { .article-topbar { flex-wrap: wrap; height: auto; gap: 10px 16px; padding-top: 12px; padding-bottom: 12px; } .article-topbar .back-link { flex: 1 1 45%; } .article-topbar .topbar-label { flex: 1 1 auto; } }
 @media (max-width: 860px) { .article-content { overflow-x: hidden; } .pdf-line { white-space: normal; overflow-wrap: anywhere; } .pdf-line .word { display: inline; white-space: normal; margin-right: 0 !important; } .exact-card { position: relative; height: auto; } .exact-card .provision-content { height: auto; } .exact-card .exact-line { position: static; white-space: normal; overflow-wrap: anywhere; } }
