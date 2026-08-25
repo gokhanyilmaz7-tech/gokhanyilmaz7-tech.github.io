@@ -45,8 +45,9 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   const isChemicalTablePage = page.page >= 391 && page.page <= 400;
   // 12 punto metnin hücrelere rahat oturması için yalnızca Ek-1/Ek-2
   // tablolarının koordinatlarını ve satır aralıklarını büyütüyoruz.
-  const xScale = isChemicalTablePage ? scale * 1.45 : scale;
-  const yScale = isChemicalTablePage ? scale * 1.28 : scale;
+  const xScale = isChemicalTablePage ? scale * 1.25 : scale;
+  const shiftX = isChemicalTablePage ? -50 : 0;
+  const yScale = isChemicalTablePage ? scale * 1.1 : scale;
   const tableColumns = [71.068, 116.515, 167.617, 259.648, 326.629, 359.543, 397.007, 427.101, 464.192, 493.199, 522.512];
   const tableTop = isChemicalTablePage ? Math.min(...(page.lines || []).filter((line) => line.w > 100 && line.h === 0).map((line) => line.y)) : Infinity;
   const alignTableWords = (words, y) => {
@@ -66,6 +67,23 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     }
     return aligned;
   };
+  if (isChemicalTablePage) {
+      page.words.forEach(w => {
+          if (w.y >= tableTop && w.x < 110) {
+              const parent = page.words.find(pw => 
+                  pw.y < w.y && 
+                  w.y - pw.y < 15 && 
+                  Math.abs(pw.x - w.x) < 5 &&
+                  pw.text.endsWith('-')
+              );
+              if (parent) {
+                  w.y = parent.y;
+                  w.x = parent.x + parent.w;
+                  parent.w += w.w;
+              }
+          }
+      });
+  }
   const lines = [];
   page.words.slice().sort((a, b) => a.y - b.y || a.x - b.x).forEach((word) => {
     const line = lines.find((candidate) => Math.abs(candidate.y - word.y) < 2.5);
@@ -136,7 +154,7 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     flushMain();
     const top = Math.max(0, Math.min(...group.lines.map((line) => line.y)) - 10);
     const bottom = Math.max(...group.lines.map((line) => line.y + line.height)) + 10;
-    const exactInner = group.lines.map((line) => `<div class="exact-line" style="left:${line.words[0].x * xScale}px;top:${line.y - top}px">${line.html.replace(/^<div[^>]*>|<\/div>$/g, '')}</div>`).join('');
+    const exactInner = group.lines.map((line) => `<div class="exact-line" style="left:${line.words[0].x * xScale + shiftX}px;top:${line.y - top}px">${line.html.replace(/^<div[^>]*>|<\/div>$/g, '')}</div>`).join('');
     const common = `<button class="favorite-star" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">☆</button><button class="report-plus" data-report-id="${index}" type="button" aria-label="Rapora ekle" title="Rapora ekle">＋</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
     const source = `<div class="copy-html-source">${copyParts.join('')}</div>`;
     const annotationClass = annotationOnly ? ' annotation-card' : '';
@@ -160,7 +178,7 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   const rules = hasFixedLayout ? (page.lines || []).map((line) => {
     const width = line.w > 0 ? line.w * xScale : Math.max(0.7, line.width * xScale);
     const height = line.h > 0 ? line.h * yScale : Math.max(0.7, line.width * yScale);
-    return `<span class="pdf-rule" style="left:${line.x * xScale}px;top:${line.y * yScale}px;width:${width}px;height:${height}px;background:${color(line.color || [0.65, 0.65, 0.65])}"></span>`;
+    return `<span class="pdf-rule" style="left:${line.x * xScale + shiftX}px;top:${line.y * yScale}px;width:${width}px;height:${height}px;background:${color(line.color || [0.65, 0.65, 0.65])}"></span>`;
   }).join('') : '';
   return `<section class="article-page" data-page="${page.page}" data-text="${escapeHtml(page.text)}">
     <div class="page-marker">Sayfa ${page.page} / ${totalPages}</div>
