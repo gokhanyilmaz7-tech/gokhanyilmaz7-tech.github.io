@@ -292,6 +292,7 @@ async function load() {
     ];
   }
   const pages = await Promise.all(sectionPages.map((page) => fetch(`/layout/page-${String(page.page).padStart(3, '0')}.json`).then((result) => result.json())));
+  document.body.style.setProperty("--start-counter", data.startProvision ? data.startProvision - 1 : 0);
   title.textContent = data.title;
   document.title = data.title;
   content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');

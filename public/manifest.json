@@ -8,7 +8,10 @@
       "startPage": 2,
       "endPage": 13,
       "pageCount": 12,
-      "data": "sections/mevzuat-1.json"
+      "data": "sections/mevzuat-1.json",
+      "startProvision": 1,
+      "endProvision": 65,
+      "provisionCount": 65
     },
     {
       "id": "mevzuat-2",
@@ -16,7 +19,10 @@
       "startPage": 14,
       "endPage": 26,
       "pageCount": 13,
-      "data": "sections/mevzuat-2.json"
+      "data": "sections/mevzuat-2.json",
+      "startProvision": 66,
+      "endProvision": 148,
+      "provisionCount": 83
     },
     {
       "id": "mevzuat-3",
@@ -24,7 +30,10 @@
       "startPage": 27,
       "endPage": 58,
       "pageCount": 32,
-      "data": "sections/mevzuat-3.json"
+      "data": "sections/mevzuat-3.json",
+      "startProvision": 149,
+      "endProvision": 296,
+      "provisionCount": 148
     },
     {
       "id": "mevzuat-4",
@@ -32,7 +41,10 @@
       "startPage": 59,
       "endPage": 64,
       "pageCount": 6,
-      "data": "sections/mevzuat-4.json"
+      "data": "sections/mevzuat-4.json",
+      "startProvision": 297,
+      "endProvision": 330,
+      "provisionCount": 34
     },
     {
       "id": "mevzuat-5",
@@ -40,7 +52,10 @@
       "startPage": 65,
       "endPage": 77,
       "pageCount": 13,
-      "data": "sections/mevzuat-5.json"
+      "data": "sections/mevzuat-5.json",
+      "startProvision": 331,
+      "endProvision": 380,
+      "provisionCount": 50
     },
     {
       "id": "mevzuat-6",
@@ -48,7 +63,10 @@
       "startPage": 78,
       "endPage": 151,
       "pageCount": 74,
-      "data": "sections/mevzuat-6.json"
+      "data": "sections/mevzuat-6.json",
+      "startProvision": 381,
+      "endProvision": 770,
+      "provisionCount": 390
     },
     {
       "id": "mevzuat-7",
@@ -56,7 +74,10 @@
       "startPage": 152,
       "endPage": 156,
       "pageCount": 5,
-      "data": "sections/mevzuat-7.json"
+      "data": "sections/mevzuat-7.json",
+      "startProvision": 771,
+      "endProvision": 791,
+      "provisionCount": 21
     },
     {
       "id": "mevzuat-8",
@@ -64,7 +85,10 @@
       "startPage": 157,
       "endPage": 163,
       "pageCount": 7,
-      "data": "sections/mevzuat-8.json"
+      "data": "sections/mevzuat-8.json",
+      "startProvision": 792,
+      "endProvision": 818,
+      "provisionCount": 27
     },
     {
       "id": "mevzuat-9",
@@ -72,7 +96,10 @@
       "startPage": 164,
       "endPage": 171,
       "pageCount": 8,
-      "data": "sections/mevzuat-9.json"
+      "data": "sections/mevzuat-9.json",
+      "startProvision": 819,
+      "endProvision": 857,
+      "provisionCount": 39
     },
     {
       "id": "mevzuat-10",
@@ -80,7 +107,10 @@
       "startPage": 172,
       "endPage": 187,
       "pageCount": 16,
-      "data": "sections/mevzuat-10.json"
+      "data": "sections/mevzuat-10.json",
+      "startProvision": 858,
+      "endProvision": 907,
+      "provisionCount": 50
     },
     {
       "id": "mevzuat-11",
@@ -88,7 +118,10 @@
       "startPage": 188,
       "endPage": 191,
       "pageCount": 4,
-      "data": "sections/mevzuat-11.json"
+      "data": "sections/mevzuat-11.json",
+      "startProvision": 908,
+      "endProvision": 932,
+      "provisionCount": 25
     },
     {
       "id": "mevzuat-12",
@@ -96,7 +129,10 @@
       "startPage": 192,
       "endPage": 198,
       "pageCount": 7,
-      "data": "sections/mevzuat-12.json"
+      "data": "sections/mevzuat-12.json",
+      "startProvision": 933,
+      "endProvision": 961,
+      "provisionCount": 29
     },
     {
       "id": "mevzuat-13",
@@ -104,7 +140,10 @@
       "startPage": 199,
       "endPage": 205,
       "pageCount": 7,
-      "data": "sections/mevzuat-13.json"
+      "data": "sections/mevzuat-13.json",
+      "startProvision": 962,
+      "endProvision": 991,
+      "provisionCount": 30
     },
     {
       "id": "mevzuat-14",
@@ -112,7 +151,10 @@
       "startPage": 206,
       "endPage": 213,
       "pageCount": 8,
-      "data": "sections/mevzuat-14.json"
+      "data": "sections/mevzuat-14.json",
+      "startProvision": 992,
+      "endProvision": 1022,
+      "provisionCount": 31
     },
     {
       "id": "mevzuat-15",
@@ -120,7 +162,10 @@
       "startPage": 214,
       "endPage": 215,
       "pageCount": 2,
-      "data": "sections/mevzuat-15.json"
+      "data": "sections/mevzuat-15.json",
+      "startProvision": 1023,
+      "endProvision": 1032,
+      "provisionCount": 10
     },
     {
       "id": "mevzuat-16",
@@ -128,7 +173,10 @@
       "startPage": 216,
       "endPage": 217,
       "pageCount": 2,
-      "data": "sections/mevzuat-16.json"
+      "data": "sections/mevzuat-16.json",
+      "startProvision": 1033,
+      "endProvision": 1037,
+      "provisionCount": 5
     },
     {
       "id": "mevzuat-17",
@@ -136,7 +184,10 @@
       "startPage": 218,
       "endPage": 218,
       "pageCount": 1,
-      "data": "sections/mevzuat-17.json"
+      "data": "sections/mevzuat-17.json",
+      "startProvision": 1038,
+      "endProvision": 1040,
+      "provisionCount": 3
     },
     {
       "id": "mevzuat-18",
@@ -144,7 +195,10 @@
       "startPage": 219,
       "endPage": 222,
       "pageCount": 4,
-      "data": "sections/mevzuat-18.json"
+      "data": "sections/mevzuat-18.json",
+      "startProvision": 1041,
+      "endProvision": 1055,
+      "provisionCount": 15
     },
     {
       "id": "mevzuat-19",
@@ -152,7 +206,10 @@
       "startPage": 223,
       "endPage": 229,
       "pageCount": 7,
-      "data": "sections/mevzuat-19.json"
+      "data": "sections/mevzuat-19.json",
+      "startProvision": 1056,
+      "endProvision": 1057,
+      "provisionCount": 2
     },
     {
       "id": "mevzuat-20",
@@ -160,7 +217,10 @@
       "startPage": 230,
       "endPage": 242,
       "pageCount": 13,
-      "data": "sections/mevzuat-20.json"
+      "data": "sections/mevzuat-20.json",
+      "startProvision": 1058,
+      "endProvision": 1111,
+      "provisionCount": 54
     },
     {
       "id": "mevzuat-21",
@@ -168,7 +228,10 @@
       "startPage": 243,
       "endPage": 252,
       "pageCount": 10,
-      "data": "sections/mevzuat-21.json"
+      "data": "sections/mevzuat-21.json",
+      "startProvision": 1112,
+      "endProvision": 1158,
+      "provisionCount": 47
     },
     {
       "id": "mevzuat-22",
@@ -176,7 +239,10 @@
       "startPage": 253,
       "endPage": 281,
       "pageCount": 29,
-      "data": "sections/mevzuat-22.json"
+      "data": "sections/mevzuat-22.json",
+      "startProvision": 1159,
+      "endProvision": 1259,
+      "provisionCount": 101
     },
     {
       "id": "mevzuat-23",
@@ -184,7 +250,10 @@
       "startPage": 282,
       "endPage": 300,
       "pageCount": 19,
-      "data": "sections/mevzuat-23.json"
+      "data": "sections/mevzuat-23.json",
+      "startProvision": 1260,
+      "endProvision": 1321,
+      "provisionCount": 62
     },
     {
       "id": "mevzuat-24",
@@ -192,7 +261,10 @@
       "startPage": 301,
       "endPage": 303,
       "pageCount": 3,
-      "data": "sections/mevzuat-24.json"
+      "data": "sections/mevzuat-24.json",
+      "startProvision": 1322,
+      "endProvision": 1332,
+      "provisionCount": 11
     },
     {
       "id": "mevzuat-25",
@@ -200,7 +272,10 @@
       "startPage": 304,
       "endPage": 309,
       "pageCount": 6,
-      "data": "sections/mevzuat-25.json"
+      "data": "sections/mevzuat-25.json",
+      "startProvision": 1333,
+      "endProvision": 1355,
+      "provisionCount": 23
     },
     {
       "id": "mevzuat-26",
@@ -208,7 +283,10 @@
       "startPage": 310,
       "endPage": 319,
       "pageCount": 10,
-      "data": "sections/mevzuat-26.json"
+      "data": "sections/mevzuat-26.json",
+      "startProvision": 1356,
+      "endProvision": 1404,
+      "provisionCount": 49
     },
     {
       "id": "mevzuat-27",
@@ -216,7 +294,10 @@
       "startPage": 320,
       "endPage": 321,
       "pageCount": 2,
-      "data": "sections/mevzuat-27.json"
+      "data": "sections/mevzuat-27.json",
+      "startProvision": 1405,
+      "endProvision": 1410,
+      "provisionCount": 6
     },
     {
       "id": "mevzuat-28",
@@ -224,7 +305,10 @@
       "startPage": 322,
       "endPage": 326,
       "pageCount": 5,
-      "data": "sections/mevzuat-28.json"
+      "data": "sections/mevzuat-28.json",
+      "startProvision": 1411,
+      "endProvision": 1444,
+      "provisionCount": 34
     },
     {
       "id": "mevzuat-29",
@@ -232,7 +316,10 @@
       "startPage": 327,
       "endPage": 329,
       "pageCount": 3,
-      "data": "sections/mevzuat-29.json"
+      "data": "sections/mevzuat-29.json",
+      "startProvision": 1445,
+      "endProvision": 1454,
+      "provisionCount": 10
     },
     {
       "id": "mevzuat-30",
@@ -240,7 +327,10 @@
       "startPage": 330,
       "endPage": 332,
       "pageCount": 3,
-      "data": "sections/mevzuat-30.json"
+      "data": "sections/mevzuat-30.json",
+      "startProvision": 1455,
+      "endProvision": 1463,
+      "provisionCount": 9
     },
     {
       "id": "mevzuat-31",
@@ -248,7 +338,10 @@
       "startPage": 333,
       "endPage": 333,
       "pageCount": 1,
-      "data": "sections/mevzuat-31.json"
+      "data": "sections/mevzuat-31.json",
+      "startProvision": 1464,
+      "endProvision": 1464,
+      "provisionCount": 1
     },
     {
       "id": "mevzuat-32",
@@ -256,7 +349,10 @@
       "startPage": 334,
       "endPage": 360,
       "pageCount": 27,
-      "data": "sections/mevzuat-32.json"
+      "data": "sections/mevzuat-32.json",
+      "startProvision": 1465,
+      "endProvision": 1521,
+      "provisionCount": 57
     },
     {
       "id": "mevzuat-33",
@@ -264,7 +360,10 @@
       "startPage": 361,
       "endPage": 383,
       "pageCount": 23,
-      "data": "sections/mevzuat-33.json"
+      "data": "sections/mevzuat-33.json",
+      "startProvision": 1522,
+      "endProvision": 1667,
+      "provisionCount": 146
     },
     {
       "id": "mevzuat-34",
@@ -272,7 +371,10 @@
       "startPage": 384,
       "endPage": 389,
       "pageCount": 6,
-      "data": "sections/mevzuat-34.json"
+      "data": "sections/mevzuat-34.json",
+      "startProvision": 1668,
+      "endProvision": 1677,
+      "provisionCount": 10
     },
     {
       "id": "mevzuat-35",
@@ -280,7 +382,10 @@
       "startPage": 390,
       "endPage": 400,
       "pageCount": 11,
-      "data": "sections/mevzuat-35.json"
+      "data": "sections/mevzuat-35.json",
+      "startProvision": 1678,
+      "endProvision": 1678,
+      "provisionCount": 1
     }
   ]
 }
