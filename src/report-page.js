@@ -1,3 +1,86 @@
+
+function customManualPrompt() {
+  return new Promise((resolve) => {
+    const modalId = 'custom-manual-prompt-modal';
+    if (document.getElementById(modalId)) document.getElementById(modalId).remove();
+
+    const modalHTML = `
+      <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
+        <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.3);">
+          
+          <div style="padding: 1.25rem; background: #f8fafc; border-bottom: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 1.25rem; margin: 0; color: #b91c1c; font-weight: bold;">✍️ MANUEL NOKSANLIK EKLE</h2>
+            <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; line-height: 1; color: #627d98; cursor: pointer; padding: 0 0.5rem;">&times;</button>
+          </div>
+          
+          <div style="padding: 1.25rem; background: #fff;">
+            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Rapora eklemek istediğiniz noksanlığı aşağıya yazın:</p>
+            <textarea id="${modalId}-input" rows="4" placeholder="Noksanlık buraya yazılacak..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit;"></textarea>
+          </div>
+          
+          <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; color: #627d98; font-weight: 600; cursor: pointer;">Kapat</button>
+            <button id="${modalId}-submit" style="padding: 0.75rem 2rem; background: #2e67d2; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; box-shadow: 0 2px 4px rgba(46, 103, 210, 0.2);">Ekle</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const modalEl = document.getElementById(modalId);
+    const inputEl = document.getElementById(modalId + '-input');
+    const cancelBtn = document.getElementById(modalId + '-cancel');
+    const submitBtn = document.getElementById(modalId + '-submit');
+    const closeBtn = document.getElementById(modalId + '-close');
+
+    setTimeout(() => inputEl.focus(), 50);
+
+    const cleanup = () => modalEl.remove();
+
+    cancelBtn.onclick = () => { cleanup(); resolve(null); };
+    closeBtn.onclick = () => { cleanup(); resolve(null); };
+    submitBtn.onclick = () => {
+      const val = inputEl.value.trim();
+      cleanup();
+      resolve(val || null);
+    };
+  });
+}
+
+async function startAddingManualDeficiencies() {
+  while (true) {
+    const val = await customManualPrompt();
+    if (!val) break; // User clicked "Kapat" or left it empty
+    
+    const newItem = {
+      id: 'manual-' + Date.now() + Math.random(),
+      title: val,
+      text: '',
+      html: '',
+      savedAt: Date.now()
+    };
+    
+    if (!data.reports) data.reports = [];
+    data.reports.push(newItem);
+    await save();
+    render();
+  }
+}
+
+function stripGreenText(htmlStr) {
+  if (!htmlStr) return '';
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = htmlStr;
+  [...wrapper.querySelectorAll('*')].forEach(node => {
+    const style = `${node.getAttribute('style') || ''} ${node.style?.color || ''}`.toLowerCase();
+    if (/color\s*:\s*(#1db500|rgb\(\s*29\s*,\s*181\s*,\s*0\s*\)|green)/i.test(style)) {
+      node.closest('p')?.remove() || node.remove();
+    }
+  });
+  return wrapper.innerHTML;
+}
+
 import './favorites-page.css';
 import './report-page.css';
 import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI} from './auth.js';
@@ -19,7 +102,7 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
   const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998;">📝 Başlıkları Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998; font-size: 0.95rem;">📝 Noksanları Word'e aktar</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel Noksanlık Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
   <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
   <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
@@ -28,6 +111,7 @@ function renderTools() {
   tools.querySelector('#report-sort').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
   tools.querySelector('#report-word').onclick = exportWord;
   tools.querySelector('#report-word-titles').onclick = exportWordTitles;
+  tools.querySelector('#report-add-manual-tool').onclick = startAddingManualDeficiencies;
   tools.querySelector('#report-clear').onclick = async () => { if (!(await requireAccount()) || !items().length || !window.confirm('Rapordaki tüm hükümler çıkarılsın mı?')) return; data.reports = []; await save(); render(); };
 }
 
@@ -59,9 +143,9 @@ function renderStream() {
     const index = data.reports.findIndex((entry) => entry.id === item.id);
     const otherPositions = data.reports.map((entry, position) => reportSourceId(entry) === reportSourceId(item) && entry.id !== item.id ? position + 1 : 0).filter(Boolean);
     const duplicateNote = otherPositions.length ? `<div class="report-duplicate-sequence">(${otherPositions.join(', ')})</div>` : '';
-    return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<h2>${esc(item.title)}</h2>` : ''}<div class="favorite-provision-rich-text">${item.html ? normalizeHtml(item.html) : `<p>${esc(item.text)}</p>`}</div><a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a></div><div class="favorite-card-actions"><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
-  }).join('') : '<div class="favorite-empty"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuat seçmek için tıklayın" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><h2>Raporunuz boş</h2><p>Seçili mevzuat veya favoriler sayfasında mavi artı simgesine tıklayarak hüküm ekleyebilirsiniz.</p></div>';
-  const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = openLegislationModal; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
+    return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<h2>${esc(item.title)}</h2>` : ''}${(item.html || item.text) ? `<div class="favorite-provision-rich-text">` + (item.html ? stripGreenText(normalizeHtml(item.html)) : `<p>${esc(item.text)}</p>`) + `</div>` : ''}${String(item.id).startsWith('manual-') ? '' : `<a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a>`}</div><div class="favorite-card-actions"><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
+  }).join('') : '<div class="favorite-empty"> <div style="display: flex; gap: 4rem; justify-content: center; margin-bottom: 1rem;"> <div style="text-align: center;"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuattan Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #2e67d2;">Mevzuattan Ekle</p></div> <div style="text-align: center;"><button type="button" id="add-manual-deficiency" class="favorite-empty-star" aria-label="Manuel Ekle" title="Manuel Noksanlık Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block; color: #b91c1c;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #b91c1c;">Kendin Yaz</p></div> </div> <h2>Raporunuz boş</h2><p>Yukarıdaki butonları kullanarak rapora noksanlık veya mevzuat maddesi ekleyebilirsiniz.</p></div>';
+  const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = openLegislationModal; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
   stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = prompt('Rapor başlığı:', item?.title || ''); if (title === null || !item) return; item.title = title.trim(); save(); render(); }; });
   stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
@@ -431,7 +515,7 @@ async function exportWordTitles() {
   const maleCount = document.getElementById('report-male-count').value || '......';
   
   const headerHtml = `
-    <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIK BAŞLIKLARI</h1>
+    <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIKLAR</h1>
     <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt;">
       <tr><td width="25%" style="padding: 4pt 0;"><strong>İşyeri Ünvanı:</strong></td><td style="padding: 4pt 0;">${esc(companyName)}</td></tr>
       <tr><td style="padding: 4pt 0;"><strong>SGK Numarası:</strong></td><td style="padding: 4pt 0;">${esc(sgkNo)}</td></tr>
