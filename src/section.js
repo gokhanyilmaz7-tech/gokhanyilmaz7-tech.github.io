@@ -235,7 +235,15 @@ function linkCrossPageAnnotations() {
     annotationCard.querySelector('.copy-provision').title = 'Bu hükmün dayanak ve bilgi notu ile birlikte tamamını kopyala';
     previousCard.querySelector('.copy-provision').title = 'Bu hükmü dayanak ve bilgi notu ile birlikte tamamını kopyala';
   });
+
+  // Hide completely empty pages that resulted from merging
+  document.querySelectorAll('.article-page').forEach(page => {
+      if (page.querySelectorAll('.provision-card').length === 0) {
+          page.style.display = 'none';
+      }
+  });
 }
+
 
 function linkLongProvisions() {
   if (!['mevzuat-28', 'mevzuat-34'].includes(id)) return;
@@ -269,7 +277,15 @@ function linkLongProvisions() {
       if (cardText.includes(endText)) active = false;
     });
   });
+
+  // Hide completely empty pages that resulted from merging
+  document.querySelectorAll('.article-page').forEach(page => {
+      if (page.querySelectorAll('.provision-card').length === 0) {
+          page.style.display = 'none';
+      }
+  });
 }
+
 
 async function load() {
   if (!id) throw new Error('Mevzuat seçilmedi.');
@@ -424,4 +440,12 @@ function mergeSpecificProvisions() {
           card.remove(); 
       }
   });
+
+  // Hide completely empty pages that resulted from merging
+  document.querySelectorAll('.article-page').forEach(page => {
+      if (page.querySelectorAll('.provision-card').length === 0) {
+          page.style.display = 'none';
+      }
+  });
 }
+
