@@ -146,8 +146,8 @@ function renderStream() {
   const listName = selectedList === 'all' ? 'Tüm Favoriler' : data.lists.find((list) => list.id === selectedList)?.name || 'Favorilerim';
   document.querySelector('#favorites-context').textContent = listName;
   const stream = document.querySelector('#favorites-stream');
-  stream.innerHTML = visible.length ? visible.map((item) => { const listItems = selectedList === 'all' ? allItems() : data.lists.find((list) => list.id === selectedList)?.items || []; const index = listItems.findIndex((entry) => entry.id === item.id); const moveButtons = `<div class="favorite-card-reorder" aria-label="Favori hükmü sırala"><button data-move="up" data-item="${item.id}" ${index <= 0 ? 'disabled' : ''} aria-label="Hükmü yukarı taşı" title="Yukarı taşı">↑</button><button data-move="down" data-item="${item.id}" ${index < 0 || index >= listItems.length - 1 ? 'disabled' : ''} aria-label="Hükmü aşağı taşı" title="Aşağı taşı">↓</button></div>`; const reported = reportItems(data).some((entry) => (entry.sourceId || entry.id) === item.id); return `<div class="favorite-provision-shell"><button class="favorite-card-position" data-position="${item.id}" type="button" aria-label="Sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportButton(item, 'report-plus-card', reported)}${reported ? reportRepeatButton(item) : ''}<article class="favorite-provision-card"><div class="favorite-card-main"><div class="favorite-card-meta">${esc(item.sectionTitle)}</div>${item.title ? `<h2>${esc(item.title)}</h2>` : ''}<div class="favorite-provision-rich-text">${item.html ? normalizeFavoriteHtml(item.html) : `<p>${esc(item.text)}</p>`}</div><a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a></div><div class="favorite-card-actions"><button data-edit="${item.id}">Başlığı değiştir</button><button data-remove="${item.id}">Listeden çıkar</button>${moveButtons}</div></article></div>`; }).join('') : '<div class="favorite-empty"><span>☆</span><h2>Henüz favori hüküm yok</h2><p>Seçili mevzuat sayfasında mavi yıldızlara tıklayarak hüküm ekleyebilirsiniz.</p></div>';
-  stream.querySelectorAll('[data-position]').forEach((button) => { button.onclick = () => { const current = button.textContent.trim(); const position = prompt(`Yeni sıra numarası (1-${visible.length}):`, current); if (position === null) return; moveItemTo(button.dataset.position, position); }; });
+  stream.innerHTML = visible.length ? visible.map((item) => { const listItems = selectedList === 'all' ? allItems() : data.lists.find((list) => list.id === selectedList)?.items || []; const index = listItems.findIndex((entry) => entry.id === item.id); const moveButtons = `<div class="favorite-card-reorder" aria-label="Favori hükmü sırala"><button data-move="up" data-item="${item.id}" ${index <= 0 ? 'disabled' : ''} aria-label="Hükmü yukarı taşı" title="Yukarı taşı">↑</button><button data-move="down" data-item="${item.id}" ${index < 0 || index >= listItems.length - 1 ? 'disabled' : ''} aria-label="Hükmü aşağı taşı" title="Aşağı taşı">↓</button></div>`; const reported = reportItems(data).some((entry) => (entry.sourceId || entry.id) === item.id); return `<div class="favorite-provision-shell"><button class="favorite-card-position" data-position="${item.id}" type="button" aria-label="Sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportButton(item, 'report-plus-card', reported)}${reported ? reportRepeatButton(item) : ''}<article class="favorite-provision-card"><div class="favorite-card-main"><div class="favorite-card-meta">${esc(item.sectionTitle)}</div>${item.title ? `<h2>${esc(item.title)}</h2>` : ''}<div class="favorite-provision-rich-text">${item.html ? normalizeFavoriteHtml(item.html) : `<p>${esc(item.text)}</p>`}</div><a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a></div><div class="favorite-card-actions"><button data-edit="${item.id}">Başlığı değiştir</button><button data-remove="${item.id}">Listeden çıkar</button>${moveButtons}</div></article></div>`; }).join('') : '<div class="favorite-empty"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuat seçmek için tıklayın" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">☆</span></button><h2>Henüz favori hüküm yok</h2><p>Seçili mevzuat sayfasında mavi yıldızlara tıklayarak hüküm ekleyebilirsiniz.</p></div>';
+  const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = openLegislationModal; } stream.querySelectorAll('[data-position]').forEach((button) => { button.onclick = () => { const current = button.textContent.trim(); const position = prompt(`Yeni sıra numarası (1-${visible.length}):`, current); if (position === null) return; moveItemTo(button.dataset.position, position); }; });
   stream.querySelectorAll('[data-move]').forEach((button) => { button.onclick = () => moveItem(button.dataset.item, button.dataset.move === 'up' ? -1 : 1); });
   stream.querySelectorAll('[data-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = allItems().find((entry) => entry.id === button.dataset.edit); const title = prompt('Favori başlığı:', item?.title || ''); if (title === null) return; item.title = title.trim(); save(data); renderStream(); }; });
   stream.querySelectorAll('[data-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.lists.forEach((list) => { list.items = list.items.filter((item) => item.id !== button.dataset.remove); }); save(data); render(); }; });
@@ -167,3 +167,79 @@ const remoteFavorites = await hydrateFavorites(KEY);
 if (remoteFavorites) data = remoteFavorites;
 bindFavoriteReportButtons();
 render();
+
+
+
+async function openLegislationModal() {
+  const modalId = 'legislation-selection-modal';
+  if (document.getElementById(modalId)) return;
+  const modalHTML = `
+    <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.4); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(2px);">
+      <div style="background: white; border-radius: 12px; width: 90%; max-width: 500px; height: 75vh; max-height: 600px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.2);">
+        <div style="padding: 1.25rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.25rem; margin: 0; color: #102a43;">Mevzuat Seçin</h2>
+          <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; line-height: 1; color: #627d98; cursor: pointer; padding: 0 0.5rem;">&times;</button>
+        </div>
+        <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+          <input type="text" id="${modalId}-search" placeholder="Mevzuat ara..." style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1rem; color: #334e68; outline: none;" />
+        </div>
+        <div id="${modalId}-list" style="overflow-y: auto; flex: 1; padding: 0.5rem; background: #fff;">
+          <div style="padding: 2rem; text-align: center; color: #627d98;">Mevzuat listesi yükleniyor...</div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  const modalEl = document.getElementById(modalId);
+  const closeBtn = document.getElementById(modalId + '-close');
+  const searchInput = document.getElementById(modalId + '-search');
+  const listContainer = document.getElementById(modalId + '-list');
+
+  const closeModal = () => modalEl.remove();
+  closeBtn.onclick = closeModal;
+  modalEl.onclick = (e) => {
+    if (e.target === modalEl) closeModal();
+  };
+
+  searchInput.addEventListener('focus', (e) => { e.target.style.borderColor = '#2e67d2'; });
+  searchInput.addEventListener('blur', (e) => { e.target.style.borderColor = '#cbd5e1'; });
+
+  try {
+    const response = await fetch('/manifest.json');
+    const data = await response.json();
+    const sections = data.sections;
+
+    const renderList = (filter = '') => {
+      const query = filter.toLocaleLowerCase('tr-TR');
+      const visible = sections.filter(s => s.title.toLocaleLowerCase('tr-TR').includes(query));
+      
+      listContainer.innerHTML = visible.length ? visible.map(section => `
+        <button class="${modalId}-item" data-id="${section.id}" style="display: flex; align-items: center; width: 100%; text-align: left; padding: 1rem; margin-bottom: 0.25rem; border: none; border-radius: 8px; background: white; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: #334e68; transition: background 0.15s; line-height: 1.4;">
+          <span style="font-weight: bold; margin-right: 0.75rem; color: #2e67d2; font-size: 1.25rem;">⚏</span>
+          ${section.title}
+        </button>
+      `).join('') : '<div style="padding: 2rem; text-align: center; color: #829ab1;">Aramanızla eşleşen mevzuat bulunamadı.</div>';
+
+      listContainer.querySelectorAll('.' + modalId + '-item').forEach(btn => {
+        btn.onmouseover = () => btn.style.background = '#f1f5f9';
+        btn.onmouseout = () => btn.style.background = 'white';
+        btn.onclick = () => {
+          window.open('/mevzuat.html?id=' + encodeURIComponent(btn.dataset.id), '_blank');
+          closeModal();
+        };
+      });
+    };
+
+    renderList();
+
+    let typingTimer;
+    searchInput.oninput = (e) => {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => renderList(e.target.value.trim()), 150);
+    };
+
+  } catch (error) {
+    listContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: #d64545;">Mevzuat listesi yüklenemedi.</div>';
+  }
+}
