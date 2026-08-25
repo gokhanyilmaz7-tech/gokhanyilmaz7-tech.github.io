@@ -391,24 +391,61 @@ load().catch((error) => { title.textContent = 'Yüklenemedi'; content.innerHTML 
 
 
 
+
+
+
+
+
+function splitCard(card, markerText) {
+    let content = card.querySelector('.provision-content');
+    if (!content || !content.textContent.includes(markerText)) return false;
+    
+    // Prevent infinite loop if already split
+    if (content.children.length === 0) return false;
+    
+    let clonedCard = card.cloneNode(true);
+    let originalInner = card.querySelector('.provision-content');
+    let clonedInner = clonedCard.querySelector('.provision-content');
+    
+    originalInner.innerHTML = '';
+    clonedInner.innerHTML = '';
+    
+    let found = false;
+    [...content.childNodes].forEach(node => {
+        let text = node.textContent || '';
+        if (text.includes(markerText)) {
+            found = true;
+        }
+        if (found) {
+            clonedInner.appendChild(node.cloneNode(true));
+        } else {
+            originalInner.appendChild(node.cloneNode(true));
+        }
+    });
+
+    if (found && clonedInner.childNodes.length > 0) {
+        card.parentNode.insertBefore(clonedCard, card.nextSibling);
+        return true;
+    }
+    return false;
+}
+
 function mergeSpecificProvisions() {
-  if (id !== 'mevzuat-3') return;
   const cards = [...document.querySelectorAll('.provision-card:not(.annotation-card)')];
-  const mergeRanges = [
-      [260, 262],
-      [268, 272],
-      [274, 279],
-      [281, 285],
-      [286, 289],
-      [290, 292],
-      [293, 296]
-  ];
-  const offset = 148; // mevzuat-3 startProvision is 149. (149 - 1)
   
-  mergeRanges.forEach(([start, end]) => {
-      let startIndex = start - offset - 1; 
-      let endIndex = end - offset - 1;     
-      
+  const rules = {
+      'mevzuat-3': { merges: [ [111, 113], [119, 123], [125, 130], [132, 136], [137, 140], [141, 143], [144, 147] ], splits: [] },
+      'mevzuat-4': { merges: [ [0, 1], [16, 17], [32, 33] ], splits: [] },
+      'mevzuat-5': { merges: [ [0, 1], [19, 26], [33, 35], [36, 38], [39, 41], [43, 44] ], splits: [] },
+      'mevzuat-6': { merges: [ [59, 60], [94, 95], [264, 265], [273, 274], [276, 278], [298, 299], [303, 304], [349, 350], [356, 357], [364, 365], [366, 367], [370, 371], [380, 384], [387, 388] ], splits: ["ç) Sadece", "54– Kazı ve"] },
+      'mevzuat-22': { merges: [ [14, 15], [45, 46] ], splits: ["Endüstriyel işlemler, laboratuvarlar ve hayvan barınakları için özel önlemler"] }
+  };
+
+  const rule = rules[id];
+  if (!rule) return;
+
+  // Process MERGES first so indices are stable!
+  rule.merges.forEach(([startIndex, endIndex]) => {
       let targetCard = cards[startIndex];
       if (!targetCard) return;
       
@@ -441,6 +478,16 @@ function mergeSpecificProvisions() {
       }
   });
 
+  // Process SPLITS by text search!
+  if (rule.splits.length > 0) {
+      let currentCards = [...document.querySelectorAll('.provision-card:not(.annotation-card)')];
+      currentCards.forEach(card => {
+          rule.splits.forEach(marker => {
+              splitCard(card, marker);
+          });
+      });
+  }
+
   // Hide completely empty pages that resulted from merging
   document.querySelectorAll('.article-page').forEach(page => {
       if (page.querySelectorAll('.provision-card').length === 0) {
@@ -448,4 +495,3 @@ function mergeSpecificProvisions() {
       }
   });
 }
-
