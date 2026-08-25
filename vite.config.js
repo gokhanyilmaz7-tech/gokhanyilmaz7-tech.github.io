@@ -13,7 +13,7 @@ export default defineConfig({
         mevzuat: 'mevzuat.html',
         ipc: 'ipc.html',
         favoriler: 'favoriler.html',
-        report: 'report.html',
+        report: 'noksanlik-raporu.html',
         mevzuatBaglantilari: 'mevzuat-baglantilari.html',
         admin: 'admin.html',
       },

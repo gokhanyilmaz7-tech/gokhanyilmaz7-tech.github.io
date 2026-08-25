@@ -367,7 +367,7 @@ export default {
     if (url.pathname === '/api/admin/provisions') return adminProvisions(request, env);
     if (url.pathname === '/api/favorites') return favorites(request, env);
     if (url.pathname === '/api/health') return json({ok: true});
-    if (url.pathname === '/noksanlik-raporu.html') return new Response('Not Found', {status: 404});
+    
     if (url.pathname === '/admin.html' || url.pathname === '/admin' || url.pathname === '/admin/') {
       const user = await currentUser(request, env);
       if (!user?.isAdmin) return new Response('Not Found', {status: 404});
