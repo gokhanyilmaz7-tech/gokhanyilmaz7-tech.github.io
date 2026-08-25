@@ -45,8 +45,8 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   const isChemicalTablePage = page.page >= 391 && page.page <= 400;
   // 12 punto metnin hücrelere rahat oturması için yalnızca Ek-1/Ek-2
   // tablolarının koordinatlarını ve satır aralıklarını büyütüyoruz.
-  const xScale = scale;
-  const yScale = scale;
+  const xScale = isChemicalTablePage ? scale * 1.45 : scale;
+  const yScale = isChemicalTablePage ? scale * 1.28 : scale;
   const tableColumns = [71.068, 116.515, 167.617, 259.648, 326.629, 359.543, 397.007, 427.101, 464.192, 493.199, 522.512];
   const tableTop = isChemicalTablePage ? Math.min(...(page.lines || []).filter((line) => line.w > 100 && line.h === 0).map((line) => line.y)) : Infinity;
   const alignTableWords = (words, y) => {
@@ -78,13 +78,22 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     const topGap = previous ? Math.max(0, line.y - previous.y - Math.max(...previous.words.map((word) => word.size))) * yScale : 0;
     const words = line.words.sort((a, b) => a.x - b.x).map((word, wordIndex) => {
       const next = line.words[wordIndex + 1];
-      const gap = next ? Math.max(0, next.x - word.x - word.w) * xScale : 0;
-      // PDF'deki iki yana yaslı satırların gerçek kelime aralıklarını koru.
-      // Sabit bir üst sınır, özellikle uzun satırlarda PDF'nin sağ kenar hizasını bozuyordu.
-      const readableGap = Math.max(0, gap);
       const displaySize = (isChemicalTablePage && line.y >= tableTop) ? 8 : 12;
-      const style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};margin-right:${readableGap}px`;
-      const separator = next && (next.x - word.x - word.w) > 1.5 ? ' ' : '';
+      const isHeader = isChemicalTablePage && line.y < tableTop;
+      const wordLeft = Math.max(0, (word.x - line.words[0].x) * xScale);
+      
+      const gap = next ? Math.max(0, next.x - word.x - word.w) * xScale : 0;
+      const readableGap = Math.max(0, gap);
+      
+      let style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};`;
+      
+      if (isChemicalTablePage && !isHeader) {
+          style += `position:absolute;left:${wordLeft}px;white-space:nowrap;line-height:1;margin:0;`;
+      } else {
+          style += `margin-right:${readableGap}px;`;
+      }
+
+      const separator = !isChemicalTablePage && next && (next.x - word.x - word.w) > 1.5 ? ' ' : '';
       return `<span class="word" style="${style}">${escapeHtml(word.text)}</span>${separator}`;
     }).join('');
     const colors = line.words.map((word) => word.color || [0, 0, 0]);
