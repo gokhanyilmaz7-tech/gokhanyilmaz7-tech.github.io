@@ -18,7 +18,13 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span><strong>${items().length} hüküm</strong></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'}>Tüm hükümleri çıkar</button>`;
+  const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
+  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span><strong>${items().length} hüküm</strong></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool">▣ Word'e aktar</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  <div class="side-tools-heading"><span>ARŞİV</span><strong>${archivesCount} kayıt</strong></div>
+  <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
+  <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
+  tools.querySelector('#report-archive-save').onclick = saveArchive;
+  tools.querySelector('#report-archive-load').onclick = loadArchiveModal;
   tools.querySelector('#report-sort').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
   tools.querySelector('#report-word').onclick = exportWord;
   tools.querySelector('#report-clear').onclick = async () => { if (!(await requireAccount()) || !items().length || !window.confirm('Rapordaki tüm hükümler çıkarılsın mı?')) return; data.reports = []; await save(); render(); };
@@ -118,6 +124,34 @@ document.querySelector('#report-search').addEventListener('input', () => {
   clearTimeout(reportSearchTimer);
   reportSearchTimer = setTimeout(renderStream, 100);
 });
+
+function saveInputs() {
+  const meta = {
+    company: document.getElementById('report-company-name').value,
+    sgk: document.getElementById('report-sgk-no').value,
+    hazard: document.getElementById('report-hazard-class').value,
+    fCount: document.getElementById('report-female-count').value,
+    mCount: document.getElementById('report-male-count').value
+  };
+  localStorage.setItem('noksanlik-meta', JSON.stringify(meta));
+}
+
+document.querySelectorAll('.report-company-input, .report-meta-input').forEach(el => {
+  el.addEventListener('input', saveInputs);
+  el.addEventListener('change', saveInputs);
+});
+
+try {
+  const meta = JSON.parse(localStorage.getItem('noksanlik-meta'));
+  if (meta) {
+    if(meta.company) document.getElementById('report-company-name').value = meta.company;
+    if(meta.sgk) document.getElementById('report-sgk-no').value = meta.sgk;
+    if(meta.hazard) document.getElementById('report-hazard-class').value = meta.hazard;
+    if(meta.fCount) document.getElementById('report-female-count').value = meta.fCount;
+    if(meta.mCount) document.getElementById('report-male-count').value = meta.mCount;
+  }
+} catch(e) {}
+
 await setupAccountUI();
 const remote = await hydrateFavorites(KEY);
 if (remote) data = remote;
@@ -198,4 +232,100 @@ async function openLegislationModal() {
   } catch (error) {
     listContainer.innerHTML = '<div style="padding: 2rem; text-align: center; color: #d64545;">Mevzuat listesi yüklenemedi.</div>';
   }
+}
+
+
+
+async function saveArchive() {
+  const companyEl = document.getElementById('report-company-name');
+  let company = companyEl.value.trim();
+  if (!company) {
+    company = prompt('Arşivlemek için İşyeri Ünvanı girin:');
+    if (!company) return;
+    companyEl.value = company;
+  }
+  
+  const archiveData = {
+    company,
+    sgk: document.getElementById('report-sgk-no').value.trim(),
+    hazard: document.getElementById('report-hazard-class').value,
+    fCount: document.getElementById('report-female-count').value,
+    mCount: document.getElementById('report-male-count').value,
+    reports: JSON.parse(JSON.stringify(data.reports || [])),
+    date: Date.now()
+  };
+
+  const archives = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]');
+  const existingIndex = archives.findIndex(a => a.company.toLocaleLowerCase('tr-TR') === company.toLocaleLowerCase('tr-TR'));
+  
+  if (existingIndex >= 0) {
+    if (confirm('"' + company + '" için zaten bir arşiv var. Düzenlemeler mevcut arşivin üzerine kaydedilsin mi?')) {
+      archives[existingIndex] = archiveData;
+    } else {
+      return;
+    }
+  } else {
+    archives.push(archiveData);
+  }
+  
+  localStorage.setItem('noksanlik-archives', JSON.stringify(archives));
+  alert('"' + company + '" başarıyla arşivlendi!');
+  renderTools();
+}
+
+function loadArchiveModal() {
+  const archives = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]');
+  if (!archives.length) return alert('Arşivinizde kayıt bulunmuyor.');
+  
+  const modalId = 'archive-selection-modal';
+  if (document.getElementById(modalId)) return;
+  
+  const modalHTML = `
+    <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.4); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(2px);">
+      <div style="background: white; border-radius: 12px; width: 90%; max-width: 500px; height: 75vh; max-height: 600px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.2);">
+        <div style="padding: 1.25rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.25rem; margin: 0; color: #102a43;">Arşivi Yükle</h2>
+          <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; line-height: 1; color: #627d98; cursor: pointer; padding: 0 0.5rem;">&times;</button>
+        </div>
+        <div id="${modalId}-list" style="overflow-y: auto; flex: 1; padding: 0.5rem; background: #f8fafc;">
+          ${archives.map((a, i) => `
+            <div class="${modalId}-item" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; margin-bottom: 0.5rem; border-radius: 8px; background: white; border: 1px solid #e2e8f0;">
+              <div style="flex:1; cursor:pointer;" onclick="selectArchive(${i})">
+                <div style="font-weight: bold; color: #2e67d2; font-size: 1.1rem; margin-bottom: 4px;">${esc(a.company)}</div>
+                <div style="font-size: 0.85rem; color: #627d98;">${new Date(a.date).toLocaleDateString('tr-TR')} - ${a.reports.length} hüküm</div>
+              </div>
+              <button onclick="deleteArchive(${i})" style="background:none; border:none; color: #e12d39; cursor:pointer; padding: 0.5rem; font-size: 1.2rem;" title="Arşivi Sil">🗑️</button>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  const modalEl = document.getElementById(modalId);
+  window.selectArchive = async (index) => {
+    if (!confirm('Ekranda görünen mevcut noksanlık raporu silinecek ve seçili arşiv yüklenecek. Devam etmek istiyor musunuz?')) return;
+    const a = JSON.parse(localStorage.getItem('noksanlik-archives'))[index];
+    document.getElementById('report-company-name').value = a.company || '';
+    document.getElementById('report-sgk-no').value = a.sgk || '';
+    document.getElementById('report-hazard-class').value = a.hazard || '';
+    document.getElementById('report-female-count').value = a.fCount || '';
+    document.getElementById('report-male-count').value = a.mCount || '';
+    data.reports = a.reports; saveInputs();
+    await save();
+    render();
+    modalEl.remove();
+  };
+  window.deleteArchive = (index) => {
+    if (!confirm('Bu arşivi kalıcı olarak silmek istiyor musunuz?')) return;
+    const archs = JSON.parse(localStorage.getItem('noksanlik-archives'));
+    archs.splice(index, 1);
+    localStorage.setItem('noksanlik-archives', JSON.stringify(archs));
+    modalEl.remove();
+    loadArchiveModal(); // re-render modal
+  };
+
+  document.getElementById(modalId + '-close').onclick = () => modalEl.remove();
+  modalEl.onclick = (e) => { if (e.target === modalEl) modalEl.remove(); };
 }
