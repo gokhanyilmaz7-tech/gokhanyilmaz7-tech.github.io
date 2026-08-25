@@ -45,8 +45,8 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   const isChemicalTablePage = page.page >= 391 && page.page <= 400;
   // 12 punto metnin hücrelere rahat oturması için yalnızca Ek-1/Ek-2
   // tablolarının koordinatlarını ve satır aralıklarını büyütüyoruz.
-  const xScale = isChemicalTablePage ? scale * 1.45 : scale;
-  const yScale = isChemicalTablePage ? scale * 1.28 : scale;
+  const xScale = scale;
+  const yScale = scale;
   const tableColumns = [71.068, 116.515, 167.617, 259.648, 326.629, 359.543, 397.007, 427.101, 464.192, 493.199, 522.512];
   const tableTop = isChemicalTablePage ? Math.min(...(page.lines || []).filter((line) => line.w > 100 && line.h === 0).map((line) => line.y)) : Infinity;
   const alignTableWords = (words, y) => {
@@ -82,7 +82,7 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
       // PDF'deki iki yana yaslı satırların gerçek kelime aralıklarını koru.
       // Sabit bir üst sınır, özellikle uzun satırlarda PDF'nin sağ kenar hizasını bozuyordu.
       const readableGap = Math.max(0, gap);
-      const displaySize = 12;
+      const displaySize = (isChemicalTablePage && line.y >= tableTop) ? 8 : 12;
       const style = `font-size:${displaySize}pt;font-family:'Times New Roman',Times,serif;font-weight:${word.bold ? 700 : 400};font-style:${word.italic ? 'italic' : 'normal'};color:${color(word.color || [0, 0, 0])};margin-right:${readableGap}px`;
       const separator = next && (next.x - word.x - word.w) > 1.5 ? ' ' : '';
       return `<span class="word" style="${style}">${escapeHtml(word.text)}</span>${separator}`;
@@ -155,7 +155,7 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
   }).join('') : '';
   return `<section class="article-page" data-page="${page.page}" data-text="${escapeHtml(page.text)}">
     <div class="page-marker">Sayfa ${page.page} / ${totalPages}</div>
-    <div class="layout-page ${hasFixedLayout ? 'exact-page' : ''} ${isChemicalTablePage ? 'chemical-table-page' : ''}" ${isChemicalTablePage ? 'style="min-height:1350px"' : ''} aria-label="Mevzuat sayfası ${page.page}"><div class="word-layer">${rules}${blocks}${figures}</div><div class="page-footer" aria-hidden="true">Sayfa ${page.page} / ${totalPages}</div></div>
+    <div class="layout-page ${hasFixedLayout ? 'exact-page' : ''} ${isChemicalTablePage ? 'chemical-table-page' : ''}"  aria-label="Mevzuat sayfası ${page.page}"><div class="word-layer">${rules}${blocks}${figures}</div><div class="page-footer" aria-hidden="true">Sayfa ${page.page} / ${totalPages}</div></div>
   </section>`;
 }
 
