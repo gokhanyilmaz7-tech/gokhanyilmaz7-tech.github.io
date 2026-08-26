@@ -35,7 +35,7 @@ function customManualPrompt() {
     const closeBtn = document.getElementById(modalId + '-close');
 
     setTimeout(() => {
-      inputEl.value = '• ';
+      inputEl.value = '1. ';
       inputEl.focus();
       inputEl.selectionStart = inputEl.selectionEnd = inputEl.value.length;
     }, 50);
@@ -46,7 +46,26 @@ function customManualPrompt() {
         const start = inputEl.selectionStart;
         const end = inputEl.selectionEnd;
         const val = inputEl.value;
-        const bullet = '\n• ';
+        
+        const linesBefore = val.substring(0, start).split('\n');
+        const lastLine = linesBefore[linesBefore.length - 1];
+        
+        const match = lastLine.match(/^(\d+)\./);
+        let nextNumber = linesBefore.length + 1;
+        if (match) {
+          nextNumber = parseInt(match[1], 10) + 1;
+        } else {
+          // Find the last actual number used
+          for (let i = linesBefore.length - 1; i >= 0; i--) {
+            const m = linesBefore[i].match(/^(\d+)\./);
+            if (m) {
+              nextNumber = parseInt(m[1], 10) + 1 + (linesBefore.length - 1 - i);
+              break;
+            }
+          }
+        }
+        
+        const bullet = '\n' + nextNumber + '. ';
         inputEl.value = val.substring(0, start) + bullet + val.substring(end);
         inputEl.selectionStart = inputEl.selectionEnd = start + bullet.length;
       }
@@ -71,7 +90,7 @@ async function startAddingManualDeficiencies() {
   const lines = val.split('\n');
   let added = false;
   for (let line of lines) {
-    line = line.replace(/^[•\-\*\s]+/, '').trim();
+    line = line.replace(/^([•\-\*]|\d+\.)\s*/, '').trim();
     if (!line) continue;
     
     const newItem = {
