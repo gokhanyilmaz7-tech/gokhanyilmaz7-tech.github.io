@@ -64,7 +64,7 @@ export async function toggleReport(item) {
           await saveWorkspace(data);
           localStorage.removeItem('pending-legislation-injection'); // done
           
-          alert("Hüküm seçildi, rapora bağlandı! Noksanlık raporuna geri dönebilirsiniz.");
+          alert("Hüküm seçildi, rapora bağlandı! Tespitlerna geri dönebilirsiniz.");
           try { window.close(); } catch(e){}
           return true;
       }

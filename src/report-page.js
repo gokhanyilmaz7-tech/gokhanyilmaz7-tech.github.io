@@ -9,13 +9,13 @@ function customManualPrompt() {
         <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.3);">
           
           <div style="padding: 1.25rem; background: #f8fafc; border-bottom: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 1.25rem; margin: 0; color: #b91c1c; font-weight: bold;">✍️ MANUEL NOKSANLIK EKLE</h2>
+            <h2 style="font-size: 1.25rem; margin: 0; color: #b91c1c; font-weight: bold;">✍️ MANUEL TESPİT EKLE</h2>
             <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; line-height: 1; color: #627d98; cursor: pointer; padding: 0 0.5rem;">&times;</button>
           </div>
           
           <div style="padding: 1.25rem; background: #fff;">
-            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Rapora eklemek istediğiniz noksanlığı aşağıya yazın:</p>
-            <textarea id="${modalId}-input" rows="4" placeholder="Noksanlık buraya yazılacak..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit;"></textarea>
+            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Rapora eklemek istediğiniz tespitı aşağıya yazın:</p>
+            <textarea id="${modalId}-input" rows="4" placeholder="tespit buraya yazılacak..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit;"></textarea>
           </div>
           
           <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
@@ -102,7 +102,7 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
   const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998; font-size: 0.95rem;">📝 Noksanları Word'e aktar</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel Noksanlık Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998; font-size: 0.95rem;">📝 Tespitleri Word'e aktar</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel tespit Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
   <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
   <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
@@ -144,7 +144,7 @@ function renderStream() {
     const otherPositions = data.reports.map((entry, position) => reportSourceId(entry) === reportSourceId(item) && entry.id !== item.id ? position + 1 : 0).filter(Boolean);
     const duplicateNote = otherPositions.length ? `<div class="report-duplicate-sequence">(${otherPositions.join(', ')})</div>` : '';
     return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<h2>${esc(item.title)}</h2>` : ''}${(item.html || item.text) ? `<div class="favorite-provision-rich-text">` + (item.html ? stripGreenText(normalizeHtml(item.html)) : `<p>${esc(item.text)}</p>`) + `</div>` : ''}${String(item.id).startsWith('manual-') ? '' : `<a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a>`}</div><div class="favorite-card-actions"><button data-report-open-legislation="${esc(item.id)}" style="color:#2e67d2; font-weight:600;">Mevzuat ekle</button><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
-  }).join('') : '<div class="favorite-empty"> <div style="display: flex; gap: 4rem; justify-content: center; margin-bottom: 1rem;"> <div style="text-align: center;"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuattan Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #2e67d2;">Mevzuattan Ekle</p></div> <div style="text-align: center;"><button type="button" id="add-manual-deficiency" class="favorite-empty-star" aria-label="Manuel Ekle" title="Manuel Noksanlık Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block; color: #b91c1c;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #b91c1c;">Kendin Yaz</p></div> </div> <h2>Raporunuz boş</h2><p>Yukarıdaki butonları kullanarak rapora noksanlık veya mevzuat maddesi ekleyebilirsiniz.</p></div>';
+  }).join('') : '<div class="favorite-empty"> <div style="display: flex; gap: 4rem; justify-content: center; margin-bottom: 1rem;"> <div style="text-align: center;"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuattan Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #2e67d2;">Mevzuattan Ekle</p></div> <div style="text-align: center;"><button type="button" id="add-manual-deficiency" class="favorite-empty-star" aria-label="Manuel Ekle" title="Manuel tespit Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block; color: #b91c1c;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #b91c1c;">Kendin Yaz</p></div> </div> <h2>Raporunuz boş</h2><p>Yukarıdaki butonları kullanarak rapora tespit veya mevzuat maddesi ekleyebilirsiniz.</p></div>';
   const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = () => { localStorage.removeItem('pending-legislation-injection'); openLegislationModal(); }; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
   stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = await customEditTitlePrompt(item?.title || '', item?.html || item?.text || ''); if (title === null || !item) return; item.title = title.trim(); await save(); render(); }; });
@@ -188,7 +188,7 @@ function exportWord() {
   const headerHtml = `
 
     
-    <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIK RAPORU</h1>
+    <h1 style="text-align: center; margin-bottom: 24pt;">TESPİTLER</h1>
     <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt; border: 1px solid #8ea9db;">
       <tr>
         <td width="30%" style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>İşyeri Ünvanı</strong></td>
@@ -439,7 +439,7 @@ function loadArchiveModal() {
 
   const modalEl = document.getElementById(modalId);
   window.selectArchive = async (index) => {
-    if (!confirm('Ekranda görünen mevcut noksanlık raporu silinecek ve seçili arşiv yüklenecek. Devam etmek istiyor musunuz?')) return;
+    if (!confirm('Ekranda görünen mevcut tespit raporu silinecek ve seçili arşiv yüklenecek. Devam etmek istiyor musunuz?')) return;
     const a = JSON.parse(localStorage.getItem('noksanlik-archives'))[index];
     document.getElementById('report-company-name').value = a.company || '';
     document.getElementById('report-sgk-no').value = a.sgk || '';
@@ -621,7 +621,7 @@ async function exportWordTitles() {
   const headerHtml = `
 
     
-    <h1 style="text-align: center; margin-bottom: 24pt;">NOKSANLIKLAR</h1>
+    <h1 style="text-align: center; margin-bottom: 24pt;">TESPİTLAR</h1>
     <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt; border: 1px solid #8ea9db;">
       <tr>
         <td width="30%" style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>İşyeri Ünvanı</strong></td>
@@ -685,7 +685,7 @@ ${headerHtml}${reportHtml}
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `noksanlik-basliklari-${new Date().toISOString().slice(0, 10)}.doc`;
+  link.download = `tespit-basliklari-${new Date().toISOString().slice(0, 10)}.doc`;
   document.body.append(link); link.click(); link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
