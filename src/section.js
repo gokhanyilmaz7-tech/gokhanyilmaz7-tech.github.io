@@ -181,8 +181,8 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     return `<span class="pdf-rule" style="left:${line.x * xScale + shiftX}px;top:${line.y * yScale}px;width:${width}px;height:${height}px;background:${color(line.color || [0.65, 0.65, 0.65])}"></span>`;
   }).join('') : '';
   return `<section class="article-page" data-page="${page.page}" data-text="${escapeHtml(page.text)}">
-    <div class="page-marker">Sayfa ${page.page} / ${totalPages}</div>
-    <div class="layout-page ${hasFixedLayout ? 'exact-page' : ''} ${isChemicalTablePage ? 'chemical-table-page' : ''}"  aria-label="Mevzuat sayfası ${page.page}"><div class="word-layer">${rules}${blocks}${figures}</div><div class="page-footer" aria-hidden="true">Sayfa ${page.page} / ${totalPages}</div></div>
+    
+    <div class="layout-page ${hasFixedLayout ? 'exact-page' : ''} ${isChemicalTablePage ? 'chemical-table-page' : ''}"  aria-label="Mevzuat sayfası ${page.page}"><div class="word-layer">${rules}${blocks}${figures}</div></div>
   </section>`;
 }
 
