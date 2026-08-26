@@ -14,8 +14,8 @@ function customManualPrompt() {
           </div>
           
           <div style="padding: 1.25rem; background: #fff;">
-            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Rapora eklemek istediğiniz tespitı aşağıya yazın:</p>
-            <textarea id="${modalId}-input" rows="4" placeholder="tespit buraya yazılacak..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit;"></textarea>
+            <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Rapora eklemek istediğiniz tespitleri aşağıya yazın (alt alta sıralayın):</p>
+            <textarea id="${modalId}-input" rows="8" placeholder="Tespitlerinizi yazarken Enter tuşuna basarak yeni maddeye geçebilirsiniz..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit; line-height: 1.5;"></textarea>
           </div>
           
           <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
@@ -34,7 +34,23 @@ function customManualPrompt() {
     const submitBtn = document.getElementById(modalId + '-submit');
     const closeBtn = document.getElementById(modalId + '-close');
 
-    setTimeout(() => inputEl.focus(), 50);
+    setTimeout(() => {
+      inputEl.value = '• ';
+      inputEl.focus();
+      inputEl.selectionStart = inputEl.selectionEnd = inputEl.value.length;
+    }, 50);
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const start = inputEl.selectionStart;
+        const end = inputEl.selectionEnd;
+        const val = inputEl.value;
+        const bullet = '\n• ';
+        inputEl.value = val.substring(0, start) + bullet + val.substring(end);
+        inputEl.selectionStart = inputEl.selectionEnd = start + bullet.length;
+      }
+    });
 
     const cleanup = () => modalEl.remove();
 
@@ -49,13 +65,18 @@ function customManualPrompt() {
 }
 
 async function startAddingManualDeficiencies() {
-  while (true) {
-    const val = await customManualPrompt();
-    if (!val) break; // User clicked "Kapat" or left it empty
+  const val = await customManualPrompt();
+  if (!val) return; 
+  
+  const lines = val.split('\n');
+  let added = false;
+  for (let line of lines) {
+    line = line.replace(/^[•\-\*\s]+/, '').trim();
+    if (!line) continue;
     
     const newItem = {
       id: 'manual-' + Date.now() + Math.random(),
-      title: val,
+      title: line,
       text: '',
       html: '',
       savedAt: Date.now()
@@ -63,6 +84,10 @@ async function startAddingManualDeficiencies() {
     
     if (!data.reports) data.reports = [];
     data.reports.push(newItem);
+    added = true;
+  }
+  
+  if (added) {
     await save();
     render();
   }
