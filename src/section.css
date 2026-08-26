@@ -78,44 +78,36 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
     counter-increment: provision-counter;
 }
 .provision-card:not(.annotation-card)::after {
-    content: counter(provision-counter);
+    content: "Hüküm " counter(provision-counter);
     position: absolute;
-    top: 50%;
-    right: -24px;
-    transform: translateY(-50%);
-    background: #fdfbf7;
-    color: rgba(26,43,75,0.7);
-    font-weight: 700;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    box-shadow: 0 4px 12px rgba(26,43,75,0.06);
-    border: 1px solid #ebe4d7;
-    z-index: 10;
+    top: -22px;
+    left: 0;
+    color: #2679d0;
+    font-weight: bold;
+    font-size: 13px;
     font-family: Inter, sans-serif;
-    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
     pointer-events: none;
+    white-space: nowrap;
 }
 .provision-card:not(.annotation-card):hover::after {
-    background: rgba(197,160,89, 0.15);
-    color: #c5a059;
-    border-color: rgba(197,160,89, 0.52);
-    transform: translateY(-50%) scale(1.05);
+    color: #0d65bd;
 }
 @media (max-width: 760px) {
     .provision-card:not(.annotation-card)::after {
-        right: -8px;
-        top: calc(100% - 15px);
-        box-shadow: 0 2px 6px rgba(26,43,75,0.1);
-        transform: none;
-    }
+    content: "Hüküm " counter(provision-counter);
+    position: absolute;
+    top: -22px;
+    left: 0;
+    color: #2679d0;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: Inter, sans-serif;
+    pointer-events: none;
+    white-space: nowrap;
+}
     .provision-card:not(.annotation-card):hover::after {
-        transform: scale(1.05);
-    }
+    color: #0d65bd;
+}
  .article-topbar { height: auto; gap: 10px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start; } .topbar-label { align-self: flex-end; } .article-layout { padding: 18px 10px 45px; } .article-tools { align-items: stretch; flex-direction: column; } .result-actions { justify-content: flex-end; } .article-content { font-size: 16px; overflow-x: auto; } }
 @media (max-width: 860px) and (min-width: 761px) { .article-topbar { flex-wrap: wrap; height: auto; gap: 10px 16px; padding-top: 12px; padding-bottom: 12px; } .article-topbar .back-link { flex: 1 1 45%; } .article-topbar .topbar-label { flex: 1 1 auto; } }
 @media (max-width: 860px) { .article-content { overflow-x: hidden; } .pdf-line { white-space: normal; overflow-wrap: anywhere; } .pdf-line .word { display: inline; white-space: normal; margin-right: 0 !important; } .exact-card { position: relative; height: auto; } .exact-card .provision-content { height: auto; } .exact-card .exact-line { position: static; white-space: normal; overflow-wrap: anywhere; } }
