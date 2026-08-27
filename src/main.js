@@ -74,6 +74,9 @@ function visualFor(section) {
 }
 
 function renderSections(filter = '') {
+  document.querySelector('.content').style.display = 'none';
+  document.querySelector('#section-list').style.display = 'grid';
+  document.querySelector('#global-search').value = '';
   const needle = normalize(filter);
   const visible = state.sections.filter((section) => normalize(section.title).includes(needle));
   $('#section-list').innerHTML = visible.length ? visible.map((section) => `
@@ -108,10 +111,23 @@ let loadedLegislations = null;
 
 async function executeGlobalSearch(query) {
   const contentArea = document.querySelector('.content');
+  const sectionList = document.querySelector('#section-list');
   if (!query || query.length < 3) {
-    contentArea.innerHTML = `<div class="welcome"><div class="welcome-icon">§</div><p class="eyebrow">DAYANAKLAR (GENEL)</p><h2>Bir mevzuat seçin veya Hüküm Arayın</h2><p>Hüküm ara kutusuna en az 3 harf girerek tüm rehber içerisinde spesifik bir kelime veya cümle arayabilirsiniz.</p></div>`;
+    contentArea.style.display = 'none';
+    sectionList.style.display = 'grid';
     return;
   }
+  
+  if (!loadedLegislations || loadedLegislations.length === 0) {
+    if (state.sections.length === 0) {
+       // Data not loaded yet, wait.
+       return;
+    }
+  }
+
+  sectionList.style.display = 'none';
+  document.querySelector('#section-filter').value = '';
+  contentArea.style.display = 'block';
   
   contentArea.innerHTML = `<div class="welcome" style="margin-top: 50px;"><div class="spinner" style="font-size: 2rem; animation: spin 1s linear infinite;">⏳</div><p>Tüm mevzuatlar taranıyor...</p></div>
   <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>`;
