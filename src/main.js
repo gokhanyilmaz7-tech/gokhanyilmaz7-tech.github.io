@@ -29,7 +29,7 @@ app.innerHTML = `
         <div style="flex-shrink: 0; position: sticky; top: 120px; display: flex; flex-direction: column; gap: 20px;">
           <div id="live-calendar" class="live-calendar"></div>
           <div style="text-align: center; padding: 5px; margin-top: 5px;">
-            <img src="/ataturk-icon.jpg" alt="Atatürk" style="width: 100%; max-width: 150px; mix-blend-mode: multiply;" />
+            <img src="/ataturk-icon.jpg" alt="Atatürk" style="width: 100%; max-width: 150px; mix-blend-mode: multiply; filter: contrast(1.1) brightness(1.05);" />
           </div>
         </div>
         
