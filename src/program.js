@@ -157,21 +157,32 @@ function renderCalendar() {
   }
   
   for(let day=1; day<=daysInMonth; day++) {
+    const isWeekend = new Date(currentYear, currentMonth, day).getDay() === 0 || new Date(currentYear, currentMonth, day).getDay() === 6;
     const d = document.createElement('div');
     d.className = 'mc-day';
     if(isThisMonth && day === today.getDate()) d.classList.add('today');
+    if(isWeekend) d.classList.add('weekend');
     
     // Build date string YYYY-MM-DD
     const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
     
     let evHtml = '';
-    const dayEvs = schedule[dateStr] || [];
+    let dayEvs = schedule[dateStr];
+    let isWeekendCleared = schedule[dateStr] && schedule[dateStr].some(e => e.action === 'clear-weekend');
+    if (!dayEvs) dayEvs = [];
+    if (isWeekend && !isWeekendCleared && dayEvs.length === 0) {
+      dayEvs = [{ id: 'virtual-we', text: 'Hafta Sonu', isVirtual: true }];
+    }
+    
+    // Filter out the placeholder used for clearing
+    dayEvs = dayEvs.filter(e => e.action !== 'clear-weekend');
     dayEvs.forEach(ev => {
       if(ev.taskId) {
         const t = tasks.find(x => x.id === ev.taskId);
         if(t) evHtml += `<div class="event-badge">${t.unvan} <button class="del-ev" onclick="event.stopPropagation(); window.delEvent('${dateStr}','${ev.id}')">×</button></div>`;
       } else {
-        evHtml += `<div class="event-badge manual">${ev.text} <button class="del-ev" onclick="event.stopPropagation(); window.delEvent('${dateStr}','${ev.id}')">×</button></div>`;
+        const bdgClass = ev.isVirtual ? 'event-badge weekend-tag' : 'event-badge manual';
+        evHtml += `<div class="${bdgClass}">${ev.text} <button class="del-ev" onclick="event.stopPropagation(); window.delEvent('${dateStr}','${ev.id}')">×</button></div>`;
       }
     });
     
@@ -229,6 +240,14 @@ function saveAssign() {
 
 window.delEvent = function(dateStr, evId) {
   if(!confirm("Bu girişi silmek istediğinize emin misiniz?")) return;
+  if (evId === 'virtual-we') {
+    if(!schedule[dateStr]) schedule[dateStr] = [];
+    schedule[dateStr].push({ id: 'we_' + Date.now(), action: 'clear-weekend' });
+    saveData();
+    renderCalendar();
+    return;
+  }
+  
   if(schedule[dateStr]) {
     schedule[dateStr] = schedule[dateStr].filter(e => e.id !== evId);
     if(schedule[dateStr].length === 0) delete schedule[dateStr];

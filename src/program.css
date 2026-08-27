@@ -269,3 +269,19 @@
 .tasks-sidebar {
   width: 360px; /* Make it a bit wider to have space for the form */
 }
+
+.mc-day.weekend {
+  background: #fdf5f5; /* Light reddish/orange tint for weekend */
+}
+.mc-day.weekend .mc-date {
+  color: #c53030;
+}
+.event-badge.weekend-tag {
+  background: #ffe3e3;
+  color: #c53030;
+  border-left-color: #fca5a5;
+}
+
+.mc-day.weekend:hover {
+  background: #fce8e8;
+}
