@@ -23,9 +23,7 @@ async function init() {
   document.getElementById('btn-prev-month').addEventListener('click', () => changeMonth(-1));
   document.getElementById('btn-next-month').addEventListener('click', () => changeMonth(1));
   
-  document.getElementById('open-task-modal').addEventListener('click', () => document.getElementById('task-modal').classList.remove('hidden'));
-  document.getElementById('close-task-modal').addEventListener('click', () => document.getElementById('task-modal').classList.add('hidden'));
-  document.getElementById('save-task-btn').addEventListener('click', saveTask);
+      document.getElementById('save-task-btn').addEventListener('click', saveTask);
   
   document.getElementById('close-assign-modal').addEventListener('click', closeAssignModal);
   document.getElementById('save-assign-btn').addEventListener('click', saveAssign);
@@ -68,8 +66,7 @@ function saveTask() {
   document.getElementById('t-sgk').value = '';
   document.getElementById('t-dosya').value = '';
   document.getElementById('t-adres').value = '';
-  document.getElementById('task-modal').classList.add('hidden');
-  
+    
   renderTasks();
 }
 

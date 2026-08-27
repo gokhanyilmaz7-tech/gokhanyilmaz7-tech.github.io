@@ -242,3 +242,30 @@
 .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid #e1e8ed; padding-bottom: 0;}
 .tab { background: none; border: none; color: #627d98; font-weight: 700; cursor: pointer; padding: 10px 16px; border-radius: 6px 6px 0 0; margin-bottom: -2px;}
 .tab.active { color: #102a43; border-bottom: 2px solid #102a43; }
+
+.inline-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.inline-task-form label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #486581;
+}
+.inline-task-form input, .inline-task-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d9e2ec;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+.inline-task-form textarea {
+  resize: vertical;
+  min-height: 50px;
+}
+.tasks-sidebar {
+  width: 360px; /* Make it a bit wider to have space for the form */
+}

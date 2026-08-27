@@ -20,14 +20,40 @@
   </div>
 
   <main class="program-layout">
+    
     <aside class="tasks-sidebar">
       <div class="sidebar-header">
         <h2>Görevler Aracı</h2>
-        <p>Firmalarınızı ve görevlerinizi buraya ekleyin.</p>
+        <p>Firmalarınızı ve görevlerinizi oluşturun.</p>
+      </div>
+
+      <div class="inline-task-form" id="inline-task-form">
+        <label>İşyeri Ünvanı</label>
+        <input type="text" id="t-unvan" placeholder="Örn: ABC A.Ş." />
+        
+        <label>Otomasyon Numarası</label>
+        <input type="text" id="t-otomasyon" />
+        
+        <label>SGK Numarası</label>
+        <input type="text" id="t-sgk" />
+        
+        <label>Dosya Numarası</label>
+        <input type="text" id="t-dosya" />
+        
+        <label>İşyeri Adresi</label>
+        <textarea id="t-adres"></textarea>
+        
+        <button class="btn primary" id="save-task-btn" style="width: 100%; margin-top: 10px;">GÖREV LİSTESİNE EKLE</button>
+      </div>
+      
+      <hr style="border: 0; height: 1px; background: #e1e8ed; margin: 20px 0;">
+
+      <div class="sidebar-header">
+        <h3>Kayıtlı Görevler</h3>
       </div>
       <div id="task-list" class="task-list"></div>
-      <button class="btn primary add-task-btn" id="open-task-modal">YENİ GÖREV EKLE</button>
     </aside>
+
 
     <div class="calendar-main">
       <header class="cal-main-header">
@@ -57,35 +83,7 @@
     </div>
   </main>
 
-  <div id="task-modal" class="modal-overlay hidden">
-    <div class="modal">
-      <h3>Yeni Görev Tanımla</h3>
-      <div class="form-group">
-        <label>İşyeri Ünvanı</label>
-        <input type="text" id="t-unvan" placeholder="Örn: ABC A.Ş." />
-      </div>
-      <div class="form-group">
-        <label>Otomasyon Numarası</label>
-        <input type="text" id="t-otomasyon" />
-      </div>
-      <div class="form-group">
-        <label>SGK Numarası</label>
-        <input type="text" id="t-sgk" />
-      </div>
-      <div class="form-group">
-        <label>Dosya Numarası</label>
-        <input type="text" id="t-dosya" />
-      </div>
-      <div class="form-group">
-        <label>İşyeri Adresi</label>
-        <textarea id="t-adres"></textarea>
-      </div>
-      <div class="modal-actions">
-        <button class="btn secondary" id="close-task-modal">İPTAL</button>
-        <button class="btn primary" id="save-task-btn">KAYDET</button>
-      </div>
-    </div>
-  </div>
+  
 
   <div id="assign-modal" class="modal-overlay hidden">
     <div class="modal">
