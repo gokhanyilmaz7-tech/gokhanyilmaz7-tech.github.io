@@ -22,7 +22,7 @@
 }
 .report-meta-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: 2fr 1.5fr 1fr 1fr; /* SGK is large, Male/Female is small */
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -43,4 +43,23 @@
   .report-meta-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.input-prefix-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.input-prefix-wrapper::before {
+  content: attr(data-prefix);
+  position: absolute;
+  left: 8px;
+  color: #627d98;
+  font-weight: 700;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+.input-prefix-wrapper input {
+  padding-left: 28px !important;
 }
