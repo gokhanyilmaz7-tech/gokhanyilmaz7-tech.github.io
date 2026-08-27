@@ -24,7 +24,10 @@ app.innerHTML = `
     <section class="content">
       <div class="welcome"><div class="welcome-icon">§</div><p class="eyebrow">DAYANAKLAR (GENEL)</p><h2>Bir mevzuat seçin</h2><p>Soldaki listeden bir kanun veya yönetmelik seçin. İçerik, okunabilir ve kolay kopyalanabilir ayrı bir sekmede açılır.</p></div>
     </section>
-  </main>`;
+  </main>
+  <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn">
+    <span style="font-size: 1.2rem;">💬</span> Yöneticiye Mesaj
+  </a>`;
 
 const state = {sections: []};
 const $ = (selector) => document.querySelector(selector);
