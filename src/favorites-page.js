@@ -162,9 +162,12 @@ document.querySelector('#favorites-search').addEventListener('input', () => {
   clearTimeout(favoritesSearchTimer);
   favoritesSearchTimer = setTimeout(renderStream, 100);
 });
-await setupAccountUI();
-const remoteFavorites = await hydrateFavorites(KEY);
-if (remoteFavorites) data = remoteFavorites;
+const user = await setupAccountUI();
+if (!user) { data.lists = []; }
+else {
+  const remoteFavorites = await hydrateFavorites(KEY);
+  if (remoteFavorites) data = remoteFavorites;
+}
 bindFavoriteReportButtons();
 render();
 
