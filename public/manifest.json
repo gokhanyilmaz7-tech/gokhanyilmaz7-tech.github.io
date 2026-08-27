@@ -4,7 +4,7 @@
   "sections": [
     {
       "id": "mevzuat-1",
-      "title": "6331 SAYILI İŞ SAĞLIĞI VE GÜVENLİĞİ KANUNU",
+      "title": "6331 Sayılı İş Sağlığı Ve Güvenliği Kanunu",
       "startPage": 2,
       "endPage": 13,
       "pageCount": 12,
@@ -15,7 +15,7 @@
     },
     {
       "id": "mevzuat-2",
-      "title": "İŞYERİ BİNA VE EKLENTİLERİNDE ALINACAK SAĞLIK VE GÜVENLİK ÖNLEMLERİNE İLİŞKİN YÖNETMELİK",
+      "title": "İşyeri Bina Ve Eklentilerinde Alınacak Sağlık Ve Güvenlik Önlemlerine İlişkin Yönetmelik",
       "startPage": 14,
       "endPage": 26,
       "pageCount": 13,
@@ -26,7 +26,7 @@
     },
     {
       "id": "mevzuat-3",
-      "title": "İŞ EKİPMANLARININ KULLANIMINDA SAĞLIK VE GÜVENLİK ŞARTLARI YÖNETMELİĞİ",
+      "title": "İş Ekipmanlarının Kullanımında Sağlık Ve Güvenlik Şartları Yönetmeliği",
       "startPage": 27,
       "endPage": 58,
       "pageCount": 32,
@@ -37,7 +37,7 @@
     },
     {
       "id": "mevzuat-4",
-      "title": "ÇALIŞANLARIN PATLAYICI ORTAMLARIN TEHLİKELERİNDEN KORUNMASI HAKKINDA YÖNETMELİK",
+      "title": "Çalışanların Patlayıcı Ortamların Tehlikelerinden Korunması Hakkında Yönetmelik",
       "startPage": 59,
       "endPage": 64,
       "pageCount": 6,
@@ -48,7 +48,7 @@
     },
     {
       "id": "mevzuat-5",
-      "title": "KİMYASAL MADDELERLE ÇALIŞMALARDA SAĞLIK VE GÜVENLİK ÖNLEMLERİ HAKKINDA YÖNETMELİK",
+      "title": "Kimyasal Maddelerle Çalışmalarda Sağlık Ve Güvenlik Önlemleri Hakkında Yönetmelik",
       "startPage": 65,
       "endPage": 77,
       "pageCount": 13,
@@ -59,7 +59,7 @@
     },
     {
       "id": "mevzuat-6",
-      "title": "YAPI İŞLERİNDE İŞ SAĞLIĞI VE GÜVENLİĞİ YÖNETMELİĞİ",
+      "title": "Yapı İşlerinde İş Sağlığı Ve Güvenliği Yönetmeliği",
       "startPage": 78,
       "endPage": 151,
       "pageCount": 74,
@@ -70,7 +70,7 @@
     },
     {
       "id": "mevzuat-7",
-      "title": "KİŞİSEL KORUYUCU DONANIMLARIN İŞYERLERİNDE KULLANILMASI HAKKINDA YÖNETMELİK",
+      "title": "Kişisel Koruyucu Donanımların İşyerlerinde Kullanılması Hakkında Yönetmelik",
       "startPage": 152,
       "endPage": 156,
       "pageCount": 5,
@@ -81,7 +81,7 @@
     },
     {
       "id": "mevzuat-8",
-      "title": "İŞ SAĞLIĞI VE GÜVENLİĞİ RİSK DEĞERLENDİRMESİ YÖNETMELİĞİ",
+      "title": "İş Sağlığı Ve Güvenliği Risk Değerlendirmesi Yönetmeliği",
       "startPage": 157,
       "endPage": 163,
       "pageCount": 7,
@@ -92,7 +92,7 @@
     },
     {
       "id": "mevzuat-9",
-      "title": "İŞYERLERİNDE ACİL DURUMLAR HAKKINDA YÖNETMELİK",
+      "title": "İşyerlerinde Acil Durumlar Hakkında Yönetmelik",
       "startPage": 164,
       "endPage": 171,
       "pageCount": 8,
@@ -103,7 +103,7 @@
     },
     {
       "id": "mevzuat-10",
-      "title": "SAĞLIK VE GÜVENLİK İŞARETLERİ YÖNETMELİĞİ",
+      "title": "Sağlık Ve Güvenlik İşaretleri Yönetmeliği",
       "startPage": 172,
       "endPage": 187,
       "pageCount": 16,
@@ -114,7 +114,7 @@
     },
     {
       "id": "mevzuat-11",
-      "title": "İŞ SAĞLIĞI VE GÜVENLİĞİ HİZMETLERİ YÖNETMELİĞİ",
+      "title": "İş Sağlığı Ve Güvenliği Hizmetleri Yönetmeliği",
       "startPage": 188,
       "endPage": 191,
       "pageCount": 4,
@@ -125,7 +125,7 @@
     },
     {
       "id": "mevzuat-12",
-      "title": "ÇALIŞANLARIN GÜRÜLTÜ İLE İLGİLİ RİSKLERDEN KORUNMALARINA DAİR YÖNETMELİK",
+      "title": "Çalışanların Gürültü İle İlgili Risklerden Korunmalarına Dair Yönetmelik",
       "startPage": 192,
       "endPage": 198,
       "pageCount": 7,
@@ -136,7 +136,7 @@
     },
     {
       "id": "mevzuat-13",
-      "title": "ÇALIŞANLARIN TİTREŞİMLE İLGİLİ RİSKLERDEN KORUNMALARINA DAİR YÖNETMELİK",
+      "title": "Çalışanların Titreşimle İlgili Risklerden Korunmalarına Dair Yönetmelik",
       "startPage": 199,
       "endPage": 205,
       "pageCount": 7,
@@ -147,7 +147,7 @@
     },
     {
       "id": "mevzuat-14",
-      "title": "TOZLA MÜCADELE YÖNETMELİĞİ",
+      "title": "Tozla Mücadele Yönetmeliği",
       "startPage": 206,
       "endPage": 213,
       "pageCount": 8,
@@ -158,7 +158,7 @@
     },
     {
       "id": "mevzuat-15",
-      "title": "İŞYERİ HEKİMİ VE DİĞER SAĞLIK PERSONELİNİN GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK",
+      "title": "İşyeri Hekimi Ve Diğer Sağlık Personelinin Görev, Yetki, Sorumluluk Ve Eğitimleri Hakkında Yönetmelik",
       "startPage": 214,
       "endPage": 215,
       "pageCount": 2,
@@ -169,7 +169,7 @@
     },
     {
       "id": "mevzuat-16",
-      "title": "İŞ GÜVENLİĞİ UZMANLARININ GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK",
+      "title": "İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk Ve Eğitimleri Hakkında Yönetmelik",
       "startPage": 216,
       "endPage": 217,
       "pageCount": 2,
@@ -180,7 +180,7 @@
     },
     {
       "id": "mevzuat-17",
-      "title": "İŞYERLERİNDE İŞVEREN VEYA İŞVEREN VEKİLİ TARAFINDAN YÜRÜTÜLECEK İŞ SAĞLIĞI VE GÜVENLİĞİ HİZMETLERİNE İLİŞKİN YÖNETMELİK",
+      "title": "İşyerlerinde İşveren Veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı Ve Güvenliği Hizmetlerine İlişkin Yönetmelik",
       "startPage": 218,
       "endPage": 218,
       "pageCount": 1,
@@ -191,7 +191,7 @@
     },
     {
       "id": "mevzuat-18",
-      "title": "İŞ SAĞLIĞI VE GÜVENLİĞİ KURULLARI HAKKINDA YÖNETMELİK",
+      "title": "İş Sağlığı Ve Güvenliği Kurulları Hakkında Yönetmelik",
       "startPage": 219,
       "endPage": 222,
       "pageCount": 4,
@@ -202,7 +202,7 @@
     },
     {
       "id": "mevzuat-19",
-      "title": "TEHLİKELİ VE ÇOK TEHLİKELİ SINIFTA YER ALAN İŞLERDE ÇALIŞTIRILACAKLARIN MESLEKİ EĞİTİMLERİNE DAİR YÖNETMELİK",
+      "title": "Tehlikeli Ve Çok Tehlikeli Sınıfta Yer Alan İşlerde Çalıştırılacakların Mesleki Eğitimlerine Dair Yönetmelik",
       "startPage": 223,
       "endPage": 229,
       "pageCount": 7,
@@ -213,7 +213,7 @@
     },
     {
       "id": "mevzuat-20",
-      "title": "ÇALIŞANLARIN İŞ SAĞLIĞI VE GÜVENLİĞİ EĞİTİMLERİNİN USUL VE ESASLARI HAKKINDA YÖNETMELİK",
+      "title": "Çalışanların İş Sağlığı Ve Güvenliği Eğitimlerinin Usul Ve Esasları Hakkında Yönetmelik",
       "startPage": 230,
       "endPage": 242,
       "pageCount": 13,
@@ -224,7 +224,7 @@
     },
     {
       "id": "mevzuat-21",
-      "title": "KANSEROJEN VEYA MUTAJEN MADDELERLE ÇALIŞMALARDA SAĞLIK VE GÜVENLİK ÖNLEMLERİ HAKKINDA YÖNETMELİK",
+      "title": "Kanserojen Veya Mutajen Maddelerle Çalışmalarda Sağlık Ve Güvenlik Önlemleri Hakkında Yönetmelik",
       "startPage": 243,
       "endPage": 252,
       "pageCount": 10,
@@ -235,7 +235,7 @@
     },
     {
       "id": "mevzuat-22",
-      "title": "BİYOLOJİK ETKENLERE MARUZİYET RİSKLERİNİN ÖNLENMESİ HAKKINDA YÖNETMELİK",
+      "title": "Biyolojik Etkenlere Maruziyet Risklerinin Önlenmesi Hakkında Yönetmelik",
       "startPage": 253,
       "endPage": 281,
       "pageCount": 29,
@@ -246,7 +246,7 @@
     },
     {
       "id": "mevzuat-23",
-      "title": "GEBE VEYA EMZİREN KADINLARIN ÇALIŞTIRILMA ŞARTLARIYLA EMZİRME ODALARI VE ÇOCUK BAKIM YURTLARINA DAİR YÖNETMELİK",
+      "title": "Gebe Veya Emziren Kadınların Çalıştırılma Şartlarıyla Emzirme Odaları Ve Çocuk Bakım Yurtlarına Dair Yönetmelik",
       "startPage": 282,
       "endPage": 300,
       "pageCount": 19,
@@ -257,7 +257,7 @@
     },
     {
       "id": "mevzuat-24",
-      "title": "ELLE TAŞIMA İŞLERİ YÖNETMELİĞİ",
+      "title": "Elle Taşıma İşleri Yönetmeliği",
       "startPage": 301,
       "endPage": 303,
       "pageCount": 3,
@@ -268,7 +268,7 @@
     },
     {
       "id": "mevzuat-25",
-      "title": "EKRANLI ARAÇLARLA ÇALIŞMALARDA SAĞLIK VE GÜVENLİK ÖNLEMLERİ HAKKINDA YÖNETMELİK",
+      "title": "Ekranlı Araçlarla Çalışmalarda Sağlık Ve Güvenlik Önlemleri Hakkında Yönetmelik",
       "startPage": 304,
       "endPage": 309,
       "pageCount": 6,
@@ -279,7 +279,7 @@
     },
     {
       "id": "mevzuat-26",
-      "title": "ASBESTLE ÇALIŞMALARDA SAĞLIK VE GÜVENLİK ÖNLEMLERİ HAKKINDA YÖNETMELİK",
+      "title": "Asbestle Çalışmalarda Sağlık Ve Güvenlik Önlemleri Hakkında Yönetmelik",
       "startPage": 310,
       "endPage": 319,
       "pageCount": 10,
@@ -290,7 +290,7 @@
     },
     {
       "id": "mevzuat-27",
-      "title": "İŞ HİJYENİ ÖLÇÜM, TEST VE ANALİZLERİ HAKKINDA YÖNETMELİK",
+      "title": "İş Hijyeni Ölçüm, Test Ve Analizleri Hakkında Yönetmelik",
       "startPage": 320,
       "endPage": 321,
       "pageCount": 2,
@@ -301,7 +301,7 @@
     },
     {
       "id": "mevzuat-28",
-      "title": "SAĞLIK KURALLARI BAKIMINDAN GÜNDE AZAMİ YEDİ BUÇUK SAAT veya DAHA AZ ÇALIŞILMASI GEREKEN İŞLER HAKKINDA YÖNETMELİK",
+      "title": "Sağlık Kuralları Bakımından Günde Azami Yedi Buçuk Saat Veya Daha Az Çalışılması Gereken İşler Hakkında Yönetmelik",
       "startPage": 322,
       "endPage": 326,
       "pageCount": 5,
@@ -312,7 +312,7 @@
     },
     {
       "id": "mevzuat-29",
-      "title": "KADIN ÇALIŞANLARIN GECE POSTALARINDA ÇALIŞTIRILMA KOŞULLARI HAKKINDA YÖNETMELİK",
+      "title": "Kadın Çalışanların Gece Postalarında Çalıştırılma Koşulları Hakkında Yönetmelik",
       "startPage": 327,
       "endPage": 329,
       "pageCount": 3,
@@ -323,7 +323,7 @@
     },
     {
       "id": "mevzuat-30",
-      "title": "GEÇİCİ VEYA BELİRLİ SÜRELİ İŞLERDE İŞ SAĞLIĞI ve GÜVENLİĞİ HAKKINDA YÖNETMELİK",
+      "title": "Geçici Veya Belirli Süreli İşlerde İş Sağlığı Ve Güvenliği Hakkında Yönetmelik",
       "startPage": 330,
       "endPage": 332,
       "pageCount": 3,
@@ -334,7 +334,7 @@
     },
     {
       "id": "mevzuat-31",
-      "title": "İŞYERLERİNDE İŞİN DURDURULMASINA DAİR YÖNETMELİK",
+      "title": "İşyerlerinde İşin Durdurulmasına Dair Yönetmelik",
       "startPage": 333,
       "endPage": 333,
       "pageCount": 1,
@@ -345,7 +345,7 @@
     },
     {
       "id": "mevzuat-32",
-      "title": "BÜYÜK ENDÜSTRİYEL KAZALARIN ÖNLENMESİ VE ETKİLERİNİN AZALTILMASI HAKKINDA YÖNETMELİK",
+      "title": "Büyük Endüstriyel Kazaların Önlenmesi Ve Etkilerinin Azaltılması Hakkında Yönetmelik",
       "startPage": 334,
       "endPage": 360,
       "pageCount": 27,
@@ -356,7 +356,7 @@
     },
     {
       "id": "mevzuat-33",
-      "title": "BALIKÇI GEMİLERİNDE YAPILAN ÇALIŞMALARDA SAĞLIK VE GÜVENLİK ÖNLEMLERİ HAKKINDA YÖNETMELİK",
+      "title": "Balıkçı Gemilerinde Yapılan Çalışmalarda Sağlık Ve Güvenlik Önlemleri Hakkında Yönetmelik",
       "startPage": 361,
       "endPage": 383,
       "pageCount": 23,
@@ -367,7 +367,7 @@
     },
     {
       "id": "mevzuat-34",
-      "title": "4857 Sayılı İŞ KANUNU",
+      "title": "4857 Sayılı İş Kanunu",
       "startPage": 384,
       "endPage": 389,
       "pageCount": 6,
@@ -378,7 +378,7 @@
     },
     {
       "id": "mevzuat-35",
-      "title": "6735 Sayılı ULUSLARARASI İŞGÜCÜ KANUNU",
+      "title": "6735 Sayılı Uluslararası İşgücü Kanunu",
       "startPage": 390,
       "endPage": 400,
       "pageCount": 11,
