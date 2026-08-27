@@ -1,5 +1,5 @@
 import './styles.css';
-import {setupAccountUI} from './auth.js';
+import {setupAccountUI, currentUser} from './auth.js';
 
 // Ana sayfanın sekmesini geri dönüşte yeniden bulabilmek için adlandırıyoruz.
 window.name = 'mevzuat-home';
@@ -23,6 +23,7 @@ app.innerHTML = `
           <button id="ipc-open" class="ipc-open favorites-home-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button>
           <button id="external-legislation-open" class="ipc-open favorites-home-open" type="button" title="Mevzuat bağlantıları sayfasını aç">↗ Mevzuat bağlantıları</button>
           <button id="calc-open" class="ipc-open favorites-home-open" type="button" title="İSG Süre Hesaplama sayfasını aç">⏱️ Süre Hesaplama</button>
+          <button id="program-open" class="ipc-open favorites-home-open" type="button" title="Görev Programı sayfasını aç" style="display: none;">📅 Program</button>
         </div>
       </div></div>
       <div class="calendar-layout-wrapper" style="display: flex; gap: 30px; align-items: flex-start;">
@@ -134,6 +135,7 @@ $('#favorites-open').addEventListener('click', () => window.open('/favoriler.htm
 $('#report-open').addEventListener('click', () => window.open('/tespitler.html', '_blank'));
 $('#external-legislation-open').addEventListener('click', () => window.open('/mevzuat-baglantilari.html', '_blank'));
 $('#calc-open').addEventListener('click', () => window.open('/isg-hesaplama.html', '_blank'));
+$('#program-open').addEventListener('click', () => window.open('/program.html', '_blank'));
 loadManifest().catch((error) => { $('#section-list').innerHTML = `<p class="error-state">${error.message}</p>`; });
 
 let globalSearchTimer;
@@ -374,3 +376,5 @@ setInterval(() => {
         renderCalendar(currentCalDate);
     }
 }, 10000);
+
+currentUser().then(u => { if(u) document.getElementById('program-open').style.display=''; });

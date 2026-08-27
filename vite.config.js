@@ -17,6 +17,7 @@ export default defineConfig({
         mevzuatBaglantilari: 'mevzuat-baglantilari.html',
         admin: 'admin.html',
         hesaplama: 'isg-hesaplama.html',
+        program: 'program.html',
       },
     },
   },

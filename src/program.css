@@ -1,0 +1,244 @@
+/* Program Page Layout */
+.program-page {
+  background: #f6f8fb;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.program-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - 72px); /* minus topbar */
+}
+
+/* Tasks Sidebar */
+.tasks-sidebar {
+  width: 320px;
+  background: #fff;
+  border-right: 1px solid #e1e8ed;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+}
+
+.sidebar-header h2 {
+  margin: 0 0 5px 0;
+  font-family: inherit;
+  font-size: 1.25rem;
+  color: #102a43;
+}
+
+.sidebar-header p {
+  margin: 0 0 20px 0;
+  font-size: 0.85rem;
+  color: #627d98;
+}
+
+.task-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.task-card {
+  background: #f9fbfc;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.task-card:hover { border-color: #bcccdc; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+.task-card h4 { margin: 0 0 4px 0; font-size: 0.95rem; color: #102a43; }
+.task-card p { margin: 0; font-size: 0.8rem; color: #486581; line-height: 1.4; }
+.task-card .task-del {
+  position: absolute; top: 8px; right: 8px; display: inline-flex;
+  align-items: center; justify-content: center; width: 24px; height: 24px;
+  border-radius: 4px; border: none; background: #ffe3e3; color: #d62d2d;
+  cursor: pointer; opacity: 0; transition: opacity 0.2s;
+}
+.task-card:hover .task-del { opacity: 1; }
+
+.add-task-btn { width: 100%; justify-content: center; }
+
+/* Calendar Main Area */
+.calendar-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 40px;
+  overflow-y: auto;
+}
+
+.cal-main-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 20px;
+}
+
+.main-month-display h1 {
+  font-family: inherit;
+  font-size: 5rem;
+  font-weight: 800;
+  color: #ff5722;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.main-month-display h2 {
+  font-family: inherit;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #102a43;
+  margin: 10px 0 0 0;
+}
+
+.mini-cals {
+  display: flex;
+  gap: 30px;
+  flex: 1;
+}
+
+.mini-cal-wrapper {
+  width: 200px;
+}
+
+.mini-cal-title {
+  background: #f0f3f6;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #102a43;
+  border-radius: 4px 4px 0 0;
+  display: block;
+}
+
+.mini-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #102a43;
+  margin-top: 4px;
+}
+.mini-cal-grid .m-day-header { color: #bcccdc; font-weight: 700; padding: 4px 0; }
+.mini-cal-grid .m-day { padding: 3px 0; font-weight: 500;}
+.mini-cal-grid .m-day-other { color: #f6f8fb; } /* Match bg to hide them */
+
+.cal-nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Main Calendar Grid */
+.main-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(130px, auto);
+  gap: 1px;
+  background: #dbe4eb;
+  border: 1px solid #dbe4eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mc-header {
+  background: #eef2f5;
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+  color: #486581;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #dbe4eb;
+}
+
+.mc-day {
+  background: #fff;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s;
+  min-height: 120px;
+}
+
+.mc-day:hover { background: #f8fafc; cursor: pointer; }
+.mc-day.other-month { background: #fcfdfe; }
+.mc-day.other-month .mc-date { color: #bcccdc; }
+.mc-day.today .mc-date { background: #ff5722; color: #fff; border-radius: 50%; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; }
+
+.mc-date {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  align-self: flex-start;
+  color: #102a43;
+}
+
+.mc-events {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.event-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.75rem;
+  padding: 6px 8px;
+  border-radius: 4px;
+  line-height: 1.3;
+  word-break: break-word;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-left: 3px solid #38bdf8;
+  font-weight: 500;
+}
+.event-badge.manual { background: #ffedd5; color: #9a3412; border-left-color: #fb923c;}
+.event-badge button.del-ev { background: none; border: none; color: inherit; opacity: 0.3; cursor: pointer; padding: 0 0 0 6px; font-size: 1rem; margin-left: 4px;}
+.event-badge:hover button.del-ev { opacity: 1; color: #dc2626;}
+
+/* Modals */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(16,42,67,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.modal-overlay.hidden { display: none; }
+
+.modal {
+  background: #fff; border-radius: 12px; padding: 24px; width: 100%; max-width: 480px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.modal h3 { margin: 0 0 20px 0; font-size: 1.25rem; color: #102a43; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 700; color: #486581; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 10px; border: 1px solid #d9e2ec; border-radius: 6px; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+.modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid #e1e8ed; padding-bottom: 0;}
+.tab { background: none; border: none; color: #627d98; font-weight: 700; cursor: pointer; padding: 10px 16px; border-radius: 6px 6px 0 0; margin-bottom: -2px;}
+.tab.active { color: #102a43; border-bottom: 2px solid #102a43; }

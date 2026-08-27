@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İSG Görev ve Program | İSG Mevzuat Rehberi</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="stylesheet" href="/src/program.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+</head>
+<body class="program-page">
+  <div class="topbar">
+    <div class="topbar-logo" role="button" onclick="window.location.href='/'" tabindex="0">İSG Mevzuat Rehberi <span class="badge">Program</span></div>
+    <div class="topbar-right">
+      <button class="topbar-btn secondary" id="home-open" onclick="window.location.href='/'">Ana Sayfaya Dön</button>
+    </div>
+  </div>
+
+  <main class="program-layout">
+    <aside class="tasks-sidebar">
+      <div class="sidebar-header">
+        <h2>Görevler Aracı</h2>
+        <p>Firmalarınızı ve görevlerinizi buraya ekleyin.</p>
+      </div>
+      <div id="task-list" class="task-list"></div>
+      <button class="btn primary add-task-btn" id="open-task-modal">YENİ GÖREV EKLE</button>
+    </aside>
+
+    <div class="calendar-main">
+      <header class="cal-main-header">
+        <div class="main-month-display">
+          <h1 id="current-month-name">Ocak</h1>
+          <h2 id="current-year-name">2026</h2>
+        </div>
+        
+        <div class="mini-cals">
+          <div class="mini-cal-wrapper" id="prev-month-cal">
+             <!-- Rendered by JS -->
+          </div>
+          <div class="mini-cal-wrapper" id="next-month-cal">
+             <!-- Rendered by JS -->
+          </div>
+        </div>
+        
+        <div class="cal-nav-buttons">
+          <button id="btn-prev-month" class="btn secondary">Önceki Ay</button>
+          <button id="btn-next-month" class="btn secondary">Sonraki Ay</button>
+        </div>
+      </header>
+      
+      <div class="main-calendar-grid" id="main-calendar-grid">
+         <!-- Rendered by JS -->
+      </div>
+    </div>
+  </main>
+
+  <div id="task-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>Yeni Görev Tanımla</h3>
+      <div class="form-group">
+        <label>İşyeri Ünvanı</label>
+        <input type="text" id="t-unvan" placeholder="Örn: ABC A.Ş." />
+      </div>
+      <div class="form-group">
+        <label>Otomasyon Numarası</label>
+        <input type="text" id="t-otomasyon" />
+      </div>
+      <div class="form-group">
+        <label>SGK Numarası</label>
+        <input type="text" id="t-sgk" />
+      </div>
+      <div class="form-group">
+        <label>Dosya Numarası</label>
+        <input type="text" id="t-dosya" />
+      </div>
+      <div class="form-group">
+        <label>İşyeri Adresi</label>
+        <textarea id="t-adres"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn secondary" id="close-task-modal">İPTAL</button>
+        <button class="btn primary" id="save-task-btn">KAYDET</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="assign-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3><span id="selected-day-label"></span> Programı Ekle</h3>
+      
+      <div class="tabs">
+        <button class="tab active" data-tab="from-tasks">Görev Seçi̇mi</button>
+        <button class="tab" data-tab="manual-task">Manuel Eklenti̇</button>
+      </div>
+      
+      <div class="tab-content active" id="tab-from-tasks">
+        <div class="form-group">
+          <label>Kayıtlı Görevlerden Seçin:</label>
+          <select id="assign-task-select"></select>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="tab-manual-task" style="display: none;">
+        <div class="form-group">
+          <label>Manuel Not / Görev:</label>
+          <textarea id="assign-manual-text" rows="3" placeholder="Örn: Denetim Toplantısı..."></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button class="btn secondary" id="close-assign-modal">İPTAL</button>
+        <button class="btn primary" id="save-assign-btn">GÜNE EKLE</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/program.js"></script>
+</body>
+</html>
