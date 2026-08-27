@@ -187,8 +187,8 @@ app.innerHTML = `
       </div>
       
       <div style="text-align: center; margin-top: 3rem; animation: fade-in-up 1s ease backwards;">
-        <button id="scroll-to-top-calc" style="background: white; border: 2px solid #cbd5e1; color: #475569; border-radius: 100px; padding: 0.75rem 2rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: inline-flex; align-items: center; gap: 0.5rem;">
-          <span>↑</span> Yeni Hesaplama İçin Başa Dön
+        <button id="reset-calc-btn" style="background: white; border: 2px solid #cbd5e1; color: #475569; border-radius: 100px; padding: 0.75rem 2rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: inline-flex; align-items: center; gap: 0.5rem;">
+          <span>↺</span> Hesaplamayı Sıfırla
         </button>
       </div>
 
@@ -350,7 +350,22 @@ document.getElementById('legal-basis-toggle').addEventListener('click', () => {
 });
 
 
-document.getElementById('scroll-to-top-calc')?.addEventListener('click', () => {
+document.getElementById('reset-calc-btn')?.addEventListener('click', () => {
+    // Reset all inputs
+    ['calc-count', 'calc-doctor', 'calc-nurse'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    
+    // Reset hazard selection
+    document.querySelectorAll('.danger-button').forEach(btn => btn.classList.remove('active'));
+    currentHazard = '';
+    
+    // Hide results section
+    const sec = document.getElementById('calc-results-section');
+    if (sec) sec.style.display = 'none';
+    
+    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('calc-count').focus();
+    document.getElementById('calc-count')?.focus();
 });
