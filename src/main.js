@@ -192,6 +192,12 @@ async function executeGlobalSearch(query) {
         
         let snippet = cleanText.substring(blockStart, blockEnd).trim();
         
+        // Strip out the red annotation texts (penalty clauses, custom notes) which the user doesn't want to see in the standard snippet.
+        snippet = snippet.replace(/\(İlgili hüküm doğrultusunda[^)]*\)/gi, '')
+                         .replace(/\(\*\*\*[^)]*\)/g, '')
+                         .replace(/\*\*\*.*?(:?\n|$)/g, '')
+                         .trim();
+        
         // Truncate only if the explanatory text itself is insanely long
         let localIdxRelative = idx - blockStart;
         if (snippet.length > 500) {
