@@ -121,3 +121,10 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
     bottom: auto;
     margin-top: 40px;
 }
+
+/* Search Mode Active - Hide blanks */
+.search-active .layout-page:not(.exact-page):not(.chemical-table-page) { min-height: 0 !important; padding-bottom: 0 !important; }
+.search-active .page-footer { display: none !important; }
+.search-active .page-marker { display: none !important; }
+.search-active .embedded-figure { display: none !important; }
+.search-active .pdf-rule { display: none !important; }

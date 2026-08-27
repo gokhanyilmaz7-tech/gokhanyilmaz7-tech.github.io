@@ -189,18 +189,57 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
 
 function render(query = '', {scroll = false} = {}) {
   const needle = compact(query.trim());
+  
+  if (!needle) {
+      // Reset mode
+      document.body.classList.remove('search-active');
+      blocks.forEach(block => {
+          block.element.style.display = '';
+          block.words.forEach(word => word.element.classList.remove('search-hit'));
+      });
+      document.querySelectorAll('.article-page').forEach(page => {
+          // Only show if it has at least one provision card (prevents showing empty merged pages)
+          if (page.querySelectorAll('.provision-card').length > 0) {
+              page.style.display = '';
+          } else {
+              page.style.display = 'none';
+          }
+      });
+      resultCount.textContent = '';
+      matches = [];
+      return;
+  }
+  
+  // Search mode
+  document.body.classList.add('search-active');
+  matches = [];
   blocks.forEach((block) => {
-    const found = needle && block.normalizedText.includes(needle);
-    block.element.classList.toggle('match-page', Boolean(found));
+    const found = block.normalizedText.includes(needle);
+    block.element.style.display = found ? '' : 'none';
     block.words.forEach((word) => word.element.classList.remove('search-hit'));
-    if (needle && found) {
-      block.words.forEach((word) => { if (word.normalizedText.includes(needle)) word.element.classList.add('search-hit'); });
+    if (found) {
+      matches.push(block);
+      block.words.forEach((word) => { 
+          if (word.normalizedText.includes(needle)) word.element.classList.add('search-hit'); 
+      });
     }
   });
-  matches = blocks.filter((block) => block.element.classList.contains('match-page'));
+  
+  // Hide pages that have no visible provisions inside them
+  document.querySelectorAll('.article-page').forEach(page => {
+      let isVisible = false;
+      page.querySelectorAll('.provision-card').forEach(card => {
+          if (card.style.display !== 'none') isVisible = true;
+      });
+      page.style.display = isVisible ? '' : 'none';
+  });
+
   matchIndex = matches.length ? 0 : -1;
-  resultCount.textContent = query.trim() ? `${matches.length} sayfa` : '';
-  if (scroll && matches.length) matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
+  resultCount.textContent = `${matches.length} hüküm`;
+  
+  if (scroll && matches.length) {
+      matches[0].element.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
 }
 
 function scrollToRequestedProvision() {
@@ -368,15 +407,16 @@ async function load() {
   linkCrossPageAnnotations();
   linkLongProvisions();
   mergeSpecificProvisions();
-  blocks = pages.map((page, index) => ({
-    text: page.text,
-    normalizedText: compact(page.text),
-    element: content.children[index],
-    words: [...content.children[index].querySelectorAll('.word')].map((word) => ({
-      element: word,
-      normalizedText: compact(word.textContent || ''),
-    })),
-  }));
+  blocks = [...content.querySelectorAll('.provision-card')].map(card => {
+    return {
+      element: card,
+      normalizedText: card.dataset.text || compact(card.textContent || ''),
+      words: [...card.querySelectorAll('.word')].map(word => ({
+        element: word,
+        normalizedText: compact(word.textContent || '')
+      }))
+    };
+  });
   content.addEventListener('click', (event) => {
     const button = event.target.closest('.copy-provision');
     if (button) copyProvision(button);
@@ -427,7 +467,7 @@ function returnToHome(event) {
 
 search.addEventListener('input', (event) => {
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => render(event.target.value, {scroll: true}), 120);
+  searchTimer = setTimeout(() => render(event.target.value, {scroll: false}), 120);
 });
 search.addEventListener('keydown', (event) => {
   if (event.key !== 'Enter') return;
