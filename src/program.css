@@ -397,3 +397,83 @@
   color: #fff;
   opacity: 1;
 }
+
+
+
+
+
+  50% { box-shadow: 0 0 0 8px rgba(14, 165, 233, 0); opacity: 0.8; border-color: #bae6fd; }
+  100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); opacity: 1; border-color: #38bdf8; }
+}
+
+
+
+
+
+
+
+
+
+/* Rotation on hover */
+
+
+
+
+/* Modernized Next/Prev Month Nav Buttons */
+@keyframes pulseBlinkNav {
+  0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); opacity: 1; border-color: #38bdf8; }
+  50% { box-shadow: 0 0 0 8px rgba(14, 165, 233, 0); opacity: 0.8; border-color: #bae6fd; }
+  100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); opacity: 1; border-color: #38bdf8; }
+}
+
+.nav-oval-btn {
+  background: #fff;
+  border: 1px solid #d9e2ec;
+  padding: 6px 16px;
+  border-radius: 9999px; /* Oval shape */
+  color: #486581;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; /* spacing between text and icon */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.nav-oval-btn .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: #f0f4f8;
+  border-radius: 50%; /* in a circle */
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.nav-oval-btn:hover {
+  background: #f0f9ff;
+  color: #0284c7;
+  animation: pulseBlinkNav 1.5s infinite;
+}
+
+.nav-oval-btn:hover .btn-icon {
+  background: #bae6fd;
+  color: #0284c7;
+}
+
+/* Rotation on hover */
+#btn-prev-month:hover .btn-icon {
+  transform: rotate(-360deg);
+}
+#btn-next-month:hover .btn-icon {
+  transform: rotate(360deg);
+}
+
+.cal-nav-buttons {
+  display: flex;
+  gap: 12px;
+}
