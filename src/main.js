@@ -159,19 +159,32 @@ async function executeGlobalSearch(query) {
     let legMatches = [];
     for (const page of leg.pages) {
       if (!page.text) continue;
-      const normalizedText = normalize(page.text);
+      // Many PDFs use newlines for visual wrapping. Replace them with spaces to get full sentences.
+      const cleanText = page.text.replace(/[\u0000-\u001F\u007F-\u009F]+/g, ' ').replace(/\s+/g, ' ');
+      const normalizedText = normalize(cleanText);
       let idx = normalizedText.indexOf(needle);
       let searchPos = 0;
       while (idx !== -1 && legMatches.length < 50 && totalMatches < 200) {
-        // Find paragraph boundaries roughly
-        let start = page.text.lastIndexOf('\n', idx) + 1;
-        if (start === -1 || idx - start > 200) start = Math.max(0, idx - 100);
-        let end = page.text.indexOf('\n', idx);
-        if (end === -1 || end - idx > 200) end = Math.min(page.text.length, idx + 200);
+        // Extract a wide window of text to provide full context
+        let start = Math.max(0, idx - 180);
+        let end = Math.min(cleanText.length, idx + 400);
         
-        let snippet = page.text.substring(start, end);
+        // Expand to word boundaries gracefully
+        if (start > 0) {
+            let nextSpace = cleanText.indexOf(' ', start);
+            if (nextSpace !== -1 && nextSpace < idx) start = nextSpace + 1;
+        }
+        if (end < cleanText.length) {
+            let lastSpace = cleanText.lastIndexOf(' ', end);
+            if (lastSpace > idx + needle.length) end = lastSpace;
+        }
+        
+        let snippet = cleanText.substring(start, end);
+        if (start > 0) snippet = '...' + snippet;
+        if (end < cleanText.length) snippet = snippet + '...';
+        
         // Safe index-based highlighting directly using the match boundaries
-        let localIdx = idx - start;
+        let localIdx = (idx - start) + (start > 0 ? 3 : 0);
         let matchLength = needle.length;
         if (localIdx >= 0 && localIdx < snippet.length) {
             let escape = (s) => s.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#039;'}[c]));
