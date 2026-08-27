@@ -47,14 +47,7 @@
   margin-bottom: 20px;
 }
 
-.task-card {
-  background: #f9fbfc;
-  border: 1px solid #e0e6ed;
-  border-radius: 8px;
-  padding: 12px;
-  position: relative;
-  transition: all 0.2s ease;
-}
+
 
 .task-card:hover { border-color: #bcccdc; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
@@ -357,4 +350,36 @@
 /* Let's make sure weekend tag text is correctly colored since .event-badge now sets color to #fff */
 .event-badge.weekend-tag {
   color: #c53030;
+}
+
+.task-card {
+  background: #f9fbfc;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.task-details {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #d9e2ec;
+}
+.task-details p {
+  margin: 0 0 4px 0 !important;
+  font-size: 0.8rem !important;
+  color: #102a43 !important;
+}
+.task-details span {
+  font-weight: 700;
+  color: #486581;
+}
+.task-card.expanded .task-details {
+  display: block;
+}
+.task-card.expanded {
+  border-color: #9db9cc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }

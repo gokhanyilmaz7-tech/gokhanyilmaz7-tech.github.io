@@ -85,10 +85,16 @@ function renderTasks() {
     const card = document.createElement('div');
     card.className = 'task-card';
     card.innerHTML = `
-      <h4>${t.unvan}</h4>
-      <p>SGK: ${t.sgk || '-'}</p>
-      <button class="task-del" onclick="window.deleteTask('${t.id}')">×</button>
+      <h4 style="padding-right: 16px;">${t.unvan}</h4>
+      <p class="task-sgk-preview">SGK: ${t.sgk || '-'}</p>
+      <div class="task-details">
+        <p><span>Otomasyon No:</span> ${t.oto || '-'}</p>
+        <p><span>Dosya No:</span> ${t.dosya || '-'}</p>
+        <p><span>Adres:</span> ${t.adres || '-'}</p>
+      </div>
+      <button class="task-del" onclick="event.stopPropagation(); window.deleteTask('${t.id}')">×</button>
     `;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
     list.appendChild(card);
   });
 }
