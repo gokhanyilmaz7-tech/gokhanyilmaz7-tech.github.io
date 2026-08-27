@@ -366,6 +366,7 @@ export default {
     if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
     if (url.pathname === '/api/admin/provisions') return adminProvisions(request, env);
     if (url.pathname === '/api/favorites') return favorites(request, env);
+    if (url.pathname === '/api/program') return programAPI(request, env);
     if (url.pathname === '/api/health') return json({ok: true});
     
     if (url.pathname === '/admin.html' || url.pathname === '/admin' || url.pathname === '/admin/') {
@@ -375,3 +376,31 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+async function programAPI(request, env) {
+  const user = await currentUser(request, env);
+  if (!user) return error('Oturum açmanız gerekiyor.', 401);
+  
+  if (request.method === 'GET') {
+    const data = await env.DB.prepare('SELECT tasks_json, schedule_json FROM program_data WHERE user_id = ?').bind(user.id).first();
+    if (data) {
+      return json({ tasks: JSON.parse(data.tasks_json), schedule: JSON.parse(data.schedule_json) });
+    }
+    return json({ tasks: [], schedule: {} });
+  }
+  
+  if (request.method === 'PUT') {
+    const body = await request.json().catch(() => null);
+    if (!body || !Array.isArray(body.tasks) || typeof body.schedule !== 'object') {
+      return error('Geçersiz veri biçimi', 400);
+    }
+    
+    await env.DB.prepare(
+      'INSERT INTO program_data (user_id, tasks_json, schedule_json, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET tasks_json=excluded.tasks_json, schedule_json=excluded.schedule_json, updated_at=excluded.updated_at'
+    ).bind(user.id, JSON.stringify(body.tasks), JSON.stringify(body.schedule), Date.now()).run();
+    
+    return json({ ok: true });
+  }
+  
+  return error('Method not allowed', 405);
+}
