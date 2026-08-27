@@ -29,3 +29,42 @@ window.addEventListener('scroll', () => {
 btn.addEventListener('click', () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 });
+
+// Global UI Enhancements
+const globalStyle = document.createElement('style');
+globalStyle.textContent = `
+  .back-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px !important;
+    color: white !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    font-size: 0.9rem !important;
+  }
+  .back-link:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-1px) !important;
+  }
+`;
+document.head.appendChild(globalStyle);
+
+setTimeout(() => {
+  document.querySelectorAll('.back-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.opener) {
+        window.close();
+      } else {
+        window.location.href = link.getAttribute('href') || '/';
+      }
+    });
+  });
+}, 500);
+

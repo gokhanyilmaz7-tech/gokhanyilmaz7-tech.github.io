@@ -121,7 +121,26 @@ app.innerHTML = `
         <button id="calc-btn" class="calc-btn">Süreleri Hesapla ✨</button>
       </div>
 
+      
       <div id="results-container" class="results-grid"></div>
+      
+      <div style="margin-top: 4rem; text-align: left; background: white; border-radius: 16px; padding: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); animation: fade-in-up 0.8s ease backwards;">
+        <button id="legal-basis-toggle" style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; font-size: 1.1rem; font-weight: 700; color: #334155; padding: 0;">
+          <span>⚖️ Hesaplama Yasal Dayanakları</span>
+          <span id="legal-arrow" style="transition: transform 0.3s;">▼</span>
+        </button>
+        <div id="legal-content" style="display: none; margin-top: 1.5rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
+          <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li><strong>İş Güvenliği Uzmanı:</strong> İŞ GÜVENLİĞİ UZMANLARININ GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK (Madde 12)</li>
+            <li><strong>İşyeri Hekimi:</strong> İŞYERİ HEKİMİ VE DİĞER SAĞLIK PERSONELİNİN GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK (Madde 12)</li>
+            <li><strong>Diğer Sağlık Personeli (DSP):</strong> İŞYERİ HEKİMİ VE DİĞER SAĞLIK PERSONELİNİN GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK (Madde 19)</li>
+          </ul>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; font-size: 0.85rem; color: #94a3b8; font-weight: 600; text-align: right;">
+            Son Güncelleme Tarihi: 27 Ağustos 2026
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 `;
@@ -263,4 +282,17 @@ document.getElementById('calc-btn').addEventListener('click', () => {
       resContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 150);
   }, 100);
+});
+
+
+document.getElementById('legal-basis-toggle').addEventListener('click', () => {
+  const content = document.getElementById('legal-content');
+  const arrow = document.getElementById('legal-arrow');
+  if (content.style.display === 'none') {
+    content.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+  } else {
+    content.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+  }
 });
