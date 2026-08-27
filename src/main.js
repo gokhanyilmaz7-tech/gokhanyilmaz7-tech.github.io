@@ -97,5 +97,6 @@ $('#ipc-open').addEventListener('click', () => window.open('/ipc.html', '_blank'
 $('#favorites-open').addEventListener('click', () => window.open('/favoriler.html', '_blank'));
 $('#report-open').addEventListener('click', () => window.open('/tespitler.html', '_blank'));
 $('#external-legislation-open').addEventListener('click', () => window.open('/mevzuat-baglantilari.html', '_blank'));
+$('#calc-open').addEventListener('click', () => window.open('/isg-hesaplama.html', '_blank'));
 loadManifest().catch((error) => { $('#section-list').innerHTML = `<p class="error-state">${error.message}</p>`; });
 setupAccountUI();
