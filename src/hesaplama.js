@@ -185,6 +185,13 @@ app.innerHTML = `
           </div>
         </div>
       </div>
+      
+      <div style="text-align: center; margin-top: 3rem; animation: fade-in-up 1s ease backwards;">
+        <button id="scroll-to-top-calc" style="background: white; border: 2px solid #cbd5e1; color: #475569; border-radius: 100px; padding: 0.75rem 2rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: inline-flex; align-items: center; gap: 0.5rem;">
+          <span>↑</span> Yeni Hesaplama İçin Başa Dön
+        </button>
+      </div>
+
 
     </div>
   </main>
@@ -340,4 +347,10 @@ document.getElementById('legal-basis-toggle').addEventListener('click', () => {
     content.style.display = 'none';
     arrow.style.transform = 'rotate(0deg)';
   }
+});
+
+
+document.getElementById('scroll-to-top-calc')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('calc-count').focus();
 });

@@ -16,13 +16,13 @@ btn.style.right = '20px';
 document.body.appendChild(btn);
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
+  if (window.scrollY > 100) {
     btn.style.display = 'flex';
     setTimeout(() => { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }, 10);
   } else {
     btn.style.opacity = '0';
     btn.style.pointerEvents = 'none';
-    setTimeout(() => { if(window.scrollY <= 300) btn.style.display = 'none'; }, 200);
+    setTimeout(() => { if(window.scrollY <= 100) btn.style.display = 'none'; }, 200);
   }
 });
 
