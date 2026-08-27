@@ -3,6 +3,13 @@ import './styles.css';
 // Kendi özel stillerimizi CSS modeline ekleyelim
 const style = document.createElement('style');
 style.textContent = `
+.article-topbar {
+  position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; min-height: 70px; padding: 0 clamp(18px,5vw,76px);
+  background: rgba(26,43,75,.97); color: #fff; box-shadow: 0 10px 30px rgba(8,27,58,.16); backdrop-filter: blur(14px);
+}
+.article-topbar .topbar-label { color: #b6c6ef; font-weight: 700; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+
 .calc-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
 .hazard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
 .hazard-card { 
@@ -82,7 +89,7 @@ document.head.appendChild(style);
 const app = document.querySelector('#hesaplama-app');
 app.innerHTML = `
   <header class="article-topbar">
-    <a class="back-link" href="/">← Ana sayfaya dön</a>
+    <a class="back-link" href="/">← Mevzuat Listesine Dön</a>
     <span class="topbar-label" style="text-transform: uppercase; font-weight: 700; color: #64748b;">İSG Uzmanı, Hekim & DSP</span>
   </header>
   <main class="layout" style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); min-height: 100vh;">
