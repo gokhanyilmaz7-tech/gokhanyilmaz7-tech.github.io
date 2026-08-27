@@ -180,6 +180,8 @@ async function executeGlobalSearch(query) {
         }
         
         let snippet = cleanText.substring(start, end);
+        let maddeMatch = cleanText.substring(idx - 100, idx + 500).match(/madde\s+([0-9A-Za-z/.-]+)/i);
+        let footerText = maddeMatch ? `Madde ${maddeMatch[1]} &rarr;` : `İlgili Hükme Git &rarr;`;
         if (start > 0) snippet = '...' + snippet;
         if (end < cleanText.length) snippet = snippet + '...';
         
@@ -202,7 +204,7 @@ async function executeGlobalSearch(query) {
           </div>
           <div class="g-card-footer">
             <span class="g-card-title">${leg.title}</span>
-            <span class="g-card-page">Sayfa ${page.page} &rarr;</span>
+            <span class="g-card-page">${footerText}</span>
           </div>
         </div>`);
         totalMatches++;
