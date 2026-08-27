@@ -368,6 +368,14 @@ document.getElementById('reset-calc-btn')?.addEventListener('click', () => {
         resContainer.classList.remove('visible');
     }
     
+    // Close legal basis accordion if open
+    const legalContent = document.getElementById('legal-content');
+    const legalArrow = document.getElementById('legal-arrow');
+    if (legalContent && legalContent.style.display !== 'none') {
+        legalContent.style.display = 'none';
+        if (legalArrow) legalArrow.style.transform = 'rotate(0deg)';
+    }
+    
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('calc-count')?.focus();
