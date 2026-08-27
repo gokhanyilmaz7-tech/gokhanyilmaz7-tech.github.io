@@ -30,6 +30,7 @@ app.innerHTML = `
         <label class="search-field sidebar-search" style="flex: 1;"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Hüküm ara…" autocomplete="off" /></label>
       </div>
       <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
+      <div id="live-calendar" class="live-calendar"></div>
       <div class="sidebar-contact-links" style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.75rem;">
         <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn mail-btn">
           ✉️ E-Posta
@@ -289,3 +290,58 @@ $('#global-search')?.addEventListener('input', (event) => {
 });
 
 setupAccountUI();
+
+
+function renderCalendar() {
+  const container = document.getElementById('live-calendar');
+  if (!container) return;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const date = now.getDate();
+  const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+  
+  let firstDay = new Date(year, month, 1).getDay();
+  firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+  let html = `<div class="glass-calendar-inner">
+      <div class="cal-header">
+        <span class="cal-nav">&lang;</span>
+        <span class="cal-month">${months[month]} ${year}</span>
+        <span class="cal-nav">&rang;</span>
+      </div>
+      <div class="cal-weekdays">
+        <span>Pt</span><span>Sa</span><span>Ça</span><span>Pe</span><span>Cu</span><span>Ct</span><span>Pz</span>
+      </div>
+      <div class="cal-days">`;
+
+  for (let i = 0; i < firstDay; i++) {
+    const trailingDay = daysInPrevMonth - firstDay + i + 1;
+    html += `<span class="cal-day prev-month">${trailingDay}</span>`;
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    if (i === date) {
+      html += `<span class="cal-day current-day">${i}</span>`;
+    } else {
+      html += `<span class="cal-day">${i}</span>`;
+    }
+  }
+  const remainingCells = 42 - (firstDay + daysInMonth);
+  for (let i = 1; i <= remainingCells; i++) {
+    html += `<span class="cal-day next-month">${i}</span>`;
+  }
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+renderCalendar();
+setInterval(() => {
+    // Re-render when date changes in long sessions
+    const cNow = new Date();
+    if (cNow.getHours() === 0 && cNow.getMinutes() === 0 && cNow.getSeconds() < 10) {
+        renderCalendar();
+    }
+}, 10000);
