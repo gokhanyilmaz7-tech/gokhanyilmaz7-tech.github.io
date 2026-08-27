@@ -16,6 +16,7 @@ export default defineConfig({
         report: 'tespitler.html',
         mevzuatBaglantilari: 'mevzuat-baglantilari.html',
         admin: 'admin.html',
+        hesaplama: 'isg-hesaplama.html',
       },
     },
   },
