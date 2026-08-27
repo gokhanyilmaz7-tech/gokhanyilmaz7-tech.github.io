@@ -202,13 +202,29 @@ function renderCalendar() {
 let activeDateStr = null;
 function openAssignModal(dateStr, day) {
   activeDateStr = dateStr;
-  document.getElementById('selected-day-label').innerText = `${day} ${monthNames[currentMonth]}`;
   
   const sel = document.getElementById('assign-task-select');
   sel.innerHTML = '<option value="">-- Görev Seçin --</option>';
   tasks.forEach(t => sel.innerHTML += `<option value="${t.id}">${t.unvan}</option>`);
   
   document.getElementById('assign-manual-text').value = '';
+  
+  // Render multiple day selector
+  const mds = document.getElementById('multi-day-selector');
+  mds.innerHTML = '';
+  
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  for(let i=1; i<=daysInMonth; i++) {
+    const iterDateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+    const span = document.createElement('span');
+    span.className = 'md-day';
+    if(iterDateStr === dateStr) span.classList.add('selected');
+    span.innerText = `${i} ${monthNames[currentMonth]}`;
+    span.dataset.date = iterDateStr;
+    span.addEventListener('click', () => span.classList.toggle('selected'));
+    mds.appendChild(span);
+  }
+
   document.getElementById('assign-modal').classList.remove('hidden');
 }
 
@@ -218,20 +234,31 @@ function closeAssignModal() {
 
 function saveAssign() {
   const t = document.querySelector('.tab.active').dataset.tab;
-  const newEv = { id: 'ev_' + Date.now() };
+  let taskId = null;
+  let textVal = null;
   
   if (t === 'from-tasks') {
     const val = document.getElementById('assign-task-select').value;
     if(!val) return;
-    newEv.taskId = val;
+    taskId = val;
   } else {
     const val = document.getElementById('assign-manual-text').value.trim();
     if(!val) return;
-    newEv.text = val;
+    textVal = val;
   }
   
-  if(!schedule[activeDateStr]) schedule[activeDateStr] = [];
-  schedule[activeDateStr].push(newEv);
+  const selectedDays = Array.from(document.querySelectorAll('.md-day.selected')).map(el => el.dataset.date);
+  if(selectedDays.length === 0) return; // Fallback
+  
+  selectedDays.forEach((dStr, idx) => {
+    const newEv = { id: 'ev_' + Date.now() + '_' + idx };
+    if(taskId) newEv.taskId = taskId;
+    if(textVal) newEv.text = textVal;
+    
+    if(!schedule[dStr]) schedule[dStr] = [];
+    schedule[dStr].push(newEv);
+  });
+  
   saveData();
   
   closeAssignModal();

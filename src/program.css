@@ -289,3 +289,37 @@
 .topbar a:hover {
   color: #ffdea5 !important;
 }
+
+.multi-day-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+  border: 1px solid #d9e2ec;
+  padding: 10px;
+  border-radius: 6px;
+  background: #f9fbfc;
+}
+.md-day {
+  background: #fff;
+  border: 1px solid #bcccdc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  color: #486581;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.md-day:hover {
+  border-color: #829ab1;
+  background: #f0f4f8;
+}
+.md-day.selected {
+  background: #0369a1;
+  border-color: #0369a1;
+  color: #fff;
+  font-weight: 700;
+}
