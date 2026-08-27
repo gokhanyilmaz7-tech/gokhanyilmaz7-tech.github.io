@@ -285,3 +285,7 @@
 .mc-day.weekend:hover {
   background: #fce8e8;
 }
+
+.topbar a:hover {
+  color: #ffdea5 !important;
+}
