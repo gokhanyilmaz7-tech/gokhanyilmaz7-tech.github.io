@@ -20,14 +20,20 @@ app.innerHTML = `
         <label class="search-field sidebar-search" style="flex: 1;"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Hüküm ara…" autocomplete="off" /></label>
       </div>
       <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
+      <div class="sidebar-contact-links" style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.75rem;">
+        <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn mail-btn">
+          ✉️ E-Posta
+        </a>
+        <a href="https://wa.me/gokhanyilmaz7" class="contact-admin-btn whatsapp-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" style="margin-right:2px; padding-bottom:1px;"><path d="M12.01 0C5.38 0 0 5.38 0 12.01c0 2.12.55 4.18 1.59 6L.18 23.18l5.31-1.39c1.78 1 3.79 1.53 5.86 1.53C18.01 23.32 24 17.96 24 11.3v-.06A11.97 11.97 0 0 0 12.01 0zm6.9 16.32c-.37 1.05-2 1.94-2.8 2.08-.6.1-1.39.17-2.88-.3-1.8-.57-3.9-2.02-5.46-3.58C6.2 12.95 5.2 11.2 5.2 9.38c0-1.84.95-2.73 1.3-3.12.33-.36.72-.45.96-.45.24 0 .48 0 .69.01.25.01.58-.09.9.68.32.78 1.1 2.68 1.2 2.89.1.21.16.45.03.71-.12.26-.19.42-.39.66-.21.23-.44.5-.63.69-.21.21-.43.43-.18.86.25.43 1.11 1.83 2.37 2.95 1.63 1.45 3.01 1.9 3.44 2.1.43.2.68.17.94-.12.25-.29 1.08-1.26 1.37-1.69.29-.43.58-.36 1.01-.2.43.16 2.7 1.28 3.16 1.5.47.23.77.35.88.54.11.19.11 1.1-.26 2.15z"/></svg> WhatsApp
+        </a>
+      </div>
     </aside>
     <section class="content">
       <div class="welcome"><div class="welcome-icon">§</div><p class="eyebrow">DAYANAKLAR (GENEL)</p><h2>Bir mevzuat seçin</h2><p>Soldaki listeden bir kanun veya yönetmelik seçin. İçerik, okunabilir ve kolay kopyalanabilir ayrı bir sekmede açılır.</p></div>
     </section>
   </main>
-  <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn">
-    <span style="font-size: 1.2rem;">💬</span> Yöneticiye Mesaj
-  </a>`;
+  `;
 
 const state = {sections: []};
 const $ = (selector) => document.querySelector(selector);
