@@ -55,9 +55,11 @@ function saveTask() {
   const dosya = document.getElementById('t-dosya').value.trim();
   const adres = document.getElementById('t-adres').value.trim();
   
+  const checkedMonths = Array.from(document.querySelectorAll('#t-months input:checked')).map(cb => parseInt(cb.value));
+  
   if (!unvan) return alert("İşyeri ünvanı zorunludur.");
   
-  const newTask = { id: 'task_' + Date.now(), unvan, oto, sgk, dosya, adres };
+  const newTask = { id: 'task_' + Date.now(), unvan, oto, sgk, dosya, adres, validMonths: checkedMonths };
   tasks.push(newTask);
   saveData();
   
@@ -66,6 +68,7 @@ function saveTask() {
   document.getElementById('t-sgk').value = '';
   document.getElementById('t-dosya').value = '';
   document.getElementById('t-adres').value = '';
+  document.querySelectorAll('#t-months input').forEach(cb => cb.checked = true);
     
   renderTasks();
 }
@@ -81,7 +84,7 @@ function deleteTask(id) {
 function renderTasks() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
-  tasks.forEach(t => {
+  tasks.filter(t => !t.validMonths || t.validMonths.includes(currentMonth)).forEach(t => {
     const card = document.createElement('div');
     card.className = 'task-card';
     card.innerHTML = `
@@ -91,6 +94,7 @@ function renderTasks() {
         <p><span>Otomasyon No:</span> ${t.oto || '-'}</p>
         <p><span>Dosya No:</span> ${t.dosya || '-'}</p>
         <p><span>Adres:</span> ${t.adres || '-'}</p>
+        <p><span>Aylar:</span> ${t.validMonths ? t.validMonths.map(m => monthNames[m].substring(0,3)).join(', ') : 'Tümü'}</p>
       </div>
       <button class="task-del" onclick="event.stopPropagation(); window.deleteTask('${t.id}')">×</button>
     `;
@@ -105,6 +109,7 @@ function changeMonth(delta) {
   if(currentMonth > 11) { currentMonth = 0; currentYear++; }
   if(currentMonth < 0) { currentMonth = 11; currentYear--; }
   renderCalendar();
+  renderTasks();
 }
 
 function renderMiniCal(elId, y, m) {
@@ -229,7 +234,8 @@ function openAssignModal(dateStr, day) {
   
   const sel = document.getElementById('assign-task-select');
   sel.innerHTML = '<option value="">-- Görev Seçin --</option>';
-  tasks.forEach(t => sel.innerHTML += `<option value="${t.id}">${t.unvan}</option>`);
+  tasks.filter(t => !t.validMonths || t.validMonths.includes(currentMonth))
+       .forEach(t => sel.innerHTML += `<option value="${t.id}">${t.unvan}</option>`);
   
   document.getElementById('assign-manual-text').value = '';
   
