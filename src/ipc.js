@@ -1,3 +1,4 @@
+import { currentUser } from './auth';
 import './ipc.css';
 
 const table = document.querySelector('#ipc-table');
@@ -156,3 +157,10 @@ search.addEventListener('input', () => {
 });
 copyButton.addEventListener('click', copyTable);
 fetch('/ipc-2026.json').then((response) => { if (!response.ok) throw new Error('Excel tablosu yüklenemedi.'); return response.json(); }).then((data) => render(data.values, data.values[0][0])).catch((error) => { console.error(error); });
+
+
+currentUser().then(user => {
+  if (user?.isAdmin) {
+    copyButton.style.display = 'block';
+  }
+});

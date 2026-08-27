@@ -15,7 +15,7 @@ body { margin: 0; background: radial-gradient(circle at 8% 0%, rgba(197,160,89,.
 .ipc-search { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 620px; padding: 0 12px; border: 1px solid #dce4ec; border-radius: 12px; color: #8292a4; background: #fff; }
 .ipc-search input { width: 100%; padding: 12px 0; border: 0; outline: 0; color: #243b53; background: transparent; font: inherit; font-size: 13px; }
 #ipc-result { color: #7d8fa4; font-size: 11px; white-space: nowrap; }
-#ipc-copy { border: 1px solid #c5a059; border-radius: 10px; padding: 11px 14px; color: #775a19; background: #fffaf0; font: 600 12px Inter, sans-serif; cursor: pointer; }
+#ipc-copy { display: none; border: 1px solid #c5a059; border-radius: 10px; padding: 11px 14px; color: #775a19; background: #fffaf0; font: 600 12px Inter, sans-serif; cursor: pointer; }
 #ipc-copy:hover { background: #ffefd7; }
 .ipc-status { margin: 0 0 12px; color: #8193a4; font-size: 11px; }
 .ipc-table-wrap { overflow: auto; max-height: calc(100vh - 250px); border: 1px solid #c8d0d9; border-radius: 12px; background: #fff; }
