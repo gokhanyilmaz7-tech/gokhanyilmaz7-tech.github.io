@@ -130,11 +130,49 @@ app.innerHTML = `
           <span id="legal-arrow" style="transition: transform 0.3s;">▼</span>
         </button>
         <div id="legal-content" style="display: none; margin-top: 1.5rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-          <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <li><strong>İş Güvenliği Uzmanı:</strong> İŞ GÜVENLİĞİ UZMANLARININ GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK (Madde 12)</li>
-            <li><strong>İşyeri Hekimi:</strong> İŞYERİ HEKİMİ VE DİĞER SAĞLIK PERSONELİNİN GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK (Madde 12)</li>
-            <li><strong>Diğer Sağlık Personeli (DSP):</strong> İŞYERİ HEKİMİ VE DİĞER SAĞLIK PERSONELİNİN GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK (Madde 19)</li>
-          </ul>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <strong style="color: #0f172a; font-size: 1.05rem; display: block; border-left: 4px solid #3b82f6; padding-left: 0.75rem; margin-bottom: 0.75rem;">
+              İŞ GÜVENLİĞİ UZMANLARININ GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK
+            </strong>
+            <h4 style="margin: 0 0 0.5rem 0; color: #334155;">İş güvenliği uzmanlarının çalışma süreleri</h4>
+            <p style="margin: 0 0 0.5rem 0;"><strong>MADDE 12 –</strong> (1) İş güvenliği uzmanları, bu Yönetmelikte belirtilen görevlerini yerine getirmek için aşağıda belirtilen sürelerde görev yaparlar:</p>
+            <ul style="margin: 0 0 0.5rem 0; padding-left: 1.5rem;">
+              <li><strong>a)</strong> Az tehlikeli sınıfta yer alanlarda, çalışan başına ayda en az 10 dakika.</li>
+              <li><strong>b)</strong> Tehlikeli sınıfta yer alanlarda, çalışan başına ayda en az 20 dakika.</li>
+              <li><strong>c)</strong> Çok tehlikeli sınıfta yer alanlarda, çalışan başına ayda en az 40 dakika.</li>
+            </ul>
+            <p style="margin: 0 0 0.5rem 0;">(2) Az tehlikeli sınıfta yer alan 1000 ve daha fazla çalışanı olan işyerlerinde her 1000 çalışan için tam gün çalışacak en az bir iş güvenliği uzmanı görevlendirilir. Çalışan sayısının 1000 sayısının tam katlarından fazla olması durumunda geriye kalan çalışan sayısı göz önünde bulundurularak birinci fıkrada belirtilen kriterlere uygun yeteri kadar iş güvenliği uzmanı ek olarak görevlendirilir.</p>
+            <p style="margin: 0 0 0.5rem 0;">(3) Tehlikeli sınıfta yer alan 500 ve daha fazla çalışanı olan işyerlerinde her 500 çalışan için tam gün çalışacak en az bir iş güvenliği uzmanı görevlendirilir. Çalışan sayısının 500 sayısının tam katlarından fazla olması durumunda geriye kalan çalışan sayısı göz önünde bulundurularak birinci fıkrada belirtilen kriterlere uygun yeteri kadar iş güvenliği uzmanı ek olarak görevlendirilir.</p>
+            <p style="margin: 0 0 1.5rem 0;">(4) Çok tehlikeli sınıfta yer alan 250 ve daha fazla çalışanı olan işyerlerinde her 250 çalışan için tam gün çalışacak en az bir iş güvenliği uzmanı görevlendirilir. Çalışan sayısının 250 sayısının tam katlarından fazla olması durumunda geriye kalan çalışan sayısı göz önünde bulundurularak birinci fıkrada belirtilen kriterlere uygun yeteri kadar iş güvenliği uzmanı ek olarak görevlendirilir.</p>
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <strong style="color: #0f172a; font-size: 1.05rem; display: block; border-left: 4px solid #10b981; padding-left: 0.75rem; margin-bottom: 0.75rem;">
+              İŞYERİ HEKİMİ VE DİĞER SAĞLIK PERSONELİNİN GÖREV, YETKİ, SORUMLULUK VE EĞİTİMLERİ HAKKINDA YÖNETMELİK
+            </strong>
+            <h4 style="margin: 0 0 0.5rem 0; color: #334155;">İşyeri hekimlerinin çalışma süreleri</h4>
+            <p style="margin: 0 0 0.5rem 0;"><strong>MADDE 12 –</strong> (1) İşyeri hekimleri, bu Yönetmelikte belirtilen görevlerini yerine getirmek için aşağıda belirtilen sürelerde görev yaparlar:</p>
+            <ul style="margin: 0 0 0.5rem 0; padding-left: 1.5rem;">
+              <li><strong>a)</strong> Az tehlikeli sınıfta yer alanlarda, çalışan başına ayda en az 5 dakika.</li>
+              <li><strong>b)</strong> Tehlikeli sınıfta yer alanlarda, çalışan başına ayda en az 10 dakika.</li>
+              <li><strong>c)</strong> Çok tehlikeli sınıfta yer alanlarda, çalışan başına ayda en az 15 dakika.</li>
+            </ul>
+            <p style="margin: 0 0 0.5rem 0;">(2) Az tehlikeli sınıfta yer alan 2000 ve daha fazla çalışanı olan işyerlerinde her 2000 çalışan için tam gün çalışacak en az bir işyeri hekimi görevlendirilir. Çalışan sayısının 2000 sayısının tam katlarından fazla olması durumunda geriye kalan çalışan sayısı göz önünde bulundurularak birinci fıkrada belirtilen kriterlere uygun yeteri kadar işyeri hekimi ek olarak görevlendirilir.</p>
+            <p style="margin: 0 0 0.5rem 0;">(3) Tehlikeli sınıfta yer alan 1000 ve daha fazla çalışanı olan işyerlerinde her 1000 çalışan için tam gün çalışacak en az bir işyeri hekimi görevlendirilir. Çalışan sayısının 1000 sayısının tam katlarından fazla olması durumunda geriye kalan çalışan sayısı göz önünde bulundurularak birinci fıkrada belirtilen kriterlere uygun yeteri kadar işyeri hekimi ek olarak görevlendirilir.</p>
+            <p style="margin: 0 0 1.5rem 0;">(4) Çok tehlikeli sınıfta yer alan 750 ve daha fazla çalışanı olan işyerlerinde her 750 çalışan için tam gün çalışacak en az bir işyeri hekimi görevlendirilir. Çalışan sayısının 750 sayısının tam katlarından fazla olması durumunda geriye kalan çalışan sayısı göz önünde bulundurularak birinci fıkrada belirtilen kriterlere uygun yeteri kadar işyeri hekimi ek olarak görevlendirilir.</p>
+
+            <h4 style="margin: 0 0 0.5rem 0; color: #334155;">Diğer sağlık personelinin çalışma süreleri</h4>
+            <p style="margin: 0 0 0.5rem 0;"><strong>MADDE 19 –</strong> (1) Diğer sağlık personeli, bu Yönetmelikte belirtilen görevlerini yerine getirmek için aşağıda belirtilen sürelerde görev yaparlar:</p>
+            <ul style="margin: 0 0 0.5rem 0; padding-left: 1.5rem;">
+              <li><strong>a)</strong> Çok tehlikeli sınıfta yer alan 10 ila 49 çalışanı olan işyerlerinde çalışan başına ayda en az 10 dakika.</li>
+              <li><strong>b)</strong> Çok tehlikeli sınıfta yer alan 50 ila 249 çalışanı olan işyerlerinde çalışan başına ayda en az 15 dakika.</li>
+              <li><strong>c)</strong> Çok tehlikeli sınıfta yer alan 250 ve üzeri çalışanı olan işyerlerinde çalışan başına ayda en az 20 dakika.</li>
+            </ul>
+            <p style="margin: 0 0 0.5rem 0;">(2) Tam gün işyeri hekimi görevlendirilen işyerlerinde, diğer sağlık personeli görevlendirilmesi zorunlu değildir.</p>
+            <p style="margin: 0 0 0.5rem 0;">(3) Diğer sağlık personelinin görevlendirilmesinde sözleşmede belirtilen süre kadar işyerinde hizmet sunulur. Birden fazla işyeri ile kısmi süreli iş sözleşmesi yapıldığı takdirde bu işyerleri arasında yolda geçen süreler haftalık kanuni çalışma süresinden sayılmaz.</p>
+          </div>
+
           <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; font-size: 0.85rem; color: #94a3b8; font-weight: 600; text-align: right;">
             Son Güncelleme Tarihi: 27 Ağustos 2026
           </div>
