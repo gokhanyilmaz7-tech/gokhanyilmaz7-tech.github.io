@@ -165,27 +165,59 @@ async function executeGlobalSearch(query) {
       let idx = normalizedText.indexOf(needle);
       let searchPos = 0;
       while (idx !== -1 && legMatches.length < 50 && totalMatches < 200) {
-        // Extract a wide window of text to provide full context
-        let start = Math.max(0, idx - 180);
-        let end = Math.min(cleanText.length, idx + 400);
-        
-        // Expand to word boundaries gracefully
-        if (start > 0) {
-            let nextSpace = cleanText.indexOf(' ', start);
-            if (nextSpace !== -1 && nextSpace < idx) start = nextSpace + 1;
-        }
-        if (end < cleanText.length) {
-            let lastSpace = cleanText.lastIndexOf(' ', end);
-            if (lastSpace > idx + needle.length) end = lastSpace;
+        // Dynamically locate the boundaries of the specific provision (Hüküm) block
+        // Provisions end with a trailing (Dayanak Mevzuat) block. 
+        const dayanakRegex = /\([^)]*(?:madde\s?[0-9]|genelgesi|yönetmelik|sayılı kanun)[^)]*\)\s*/gi;
+        let dayanakMatches = [];
+        let rMatch;
+        while ((rMatch = dayanakRegex.exec(cleanText)) !== null) {
+            dayanakMatches.push({ start: rMatch.index, end: rMatch.index + rMatch[0].length });
         }
         
-        let snippet = cleanText.substring(start, end);
+        let blockStart = 0;
+        let blockEnd = cleanText.length;
+        for (let i = 0; i < dayanakMatches.length; i++) {
+            // A dayanak belongs to the provision BEFORE it.
+            // If the search match is anywhere before the end of this dayanak...
+            if (dayanakMatches[i].end > idx) {
+                blockEnd = dayanakMatches[i].start; // Stop BEFORE the dayanak text starts
+                if (i > 0) blockStart = dayanakMatches[i - 1].end; // Start AFTER the previous dayanak ends
+                break;
+            }
+        }
+        
+        // In case the match was actually INSIDE the dayanak text itself, 
+        // idx might now be > blockEnd. If so, localIdx will be negative, 
+        // which is perfectly fine (it will just show the explanatory part of that provision without highlighting).
+        
+        let snippet = cleanText.substring(blockStart, blockEnd).trim();
+        
+        // Truncate only if the explanatory text itself is insanely long
+        let localIdxRelative = idx - blockStart;
+        if (snippet.length > 500) {
+            let s = Math.max(0, localIdxRelative - 150);
+            let e = Math.min(snippet.length, localIdxRelative + 300);
+            
+            // Re-align to spaces safely
+            if (s > 0) {
+                let nextSpace = snippet.indexOf(' ', s);
+                if (nextSpace !== -1 && nextSpace < localIdxRelative) s = nextSpace + 1;
+            }
+            if (e < snippet.length) {
+                let lastSpace = snippet.lastIndexOf(' ', e);
+                if (lastSpace > localIdxRelative) e = lastSpace;
+            }
+            
+            snippet = snippet.substring(s, e);
+            if (s > 0) snippet = '...' + snippet;
+            if (e < snippet.length) snippet = snippet + '...';
+        }
+        
         let footerText = `Bağlantılı Hükme Git &rarr;`;
-        if (start > 0) snippet = '...' + snippet;
-        if (end < cleanText.length) snippet = snippet + '...';
         
-        // Safe index-based highlighting directly using the match boundaries
-        let localIdx = (idx - start) + (start > 0 ? 3 : 0);
+        // Re-calculate safely in the final snippet
+        let normalizedSnippet = normalize(snippet);
+        let localIdx = normalizedSnippet.indexOf(needle);
         let matchLength = needle.length;
         if (localIdx >= 0 && localIdx < snippet.length) {
             let escape = (s) => s.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#039;'}[c]));
