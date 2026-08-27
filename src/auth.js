@@ -157,10 +157,10 @@ export async function setupAccountUI() {
   document.querySelector('#admin-panel-link')?.remove();
   document.querySelector('#admin-mode-toggle')?.remove();
   if (user?.isAdmin) {
-    if (isAdminMode()) button.insertAdjacentHTML('afterend', '<a id="admin-panel-link" class="admin-panel-link" href="/admin.html">Yönetici paneli</a>');
+    if (isAdminMode()) button.insertAdjacentHTML('afterend', '<a id="admin-panel-link" class="account-button admin-panel-link" href="/admin.html">Yönetici paneli</a>');
     const modeButton = document.createElement('button');
     modeButton.id = 'admin-mode-toggle';
-    modeButton.className = 'admin-mode-toggle';
+    modeButton.className = 'account-button admin-mode-toggle';
     modeButton.type = 'button';
     modeButton.textContent = isAdminMode() ? 'Kullanıcı modu' : 'Yönetici modu';
     modeButton.title = isAdminMode() ? 'Siteyi son kullanıcı gibi kullanın' : 'Yönetici düzenleme araçlarını açın';
