@@ -180,8 +180,7 @@ async function executeGlobalSearch(query) {
         }
         
         let snippet = cleanText.substring(start, end);
-        let maddeMatch = cleanText.substring(idx - 100, idx + 500).match(/madde\s+([0-9A-Za-z/.-]+)/i);
-        let footerText = maddeMatch ? `Madde ${maddeMatch[1]} &rarr;` : `İlgili Hükme Git &rarr;`;
+        let footerText = `Bağlantılı Hükme Git &rarr;`;
         if (start > 0) snippet = '...' + snippet;
         if (end < cleanText.length) snippet = snippet + '...';
         
