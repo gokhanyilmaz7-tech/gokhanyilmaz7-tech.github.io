@@ -16,6 +16,39 @@
         <label class="legislation-search"><span aria-hidden="true">⌕</span><input id="legislation-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /><span id="legislation-count"></span></label>
         <div id="legislation-list" class="legislation-list" aria-label="Mevzuat bağlantıları"></div>
       </section>
+      
+      <aside class="legislation-sidebar">
+        <!-- Resmi Gazete Widget -->
+        <div class="widget rg-widget">
+          <div class="widget-header">
+            <span class="widget-icon">🇹🇷</span>
+            <h3>T.C. Resmî Gazete</h3>
+          </div>
+          <div class="widget-content" id="rg-content">
+            <div class="rg-loading">Güncel Resmi Gazete yükleniyor...</div>
+          </div>
+        </div>
+
+        <!-- Faydalı Linkler Widget -->
+        <div class="widget links-widget">
+          <div class="widget-header">
+            <span class="widget-icon">🔗</span>
+            <h3>Faydalı Linkler</h3>
+          </div>
+          <div class="widget-content">
+            <ul class="useful-links">
+              <li><a href="https://www.tccb.gov.tr/" target="_blank" rel="noopener noreferrer">T.C. Cumhurbaşkanlığı</a></li>
+              <li><a href="https://www.csgb.gov.tr/" target="_blank" rel="noopener noreferrer">ÇSGB</a></li>
+              <li><a href="https://www.sgk.gov.tr/" target="_blank" rel="noopener noreferrer">Sosyal Güvenlik Kurumu (SGK)</a></li>
+              <li><a href="https://www.iskur.gov.tr/" target="_blank" rel="noopener noreferrer">İŞKUR</a></li>
+              <li><a href="https://www.ismufder.org/" target="_blank" rel="noopener noreferrer">İŞMÜFDER</a></li>
+              <li><a href="https://verimerkezi.csgb.gov.tr/" target="_blank" rel="noopener noreferrer">ÇSGB Veri Merkezi</a></li>
+              <li><a href="https://rehberlikteftis.csgb.gov.tr/" target="_blank" rel="noopener noreferrer">ÇSGB RTB</a></li>
+              <li><a href="https://csgbportal.csgb.gov.tr/" target="_blank" rel="noopener noreferrer">ÇSGB Portal</a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
     </main>
     <script type="module" src="/src/legislation-links.js"></script>
   <script type="module" src="/src/scroll-top.js"></script>
