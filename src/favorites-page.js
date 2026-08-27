@@ -107,7 +107,7 @@ async function createList() {
 
 function renderTools() {
   const tools = document.querySelector('#favorites-side-tools');
-  tools.innerHTML = `<div class="side-tools-heading"><span>FAVORİ ARAÇLARI</span><strong>${allItems().length} hüküm</strong></div><div class="favorite-list-buttons"><button data-list="all" class="${selectedList === 'all' ? 'active' : ''}">☆ Tümü (${allItems().length})</button>${data.lists.map((list) => `<button data-list="${list.id}" class="${selectedList === list.id ? 'active' : ''}">▸ ${esc(list.name)} <small>${list.items.length}</small></button>`).join('')}</div><a class="side-tool-button report-link-button" href="/tespitler.html">＋ Tespitler</a><button id="new-favorite-list" class="side-tool-button">＋ Favori listesi oluştur</button><button id="rename-favorite-list" class="side-tool-button" ${selectedList === 'all' ? 'disabled' : ''}>✎ Liste başlığını değiştir</button><button id="sort-favorites" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button>`;
+  tools.innerHTML = `<div class="side-tools-heading"><span>FAVORİ ARAÇLARI</span><strong>${allItems().length} hüküm</strong></div><div class="favorite-list-buttons"><button data-list="all" class="${selectedList === 'all' ? 'active' : ''}">☆ Tümü (${allItems().length})</button>${data.lists.map((list) => `<button data-list="${list.id}" class="${selectedList === list.id ? 'active' : ''}">▸ ${esc(list.name)} <small>${list.items.length}</small></button>`).join('')}</div><a class="side-tool-button report-link-button" href="/tespitler.html">＋ Tespitler</a><button id="new-favorite-list" class="side-tool-button">＋ Favori listesi oluştur</button><button id="rename-favorite-list" class="side-tool-button" ${selectedList === 'all' ? 'disabled' : ''}>✎ Liste başlığını değiştir</button><button id="sort-favorites" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="clear-all-favorites" class="side-tool-button" style="color:#b91c1c; margin-top:1.5rem;" ${allItems().length ? '' : 'disabled'}>🗑 Tüm favorileri sil</button>`;
   tools.querySelectorAll('[data-list]').forEach((button) => { button.onclick = () => { selectedList = button.dataset.list; render(); }; });
   tools.querySelector('#new-favorite-list').onclick = createList;
   tools.querySelector('#rename-favorite-list').onclick = async () => {
@@ -118,6 +118,15 @@ function renderTools() {
     list.name = name.trim(); save(data); render();
   };
   tools.querySelector('#sort-favorites').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
+  const clearBtn = tools.querySelector('#clear-all-favorites');
+  if (clearBtn) clearBtn.onclick = async () => {
+    if (!(await requireAccount())) return;
+    if (!window.confirm('Tüm favorileriniz ve özel listeleriniz kalıcı olarak silinecek. Onaylıyor musunuz?')) return;
+    data.lists = [];
+    selectedList = 'all';
+    save(data);
+    render();
+  };
 }
 
 function renderPending() {
