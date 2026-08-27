@@ -361,9 +361,12 @@ document.getElementById('reset-calc-btn')?.addEventListener('click', () => {
     document.querySelectorAll('.danger-button').forEach(btn => btn.classList.remove('active'));
     currentHazard = '';
     
-    // Hide results section
-    const sec = document.getElementById('calc-results-section');
-    if (sec) sec.style.display = 'none';
+    // Clear results
+    const resContainer = document.getElementById('results-container');
+    if (resContainer) {
+        resContainer.innerHTML = '';
+        resContainer.classList.remove('visible');
+    }
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
