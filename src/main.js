@@ -28,8 +28,8 @@ app.innerHTML = `
       <div class="calendar-layout-wrapper" style="display: flex; gap: 30px; align-items: flex-start;">
         <div style="flex-shrink: 0; position: sticky; top: 120px; display: flex; flex-direction: column; gap: 20px;">
           <div id="live-calendar" class="live-calendar"></div>
-          <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.6); border-radius: 16px; border: 1px solid #d7e1e9; box-shadow: 0 8px 22px rgba(31,62,88,.08);">
-            <img src="/ataturk-icon.jpg" alt="Atatürk" style="width: 100%; max-width: 250px; mix-blend-mode: multiply; border-radius: 8px;" />
+          <div style="text-align: center; padding: 5px; margin-top: -15px;">
+            <img src="/ataturk-icon.jpg" alt="Atatürk" style="width: 100%; max-width: 250px; mix-blend-mode: multiply; opacity: 0.85;" />
           </div>
         </div>
         
