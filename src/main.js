@@ -197,7 +197,7 @@ async function executeGlobalSearch(query) {
             let escape = (s) => s.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#039;'}[c]));
             snippet = escape(snippet);
         }
-        legMatches.push(`<div class="global-provision-card" onclick="window.open('/mevzuat.html?id=${encodeURIComponent(leg.id)}&page=${page.page}', '_blank')">
+        legMatches.push(`<div class="global-provision-card" onclick="window.open('/mevzuat.html?id=${encodeURIComponent(leg.id)}&page=${page.page}&highlight=${encodeURIComponent(query)}', '_blank')">
           <div class="g-card-body">
             <p>${snippet}</p>
           </div>

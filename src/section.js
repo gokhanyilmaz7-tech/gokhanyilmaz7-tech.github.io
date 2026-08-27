@@ -7,6 +7,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const requestedPage = params.get('page');
 const requestedBlock = params.get('block');
+const requestedHighlight = params.get('highlight');
 const title = document.querySelector('#title');
 const content = document.querySelector('#content');
 const search = document.querySelector('#search');
@@ -204,11 +205,34 @@ function render(query = '', {scroll = false} = {}) {
 
 function scrollToRequestedProvision() {
   if (!requestedPage) return;
+  
+  // First, if there's a global search query passed, apply it natively
+  if (requestedHighlight) {
+      const searchBox = document.querySelector('#search');
+      if (searchBox) searchBox.value = requestedHighlight;
+      render(requestedHighlight, {scroll: false});
+  }
+
   const page = [...content.querySelectorAll('.article-page')].find((entry) => entry.dataset.page === requestedPage);
-  const target = page && requestedBlock !== null ? page.querySelector(`.provision-card[data-block="${requestedBlock}"]`) : page;
-  if (!target) return;
-  target.classList.add('match-page');
+  if (!page) return;
+
+  // Prioritize finding the requestedBlock or the search match inside the requested page
+  let target = null;
+  if (requestedBlock !== null) {
+      target = page.querySelector(`.provision-card[data-block="${requestedBlock}"]`);
+  } else if (requestedHighlight) {
+      const needle = compact(requestedHighlight);
+      const cards = [...page.querySelectorAll('.provision-card')];
+      target = cards.find(c => compact(c.textContent || '').includes(needle));
+  }
+  
+  // Fallback to the whole page if no specific card found
+  if (!target) target = page;
+
   target.scrollIntoView({behavior: 'smooth', block: 'center'});
+  
+  // Always do a temporary pulse to make the exact card stand out with yellow background
+  target.classList.add('match-page');
   setTimeout(() => target.classList.remove('match-page'), 2600);
 }
 
