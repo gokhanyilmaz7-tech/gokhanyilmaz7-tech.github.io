@@ -358,7 +358,7 @@ document.getElementById('reset-calc-btn')?.addEventListener('click', () => {
     });
     
     // Reset hazard selection
-    document.querySelectorAll('.danger-button').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.hazard-card').forEach(btn => btn.classList.remove('active-az', 'active-tehlikeli', 'active-cok'));
     currentHazard = '';
     
     // Clear results
