@@ -200,8 +200,10 @@ function renderCalendar() {
         const lowerName = tName.toLocaleLowerCase('tr-TR');
         if (lowerName.includes('izin')) {
           bdgClass += ' leave-tag';
-        } else {
+        } else if (ev.taskId) {
           bdgClass += ' task-tag';
+        } else {
+          bdgClass += ' manual-tag';
         }
       }
       

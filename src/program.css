@@ -383,3 +383,17 @@
   border-color: #9db9cc;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
+
+.event-badge.manual-tag {
+  background: #f59e0b; /* Yellow/Orange */
+  border-left: 3px solid #d97706;
+  color: #fff;
+}
+.event-badge.manual-tag button.del-ev {
+  color: #fff;
+  opacity: 0.6;
+}
+.event-badge.manual-tag:hover button.del-ev {
+  color: #fff;
+  opacity: 1;
+}
