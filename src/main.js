@@ -118,7 +118,7 @@ async function executeGlobalSearch(query) {
 
   if (!loadedLegislations) {
     loadedLegislations = [];
-    const promises = state.sections.map(sec => fetch(sec.path || \`/sections/\${sec.id}.json\`).then(r => r.json()).catch(() => null));
+    const promises = state.sections.map(sec => fetch(sec.path || `/sections/${sec.id}.json`).then(r => r.json()).catch(() => null));
     const results = await Promise.all(promises);
     results.forEach((res, idx) => {
       if (res) {
@@ -135,7 +135,7 @@ async function executeGlobalSearch(query) {
   let totalMatches = 0;
   let html = `<div style="padding: 30px; max-width: 900px; margin: 0 auto; height: 100%; overflow-y: auto;">
     <h2 style="margin-top:0; color:#1a2b4b; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
-      "\${query}" için arama sonuçları
+      "${query}" için arama sonuçları
     </h2>
     <div style="display:flex; flex-direction:column; gap: 20px;">`;
   
@@ -167,13 +167,13 @@ async function executeGlobalSearch(query) {
             let escape = (s) => s.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#039;'}[c]));
             snippet = escape(snippet);
         }
-        legMatches.push(\`<div style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onclick="window.open('/mevzuat.html?id=\${encodeURIComponent(leg.id)}', '_blank')" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.05)';">
-          <p style="margin: 0 0 10px 0; line-height: 1.6; color: #334155;">\${snippet}</p>
+        legMatches.push(`<div style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onclick="window.open('/mevzuat.html?id=${encodeURIComponent(leg.id)}', '_blank')" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.05)';">
+          <p style="margin: 0 0 10px 0; line-height: 1.6; color: #334155;">${snippet}</p>
           <div style="display:flex; justify-content: space-between; font-size: 0.85rem; color: #64748b; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
-            <span style="font-weight:600; color: #0284c7;">\${leg.title}</span>
-            <span>Sayfa \${page.page}</span>
+            <span style="font-weight:600; color: #0284c7;">${leg.title}</span>
+            <span>Sayfa ${page.page}</span>
           </div>
-        </div>\`);
+        </div>`);
         totalMatches++;
         searchPos = idx + needle.length;
         idx = normalizedText.indexOf(needle, searchPos);
@@ -185,11 +185,11 @@ async function executeGlobalSearch(query) {
   }
 
   if (totalMatches === 0) {
-    html += \`<div style="text-align:center; padding: 50px; color: #64748b; font-size: 1.1rem;">Eşleşen hüküm bulunamadı.</div>\`;
+    html += `<div style="text-align:center; padding: 50px; color: #64748b; font-size: 1.1rem;">Eşleşen hüküm bulunamadı.</div>`;
   } else {
-    html += \`<div style="color: #64748b; text-align: center; font-size: 0.9rem; margin-top: 20px;">Bulunan eşleşme sayısı: \${totalMatches}\${totalMatches === 200 ? '+' : ''}</div>\`;
+    html += `<div style="color: #64748b; text-align: center; font-size: 0.9rem; margin-top: 20px;">Bulunan eşleşme sayısı: ${totalMatches}${totalMatches === 200 ? '+' : ''}</div>`;
   }
-  html += \`</div></div>\`;
+  html += `</div></div>`;
   contentArea.innerHTML = html;
 }
 
