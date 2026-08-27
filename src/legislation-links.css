@@ -116,11 +116,7 @@
 .useful-links a:hover {
   color: #102a43;
 }
-.useful-links a::before {
-  content: "→";
-  color: #c5a059;
-  font-weight: bold;
-}
+
 
 .rg-btn {
   display: inline-block;
@@ -139,4 +135,17 @@
   background: #b18c48;
   transform: scale(1.02);
   color: #fff;
+}
+
+.link-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 2px;
+}
+.useful-links a {
+  display: flex;
+  align-items: center;
 }
