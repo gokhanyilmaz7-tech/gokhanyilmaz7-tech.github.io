@@ -103,3 +103,75 @@ h1 { font-size: 20px; letter-spacing: -.02em; }
   border-color: #fbcfe8;
   box-shadow: 0 12px 28px rgba(251,207,232,.2);
 }
+
+/* Global Search Provision Card Styles */
+.global-provision-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e3dccd;
+  border-radius: 14px;
+  padding: 24px 30px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(26,43,75,.02);
+}
+.global-provision-card:hover {
+  background: rgba(255,250,240,.9);
+  border-color: rgba(197,160,89,.52);
+  box-shadow: 0 10px 24px rgba(26,43,75,.08);
+  transform: translateY(-2px);
+}
+.global-provision-card::before {
+  content: "§ Eşleşen Hüküm";
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: #fff;
+  padding: 0 10px;
+  color: #c5a059;
+  font-weight: bold;
+  font-size: 13px;
+  font-family: Inter, sans-serif;
+}
+.global-provision-card:hover::before {
+  color: #a88544;
+}
+.g-card-body p {
+  margin: 0;
+  text-align: justify;
+  text-align-last: left;
+  line-height: 1.8;
+  color: #1a2b4b;
+  font-size: 15px;
+  white-space: pre-wrap;
+}
+.g-card-body strong {
+  background: #fef08a !important;
+  color: #854d0e !important;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.g-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 15px;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 15px;
+}
+.g-card-title {
+  font-weight: 600;
+  color: #2679d0;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.g-card-page {
+  font-weight: bold;
+  color: #a88544;
+}

@@ -183,11 +183,13 @@ async function executeGlobalSearch(query) {
             let escape = (s) => s.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#039;'}[c]));
             snippet = escape(snippet);
         }
-        legMatches.push(`<div style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onclick="window.open('/mevzuat.html?id=${encodeURIComponent(leg.id)}', '_blank')" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.05)';">
-          <p style="margin: 0 0 10px 0; line-height: 1.6; color: #334155;">${snippet}</p>
-          <div style="display:flex; justify-content: space-between; font-size: 0.85rem; color: #64748b; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
-            <span style="font-weight:600; color: #0284c7;">${leg.title}</span>
-            <span>Sayfa ${page.page}</span>
+        legMatches.push(`<div class="global-provision-card" onclick="window.open('/mevzuat.html?id=${encodeURIComponent(leg.id)}&page=${page.page}', '_blank')">
+          <div class="g-card-body">
+            <p>${snippet}</p>
+          </div>
+          <div class="g-card-footer">
+            <span class="g-card-title">${leg.title}</span>
+            <span class="g-card-page">Sayfa ${page.page} &rarr;</span>
           </div>
         </div>`);
         totalMatches++;
