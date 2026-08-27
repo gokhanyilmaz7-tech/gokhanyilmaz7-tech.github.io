@@ -121,3 +121,22 @@
   color: #c5a059;
   font-weight: bold;
 }
+
+.rg-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #c5a059;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+  font-size: 14px;
+}
+.rg-btn:hover {
+  background: #b18c48;
+  transform: scale(1.02);
+  color: #fff;
+}

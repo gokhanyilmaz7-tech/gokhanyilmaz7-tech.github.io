@@ -96,30 +96,3 @@ document.querySelector('#legislation-filter').addEventListener('input', (event) 
 });
 render();
 
-// Resmi Gazete RSS Fetch via rss2json
-const rgContent = document.getElementById('rg-content');
-if (rgContent) {
-  fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.resmigazete.gov.tr/rss.xml')
-    .then(r => r.json())
-    .then(data => {
-      if (data.status === 'ok' && data.items && data.items.length > 0) {
-        let item = data.items[0];
-        
-        // Sometimes the first item is generic, let's try to find one with 'Yönetmelik' or 'Kanun' if preferred, 
-        // but user just said "son resmi gazetede yayınlanan mevzuat". The first item is fine!
-        const dateStr = item.pubDate ? new Date(item.pubDate.replace(/-/g, '/')).toLocaleDateString('tr-TR') : 'Bugün';
-
-        rgContent.innerHTML = `
-          <div class="rg-item">
-            <span class="rg-date">Yayım Tarihi: ${dateStr}</span>
-            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="rg-title" title="${item.title}">${item.title}</a>
-          </div>
-        `;
-      } else {
-        rgContent.innerHTML = `<div class="rg-error">Son yayın alınamadı. <br><a href="https://www.resmigazete.gov.tr/" target="_blank">Siteye git</a></div>`;
-      }
-    })
-    .catch(() => {
-      rgContent.innerHTML = `<div class="rg-error">Erişim sağlanamadı. <a href="https://www.resmigazete.gov.tr/" target="_blank">Resmi Gazete</a>'den kontrol edin.</div>`;
-    });
-}
