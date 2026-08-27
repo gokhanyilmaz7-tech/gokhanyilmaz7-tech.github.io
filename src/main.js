@@ -297,14 +297,18 @@ $('#global-search')?.addEventListener('input', (event) => {
 setupAccountUI();
 
 
-function renderCalendar() {
+let currentCalDate = new Date();
+function renderCalendar(targetDate = currentCalDate) {
   const container = document.getElementById('live-calendar');
   if (!container) return;
 
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth();
+  
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const date = now.getDate();
+  const isCurrentMonth = (year === now.getFullYear() && month === now.getMonth());
+  const todayDate = now.getDate();
+
   const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
   
   let firstDay = new Date(year, month, 1).getDay();
@@ -314,9 +318,9 @@ function renderCalendar() {
 
   let html = `<div class="glass-calendar-inner">
       <div class="cal-header">
-        <span class="cal-nav">&lang;</span>
+        <span class="cal-nav" id="cal-prev" title="Önceki Ay">&lang;</span>
         <span class="cal-month">${months[month]} ${year}</span>
-        <span class="cal-nav">&rang;</span>
+        <span class="cal-nav" id="cal-next" title="Sonraki Ay">&rang;</span>
       </div>
       <div class="cal-weekdays">
         <span>Pt</span><span>Sa</span><span>Ça</span><span>Pe</span><span>Cu</span><span>Ct</span><span>Pz</span>
@@ -328,7 +332,7 @@ function renderCalendar() {
     html += `<span class="cal-day prev-month">${trailingDay}</span>`;
   }
   for (let i = 1; i <= daysInMonth; i++) {
-    if (i === date) {
+    if (isCurrentMonth && i === todayDate) {
       html += `<span class="cal-day current-day">${i}</span>`;
     } else {
       html += `<span class="cal-day">${i}</span>`;
@@ -340,13 +344,28 @@ function renderCalendar() {
   }
   html += `</div></div>`;
   container.innerHTML = html;
+
+  document.getElementById('cal-prev').addEventListener('click', () => {
+    currentCalDate = new Date(year, month - 1, 1);
+    renderCalendar(currentCalDate);
+  });
+  
+  document.getElementById('cal-next').addEventListener('click', () => {
+    currentCalDate = new Date(year, month + 1, 1);
+    renderCalendar(currentCalDate);
+  });
+  
+  // Double click month title to reset to current month
+  document.querySelector('.cal-month').addEventListener('dblclick', () => {
+    currentCalDate = new Date();
+    renderCalendar(currentCalDate);
+  });
 }
 
 renderCalendar();
 setInterval(() => {
-    // Re-render when date changes in long sessions
     const cNow = new Date();
     if (cNow.getHours() === 0 && cNow.getMinutes() === 0 && cNow.getSeconds() < 10) {
-        renderCalendar();
+        renderCalendar(currentCalDate);
     }
 }, 10000);
