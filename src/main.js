@@ -25,14 +25,17 @@ app.innerHTML = `
           <button id="calc-open" class="ipc-open favorites-home-open" type="button" title="İSG Süre Hesaplama sayfasını aç">⏱️ Süre Hesaplama</button>
         </div>
       </div></div>
-      <div class="calendar-search-row">
-        <div id="live-calendar" class="live-calendar"></div>
-        <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
-          <label class="search-field sidebar-search" style="width: 100%;"><span aria-hidden="true">⌕</span><input id="section-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /></label>
-          <label class="search-field sidebar-search" style="width: 100%;"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Hüküm ara…" autocomplete="off" /></label>
+      <div class="calendar-layout-wrapper" style="display: flex; gap: 30px; align-items: flex-start;">
+        <div id="live-calendar" class="live-calendar" style="flex-shrink: 0; position: sticky; top: 120px;"></div>
+        
+        <div style="flex: 1; min-width: 0;">
+          <div style="display: flex; gap: 10px; margin-bottom: 24px; flex-direction: row; width: 100%;">
+            <label class="search-field sidebar-search" style="flex: 1;"><span aria-hidden="true">⌕</span><input id="section-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /></label>
+            <label class="search-field sidebar-search" style="flex: 1;"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Hüküm ara…" autocomplete="off" /></label>
+          </div>
+          <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
         </div>
       </div>
-      <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
       <div class="sidebar-contact-links" style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.75rem;">
         <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn mail-btn">
           ✉️ E-Posta

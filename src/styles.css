@@ -306,7 +306,7 @@ h1 { font-size: 20px; letter-spacing: -.02em; }
   border-bottom-right-radius: 2px;
 }
 
-.calendar-search-row {
+.calendar-layout-wrapper {
   display: flex;
   gap: 20px;
   margin-bottom: 30px;
@@ -314,8 +314,27 @@ h1 { font-size: 20px; letter-spacing: -.02em; }
   align-items: flex-start;
 }
 @media (max-width: 480px) {
-  .calendar-search-row {
+  .calendar-layout-wrapper {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-layout-wrapper {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  .live-calendar {
+    position: static !important;
+    margin: 0 auto 20px auto;
+  }
+}
+@media (max-width: 480px) {
+  .sidebar-search {
+    flex: 100% !important;
+  }
+  .calendar-layout-wrapper > div > div {
+    flex-direction: column !important;
   }
 }
