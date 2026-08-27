@@ -324,3 +324,37 @@
   color: #fff;
   font-weight: 700;
 }
+
+.md-weekend {
+  color: #e11d48 !important;
+  background: #fff5f5;
+}
+
+.event-badge {
+  /* Default badge overrides for standard colored text */
+  color: #fff;
+}
+.event-badge.task-tag {
+  background: #3b82f6; /* Blue for tasks */
+  border-left: 3px solid #2563eb;
+}
+.event-badge.task-tag button.del-ev,
+.event-badge.leave-tag button.del-ev {
+  color: #fff;
+  opacity: 0.6;
+}
+.event-badge.task-tag:hover button.del-ev,
+.event-badge.leave-tag:hover button.del-ev {
+  color: #fff;
+  opacity: 1;
+}
+
+.event-badge.leave-tag {
+  background: #16a34a; /* Green for leaves */
+  border-left: 3px solid #15803d;
+}
+
+/* Let's make sure weekend tag text is correctly colored since .event-badge now sets color to #fff */
+.event-badge.weekend-tag {
+  color: #c53030;
+}

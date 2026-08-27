@@ -177,13 +177,29 @@ function renderCalendar() {
     // Filter out the placeholder used for clearing
     dayEvs = dayEvs.filter(e => e.action !== 'clear-weekend');
     dayEvs.forEach(ev => {
-      if(ev.taskId) {
+      let tName = '';
+      if (ev.taskId) {
         const t = tasks.find(x => x.id === ev.taskId);
-        if(t) evHtml += `<div class="event-badge">${t.unvan} <button class="del-ev" onclick="event.stopPropagation(); window.delEvent('${dateStr}','${ev.id}')">×</button></div>`;
+        tName = t ? t.unvan : '';
       } else {
-        const bdgClass = ev.isVirtual ? 'event-badge weekend-tag' : 'event-badge manual';
-        evHtml += `<div class="${bdgClass}">${ev.text} <button class="del-ev" onclick="event.stopPropagation(); window.delEvent('${dateStr}','${ev.id}')">×</button></div>`;
+        tName = ev.text || '';
       }
+      
+      if (!tName && !ev.isVirtual) return; // safeguard
+      
+      let bdgClass = 'event-badge';
+      if (ev.isVirtual) {
+        bdgClass += ' weekend-tag';
+      } else {
+        const lowerName = tName.toLocaleLowerCase('tr-TR');
+        if (lowerName.includes('izin')) {
+          bdgClass += ' leave-tag';
+        } else {
+          bdgClass += ' task-tag';
+        }
+      }
+      
+      evHtml += `<div class="${bdgClass}">${tName} <button class="del-ev" onclick="event.stopPropagation(); window.delEvent('${dateStr}','${ev.id}')">×</button></div>`;
     });
     
     d.innerHTML = `<span class="mc-date">${day}</span><div class="mc-events">${evHtml}</div>`;
@@ -219,8 +235,12 @@ function openAssignModal(dateStr, day) {
     const span = document.createElement('span');
     span.className = 'md-day';
     if(iterDateStr === dateStr) span.classList.add('selected');
+    
+    const mDayOfWeek = new Date(currentYear, currentMonth, i).getDay();
+    if(mDayOfWeek === 0 || mDayOfWeek === 6) span.classList.add('md-weekend');
+    
     const dayNamesFull = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-    const dName = dayNamesFull[new Date(currentYear, currentMonth, i).getDay()];
+    const dName = dayNamesFull[mDayOfWeek];
     span.innerText = `${i} ${monthNames[currentMonth]} ${dName}`;
     span.dataset.date = iterDateStr;
     span.addEventListener('click', () => span.classList.toggle('selected'));
