@@ -14,7 +14,17 @@ app.innerHTML = `
   </header>
   <main class="layout">
     <aside class="sidebar">
-    <div class="sidebar-heading"><div><h2>Mevzuat Listesi</h2></div><div class="sidebar-actions"><button id="report-open" class="ipc-open" type="button" title="Tespitler menüsünü aç">＋ Tespitler</button><button id="favorites-open" class="ipc-open favorites-home-open" type="button" title="Favorilerimi aç">☆ Favorilerim</button><button id="ipc-open" class="ipc-open favorites-home-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button><button id="external-legislation-open" class="ipc-open favorites-home-open" type="button" title="Mevzuat bağlantıları sayfasını aç">↗ Mevzuat bağlantıları</button><button id="calc-open" class="ipc-open favorites-home-open" type="button" title="İSG Süre Hesaplama sayfasını aç">⏱️ Süre Hesaplama</button></div></div>
+    <div class="sidebar-heading"><div><h2>Mevzuat Listesi</h2></div><div class="sidebar-actions">
+        <div class="sidebar-row-1">
+          <button id="report-open" class="ipc-open" type="button" title="Tespitler menüsünü aç">＋ Tespitler</button>
+          <button id="favorites-open" class="ipc-open favorites-home-open" type="button" title="Favorilerimi aç">☆ Favorilerim</button>
+        </div>
+        <div class="sidebar-row-2">
+          <button id="ipc-open" class="ipc-open favorites-home-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button>
+          <button id="external-legislation-open" class="ipc-open favorites-home-open" type="button" title="Mevzuat bağlantıları sayfasını aç">↗ Mevzuat bağlantıları</button>
+          <button id="calc-open" class="ipc-open favorites-home-open" type="button" title="İSG Süre Hesaplama sayfasını aç">⏱️ Süre Hesaplama</button>
+        </div>
+      </div></div>
       <div style="display: flex; gap: 10px; margin-bottom: 30px; width: 100%;">
         <label class="search-field sidebar-search" style="flex: 1;"><span aria-hidden="true">⌕</span><input id="section-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /></label>
         <label class="search-field sidebar-search" style="flex: 1;"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Hüküm ara…" autocomplete="off" /></label>
