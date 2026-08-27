@@ -146,7 +146,7 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
   const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998; font-size: 0.95rem;">📝 Tespitleri Word'e aktar</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel tespit Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998; font-size: 0.95rem;">📝 Tespitleri Word'e aktar</button><button id="report-copy-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #4a5568; font-size: 0.95rem;">📋 Panoya Kopyala</button><button id="report-copy-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #4a5568; font-size: 0.95rem;">📋 Panoya Kopyala</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel tespit Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
   <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
   <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
@@ -155,6 +155,8 @@ function renderTools() {
   tools.querySelector('#report-sort').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
   tools.querySelector('#report-word').onclick = exportWord;
   tools.querySelector('#report-word-titles').onclick = exportWordTitles;
+  tools.querySelector('#report-copy-titles').onclick = copyTitlesToClipboard;
+  tools.querySelector('#report-copy-titles').onclick = copyTitlesToClipboard;
   tools.querySelector('#report-add-manual-tool').onclick = startAddingManualDeficiencies;
   tools.querySelector('#report-clear').onclick = async () => { if (!(await requireAccount()) || !items().length || !window.confirm('Rapordaki tüm hükümler çıkarılsın mı?')) return; data.reports = []; await save(); render(); };
 }
@@ -739,3 +741,42 @@ window.addEventListener('storage', (e) => {
     render();
   }
 });
+
+
+async function copyTitlesToClipboard() {
+  if (!items().length) return alert('Raporunuzda hüküm bulunmuyor.');
+  
+  const ok = await ensureTitles();
+  if (!ok) return;
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('tr-TR');
+  
+  let text = 'İş Sağlığı ve Güvenliği Saha Tespitleri\nTarih: ' + dateStr + '\n\n';
+  
+  const formattedItems = sortedItems();
+  formattedItems.forEach((item, index) => {
+    let t = item.title;
+    if (!t) {
+      const match = String(item.text).match(/[^\.?!]+[\.?!]/);
+      t = match ? match[0].trim() : String(item.text).slice(0, 100).trim() + '...';
+    }
+    text += `${index + 1}. ${t}\n`;
+  });
+  
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.querySelector('#report-copy-titles');
+    const oldText = btn.textContent;
+    btn.textContent = '✅ Kopyalandı!';
+    btn.style.backgroundColor = '#2f855a';
+    setTimeout(() => {
+      btn.textContent = oldText;
+      btn.style.backgroundColor = '#4a5568';
+    }, 2000);
+  } catch (err) {
+    alert('Kopyalama başarısız oldu: ' + err);
+  }
+}
+
+
