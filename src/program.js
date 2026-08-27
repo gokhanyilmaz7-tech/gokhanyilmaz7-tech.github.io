@@ -219,7 +219,9 @@ function openAssignModal(dateStr, day) {
     const span = document.createElement('span');
     span.className = 'md-day';
     if(iterDateStr === dateStr) span.classList.add('selected');
-    span.innerText = `${i} ${monthNames[currentMonth]}`;
+    const dayNamesFull = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+    const dName = dayNamesFull[new Date(currentYear, currentMonth, i).getDay()];
+    span.innerText = `${i} ${monthNames[currentMonth]} ${dName}`;
     span.dataset.date = iterDateStr;
     span.addEventListener('click', () => span.classList.toggle('selected'));
     mds.appendChild(span);

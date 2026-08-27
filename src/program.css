@@ -292,12 +292,12 @@
 
 .multi-day-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  max-height: 140px;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 180px;
   overflow-y: auto;
   border: 1px solid #d9e2ec;
-  padding: 10px;
+  padding: 8px;
   border-radius: 6px;
   background: #f9fbfc;
 }
@@ -305,13 +305,14 @@
   background: #fff;
   border: 1px solid #bcccdc;
   border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.8rem;
+  padding: 8px 12px;
+  font-size: 0.85rem;
   color: #486581;
   cursor: pointer;
   user-select: none;
   transition: all 0.2s;
   font-weight: 500;
+  display: block;
 }
 .md-day:hover {
   border-color: #829ab1;
