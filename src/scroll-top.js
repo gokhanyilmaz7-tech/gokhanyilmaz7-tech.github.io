@@ -50,6 +50,21 @@ globalStyle.textContent = `
     transform: translateY(-1px) !important;
     color: #ffffff !important;
   }
+  @media (max-width: 760px) {
+    .back-link, .ipc-back, #home-return {
+      font-size: 0 !important;
+      width: 36px !important;
+      height: 36px !important;
+      padding: 0 !important;
+      justify-content: center !important;
+      letter-spacing: 0 !important;
+    }
+    .back-link::after, .ipc-back::after, #home-return::after {
+      content: "🏠" !important;
+      font-size: 18px !important;
+      display: block !important;
+    }
+  }
 `;
 document.head.appendChild(globalStyle);
 
