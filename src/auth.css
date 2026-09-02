@@ -4,3 +4,33 @@
 .local-admin-shortcut{border-color:#e7b9d5!important;color:#fff!important;background:#a52f7b!important}.local-admin-shortcut:hover{background:#8c286c!important}
 
 a.account-button { text-decoration: none; }
+
+/* --- GLOBAL MOBILE FIXES (Home & Logout) --- */
+@media (max-width: 760px) {
+    .back-link {
+        font-size: 0 !important;
+        width: 36px !important;
+        height: 36px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        flex: 0 0 auto !important;
+        letter-spacing: 0 !important;
+    }
+    .back-link::after {
+        content: "🏠" !important;
+        font-size: 18px !important;
+        display: block !important;
+    }
+    
+    .logout-button, .account-button {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+        margin-left: auto !important;
+    }
+}

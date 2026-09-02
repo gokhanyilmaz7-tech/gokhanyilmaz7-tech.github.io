@@ -53,3 +53,22 @@ body { margin: 0; background: radial-gradient(circle at 8% 0%, rgba(197,160,89,.
 .ipc-data-row.merge-continuation td { border-top: 0; }
 @media (max-width: 1100px) { .ipc-table { width: 1500px; min-width: 1500px; } }
 @media (max-width: 700px) { .ipc-topbar { align-items: flex-start; flex-direction: column; }.ipc-tools { align-items: stretch; flex-direction: column; }.ipc-search { max-width: none; }#ipc-copy { width: 100%; } }
+
+/* Mobil Tablo Kaydırma Düzeltmesi */
+@media (max-width: 860px) {
+    .ipc-table th:nth-child(-n+3), 
+    .ipc-table td:nth-child(-n+3) { 
+        position: static !important;
+    }
+    .ipc-table { 
+        width: max-content !important; 
+        min-width: 100% !important; 
+    }
+    .ipc-table th, .ipc-table td {
+        width: auto !important; 
+    }
+    .ipc-table-wrap {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
