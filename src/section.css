@@ -132,8 +132,9 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 /* Mobil Kart Aksiyon Butonları (Favori, Rapora Ekle) Düzenlemesi */
 @media (max-width: 860px) {
     .favorite-star {
-        top: -12px !important;
-        left: 10px !important;
+        top: 8px !important;
+        right: 10px !important;
+        left: auto !important;
         width: 24px !important;
         height: 24px !important;
         background: #fff !important;
@@ -146,8 +147,9 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
         border: 1px solid #ebe4d7 !important;
     }
     .report-plus {
-        top: -12px !important;
-        left: 42px !important;
+        top: 8px !important;
+        right: 42px !important;
+        left: auto !important;
         width: 24px !important;
         height: 24px !important;
         background: #fff !important;
@@ -160,8 +162,9 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
         border: 1px solid #ebe4d7 !important;
     }
     .report-repeat {
-        top: -12px !important;
-        left: 74px !important;
+        top: 8px !important;
+        right: 74px !important;
+        left: auto !important;
         width: 24px !important;
         height: 24px !important;
         background: #fff !important;
