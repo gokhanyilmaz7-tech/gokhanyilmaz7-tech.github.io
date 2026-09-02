@@ -1,3 +1,19 @@
+import { protectPage } from './auth.js';
+protectPage();
+
+function isTaskValidForPeriod(t, year, month) {
+  if (t.startYear !== undefined && t.startMonth !== undefined && t.endYear !== undefined && t.endMonth !== undefined) {
+    const taskStart = t.startYear * 12 + t.startMonth;
+    const taskEnd = t.endYear * 12 + t.endMonth;
+    const currentPos = year * 12 + month;
+    return currentPos >= taskStart && currentPos <= taskEnd;
+  }
+  if (t.validMonths) {
+    return t.validMonths.includes(month);
+  }
+  return true;
+}
+
 import { currentUser } from './auth';
 
 let user = null;
@@ -5,6 +21,7 @@ let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth(); // 0-11
 let tasks = [];
 let schedule = {}; 
+let archiveList = [];
 
 const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
 const dayNames = ["P", "S", "Ç", "P", "C", "C", "P"];
@@ -16,16 +33,57 @@ async function init() {
     return;
   }
   
-  loadData();
+  await loadData();
   renderTasks();
   renderCalendar();
   
   document.getElementById('btn-prev-month').addEventListener('click', () => changeMonth(-1));
   document.getElementById('btn-next-month').addEventListener('click', () => changeMonth(1));
+  document.getElementById('save-task-btn').addEventListener('click', saveTask);
+
+  // Topbar Save & Archive Event Listeners
+  const topbarSaveBtn = document.getElementById('btn-topbar-save');
+  if (topbarSaveBtn) topbarSaveBtn.addEventListener('click', saveProgramToArchive);
+
+  const topbarArchiveBtn = document.getElementById('btn-topbar-archive');
+  if (topbarArchiveBtn) topbarArchiveBtn.addEventListener('click', openArchiveModal);
+
+  const closeArchiveBtn = document.getElementById('close-archive-btn');
+  if (closeArchiveBtn) closeArchiveBtn.addEventListener('click', closeArchiveModal);
+
+  const closeArchiveX = document.getElementById('close-archive-x');
+  if (closeArchiveX) closeArchiveX.addEventListener('click', closeArchiveModal);
   
-      document.getElementById('save-task-btn').addEventListener('click', saveTask);
-  
+  const closeAssignX = document.getElementById('close-assign-x');
+  if (closeAssignX) closeAssignX.addEventListener('click', closeAssignModal);
   document.getElementById('close-assign-modal').addEventListener('click', closeAssignModal);
+
+  // Multi-day selector preset buttons
+  const btnMdAll = document.getElementById('btn-md-all');
+  if (btnMdAll) btnMdAll.addEventListener('click', () => {
+    document.querySelectorAll('.md-day').forEach(el => el.classList.add('selected'));
+  });
+
+  const btnMdWeekdays = document.getElementById('btn-md-weekdays');
+  if (btnMdWeekdays) btnMdWeekdays.addEventListener('click', () => {
+    document.querySelectorAll('.md-day').forEach(el => {
+      if (el.dataset.isWeekend === 'false') el.classList.add('selected');
+      else el.classList.remove('selected');
+    });
+  });
+
+  const btnMdWeekends = document.getElementById('btn-md-weekends');
+  if (btnMdWeekends) btnMdWeekends.addEventListener('click', () => {
+    document.querySelectorAll('.md-day').forEach(el => {
+      if (el.dataset.isWeekend === 'true') el.classList.add('selected');
+      else el.classList.remove('selected');
+    });
+  });
+
+  const btnMdClear = document.getElementById('btn-md-clear');
+  if (btnMdClear) btnMdClear.addEventListener('click', () => {
+    document.querySelectorAll('.md-day').forEach(el => el.classList.remove('selected'));
+  });
   document.getElementById('save-assign-btn').addEventListener('click', saveAssign);
   
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', (e) => {
@@ -36,16 +94,41 @@ async function init() {
   }));
 }
 
-function loadData() {
+async function loadData() {
   const t = localStorage.getItem(`mevzuat-tasks-${user.id}`);
   if (t) tasks = JSON.parse(t);
   const s = localStorage.getItem(`mevzuat-schedule-${user.id}`);
   if (s) schedule = JSON.parse(s);
+  const a = localStorage.getItem(`mevzuat-archive-${user.id}`);
+  if (a) archiveList = JSON.parse(a);
+
+  try {
+    const res = await fetch('/api/program');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.tasks && Array.isArray(data.tasks)) tasks = data.tasks;
+      if (data.schedule && typeof data.schedule === 'object') schedule = data.schedule;
+      if (data.archive && Array.isArray(data.archive)) archiveList = data.archive;
+    }
+  } catch (err) {
+    console.warn('Backend sync unavailable, using local cache.');
+  }
 }
 
-function saveData() {
+async function saveData() {
   localStorage.setItem(`mevzuat-tasks-${user.id}`, JSON.stringify(tasks));
   localStorage.setItem(`mevzuat-schedule-${user.id}`, JSON.stringify(schedule));
+  localStorage.setItem(`mevzuat-archive-${user.id}`, JSON.stringify(archiveList));
+
+  try {
+    await fetch('/api/program', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tasks, schedule, archive: archiveList })
+    });
+  } catch (err) {
+    console.warn('Backend save failed:', err);
+  }
 }
 
 function saveTask() {
@@ -55,11 +138,30 @@ function saveTask() {
   const dosya = document.getElementById('t-dosya').value.trim();
   const adres = document.getElementById('t-adres').value.trim();
   
-  const checkedMonths = Array.from(document.querySelectorAll('#t-months input:checked')).map(cb => parseInt(cb.value));
+  const startMonthEl = document.getElementById('t-start-month');
+  const startYearEl = document.getElementById('t-start-year');
+  const endMonthEl = document.getElementById('t-end-month');
+  const endYearEl = document.getElementById('t-end-year');
+
+  const startMonth = startMonthEl ? parseInt(startMonthEl.value) : 0;
+  const startYear = startYearEl ? parseInt(startYearEl.value) : currentYear;
+  const endMonth = endMonthEl ? parseInt(endMonthEl.value) : 11;
+  const endYear = endYearEl ? parseInt(endYearEl.value) : currentYear;
   
   if (!unvan) return alert("İşyeri ünvanı zorunludur.");
   
-  const newTask = { id: 'task_' + Date.now(), unvan, oto, sgk, dosya, adres, validMonths: checkedMonths };
+  const newTask = { 
+    id: 'task_' + Date.now(), 
+    unvan, 
+    oto, 
+    sgk, 
+    dosya, 
+    adres, 
+    startMonth, 
+    startYear, 
+    endMonth, 
+    endYear 
+  };
   tasks.push(newTask);
   saveData();
   
@@ -68,7 +170,6 @@ function saveTask() {
   document.getElementById('t-sgk').value = '';
   document.getElementById('t-dosya').value = '';
   document.getElementById('t-adres').value = '';
-  document.querySelectorAll('#t-months input').forEach(cb => cb.checked = true);
     
   renderTasks();
 }
@@ -76,7 +177,6 @@ function saveTask() {
 function deleteTask(id) {
   if(!confirm("Bu görevi silmek istediğinize emin misiniz?")) return;
   tasks = tasks.filter(t => t.id !== id);
-  // Optional: remove from schedule? Keeping it simple.
   saveData();
   renderTasks();
 }
@@ -84,17 +184,25 @@ function deleteTask(id) {
 function renderTasks() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
-  tasks.filter(t => !t.validMonths || t.validMonths.includes(currentMonth)).forEach(t => {
+  tasks.filter(t => isTaskValidForPeriod(t, currentYear, currentMonth)).forEach(t => {
     const card = document.createElement('div');
     card.className = 'task-card';
+    
+    let periodText = '';
+    if (t.startYear !== undefined && t.endYear !== undefined) {
+      periodText = `${monthNames[t.startMonth]} ${t.startYear} - ${monthNames[t.endMonth]} ${t.endYear}`;
+    }
+    
     card.innerHTML = `
       <h4 style="padding-right: 16px;">${t.unvan}</h4>
+      ${periodText ? `<p class="task-period-preview">📅 ${periodText}</p>` : ''}
       <p class="task-sgk-preview">SGK: ${t.sgk || '-'}</p>
       <div class="task-details">
-        <p><span>Otomasyon No:</span> ${t.oto || '-'}</p>
+        ${periodText ? `<p><span>Dönem:</span> ${periodText}</p>` : ''}
+        <p><span>SGK:</span> ${t.sgk || '-'}</p>
+        <p><span>Oto Kodu:</span> ${t.oto || '-'}</p>
         <p><span>Dosya No:</span> ${t.dosya || '-'}</p>
         <p><span>Adres:</span> ${t.adres || '-'}</p>
-        <p><span>Aylar:</span> ${t.validMonths ? t.validMonths.map(m => monthNames[m].substring(0,3)).join(', ') : 'Tümü'}</p>
       </div>
       <button class="task-del" onclick="event.stopPropagation(); window.deleteTask('${t.id}')">×</button>
     `;
@@ -234,31 +342,57 @@ function openAssignModal(dateStr, day) {
   
   const sel = document.getElementById('assign-task-select');
   sel.innerHTML = '<option value="">-- Görev Seçin --</option>';
-  tasks.filter(t => !t.validMonths || t.validMonths.includes(currentMonth))
+  tasks.filter(t => isTaskValidForPeriod(t, currentYear, currentMonth))
        .forEach(t => sel.innerHTML += `<option value="${t.id}">${t.unvan}</option>`);
   
   document.getElementById('assign-manual-text').value = '';
   
-  // Render multiple day selector
+  // Render 7-column calendar week selector grid (Pazartesi -> Pazar)
   const mds = document.getElementById('multi-day-selector');
-  mds.innerHTML = '';
-  
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  for(let i=1; i<=daysInMonth; i++) {
-    const iterDateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-    const span = document.createElement('span');
-    span.className = 'md-day';
-    if(iterDateStr === dateStr) span.classList.add('selected');
+  if (mds) {
+    mds.innerHTML = '';
     
-    const mDayOfWeek = new Date(currentYear, currentMonth, i).getDay();
-    if(mDayOfWeek === 0 || mDayOfWeek === 6) span.classList.add('md-weekend');
+    // 1. Column Headers (Mon -> Sun)
+    const headers = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
+    headers.forEach((h, idx) => {
+      const hCell = document.createElement('div');
+      hCell.className = 'md-header-cell';
+      if (idx >= 5) hCell.classList.add('md-header-weekend');
+      hCell.innerText = h;
+      mds.appendChild(hCell);
+    });
     
-    const dayNamesFull = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-    const dName = dayNamesFull[mDayOfWeek];
-    span.innerText = `${i} ${monthNames[currentMonth]} ${dName}`;
-    span.dataset.date = iterDateStr;
-    span.addEventListener('click', () => span.classList.toggle('selected'));
-    mds.appendChild(span);
+    // 2. Month Offset (Mon=0, Tue=1, ..., Sun=6)
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const firstDayAdj = firstDay === 0 ? 6 : firstDay - 1;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+    for (let i = 0; i < firstDayAdj; i++) {
+      const emptyCell = document.createElement('div');
+      emptyCell.className = 'md-empty-cell';
+      mds.appendChild(emptyCell);
+    }
+    
+    // 3. Render Day Cells
+    for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
+      const iterDateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
+      const item = document.createElement('div');
+      item.className = 'md-day md-day-cell';
+      if (iterDateStr === dateStr) item.classList.add('selected');
+      
+      const dayObj = new Date(currentYear, currentMonth, dayNum);
+      const mDayOfWeek = dayObj.getDay(); // 0 = Sun, 6 = Sat
+      const isWeekend = (mDayOfWeek === 0 || mDayOfWeek === 6);
+      
+      if (isWeekend) item.classList.add('md-weekend');
+      item.dataset.isWeekend = isWeekend ? 'true' : 'false';
+      item.dataset.date = iterDateStr;
+      
+      item.innerText = dayNum;
+      item.title = `${dayNum} ${monthNames[currentMonth]} ${currentYear}`;
+      item.addEventListener('click', () => item.classList.toggle('selected'));
+      mds.appendChild(item);
+    }
   }
 
   document.getElementById('assign-modal').classList.remove('hidden');
@@ -318,5 +452,94 @@ window.delEvent = function(dateStr, evId) {
     renderCalendar();
   }
 }
+
+// Program Archive Functions
+function saveProgramToArchive() {
+  const currentEventsCount = Object.values(schedule).reduce((acc, evs) => acc + evs.length, 0);
+  const now = new Date();
+  const dateLabel = `${now.toLocaleDateString('tr-TR')} ${now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}`;
+  
+  const archiveItem = {
+    id: 'arch_' + Date.now(),
+    dateLabel,
+    month: currentMonth,
+    year: currentYear,
+    monthName: monthNames[currentMonth],
+    taskCount: tasks.length,
+    eventCount: currentEventsCount,
+    schedule: JSON.parse(JSON.stringify(schedule)),
+    tasks: JSON.parse(JSON.stringify(tasks))
+  };
+
+  archiveList.unshift(archiveItem);
+  saveData();
+  alert(`"${monthNames[currentMonth]} ${currentYear}" görev programı arşive başarıyla kaydedildi!`);
+}
+
+function openArchiveModal() {
+  renderArchiveList();
+  document.getElementById('archive-modal').classList.remove('hidden');
+}
+
+function closeArchiveModal() {
+  document.getElementById('archive-modal').classList.add('hidden');
+}
+
+function renderArchiveList() {
+  const container = document.getElementById('archive-list');
+  if (!container) return;
+
+  if (archiveList.length === 0) {
+    container.innerHTML = `<div class="archive-empty">Henüz kaydedilmiş bir görev programı arşivi bulunmuyor.</div>`;
+    return;
+  }
+
+  container.innerHTML = archiveList.map((item, index) => {
+    const isCurrent = (index === 0);
+    return `
+      <div class="archive-card ${isCurrent ? 'active-archive' : ''}">
+        <div class="archive-info">
+          <h4>${item.monthName} ${item.year} Programı ${isCurrent ? '<span style="font-size:0.75rem; color:#10b981; margin-left:6px;">(Son Kayıt)</span>' : ''}</h4>
+          <div class="archive-meta">
+            <span>🕒 ${item.dateLabel}</span>
+            <span>🏢 ${item.taskCount || 0} Görev</span>
+            <span>📌 ${item.eventCount || 0} Etkinlik</span>
+          </div>
+        </div>
+        <div class="archive-card-actions">
+          <button onclick="loadArchiveItem('${item.id}')" class="btn-sm btn-success">📂 Yükle / Çağır</button>
+          <button onclick="deleteArchiveItem('${item.id}')" class="btn-sm btn-danger">🗑️ Sil</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function loadArchiveItem(id) {
+  const item = archiveList.find(a => a.id === id);
+  if (!item) return;
+
+  if (!confirm(`"${item.monthName} ${item.year}" arşivini takvime yüklemek istediğinize emin misiniz?`)) return;
+
+  if (item.schedule) schedule = JSON.parse(JSON.stringify(item.schedule));
+  if (item.tasks) tasks = JSON.parse(JSON.stringify(item.tasks));
+  if (item.month !== undefined) currentMonth = item.month;
+  if (item.year !== undefined) currentYear = item.year;
+
+  saveData();
+  renderTasks();
+  renderCalendar();
+  closeArchiveModal();
+  alert(`"${item.monthName} ${item.year}" görev programı takvime yüklendi!`);
+}
+window.loadArchiveItem = loadArchiveItem;
+
+function deleteArchiveItem(id) {
+  if (!confirm("Bu arşiv kaydını silmek istediğinize emin misiniz?")) return;
+  archiveList = archiveList.filter(a => a.id !== id);
+  saveData();
+  renderArchiveList();
+}
+window.deleteArchiveItem = deleteArchiveItem;
 
 init();

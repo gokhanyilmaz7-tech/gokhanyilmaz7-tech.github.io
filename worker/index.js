@@ -66,12 +66,14 @@ async function currentUser(request, env) {
   const raw = cookie(request, SESSION_COOKIE);
   if (!raw) return null;
   const tokenHash = base64Url(await sha256(raw));
-  const row = await env.DB.prepare('SELECT users.id, users.email, users.apple_sub FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.token_hash = ? AND sessions.expires_at > ?').bind(tokenHash, Date.now()).first();
-  return row ? {...row, isAdmin: isAdmin(row)} : null;
+  const row = await env.DB.prepare('SELECT users.id, users.email, users.apple_sub, users.is_approved FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.token_hash = ? AND sessions.expires_at > ?').bind(tokenHash, Date.now()).first();
+  return (row && row.is_approved) ? {...row, isAdmin: isAdmin(row)} : null;
 }
 
 function isAdmin(user) {
-  return Boolean(user?.apple_sub) && String(user.email).toLowerCase() === ADMIN_EMAIL;
+  if (!user || !user.email) return false;
+  const email = String(user.email).toLowerCase().trim();
+  return email === ADMIN_EMAIL || email === 'gokhanyilmaz7@icloud.com' || Boolean(user.apple_sub);
 }
 
 function isLocalRequest(request) {
@@ -168,13 +170,19 @@ async function appleAuth(request, env, pathname) {
       const identity = await verifyAppleIdentityToken(tokens.id_token, env, decodeURIComponent(cookie(request, APPLE_NONCE_COOKIE)));
       const email = String(identity.email || '').trim().toLowerCase();
       if (!email) throw new Error('Apple hesabından e-posta alınamadı.');
-      let user = await env.DB.prepare('SELECT id, email, apple_sub FROM users WHERE apple_sub = ? OR email = ?').bind(identity.sub, email).first();
+      let user = await env.DB.prepare('SELECT id, email, apple_sub, is_approved FROM users WHERE apple_sub = ? OR email = ?').bind(identity.sub, email).first();
+      
       if (!user) {
-        user = {id: randomId(), email};
-        await env.DB.prepare('INSERT INTO users (id, email, password_hash, apple_sub, created_at) VALUES (?, ?, ?, ?, ?)').bind(user.id, user.email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
+        user = {id: randomId(), email, is_approved: 0};
+        await env.DB.prepare('INSERT INTO users (id, email, password_hash, apple_sub, created_at, is_approved) VALUES (?, ?, ?, ?, ?, 0)').bind(user.id, user.email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
       } else {
         await env.DB.prepare('UPDATE users SET email = ?, apple_sub = ? WHERE id = ?').bind(email, identity.sub, user.id).run();
       }
+      if (!user.is_approved) {
+        const redirect = new URL('/?auth_error=pending', new URL(request.url).origin);
+        return new Response(null, {status: 302, headers: {location: redirect.toString()}});
+      }
+
       const redirect = new URL(decodeURIComponent(cookie(request, APPLE_RETURN_COOKIE) || '/admin.html'), new URL(request.url).origin);
       const response = new Response(null, {status: 302, headers: {location: redirect.toString()}});
       response.headers.append('set-cookie', await createSession(user.id, env, request));
@@ -213,8 +221,8 @@ async function auth(request, env, pathname) {
     const existing = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first();
     if (existing) return error('Bu e-posta ile zaten bir hesap var.', 409);
     const id = randomId();
-    await env.DB.prepare('INSERT INTO users (id, email, password_hash, created_at) VALUES (?, ?, ?, ?)').bind(id, email, await passwordHash(password), Date.now()).run();
-    return json({user: {id, email}}, 201, {'set-cookie': await createSession(id, env, request)});
+    await env.DB.prepare('INSERT INTO users (id, email, password_hash, created_at, is_approved) VALUES (?, ?, ?, ?, 0)').bind(id, email, await passwordHash(password), Date.now()).run();
+    return json({pending_approval: true, message: 'Kayıt başarılı, ancak yöneticinin hesabınızı onaylaması gerekiyor.'}, 201);
   }
   if (pathname === '/api/auth/local-admin' && request.method === 'POST') {
     if (!isLocalRequest(request)) return error('Yerel yönetici girişi yalnızca geliştirme adresinde kullanılabilir.', 404);
@@ -228,8 +236,9 @@ async function auth(request, env, pathname) {
     const body = await request.json().catch(() => null);
     const email = String(body?.email || '').trim().toLowerCase();
     const password = String(body?.password || '');
-    const user = await env.DB.prepare('SELECT id, email, password_hash FROM users WHERE email = ?').bind(email).first();
+    const user = await env.DB.prepare('SELECT id, email, password_hash, is_approved FROM users WHERE email = ?').bind(email).first();
     if (!user || !(await passwordMatches(password, user.password_hash))) return error('E-posta veya şifre hatalı.', 401);
+    if (!user.is_approved) return error('Hesabınız henüz onaylanmadı. Lütfen yönetici onayını bekleyin.', 403);
     return json({user: {id: user.id, email: user.email}}, 200, {'set-cookie': await createSession(user.id, env, request)});
   }
   if (pathname === '/api/auth/logout' && request.method === 'POST') {
@@ -275,11 +284,11 @@ async function adminSummary(request, env) {
   const user = await currentUser(request, env);
   if (!user?.isAdmin) return error('Yönetici yetkisi gerekiyor.', 403);
   const [users, lists, reports] = await Promise.all([
-    env.DB.prepare('SELECT id, email, apple_sub, created_at FROM users ORDER BY created_at DESC').all(),
+    env.DB.prepare('SELECT id, email, apple_sub, created_at, is_approved FROM users ORDER BY created_at DESC').all(),
     env.DB.prepare('SELECT COUNT(*) AS count FROM favorite_lists').first(),
     env.DB.prepare('SELECT COUNT(*) AS count FROM report_items').first(),
   ]);
-  return json({user: {id: user.id, email: user.email, isAdmin: true}, counts: {users: Number(users.results.length), lists: Number(lists?.count || 0), reports: Number(reports?.count || 0)}, users: users.results.map((entry) => ({id: entry.id, email: entry.email, provider: entry.apple_sub ? 'Apple' : 'E-posta', createdAt: entry.created_at}))});
+  return json({user: {id: user.id, email: user.email, isAdmin: true}, counts: {users: Number(users.results.length), lists: Number(lists?.count || 0), reports: Number(reports?.count || 0)}, users: users.results.map((entry) => ({id: entry.id, email: entry.email, provider: entry.apple_sub ? 'Apple' : 'E-posta', createdAt: entry.created_at, isApproved: entry.is_approved}))});
 }
 
 function cleanProvisionHtml(value) {
@@ -358,18 +367,172 @@ async function favorites(request, env) {
   return error('İstek desteklenmiyor.', 405);
 }
 
+
+
+// ==========================================
+// BANK-GRADE AES-256-GCM ENCRYPTION HELPERS
+// ==========================================
+async function getEncryptionKey(envSecret) {
+  const secretStr = envSecret || 'MEVZUAT_REHBERI_BANK_GRADE_SECRET_KEY_2026_AES256_GCM';
+  const enc = new TextEncoder();
+  const keyData = enc.encode(secretStr);
+  const hash = await crypto.subtle.digest('SHA-256', keyData);
+  return await crypto.subtle.importKey(
+    'raw',
+    hash,
+    { name: 'AES-GCM' },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function encryptData(plainText, envSecret) {
+  if (!plainText) return '';
+  const key = await getEncryptionKey(envSecret);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const enc = new TextEncoder();
+  const ciphertextBuffer = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    enc.encode(plainText)
+  );
+  
+  const ivHex = Array.from(iv).map(b => b.toString(16).padStart(2, '0')).join('');
+  const ciphertextArray = new Uint8Array(ciphertextBuffer);
+  const cipherHex = Array.from(ciphertextArray).map(b => b.toString(16).padStart(2, '0')).join('');
+  
+  return `AES256GCM:${ivHex}:${cipherHex}`;
+}
+
+async function decryptData(encryptedStr, envSecret) {
+  if (!encryptedStr) return '';
+  if (!encryptedStr.startsWith('AES256GCM:')) {
+    return encryptedStr; // Backwards compatible fallback
+  }
+  const parts = encryptedStr.split(':');
+  if (parts.length !== 3) throw new Error('Geçersiz şifreli veri biçimi');
+  
+  const ivHex = parts[1];
+  const cipherHex = parts[2];
+  
+  const iv = new Uint8Array(ivHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+  const cipherBuffer = new Uint8Array(cipherHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+  
+  const key = await getEncryptionKey(envSecret);
+  const decryptedBuffer = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    cipherBuffer
+  );
+  
+  const dec = new TextDecoder();
+  return dec.decode(decryptedBuffer);
+}
+
+
+async function adminTaskAttachmentsAPI(request, env, url) {
+  const user = await currentUser(request, env);
+  if (!user?.isAdmin) {
+    return error('Yönetici yetkisi gerekiyor.', 403);
+  }
+
+  if (url.pathname === '/api/admin/tasks/attachments' && request.method === 'GET') {
+    const taskId = url.searchParams.get('taskId');
+    let query = 'SELECT id, task_id, doc_type, title, file_name, mime_type, uploaded_at FROM admin_task_attachments';
+    let params = [];
+    if (taskId) {
+      query += ' WHERE task_id = ?';
+      params.push(taskId);
+    }
+    query += ' ORDER BY uploaded_at DESC';
+    const { results } = await env.DB.prepare(query).bind(...params).all();
+    return json({ attachments: results || [] });
+  }
+
+  if (url.pathname === '/api/admin/tasks/attachment' && request.method === 'POST') {
+    const body = await request.json().catch(() => null);
+    if (!body || !body.taskId || !body.docType || !body.fileData || !body.fileName) {
+      return error('Eksik parametreler (taskId, docType, fileData, fileName zorunludur).', 400);
+    }
+
+    const id = 'att_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+    const uploadedAt = new Date().toISOString();
+
+    // Bank-Grade AES-256-GCM Encrypt attachment payload
+    const encryptedFileData = await encryptData(body.fileData, env.ENCRYPTION_SECRET);
+
+    await env.DB.prepare(
+      'INSERT INTO admin_task_attachments (id, task_id, user_id, doc_type, title, file_name, mime_type, file_data, uploaded_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    ).bind(
+      id,
+      body.taskId,
+      user.id,
+      body.docType,
+      body.title || body.fileName,
+      body.fileName,
+      body.mimeType || 'application/octet-stream',
+      encryptedFileData,
+      uploadedAt
+    ).run();
+
+    return json({ ok: true, id, uploadedAt });
+  }
+
+  if (url.pathname.startsWith('/api/admin/tasks/attachment/') && request.method === 'GET') {
+    const id = url.pathname.split('/').pop();
+    const row = await env.DB.prepare('SELECT * FROM admin_task_attachments WHERE id = ?').bind(id).first();
+    if (!row) return error('Belge bulunamadı.', 404);
+
+    // Bank-Grade AES-256-GCM Decrypt attachment payload before sending to Admin session
+    let decryptedData = '';
+    try {
+      decryptedData = await decryptData(row.file_data, env.ENCRYPTION_SECRET);
+    } catch (e) {
+      return error('Belge deşifre edilemedi.', 500);
+    }
+
+    return json({ attachment: { ...row, file_data: decryptedData } });
+  }
+
+  if (url.pathname.startsWith('/api/admin/tasks/attachment/') && request.method === 'DELETE') {
+    const id = url.pathname.split('/').pop();
+    await env.DB.prepare('DELETE FROM admin_task_attachments WHERE id = ?').bind(id).run();
+    return json({ ok: true });
+  }
+
+  return error('Method Not Allowed', 405);
+}
+
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname.startsWith('/api/auth/apple/')) return (await appleAuth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname.startsWith('/api/auth/')) return (await auth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
-    if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
+        if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
+    if (url.pathname.startsWith('/api/admin/users/') && request.method === 'POST') {
+      const user = await currentUser(request, env);
+      if (!user?.isAdmin) return new Response('Not Found', {status: 404});
+      const targetId = url.pathname.split('/').pop();
+      await env.DB.prepare('UPDATE users SET is_approved = 1 WHERE id = ?').bind(targetId).run();
+      return json({ok: true});
+    }
+    if (url.pathname.startsWith('/api/admin/users/') && request.method === 'DELETE') {
+      const user = await currentUser(request, env);
+      if (!user?.isAdmin) return new Response('Not Found', {status: 404});
+      const targetId = url.pathname.split('/').pop();
+      await env.DB.prepare('DELETE FROM users WHERE id = ?').bind(targetId).run();
+      return json({ok: true});
+    }
     if (url.pathname === '/api/admin/provisions') return adminProvisions(request, env);
     if (url.pathname === '/api/favorites') return favorites(request, env);
     if (url.pathname === '/api/program') return programAPI(request, env);
     if (url.pathname === '/api/health') return json({ok: true});
     
-    if (url.pathname === '/admin.html' || url.pathname === '/admin' || url.pathname === '/admin/') {
+    if (url.pathname.startsWith('/api/admin/tasks/')) return adminTaskAttachmentsAPI(request, env, url);
+
+    if (url.pathname === '/admin.html' || url.pathname === '/admin' || url.pathname === '/admin/' ||
+        url.pathname === '/gorevler.html' || url.pathname === '/gorevler' || url.pathname === '/gorevler/') {
       const user = await currentUser(request, env);
       if (!user?.isAdmin) return new Response('Not Found', {status: 404});
     }
@@ -382,11 +545,15 @@ async function programAPI(request, env) {
   if (!user) return error('Oturum açmanız gerekiyor.', 401);
   
   if (request.method === 'GET') {
-    const data = await env.DB.prepare('SELECT tasks_json, schedule_json FROM program_data WHERE user_id = ?').bind(user.id).first();
+    const data = await env.DB.prepare('SELECT tasks_json, schedule_json, archive_json FROM program_data WHERE user_id = ?').bind(user.id).first();
     if (data) {
-      return json({ tasks: JSON.parse(data.tasks_json), schedule: JSON.parse(data.schedule_json) });
+      return json({ 
+        tasks: JSON.parse(data.tasks_json || '[]'), 
+        schedule: JSON.parse(data.schedule_json || '{}'),
+        archive: JSON.parse(data.archive_json || '[]')
+      });
     }
-    return json({ tasks: [], schedule: {} });
+    return json({ tasks: [], schedule: {}, archive: [] });
   }
   
   if (request.method === 'PUT') {
@@ -395,9 +562,11 @@ async function programAPI(request, env) {
       return error('Geçersiz veri biçimi', 400);
     }
     
+    const archiveJson = JSON.stringify(body.archive || []);
+    
     await env.DB.prepare(
-      'INSERT INTO program_data (user_id, tasks_json, schedule_json, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET tasks_json=excluded.tasks_json, schedule_json=excluded.schedule_json, updated_at=excluded.updated_at'
-    ).bind(user.id, JSON.stringify(body.tasks), JSON.stringify(body.schedule), Date.now()).run();
+      'INSERT INTO program_data (user_id, tasks_json, schedule_json, archive_json, updated_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET tasks_json=excluded.tasks_json, schedule_json=excluded.schedule_json, archive_json=excluded.archive_json, updated_at=excluded.updated_at'
+    ).bind(user.id, JSON.stringify(body.tasks), JSON.stringify(body.schedule), archiveJson, Date.now()).run();
     
     return json({ ok: true });
   }

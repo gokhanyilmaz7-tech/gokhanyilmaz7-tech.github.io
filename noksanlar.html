@@ -15,30 +15,33 @@
         background-color: #f8fafc;
         color: #1e293b;
       }
-      .ipc-topbar {
-        background: #0f172a;
-        color: #ffffff;
-        padding: 12px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            .ipc-topbar {
         position: sticky;
         top: 0;
         z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 70px;
+        padding: 0 clamp(18px, 5vw, 76px);
+        background: rgba(26,43,75,0.97);
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(8,27,58,0.16);
+        backdrop-filter: blur(14px);
       }
-      .ipc-back {
-        background: #0284c7;
-        color: #ffffff;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-weight: 700;
+            .ipc-back {
+        background: transparent;
+        color: #b6c6ef;
+        padding: 0;
+        border-radius: 0;
+        font-weight: 600;
         text-decoration: none;
-        font-size: 0.88rem;
-        transition: background 0.2s;
+        font-size: 14px;
+        transition: color 0.2s;
       }
       .ipc-back:hover {
-        background: #0369a1;
+        color: #fff;
       }
       .topbar-brand {
         display: flex;
@@ -279,8 +282,8 @@
       /* Floating Counter Badge at bottom right */
       .floating-selected-badge {
         position: fixed;
-        bottom: 24px;
-        right: 24px;
+        bottom: 80px;
+        right: 20px;
         background: #16a34a;
         color: #ffffff;
         padding: 12px 22px;
@@ -370,6 +373,23 @@
         margin-bottom: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.03);
       }
+            .preview-item-text[contenteditable="true"] {
+        cursor: text;
+        padding: 4px 6px;
+        border-radius: 4px;
+        background-color: transparent;
+        border: 1px dotted transparent;
+        transition: all 0.2s;
+      }
+      .preview-item-text[contenteditable="true"]:hover {
+        background-color: #f0fdf4;
+        border-color: #bbf7d0;
+      }
+      .preview-item-text[contenteditable="true"]:focus {
+        background-color: #fff;
+        border-color: #22c55e;
+        outline: none;
+      }
       .preview-item-text {
         font-size: 0.9rem;
         color: #15803d;
@@ -421,14 +441,13 @@
 
       .hidden { display: none !important; }
     </style>
+    <style id="auth-cloak">body { display: none !important; }</style>
   </head>
   <body class="noksan-page">
     <!-- Topbar Navigation -->
-    <header class="ipc-topbar">
-      <a class="ipc-back" href="/">← Mevzuat listesine dön</a>
-      <div class="topbar-brand">
-        <span>⚠️ İSG Noksanlık Listesi & Denetim Seçim Merkezi</span>
-      </div>
+                <header class="ipc-topbar">
+      <a class="ipc-back" href="/" style="flex: 0 0 auto !important; width: fit-content !important; max-width: max-content !important; display: inline-block !important;">← Ana sayfaya dön</a>
+      <span class="topbar-label" style="position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; color: #b6c6ef; font-weight: 700; letter-spacing: 0.14em;">İSG NOKSANLAR</span>
     </header>
 
     <main class="noksan-shell">
@@ -439,7 +458,11 @@
           <input type="search" id="noksan-search" placeholder="Noksanlık maddesi veya kelime ara..." autocomplete="off" />
         </div>
 
-        <div class="export-dropdown-wrapper">
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-export-tedbirler-main" class="btn-export-main" style="background:#5b21b6; color:white; display:flex; align-items:center; gap:5px;" type="button">
+            📌 Tedbirlere Aktar
+          </button>
+          <div class="export-dropdown-wrapper">
           <button id="btn-export-dropdown" class="btn-export-main" type="button">
             📥 Dışa Aktar <span id="export-count-badge" style="background: #16a34a; color: white; padding: 2px 7px; border-radius: 10px; font-size: 0.75rem;">0</span> ▼
           </button>
@@ -454,6 +477,9 @@
             <button id="btn-export-csv" class="export-menu-item" type="button">
               📊 CSV (Excel) İndir
             </button>
+            <button id="btn-export-tedbirler" class="export-menu-item" type="button">
+              📌 Tedbirlere Aktar
+            </button>
             <button id="btn-copy-clipboard" class="export-menu-item" type="button">
               📋 Panoya Kopyala
             </button>
@@ -461,6 +487,7 @@
               🗑️ Seçimleri Temizle
             </button>
           </div>
+        </div>
         </div>
       </div>
 
@@ -472,7 +499,7 @@
 
     <!-- Floating selected count indicator (Clickable to open preview) -->
     <div id="floating-selected-badge" class="floating-selected-badge hidden">
-      👁️ <span id="floating-count">0</span> Noksanlık Seçildi (Önizle)
+      👁️ Önizle<span id="floating-count" style="display:none;">0</span>
     </div>
 
     <!-- Preview Modal -->
@@ -489,6 +516,7 @@
           <button id="modal-export-word" class="btn-modal-action btn-word" type="button">📝 Word</button>
           <button id="modal-export-pdf" class="btn-modal-action btn-pdf" type="button">📕 PDF</button>
           <button id="modal-export-csv" class="btn-modal-action btn-csv" type="button">📊 CSV</button>
+          <button id="modal-export-tedbirler" class="btn-modal-action btn-copy" style="background:#5b21b6;color:white;" type="button">📌 Aktar</button>
           <button id="modal-copy-clipboard" class="btn-modal-action btn-copy" type="button">📋 Panoya Kopyala</button>
           <button id="modal-clear-all" class="btn-modal-action btn-clear" type="button">🗑️ Temizle</button>
         </div>

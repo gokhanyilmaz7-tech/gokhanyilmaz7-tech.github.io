@@ -16,8 +16,7 @@ export async function setupFavorites({sectionId, sectionTitle}) {
   const topbar = document.querySelector('.article-topbar');
   if (!topbar || document.querySelector('#favorites-open')) return;
   await hydrateFavorites(FAVORITES_KEY);
-  topbar.insertAdjacentHTML('beforeend', '<a id="favorites-open" class="favorites-open" href="/favoriler.html">☆ Favorilerim</a>');
-  const savedIds = favoriteIds();
+    const savedIds = favoriteIds();
   document.querySelectorAll('.favorite-star').forEach((button) => {
     const page = button.closest('.article-page')?.dataset.page || '0';
     const favoriteId = `${sectionId}-${page}-${button.dataset.favoriteId}`;

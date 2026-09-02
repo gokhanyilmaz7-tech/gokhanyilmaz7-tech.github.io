@@ -1,9 +1,12 @@
 import './styles.css';
+protectPage();
 import { NOKSANLIK_CATEGORIES, NOKSANLIK_ITEMS } from './noksanliklarData.js';
+import { persistFavorites , protectPage} from './auth.js';
 
 let searchQuery = '';
 let rawSaved = JSON.parse(localStorage.getItem('isg-selected-noksanliklar') || '[]');
 let selectedIds = new Set(rawSaved.map(id => String(id)));
+let customTexts = JSON.parse(localStorage.getItem('isg-custom-noksanliklar') || '{}');
 let openCategories = new Set();
 
 function initNoksanlar() {
@@ -48,6 +51,8 @@ function initNoksanlar() {
   document.getElementById('btn-export-pdf')?.addEventListener('click', exportToPdf);
   document.getElementById('btn-export-csv')?.addEventListener('click', exportToCsv);
   document.getElementById('btn-copy-clipboard')?.addEventListener('click', copyToClipboard);
+  document.getElementById('btn-export-tedbirler')?.addEventListener('click', exportToTedbirler);
+  document.getElementById('btn-export-tedbirler-main')?.addEventListener('click', exportToTedbirler);
   document.getElementById('btn-clear-basket')?.addEventListener('click', clearBasket);
 
   // Modal Footer Export Events
@@ -55,6 +60,7 @@ function initNoksanlar() {
   document.getElementById('modal-export-pdf')?.addEventListener('click', exportToPdf);
   document.getElementById('modal-export-csv')?.addEventListener('click', exportToCsv);
   document.getElementById('modal-copy-clipboard')?.addEventListener('click', copyToClipboard);
+  document.getElementById('modal-export-tedbirler')?.addEventListener('click', exportToTedbirler);
   document.getElementById('modal-clear-all')?.addEventListener('click', clearBasket);
 }
 
@@ -154,10 +160,12 @@ function toggleSelection(strId) {
   const sId = String(strId);
   if (selectedIds.has(sId)) {
     selectedIds.delete(sId);
+    delete customTexts[sId];
   } else {
     selectedIds.add(sId);
   }
   localStorage.setItem('isg-selected-noksanliklar', JSON.stringify(Array.from(selectedIds)));
+  localStorage.setItem('isg-custom-noksanliklar', JSON.stringify(customTexts));
   
   // Re-render matching row states across DOM
   document.querySelectorAll(`.noksan-row[data-id="${sId}"]`).forEach(tr => {
@@ -178,7 +186,18 @@ function toggleSelection(strId) {
 }
 
 function getSelectedItemList() {
-  return NOKSANLIK_ITEMS.filter(item => selectedIds.has(String(item.id)));
+  return NOKSANLIK_ITEMS.filter(item => selectedIds.has(String(item.id)))
+    .map(item => {
+      const sId = String(item.id);
+      if (customTexts[sId]) {
+        return { ...item, text: customTexts[sId] };
+      }
+      return item;
+    })
+    .sort((a, b) => {
+      if (a.categoryId !== b.categoryId) return a.categoryId - b.categoryId;
+      return a.id - b.id;
+    });
 }
 
 function updateExportBadge() {
@@ -234,10 +253,16 @@ function renderPreviewModalList() {
     div.innerHTML = `
       <div style="display: flex; gap: 10px; align-items: flex-start; flex: 1;">
         <span style="font-weight: 800; color: #64748b; font-size: 0.9rem;">${idx + 1}.</span>
-        <div class="preview-item-text">${escapeHtml(item.text)}</div>
+        <div class="preview-item-text" contenteditable="true" spellcheck="false" title="Üzerine tıklayarak metni düzenleyebilirsiniz">${escapeHtml(item.text)}</div>
       </div>
       <button class="btn-remove-item" title="Listeden Çıkar" type="button">✕ Çıkar</button>
     `;
+
+    const editableText = div.querySelector('.preview-item-text');
+    editableText.addEventListener('input', (e) => {
+      customTexts[strId] = e.target.innerText.trim();
+      localStorage.setItem('isg-custom-noksanliklar', JSON.stringify(customTexts));
+    });
 
     div.querySelector('.btn-remove-item').onclick = () => {
       toggleSelection(strId);
@@ -251,6 +276,8 @@ function clearBasket() {
   if (selectedIds.size === 0) return;
   if (confirm('Seçtiğiniz tüm noksanlık maddelerini temizlemek istediğinize emin misiniz?')) {
     selectedIds.clear();
+  customTexts = {};
+  localStorage.removeItem('isg-custom-noksanliklar');
     localStorage.removeItem('isg-selected-noksanliklar');
     renderAccordions();
     updateExportBadge();
@@ -376,4 +403,43 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+async function exportToTedbirler() {
+  const selectedItems = getSelectedItemList();
+  if (selectedItems.length === 0) {
+    alert('Lütfen en az bir noksanlık seçin.');
+    return;
+  }
+  
+  const KEY = 'mevzuat-local-favorites';
+  let data = { lists: [], reports: [] };
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      data = JSON.parse(raw);
+    }
+    if (!Array.isArray(data.reports)) data.reports = [];
+  } catch(e) {
+    data.reports = [];
+  }
+  
+  selectedItems.forEach((item, idx) => {
+    const timestamp = Date.now();
+    const sourceId = `manual-noksan-${timestamp}-${idx}`;
+    const cleanTitle = item.category.replace(/^[0-9]+\.\s*/, '');
+    
+    data.reports.push({
+      id: sourceId,
+      sourceId: sourceId,
+      title: item.text,
+      text: '',
+      html: '',
+      savedAt: timestamp
+    });
+  });
+  
+  localStorage.setItem(KEY, JSON.stringify(data));
+  await persistFavorites(data, KEY);
+  alert('Seçili noksanlıklar Tedbirler sayfasına başarıyla aktarıldı!');
+  window.location.href = '/tedbirler.html';
 }

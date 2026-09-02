@@ -73,7 +73,14 @@ function openDialog() {
     const response = await fetch('/api/auth/local-admin', {method: 'POST', credentials: 'same-origin'});
     const result = await response.json().catch(() => ({}));
     if (!response.ok) { message.textContent = result.error || 'Yerel yönetici oturumu açılamadı.'; return; }
+    
+    if (result.pending_approval) {
+        alert(result.message);
+        overlay.remove();
+        return;
+    }
     userPromise = Promise.resolve(result.user);
+    
     overlay.remove();
     window.location.reload();
   });
@@ -84,7 +91,14 @@ function openDialog() {
     const response = await fetch(`/api/auth/${mode === 'login' ? 'login' : 'register'}`, {method: 'POST', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({email: overlay.querySelector('#account-email').value, password: overlay.querySelector('#account-password').value})});
     const result = await response.json().catch(() => ({}));
     if (!response.ok) { message.textContent = result.error || 'İşlem tamamlanamadı.'; return; }
+    
+    if (result.pending_approval) {
+        alert(result.message);
+        overlay.remove();
+        return;
+    }
     userPromise = Promise.resolve(result.user);
+    
     overlay.remove();
     await hydrateFavorites();
     window.location.reload();
@@ -114,7 +128,14 @@ function openAccountSettings(user) {
     const response = await fetch('/api/auth/account', {method: 'PATCH', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({currentPassword: overlay.querySelector('#account-current-password').value, email: overlay.querySelector('#account-new-email').value, newPassword: overlay.querySelector('#account-new-password').value})});
     const result = await response.json().catch(() => ({}));
     if (!response.ok) { message.textContent = result.error || 'Güncelleme yapılamadı.'; return; }
+    
+    if (result.pending_approval) {
+        alert(result.message);
+        overlay.remove();
+        return;
+    }
     userPromise = Promise.resolve(result.user);
+    
     message.textContent = 'Hesap bilgileriniz güncellendi.';
     setTimeout(() => window.location.reload(), 500);
   };
@@ -155,9 +176,12 @@ export async function setupAccountUI() {
     button.insertAdjacentElement('afterend', localButton);
   }
   document.querySelector('#admin-panel-link')?.remove();
+  document.querySelector('#admin-tasks-link')?.remove();
   document.querySelector('#admin-mode-toggle')?.remove();
   if (user?.isAdmin) {
-    if (isAdminMode()) button.insertAdjacentHTML('afterend', '<a id="admin-panel-link" class="account-button admin-panel-link" href="/admin.html">Yönetici paneli</a>');
+    if (isAdminMode()) {
+      button.insertAdjacentHTML('afterend', '<a id="admin-panel-link" class="account-button admin-panel-link" href="/admin.html">Yönetici paneli</a>');
+    }
     const modeButton = document.createElement('button');
     modeButton.id = 'admin-mode-toggle';
     modeButton.className = 'account-button admin-mode-toggle';
@@ -182,3 +206,55 @@ export async function setupAccountUI() {
   };
   return user;
 }
+
+
+export async function protectPage() {
+  const cloak = document.getElementById('auth-cloak');
+  const user = await currentUser();
+  if (!user) {
+    document.body.innerHTML = '';
+    document.body.style.display = 'block';
+    if (cloak) cloak.remove();
+    document.body.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+    openDialog();
+    const overlay = document.querySelector('#account-dialog');
+    if (overlay) {
+       const msg = overlay.querySelector('.account-help');
+       if(msg) msg.textContent = 'Bu sayfayı görüntülemek için üye girişi yapmalısınız.';
+       
+       const oClose = overlay.querySelector('.account-close');
+       oClose.onclick = () => { window.location.href = '/'; };
+       overlay.onclick = (event) => { if (event.target === overlay) window.location.href = '/'; };
+    }
+  } else {
+    document.body.style.display = '';
+    if (cloak) cloak.remove();
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('auth_error') === 'pending') {
+        alert('Üyeliğiniz onaya gönderildi veya inceleniyor. Yönetici onayından sonra giriş yapabileceksiniz.');
+        window.history.replaceState({}, '', '/');
+    }
+    if (params.get('auth_required') === '1') {
+        alert('Erişmek istediğiniz bölüm üyelere özeldir. Lütfen önce giriş yapın.');
+        openDialog();
+        window.history.replaceState({}, '', '/');
+    }
+});
+
+
+window.navigateProtected = async function(url) {
+  const user = await currentUser();
+  if (user) {
+    window.location.href = url;
+  } else {
+    // Alert or just show login
+    // The user said "butonlara tıklandığında uyarı versin. üye olma veya üye girişi ekranı çıksın"
+    openDialog();
+    const msg = document.querySelector('.account-help');
+    if(msg) msg.textContent = 'Erişmek istediğiniz bölüm üyelere özeldir. Lütfen giriş yapın veya kayıt olun.';
+  }
+};

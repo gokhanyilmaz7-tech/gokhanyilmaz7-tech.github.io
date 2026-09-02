@@ -7,7 +7,7 @@ body::before { content: ''; position: fixed; inset: -18%; z-index: 0; pointer-ev
 @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
 button, input { font: inherit; }
 .article-topbar { position: sticky; top: 0; z-index: 10; height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 0 clamp(18px, 5vw, 76px); background: rgba(26,43,75,.97); color: #fff; box-shadow: 0 10px 30px rgba(8,27,58,.16); backdrop-filter: blur(14px); }
-.back-link { flex: 1 1 auto; min-width: 0; color: #edf0ff; font-size: 13px; white-space: nowrap; text-decoration: none; transition: color .18s ease, transform .18s ease; }
+.back-link { flex: 0 0 auto; min-width: 0; color: #edf0ff; font-size: 13px; white-space: nowrap; text-decoration: none; transition: color .18s ease, transform .18s ease; }
 .back-link:hover { color: #ffdea5; transform: translateX(-2px); }
 .topbar-label { flex: 0 0 auto; color: #b6c6ef; font-size: 10px; font-weight: 700; letter-spacing: .14em; white-space: nowrap; }
 .article-layout { position: relative; z-index: 1; min-height: calc(100vh - 70px); padding: 54px clamp(20px, 6vw, 96px) 80px; background: radial-gradient(circle at 8% 0%, rgba(197,160,89,.13), transparent 26%), rgba(253,251,247,.82); }
@@ -109,7 +109,7 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
     color: #0d65bd;
 }
  .article-topbar { height: auto; gap: 10px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start; } .topbar-label { align-self: flex-end; } .article-layout { padding: 18px 10px 45px; } .article-tools { align-items: stretch; flex-direction: column; } .result-actions { justify-content: flex-end; } .article-content { font-size: 16px; overflow-x: auto; } }
-@media (max-width: 860px) and (min-width: 761px) { .article-topbar { flex-wrap: wrap; height: auto; gap: 10px 16px; padding-top: 12px; padding-bottom: 12px; } .article-topbar .back-link { flex: 1 1 45%; } .article-topbar .topbar-label { flex: 1 1 auto; } }
+@media (max-width: 860px) and (min-width: 761px) { .article-topbar { flex-wrap: wrap; height: auto; gap: 10px 16px; padding-top: 12px; padding-bottom: 12px; } .article-topbar .back-link { flex: 0 0 auto; } .article-topbar .topbar-label { flex: 1 1 auto; } }
 @media (max-width: 860px) { .article-content { overflow-x: hidden; } .pdf-line { white-space: normal; overflow-wrap: anywhere; } .pdf-line .word { display: inline; white-space: normal; margin-right: 0 !important; } .exact-card { position: relative; height: auto; } .exact-card .provision-content { height: auto; } .exact-card .exact-line { position: static; white-space: normal; overflow-wrap: anywhere; } }
 
 .layout-page:not(.exact-page) {

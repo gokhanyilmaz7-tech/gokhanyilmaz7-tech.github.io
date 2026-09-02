@@ -1,7 +1,9 @@
 import './section.css';
 import {setupFavorites} from './favorites.js';
 import {setupSectionReports} from './report.js';
-import {setupAccountUI} from './auth.js';
+import {setupAccountUI, protectPage} from './auth.js';
+protectPage();
+
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');

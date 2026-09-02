@@ -1,4 +1,5 @@
 import './styles.css';
+import './styles.css';
 import './legislation-links.css';
 
 const laws = [
@@ -96,3 +97,94 @@ document.querySelector('#legislation-filter').addEventListener('input', (event) 
 });
 render();
 
+
+// --- CLOCK AND CALENDAR ---
+const clockEl = document.getElementById('live-clock');
+const dateEl = document.getElementById('live-date');
+const monthsFull = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+const daysFull = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+
+function updateClock() {
+  if (!clockEl) return;
+  const now = new Date();
+  clockEl.textContent = now.toLocaleTimeString('tr-TR', { hour12: false });
+  if (dateEl) {
+    dateEl.textContent = `${now.getDate()} ${monthsFull[now.getMonth()]} ${now.getFullYear()} ${daysFull[now.getDay()]}`;
+  }
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+let currentCalDate = new Date();
+function renderCalendar(targetDate = currentCalDate) {
+  const container = document.getElementById('live-calendar');
+  if (!container) return;
+
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth();
+  
+  const now = new Date();
+  const isCurrentMonth = (year === now.getFullYear() && month === now.getMonth());
+  const todayDate = now.getDate();
+  
+  let firstDay = new Date(year, month, 1).getDay();
+  firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+  let html = `<div class="glass-calendar-inner">
+      <div class="cal-header">
+        <span class="cal-nav" id="cal-prev" title="Önceki Ay">&lang;</span>
+        <span class="cal-month">${monthsFull[month]} ${year}</span>
+        <span class="cal-nav" id="cal-next" title="Sonraki Ay">&rang;</span>
+      </div>
+      <div class="cal-weekdays">
+        <span>Pt</span><span>Sa</span><span>Ça</span><span>Pe</span><span>Cu</span><span>Ct</span><span>Pz</span>
+      </div>
+      <div class="cal-days">`;
+
+  for (let i = 0; i < firstDay; i++) {
+    const trailingDay = daysInPrevMonth - firstDay + i + 1;
+    html += `<span class="cal-day prev-month">${trailingDay}</span>`;
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    if (isCurrentMonth && i === todayDate) {
+      html += `<span class="cal-day current-day">${i}</span>`;
+    } else {
+      html += `<span class="cal-day">${i}</span>`;
+    }
+  }
+  const remainingCells = 42 - (firstDay + daysInMonth);
+  for (let i = 1; i <= remainingCells; i++) {
+    html += `<span class="cal-day next-month">${i}</span>`;
+  }
+  html += `</div></div>`;
+  container.innerHTML = html;
+
+  document.getElementById('cal-prev').addEventListener('click', () => {
+    currentCalDate = new Date(year, month - 1, 1);
+    renderCalendar(currentCalDate);
+  });
+  
+  document.getElementById('cal-next').addEventListener('click', () => {
+    currentCalDate = new Date(year, month + 1, 1);
+    renderCalendar(currentCalDate);
+  });
+  
+  document.querySelector('.cal-month').addEventListener('dblclick', () => {
+    currentCalDate = new Date();
+    renderCalendar(currentCalDate);
+  });
+}
+
+renderCalendar();
+setInterval(() => {
+    const cNow = new Date();
+    if (cNow.getHours() === 0 && cNow.getMinutes() === 0 && cNow.getSeconds() < 10) {
+        renderCalendar(currentCalDate);
+    }
+}, 10000);
+// --- END CLOCK AND CALENDAR ---
+
+import { setupAccountUI } from './auth.js';
+setupAccountUI();

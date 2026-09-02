@@ -10,11 +10,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-</head>
+  <style id="auth-cloak">body { display: none !important; }</style>
+  </head>
 <body class="program-page">
-    <header class="topbar">
-    <a href="/" style="color: #edf0ff; font-weight: 500; font-size: 15px; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .18s; cursor: pointer;">&larr; Mevzuat listesine dön</a>
-    <div class="topbar-meta" style="margin-left: auto;">
+            <header class="topbar">
+    <a href="/" class="back-link" style="flex: 0 0 auto !important; width: fit-content !important; max-width: max-content !important; display: inline-block !important;">&larr; Ana sayfaya dön</a>
+    
+    <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px; margin-left: auto; margin-right: 20px;">
+      <button id="btn-topbar-save" class="topbar-btn topbar-btn-save" title="Mevcut Görev Programını Kaydet">
+        <span class="btn-icon">💾</span> Programı Kaydet
+      </button>
+      <button id="btn-topbar-archive" class="topbar-btn topbar-btn-archive" title="Kaydedilmiş Program Arşivi">
+        <span class="btn-icon">📁</span> Arşiv
+      </button>
+    </div>
+
+    <div class="topbar-meta">
       <span style="color: #b6c6ef; font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">Görev Programı</span>
     </div>
   </header>
@@ -43,23 +54,61 @@
         <label>İşyeri Adresi</label>
         <textarea id="t-adres"></textarea>
         
-        <label>Geçerli Aylar</label>
-        <div class="month-selector-grid" id="t-months">
-          <label><input type="checkbox" value="0" checked> Oca</label>
-          <label><input type="checkbox" value="1" checked> Şub</label>
-          <label><input type="checkbox" value="2" checked> Mar</label>
-          <label><input type="checkbox" value="3" checked> Nis</label>
-          <label><input type="checkbox" value="4" checked> May</label>
-          <label><input type="checkbox" value="5" checked> Haz</label>
-          <label><input type="checkbox" value="6" checked> Tem</label>
-          <label><input type="checkbox" value="7" checked> Ağu</label>
-          <label><input type="checkbox" value="8" checked> Eyl</label>
-          <label><input type="checkbox" value="9" checked> Eki</label>
-          <label><input type="checkbox" value="10" checked> Kas</label>
-          <label><input type="checkbox" value="11" checked> Ara</label>
+                <label>Geçerli Dönem</label>
+        <div class="period-picker-container">
+          <div class="period-select-group">
+            <span class="period-label">Başlangıç:</span>
+            <select id="t-start-month" class="period-select">
+              <option value="0">Ocak</option>
+              <option value="1">Şubat</option>
+              <option value="2">Mart</option>
+              <option value="3">Nisan</option>
+              <option value="4">Mayıs</option>
+              <option value="5">Haziran</option>
+              <option value="6">Temmuz</option>
+              <option value="7">Ağustos</option>
+              <option value="8">Eylül</option>
+              <option value="9">Ekim</option>
+              <option value="10">Kasım</option>
+              <option value="11" selected>Aralık</option>
+            </select>
+            <select id="t-start-year" class="period-select period-select-year">
+              <option value="2024">2024</option>
+              <option value="2025" selected>2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+            </select>
+          </div>
+          <div class="period-select-group">
+            <span class="period-label">Bitiş:</span>
+            <select id="t-end-month" class="period-select">
+              <option value="0" selected>Ocak</option>
+              <option value="1">Şubat</option>
+              <option value="2">Mart</option>
+              <option value="3">Nisan</option>
+              <option value="4">Mayıs</option>
+              <option value="5">Haziran</option>
+              <option value="6">Temmuz</option>
+              <option value="7">Ağustos</option>
+              <option value="8">Eylül</option>
+              <option value="9">Ekim</option>
+              <option value="10">Kasım</option>
+              <option value="11">Aralık</option>
+            </select>
+            <select id="t-end-year" class="period-select period-select-year">
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026" selected>2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+            </select>
+          </div>
         </div>
 
-        <button class="btn primary" id="save-task-btn" style="width: 100%; margin-top: 10px;">GÖREV LİSTESİNE EKLE</button>
+        <button class="save-task-btn-modern" id="save-task-btn">
+          <span>+ Görev Listesine Ekle</span>
+        </button>
       </div>
       
       <hr style="border: 0; height: 1px; background: #e1e8ed; margin: 20px 0;">
@@ -102,11 +151,22 @@
   
 
   <div id="assign-modal" class="modal-overlay hidden">
-    <div class="modal">
-      <h3>Program Ekle</h3>
+    <div class="modal modal-lg">
+      <div class="modal-header-flex">
+        <h3>Program Ekle</h3>
+        <button id="close-assign-x" class="close-modal-x" title="Kapat">&times;</button>
+      </div>
       
-      <div class="form-group" style="margin-bottom: 20px;">
-        <label>Uygulanacak Günler (Birden çok gün seçebilirsiniz)</label>
+      <div class="form-group" style="margin-bottom: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+          <label style="margin: 0; font-size: 0.9rem; font-weight: 700; color: #1e293b;">Uygulanacak Günler</label>
+          <div class="md-quick-presets">
+            <button type="button" class="btn-xs" id="btn-md-all">Tümünü Seç</button>
+            <button type="button" class="btn-xs" id="btn-md-weekdays">Hafta İçi</button>
+            <button type="button" class="btn-xs" id="btn-md-weekends">Hafta Sonu</button>
+            <button type="button" class="btn-xs" id="btn-md-clear">Temizle</button>
+          </div>
+        </div>
         <div id="multi-day-selector" class="multi-day-container"></div>
       </div>
 
@@ -136,6 +196,27 @@
     </div>
   </div>
 
+  <script type="module" src="/src/scroll-top.js"></script>
   <script type="module" src="/src/program.js"></script>
+
+  <!-- Archive Modal -->
+  <div id="archive-modal" class="modal-overlay hidden">
+    <div class="modal modal-lg">
+      <div class="modal-header-flex">
+        <h3>📁 Görev Programı Arşivi</h3>
+        <button id="close-archive-x" class="close-modal-x" title="Kapat">&times;</button>
+      </div>
+      <p class="archive-subtitle">Kaydedilmiş tüm görev programlarınız burada yer alır. İstediğiniz arşiv kaydını takvime yükleyebilirsiniz.</p>
+      
+      <div id="archive-list" class="archive-list-container">
+        <!-- Archive cards rendered by JS -->
+      </div>
+      
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button id="close-archive-btn" class="nav-oval-btn" style="padding: 8px 18px;">Kapat</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

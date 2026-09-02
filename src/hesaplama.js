@@ -88,9 +88,10 @@ document.head.appendChild(style);
 
 const app = document.querySelector('#hesaplama-app');
 app.innerHTML = `
-  <header class="article-topbar">
-    <a class="back-link" href="/">← Mevzuat Listesine Dön</a>
-    <span class="topbar-label" style="text-transform: uppercase; font-weight: 700; color: #64748b;">İSG Uzmanı, Hekim & DSP</span>
+    <header class="article-topbar">
+    <a class="back-link" href="/" style="flex: 0 0 auto !important; width: fit-content !important; max-width: max-content !important; display: inline-block !important;">← Ana sayfaya dön</a>
+    <span class="topbar-label">İSG SÜRE HESAPLAMA</span>
+    
   </header>
   <main class="layout" style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); min-height: 100vh;">
     <div class="calc-container">

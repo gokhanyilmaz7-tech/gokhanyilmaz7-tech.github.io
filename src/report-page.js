@@ -15,7 +15,7 @@ function customManualPrompt() {
           
           <div style="padding: 1.25rem; background: #fff;">
             <p style="margin: 0 0 10px 0; font-weight: 600; color: #334e68;">Rapora eklemek istediğiniz tespitleri aşağıya yazın (alt alta sıralayın):</p>
-            <textarea id="${modalId}-input" rows="8" placeholder="Tespitlerinizi yazarken Enter tuşuna basarak yeni maddeye geçebilirsiniz..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit; line-height: 1.5;"></textarea>
+            <textarea id="${modalId}-input" rows="8" placeholder="Tedbirlerinizi yazarken Enter tuşuna basarak yeni maddeye geçebilirsiniz..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; color: #334e68; outline: none; resize: vertical; font-family: inherit; line-height: 1.5;"></textarea>
           </div>
           
           <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
@@ -126,8 +126,9 @@ function stripGreenText(htmlStr) {
 }
 
 import './favorites-page.css';
+protectPage();
 import './report-page.css';
-import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI, protectPage} from './auth.js';
 import {addReportCopy, readWorkspace, reportItems, reportRepeatButton, reportSourceId} from './report.js';
 
 const KEY = 'mevzuat-local-favorites';
@@ -146,15 +147,15 @@ const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? Str
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
   const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
-  tools.innerHTML = `<div class="side-tools-heading"><span>RAPOR ARAÇLARI</span></div><a class="side-tool-button report-back-favorites" href="/favoriler.html">☆ Favorilerim</a><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-word-titles" class="primary-tool" style="margin-top: 0.5rem; background-color: #3b5998; font-size: 0.95rem;">📝 Tespitleri Word'e aktar</button><button id="report-copy-titles" class="side-tool-button">📋 Panoya Kopyala</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel tespit Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
+  tools.innerHTML = `<div class=\"side-tools-heading\"><span>RAPOR ARAÇLARI</span></div><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-copy-titles" class="side-tool-button">📋 Panoya Kopyala</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel tespit Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
   <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
-  <button id="report-archive-load" class="side-tool-button" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button>`;
+  <button id=\"report-archive-load\" class=\"side-tool-button\" ${archivesCount ? '' : 'disabled'}>📂 Arşivden Çağır</button><a class=\"side-tool-button report-back-favorites\" href=\"/favoriler.html\" style=\"margin-top: 2rem;\">☆ Favorilerime Git</a>`;
   tools.querySelector('#report-archive-save').onclick = saveArchive;
   tools.querySelector('#report-archive-load').onclick = loadArchiveModal;
   tools.querySelector('#report-sort').onclick = () => { sortMode = sortMode === 'manual' ? 'latest' : sortMode === 'latest' ? 'oldest' : sortMode === 'oldest' ? 'title' : 'manual'; render(); };
   tools.querySelector('#report-word').onclick = exportWord;
-  tools.querySelector('#report-word-titles').onclick = exportWordTitles;
+  
   tools.querySelector('#report-copy-titles').onclick = copyTitlesToClipboard;
   tools.querySelector('#report-copy-titles').onclick = copyTitlesToClipboard;
   tools.querySelector('#report-add-manual-tool').onclick = startAddingManualDeficiencies;
@@ -189,7 +190,7 @@ function renderStream() {
     const index = data.reports.findIndex((entry) => entry.id === item.id);
     const otherPositions = data.reports.map((entry, position) => reportSourceId(entry) === reportSourceId(item) && entry.id !== item.id ? position + 1 : 0).filter(Boolean);
     const duplicateNote = otherPositions.length ? `<div class="report-duplicate-sequence">(${otherPositions.join(', ')})</div>` : '';
-    return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<h2>${esc(item.title)}</h2>` : ''}${(item.html || item.text) ? `<div class="favorite-provision-rich-text">` + (item.html ? stripGreenText(normalizeHtml(item.html)) : `<p>${esc(item.text)}</p>`) + `</div>` : ''}${String(item.id).startsWith('manual-') ? '' : `<a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a>`}</div><div class="favorite-card-actions"><button data-report-open-legislation="${esc(item.id)}" style="color:#2e67d2; font-weight:600;">Mevzuat ekle</button><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
+    return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<p style="text-align: justify; font-size: 16px; font-weight: normal; color: blue; margin-bottom: 0.5rem; line-height: 1.4;">${esc(item.title)}</p>` : ''}${(item.html || item.text) ? `<div class="favorite-provision-rich-text">` + (item.html ? stripGreenText(normalizeHtml(item.html)) : `<p>${esc(item.text)}</p>`) + `</div>` : ''}${String(item.id).startsWith('manual-') ? '' : `<a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a>`}</div><div class="favorite-card-actions"><button data-report-open-legislation="${esc(item.id)}" style="color:#2e67d2; font-weight:600;">Mevzuat ekle</button><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
   }).join('') : '<div class="favorite-empty" style="padding-top: 2rem;"> <div style="display: flex; gap: 4rem; justify-content: center; margin-bottom: 1rem;"> <div style="text-align: center;"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuattan Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #2e67d2;">Mevzuattan Ekle</p></div> <div style="text-align: center;"><button type="button" id="add-manual-deficiency" class="favorite-empty-star" aria-label="Manuel Ekle" title="Manuel tespit Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block; color: #b91c1c;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #b91c1c;">Kendin Yaz</p></div> </div> <h2 style="margin-top: 3.5rem;">Raporunuz boş</h2><p>Yukarıdaki butonları kullanarak rapora tespit veya mevzuat maddesi ekleyebilirsiniz.</p></div>';
   const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = () => { localStorage.removeItem('pending-legislation-injection'); openLegislationModal(); }; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
@@ -224,7 +225,7 @@ function exportWord() {
     }
     return wrapper.innerHTML;
   };
-  const reportHtml = items().map((item, index) => `${item.title ? `<h2>${index + 1}. ${esc(item.title)}</h2>` : ''}${wordContent(item, index)}`).join('<hr>');
+  const reportHtml = items().map((item, index) => `${item.title ? `<p align="justify" style="text-align: justify; font-size: 12pt; font-weight: normal; color: blue; margin-bottom: 10pt;">${index + 1}. ${esc(item.title)}</p>` : ''}${wordContent(item, index)}`).join('<hr>');
   const companyName = document.getElementById('report-company-name').value.trim() || '...................................................';
   const sgkNo = document.getElementById('report-sgk-no').value.trim() || '................................';
   const hazardClass = document.getElementById('report-hazard-class').value || '................................';
@@ -234,7 +235,7 @@ function exportWord() {
   const headerHtml = `
 
     
-    <h1 style="text-align: center; margin-bottom: 24pt;">TESPİTLER</h1>
+    <h1 style="text-align: center; margin-bottom: 24pt;">TEDBİRLER</h1>
     <table width="100%" style="margin-bottom: 24pt; border-collapse: collapse; font-size: 12pt; border: 1px solid #8ea9db;">
       <tr>
         <td width="30%" style="background-color: #d9e2f3; padding: 6pt; border: 1px solid #8ea9db;"><strong>İşyeri Ünvanı</strong></td>
@@ -693,7 +694,7 @@ async function exportWordTitles() {
   `;
   
   const reportHtml = items().map((item, index) => {
-    return `<p style="margin-bottom: 8pt; font-size: 12pt; text-align: left; text-align-last: left; margin: 0 0 10pt 0;"><strong>${index + 1}.</strong> ${esc(item.title)}</p>`;
+    return `<p align="justify" style="margin-bottom: 10pt; font-size: 12pt; text-align: justify; color: blue; font-weight: normal; margin: 0 0 10pt 0;">${index + 1}. ${esc(item.title)}</p>`;
   }).join('');
 
   const html = `<!doctype html>
@@ -755,7 +756,7 @@ async function copyTitlesToClipboard() {
   const now = new Date();
   const dateStr = now.toLocaleDateString('tr-TR');
   
-  let text = 'İş Sağlığı ve Güvenliği Saha Tespitleri\nTarih: ' + dateStr + '\n\n';
+  let text = 'İş Sağlığı ve Güvenliği Saha Tedbirleri\nTarih: ' + dateStr + '\n\n';
   
   const formattedItems = sortedItems();
   formattedItems.forEach((item, index) => {

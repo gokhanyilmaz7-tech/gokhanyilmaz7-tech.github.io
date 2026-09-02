@@ -1,38 +1,24 @@
 import './styles.css';
-import {setupAccountUI, currentUser} from './auth.js';
+protectPage();
+import {setupAccountUI, currentUser, protectPage} from './auth.js';
 
 // Ana sayfanın sekmesini geri dönüşte yeniden bulabilmek için adlandırıyoruz.
 window.name = 'mevzuat-home';
 
 const app = document.querySelector('#app');
+if (app) {
 let sectionSearchTimer;
 app.innerHTML = `
   <header class="topbar">
-    <div class="brand-mark"><img src="/mevzuat-rehberi-icon.png" alt="" /></div>
-    <div><h1>İSG Mevzuat Rehberi</h1></div>
-    <div class="topbar-meta"><span class="status-dot"></span><button id="account-button" class="account-button" type="button">Giriş yap</button><button id="logout-button" class="logout-button" type="button" aria-label="Çıkış yap" title="Çıkış yap" hidden>×</button></div>
+    <a class="back-link" href="/" style="font-size:14px; margin-right:15px; color:#28465f; text-decoration:none; font-weight:600;; flex: 0 0 auto !important; width: fit-content !important; max-width: max-content !important; display: inline-block !important;">← Ana sayfaya dön</a>
+    <span class="topbar-label" style="font-size: 13px; color: #b6c6ef; font-weight: 700; letter-spacing: 0.14em; margin-left: auto;">MEVZUAT HÜKÜMLERİ</span>
+    
   </header>
   <main class="layout">
     <aside class="sidebar">
-    <div class="sidebar-heading"><div><h2>Mevzuat Listesi</h2></div><div class="sidebar-actions">
-        <div class="sidebar-row-1">
-          <button id="report-open" class="ipc-open" type="button" title="Tespitler menüsünü aç">＋ Tespitler</button>
-          <button id="favorites-open" class="ipc-open favorites-home-open" type="button" title="Favorilerimi aç">☆ Favorilerim</button>
-        </div>
-        <div class="sidebar-row-2">
-          <button id="ipc-open" class="ipc-open favorites-home-open" type="button" title="İdari Para Cezaları (2026) tablosunu aç">İPC 2026</button>
-          <button id="external-legislation-open" class="ipc-open favorites-home-open" type="button" title="Mevzuat bağlantıları sayfasını aç">↗ Mevzuat bağlantıları</button>
-          <button id="calc-open" class="ipc-open favorites-home-open" type="button" title="İSG Süre Hesaplama sayfasını aç">⏱️ Süre Hesaplama</button>
-          <button id="program-open" class="ipc-open favorites-home-open" type="button" title="Görev Programı sayfasını aç" style="display: none;">📅 Program</button>
-        </div>
-      </div></div>
-      <div class="calendar-layout-wrapper" style="display: flex; gap: 30px; align-items: flex-start;">
-        <div style="flex-shrink: 0; position: sticky; top: 120px; display: flex; flex-direction: column; gap: 20px;">
-          <div id="live-calendar" class="live-calendar"></div>
-          <div style="text-align: center; padding: 5px; margin-top: 5px;">
-            <img src="/ataturk-icon.jpg" alt="Atatürk" style="width: 100%; max-width: 150px; mix-blend-mode: multiply; filter: contrast(1.1) brightness(1.05);" />
-          </div>
-        </div>
+    
+      <div class="calendar-layout-wrapper"   style="display: flex; gap: 30px; align-items: flex-start;">
+        
         
         <div style="flex: 1; min-width: 0;">
           <div style="display: flex; gap: 10px; margin-bottom: 24px; flex-direction: row; width: 100%;">
@@ -42,14 +28,7 @@ app.innerHTML = `
           <nav id="section-list" class="section-list" aria-label="Mevzuat listesi"></nav>
         </div>
       </div>
-      <div class="sidebar-contact-links" style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.75rem;">
-        <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn mail-btn">
-          ✉️ E-Posta
-        </a>
-        <a href="https://wa.me/gokhanyilmaz7" class="contact-admin-btn whatsapp-btn" target="_blank" rel="noopener noreferrer">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" style="margin-right:2px; padding-bottom:1px;"><path d="M12.01 0C5.38 0 0 5.38 0 12.01c0 2.12.55 4.18 1.59 6L.18 23.18l5.31-1.39c1.78 1 3.79 1.53 5.86 1.53C18.01 23.32 24 17.96 24 11.3v-.06A11.97 11.97 0 0 0 12.01 0zm6.9 16.32c-.37 1.05-2 1.94-2.8 2.08-.6.1-1.39.17-2.88-.3-1.8-.57-3.9-2.02-5.46-3.58C6.2 12.95 5.2 11.2 5.2 9.38c0-1.84.95-2.73 1.3-3.12.33-.36.72-.45.96-.45.24 0 .48 0 .69.01.25.01.58-.09.9.68.32.78 1.1 2.68 1.2 2.89.1.21.16.45.03.71-.12.26-.19.42-.39.66-.21.23-.44.5-.63.69-.21.21-.43.43-.18.86.25.43 1.11 1.83 2.37 2.95 1.63 1.45 3.01 1.9 3.44 2.1.43.2.68.17.94-.12.25-.29 1.08-1.26 1.37-1.69.29-.43.58-.36 1.01-.2.43.16 2.7 1.28 3.16 1.5.47.23.77.35.88.54.11.19.11 1.1-.26 2.15z"/></svg> WhatsApp
-        </a>
-      </div>
+
     </aside>
     <section class="content">
       <div class="welcome"><div class="welcome-icon">§</div><p class="eyebrow">DAYANAKLAR (GENEL)</p><h2>Bir mevzuat seçin</h2><p>Soldaki listeden bir kanun veya yönetmelik seçin. İçerik, okunabilir ve kolay kopyalanabilir ayrı bir sekmede açılır.</p></div>
@@ -130,12 +109,6 @@ $('#section-filter').addEventListener('input', (event) => {
   clearTimeout(sectionSearchTimer);
   sectionSearchTimer = setTimeout(() => renderSections(event.target.value), 80);
 });
-$('#ipc-open').addEventListener('click', () => window.open('/ipc.html', '_blank'));
-$('#favorites-open').addEventListener('click', () => window.open('/favoriler.html', '_blank'));
-$('#report-open').addEventListener('click', () => window.open('/tespitler.html', '_blank'));
-$('#external-legislation-open').addEventListener('click', () => window.open('/mevzuat-baglantilari.html', '_blank'));
-$('#calc-open').addEventListener('click', () => window.open('/isg-hesaplama.html', '_blank'));
-$('#program-open').addEventListener('click', () => window.open('/program.html', '_blank'));
 loadManifest().catch((error) => { $('#section-list').innerHTML = `<p class="error-state">${error.message}</p>`; });
 
 let globalSearchTimer;
@@ -303,78 +276,4 @@ $('#global-search')?.addEventListener('input', (event) => {
 
 setupAccountUI();
 
-
-let currentCalDate = new Date();
-function renderCalendar(targetDate = currentCalDate) {
-  const container = document.getElementById('live-calendar');
-  if (!container) return;
-
-  const year = targetDate.getFullYear();
-  const month = targetDate.getMonth();
-  
-  const now = new Date();
-  const isCurrentMonth = (year === now.getFullYear() && month === now.getMonth());
-  const todayDate = now.getDate();
-
-  const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-  
-  let firstDay = new Date(year, month, 1).getDay();
-  firstDay = (firstDay === 0) ? 6 : firstDay - 1;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-  let html = `<div class="glass-calendar-inner">
-      <div class="cal-header">
-        <span class="cal-nav" id="cal-prev" title="Önceki Ay">&lang;</span>
-        <span class="cal-month">${months[month]} ${year}</span>
-        <span class="cal-nav" id="cal-next" title="Sonraki Ay">&rang;</span>
-      </div>
-      <div class="cal-weekdays">
-        <span>Pt</span><span>Sa</span><span>Ça</span><span>Pe</span><span>Cu</span><span>Ct</span><span>Pz</span>
-      </div>
-      <div class="cal-days">`;
-
-  for (let i = 0; i < firstDay; i++) {
-    const trailingDay = daysInPrevMonth - firstDay + i + 1;
-    html += `<span class="cal-day prev-month">${trailingDay}</span>`;
-  }
-  for (let i = 1; i <= daysInMonth; i++) {
-    if (isCurrentMonth && i === todayDate) {
-      html += `<span class="cal-day current-day">${i}</span>`;
-    } else {
-      html += `<span class="cal-day">${i}</span>`;
-    }
-  }
-  const remainingCells = 42 - (firstDay + daysInMonth);
-  for (let i = 1; i <= remainingCells; i++) {
-    html += `<span class="cal-day next-month">${i}</span>`;
-  }
-  html += `</div></div>`;
-  container.innerHTML = html;
-
-  document.getElementById('cal-prev').addEventListener('click', () => {
-    currentCalDate = new Date(year, month - 1, 1);
-    renderCalendar(currentCalDate);
-  });
-  
-  document.getElementById('cal-next').addEventListener('click', () => {
-    currentCalDate = new Date(year, month + 1, 1);
-    renderCalendar(currentCalDate);
-  });
-  
-  // Double click month title to reset to current month
-  document.querySelector('.cal-month').addEventListener('dblclick', () => {
-    currentCalDate = new Date();
-    renderCalendar(currentCalDate);
-  });
 }
-
-renderCalendar();
-setInterval(() => {
-    const cNow = new Date();
-    if (cNow.getHours() === 0 && cNow.getMinutes() === 0 && cNow.getSeconds() < 10) {
-        renderCalendar(currentCalDate);
-    }
-}, 10000);
-
-currentUser().then(u => { if(u) document.getElementById('program-open').style.display=''; });

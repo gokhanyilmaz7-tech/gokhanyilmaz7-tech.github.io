@@ -1,6 +1,8 @@
 import './favorites-page.css';
 import './report-link.css';
-import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI, protectPage} from './auth.js';
+protectPage();
+
 import {bindFavoriteReportButtons, reportButton, reportRepeatButton, reportItems} from './report.js';
 
 const KEY = 'mevzuat-local-favorites';
@@ -107,7 +109,7 @@ async function createList() {
 
 function renderTools() {
   const tools = document.querySelector('#favorites-side-tools');
-  tools.innerHTML = `<div class="side-tools-heading"><span>FAVORİ ARAÇLARI</span></div><div class="favorite-list-buttons"><button data-list="all" class="${selectedList === 'all' ? 'active' : ''}">☆ Tümü (${allItems().length})</button>${data.lists.map((list) => `<button data-list="${list.id}" class="${selectedList === list.id ? 'active' : ''}">▸ ${esc(list.name)} <small>${list.items.length}</small></button>`).join('')}</div><button id="new-favorite-list" class="side-tool-button">＋ Favori listesi oluştur</button><button id="rename-favorite-list" class="side-tool-button" ${selectedList === 'all' ? 'disabled' : ''}>✎ Liste başlığını değiştir</button><button id="sort-favorites" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="clear-all-favorites" class="side-tool-button" style="color:#b91c1c; margin-top:1.5rem;" ${allItems().length ? '' : 'disabled'}>🗑 Tüm favorileri sil</button><a class="side-tool-button report-link-button" href="/tespitler.html" style="margin-top:0.5rem;">Tespitler sayfasına git ↗</a>`;
+  tools.innerHTML = `<div class="side-tools-heading"><span>FAVORİ ARAÇLARI</span></div><div class="favorite-list-buttons"><button data-list="all" class="${selectedList === 'all' ? 'active' : ''}">☆ Tümü (${allItems().length})</button>${data.lists.map((list) => `<button data-list="${list.id}" class="${selectedList === list.id ? 'active' : ''}">▸ ${esc(list.name)} <small>${list.items.length}</small></button>`).join('')}</div><button id="new-favorite-list" class="side-tool-button">＋ Favori listesi oluştur</button><button id="rename-favorite-list" class="side-tool-button" ${selectedList === 'all' ? 'disabled' : ''}>✎ Liste başlığını değiştir</button><button id="sort-favorites" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="clear-all-favorites" class="side-tool-button" style="color:#b91c1c; margin-top:1.5rem;" ${allItems().length ? '' : 'disabled'}>🗑 Tüm favorileri sil</button><a class="side-tool-button report-link-button" href="/tedbirler.html" style="margin-top:0.5rem;">Tedbirler sayfasına git ↗</a><a class="side-tool-button report-link-button" href="/noksanlar.html" style="margin-top:0.5rem;">Noksanlar sayfasına git ↗</a>`;
   tools.querySelectorAll('[data-list]').forEach((button) => { button.onclick = () => { selectedList = button.dataset.list; render(); }; });
   tools.querySelector('#new-favorite-list').onclick = createList;
   tools.querySelector('#rename-favorite-list').onclick = async () => {

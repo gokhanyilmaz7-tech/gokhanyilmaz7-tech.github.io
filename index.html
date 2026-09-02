@@ -4,13 +4,108 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#102a43" />
-    <link rel="icon" href="/mevzuat-rehberi-icon.png" type="image/png" />
-    <title>Mevzuat Rehberi</title>
+  <link rel="icon" href="/mevzuat-rehberi-icon.png" type="image/png" />
+    <title>İSG Mevzuat Rehberi</title>
   <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+                <header class="legislation-topbar" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 4vw;">
+      <div style="flex: 1;"></div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex: 1;">
+        <div class="brand-mark"><img src="/mevzuat-rehberi-icon.png" alt="" /></div>
+        <h1 style="color: white; font-family: 'Playfair Display', Georgia, serif; font-size: 20px; letter-spacing: -0.02em; margin: 0; white-space: nowrap;">İSG Mevzuat Rehberi</h1>
+      </div>
+      <div class="topbar-meta" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+        <span class="status-dot"></span>
+        <button id="account-button" class="account-button" type="button">Giriş yap</button>
+        <button id="logout-button" class="logout-button" type="button" aria-label="Çıkış yap" title="Çıkış yap" hidden>Çıkış</button>
+      </div>
+    </header>
+
+    <div class="sidebar-actions-round" style="margin-top: 15px; margin-bottom: 20px; justify-content: center;">
+        <button onclick="navigateProtected('/noksanlar.html')" class="round-btn glow-6" type="button" title="İSG Noksanlık Listesi">⚠️ Noksanlar</button>
+        <button onclick="navigateProtected('/tedbirler.html')" class="round-btn glow-1" type="button" title="Tedbirler Menüsü">＋ Tedbirler</button>
+        <button onclick="window.location.href='/ipc.html'" class="round-btn glow-3" type="button" title="İdari Para Cezaları">₺ İPC 2026</button>
+        <button onclick="window.location.href='/isg-hesaplama.html'" class="round-btn glow-5" type="button" title="İSG Süre Hesaplama">⏱️ Hesaplama</button>
+        <button onclick="navigateProtected('/hukumler.html')" class="round-btn glow-4" type="button" title="Hükümler">📖 Hükümler</button>
+        <button onclick="navigateProtected('/favoriler.html')" class="round-btn glow-2" type="button" title="Favorilerim">⭐ Favorilerim</button>
+        <button onclick="navigateProtected('/program.html')" class="round-btn glow-7" type="button" title="Görev Programı">📅 Program</button>
+        <button onclick="navigateProtected('/gorevler.html')" class="round-btn glow-8" type="button" title="Görev Takip Merkezi">🛡️ Görev Takip</button>
+    </div>
+
+    <main class="legislation-layout">
+      <section class="legislation-card">
+        
+        <label class="legislation-search"><span aria-hidden="true">⌕</span><input id="legislation-filter" type="search" placeholder="Mevzuat ara…" autocomplete="off" /><span id="legislation-count"></span></label>
+        <div id="legislation-list" class="legislation-list" aria-label="Mevzuat bağlantıları"></div>
+      </section>
+      
+      <aside class="legislation-sidebar">
+        
+        <!-- Canlı Saat Widget -->
+        <div class="widget clock-widget" style="margin-bottom: 15px; padding: 15px; background: rgba(255, 255, 255, 0.9); border-radius: 12px; border: 1px solid #d7e1e9; box-shadow: 0 4px 12px rgba(31, 62, 88, 0.05); text-align: center;">
+          <div id="live-clock" style="font-size: 26px; font-weight: 700; color: #28465f; letter-spacing: 2px; font-variant-numeric: tabular-nums;">--:--:--</div>
+          <div id="live-date" style="font-size: 13px; color: #627d98; margin-top: 4px; font-weight: 500;"></div>
+        </div>
+        
+        <!-- Canlı Takvim -->
+        <div id="live-calendar" class="live-calendar" style="margin-bottom: 25px; width: 100%;"></div>
+        
+        <!-- Resmi Gazete Widget -->
+        <div class="widget rg-widget">
+          <div class="widget-header">
+            <span class="widget-icon">🇹🇷</span>
+            <h3>Resmi mevzuat linkleri</h3>
+          </div>
+          <div class="widget-content" id="rg-content">
+            <div class="rg-item" style="align-items: stretch; display: flex; flex-direction: column; gap: 12px; padding: 15px 0;">
+              <a href="https://www.mevzuat.gov.tr/" target="_blank" rel="noopener noreferrer" class="rg-btn" style="text-align: center;">Mevzuat Bilgi Sistemi ↗</a>
+              <a href="https://www.kaysis.gov.tr/" target="_blank" rel="noopener noreferrer" class="rg-btn" style="text-align: center;">KAYSİS ↗</a>
+              <a href="https://www.resmigazete.gov.tr/" target="_blank" rel="noopener noreferrer" class="rg-btn" style="text-align: center;">T.C. Resmi Gazete ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Faydalı Linkler Widget -->
+        <div class="widget links-widget">
+          <div class="widget-header">
+            <span class="widget-icon">🔗</span>
+            <h3>Faydalı Linkler</h3>
+          </div>
+          <div class="widget-content">
+            <ul class="useful-links">
+              <li><a href="https://www.tccb.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=tccb.gov.tr&sz=32" alt="" class="link-icon" /> T.C. Cumhurbaşkanlığı</a></li>
+              <li><a href="https://www.csgb.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> ÇSGB</a></li>
+              <li><a href="https://www.csgb.gov.tr/rtb/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> ÇSGB RTB</a></li>
+              <li><a href="https://www.sgk.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=sgk.gov.tr&sz=32" alt="" class="link-icon" /> Sosyal Güvenlik Kurumu (SGK)</a></li>
+              <li><a href="https://www.iskur.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=iskur.gov.tr&sz=32" alt="" class="link-icon" /> İŞKUR</a></li>
+              <li><a href="https://www.ismufder.org/" target="_blank" rel="noopener noreferrer"><img src="/ismufder-icon.png" alt="" class="link-icon" /> İŞMÜFDER</a></li>
+              <li><a href="https://isekipmanlari.csgb.gov.tr" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> İş Ekipmanları</a></li>
+              <li><a href="https://app2.csgb.gov.tr/verimerkezi/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> ÇSGB Veri Merkezi</a></li>
+              <li><a href="https://portal.csgb.gov.tr/my.policy" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> ÇSGB Portal</a></li>
+              <li><a href="https://webmail.csgb.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> E-posta</a></li>
+              <li><a href="https://isteftis.csgb.gov.tr/CSGB/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> İTOS</a></li>
+              <li><a href="https://app2.csgb.gov.tr/mitos/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> m-İTOS</a></li>
+              <li><a href="https://ebys.csgb.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> Belgenet</a></li>
+              <li><a href="https://app2.csgb.gov.tr/itosv2/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> BGTS</a></li>
+              <li><a href="https://sendikayetki.csgb.gov.tr/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=csgb.gov.tr&sz=32" alt="" class="link-icon" /> Sendika Yetki</a></li>
+              <li><a href="https://kadim.sgk.gov.tr/ESM/pages/loginHatali.jsp" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=sgk.gov.tr&sz=32" alt="" class="link-icon" /> KADİMBİS</a></li>
+              <li><a href="https://butunlesik.hmb.gov.tr/eyolluk/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=hmb.gov.tr&sz=32" alt="" class="link-icon" /> eYolluk</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sidebar-contact-links" style="margin-top: 1.5rem; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="mailto:gokhanyilmaz7@icloud.com?subject=İSG%20Mevzuat%20Rehberi%20-%20İletişim" class="contact-admin-btn mail-btn" style="text-decoration:none;">
+            ✉️ E-Posta
+          </a>
+          <a href="https://wa.me/gokhanyilmaz7" class="contact-admin-btn whatsapp-btn" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" style="margin-right:2px; padding-bottom:1px;"><path d="M12.01 0C5.38 0 0 5.38 0 12.01c0 2.12.55 4.18 1.59 6L.18 23.18l5.31-1.39c1.78 1 3.79 1.53 5.86 1.53C18.01 23.32 24 17.96 24 11.3v-.06A11.97 11.97 0 0 0 12.01 0zm6.9 16.32c-.37 1.05-2 1.94-2.8 2.08-.6.1-1.39.17-2.88-.3-1.8-.57-3.9-2.02-5.46-3.58C6.2 12.95 5.2 11.2 5.2 9.38c0-1.84.95-2.73 1.3-3.12.33-.36.72-.45.96-.45.24 0 .48 0 .69.01.25.01.58-.09.9.68.32.78 1.1 2.68 1.2 2.89.1.21.16.45.03.71-.12.26-.19.42-.39.66-.21.23-.44.5-.63.69-.21.21-.43.43-.18.86.25.43 1.11 1.83 2.37 2.95 1.63 1.45 3.01 1.9 3.44 2.1.43.2.68.17.94-.12.25-.29 1.08-1.26 1.37-1.69.29-.43.58-.36 1.01-.2.43.16 2.7 1.28 3.16 1.5.47.23.77.35.88.54.11.19.11 1.1-.26 2.15z"/></svg> WhatsApp
+          </a>
+        </div>
+      </aside>
+    </main>
+    <script type="module" src="/src/legislation-links.js"></script>
   <script type="module" src="/src/scroll-top.js"></script>
   </body>
 </html>
