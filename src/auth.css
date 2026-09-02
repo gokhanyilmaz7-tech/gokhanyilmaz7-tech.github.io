@@ -43,3 +43,31 @@ a.account-button { text-decoration: none; }
         text-align: right !important;
     }
 }
+
+/* Force mobile home button */
+@media (max-width: 760px) {
+    .back-link, .ipc-back {
+        font-size: 0 !important;
+        color: transparent !important;
+        width: 36px !important;
+        height: 36px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        flex: 0 0 auto !important;
+        letter-spacing: 0 !important;
+        text-decoration: none !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+    }
+    .back-link::after, .ipc-back::after {
+        content: "🏠" !important;
+        font-size: 18px !important;
+        color: #fff !important;
+        display: block !important;
+        line-height: 1 !important;
+    }
+}
