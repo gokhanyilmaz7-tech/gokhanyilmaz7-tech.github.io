@@ -34,3 +34,12 @@ a.account-button { text-decoration: none; }
         margin-left: auto !important;
     }
 }
+
+@media (max-width: 760px) {
+    .topbar-label {
+        position: static !important;
+        transform: none !important;
+        margin-left: auto !important;
+        text-align: right !important;
+    }
+}
