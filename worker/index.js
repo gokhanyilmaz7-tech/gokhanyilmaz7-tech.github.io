@@ -1,3 +1,5 @@
+import { googleAuth } from './google-auth.js';
+
 const SESSION_COOKIE = 'mevzuat_session';
 const APPLE_STATE_COOKIE = 'mevzuat_apple_state';
 const APPLE_NONCE_COOKIE = 'mevzuat_apple_nonce';
@@ -212,18 +214,7 @@ async function auth(request, env, pathname) {
     const user = await currentUser(request, env);
     return user ? json({user: {id: user.id, email: user.email, isAdmin: user.isAdmin}}) : json({user: null});
   }
-  if (pathname === '/api/auth/register' && request.method === 'POST') {
-    const body = await request.json().catch(() => null);
-    const email = String(body?.email || '').trim().toLowerCase();
-    const password = String(body?.password || '');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return error('Geçerli bir e-posta adresi girin.');
-    if (password.length < 8) return error('Şifre en az 8 karakter olmalıdır.');
-    const existing = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first();
-    if (existing) return error('Bu e-posta ile zaten bir hesap var.', 409);
-    const id = randomId();
-    await env.DB.prepare('INSERT INTO users (id, email, password_hash, created_at, is_approved) VALUES (?, ?, ?, ?, 0)').bind(id, email, await passwordHash(password), Date.now()).run();
-    return json({pending_approval: true, message: 'Kayıt başarılı, ancak yöneticinin hesabınızı onaylaması gerekiyor.'}, 201);
-  }
+  if (pathname === '/api/auth/register' || pathname === '/api/auth/login') return error('E-posta ve şifreyle giriş kaldırıldı. Google veya Apple ile giriş yapın.', 410);
   if (pathname === '/api/auth/local-admin' && request.method === 'POST') {
     if (!isLocalRequest(request)) return error('Yerel yönetici girişi yalnızca geliştirme adresinde kullanılabilir.', 404);
     const existing = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(ADMIN_EMAIL).first();
@@ -231,15 +222,6 @@ async function auth(request, env, pathname) {
     if (existing) await env.DB.prepare('UPDATE users SET apple_sub = ? WHERE id = ?').bind('local-dev-admin', id).run();
     else await env.DB.prepare('INSERT INTO users (id, email, password_hash, apple_sub, created_at) VALUES (?, ?, ?, ?, ?)').bind(id, ADMIN_EMAIL, await passwordHash(randomId()), 'local-dev-admin', Date.now()).run();
     return json({user: {id, email: ADMIN_EMAIL, isAdmin: true}}, 200, {'set-cookie': await createSession(id, env, request)});
-  }
-  if (pathname === '/api/auth/login' && request.method === 'POST') {
-    const body = await request.json().catch(() => null);
-    const email = String(body?.email || '').trim().toLowerCase();
-    const password = String(body?.password || '');
-    const user = await env.DB.prepare('SELECT id, email, password_hash, is_approved FROM users WHERE email = ?').bind(email).first();
-    if (!user || !(await passwordMatches(password, user.password_hash))) return error('E-posta veya şifre hatalı.', 401);
-    if (!user.is_approved) return error('Hesabınız henüz onaylanmadı. Lütfen yönetici onayını bekleyin.', 403);
-    return json({user: {id: user.id, email: user.email}}, 200, {'set-cookie': await createSession(user.id, env, request)});
   }
   if (pathname === '/api/auth/logout' && request.method === 'POST') {
     const raw = cookie(request, SESSION_COOKIE);
@@ -507,6 +489,7 @@ async function adminTaskAttachmentsAPI(request, env, url) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith('/api/auth/google/')) return googleAuth(request, env, {createSession, passwordHash, randomId});
     if (url.pathname.startsWith('/api/auth/apple/')) return (await appleAuth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname.startsWith('/api/auth/')) return (await auth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
         if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);

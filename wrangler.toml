@@ -3,6 +3,7 @@ main = "worker/index.js"
 compatibility_date = "2026-07-20"
 
 [vars]
+GOOGLE_REDIRECT_URI = "https://www.isg-mevzuat-rehberi.com.tr/api/auth/google/callback"
 APPLE_TEAM_ID = "4L6B4S88G6"
 APPLE_KEY_ID = "WJ94KH56BZ"
 APPLE_CLIENT_ID = "com.isgmevzuatrehberi.web"

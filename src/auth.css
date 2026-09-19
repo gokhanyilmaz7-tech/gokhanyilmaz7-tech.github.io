@@ -71,3 +71,5 @@ a.account-button { text-decoration: none; }
         line-height: 1 !important;
     }
 }
+
+.google-login{width:100%;margin-top:12px;padding:12px 16px;border:1px solid #747775;border-radius:8px;color:#1f1f1f;background:#fff;font:600 14px Arial,sans-serif;cursor:pointer}.google-login:hover{background:#f2f5fa}.google-login:focus-visible{outline:3px solid #4285f4;outline-offset:3px}.google-login:disabled{cursor:wait;opacity:.65}

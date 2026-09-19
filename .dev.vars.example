@@ -3,3 +3,7 @@ APPLE_KEY_ID=APPLE_PRIVATE_KEY_ID
 APPLE_CLIENT_ID=com.example.mevzuatrehberi.web
 APPLE_REDIRECT_URI=https://www.isg-mevzuat-rehberi.com.tr/api/auth/apple/callback
 APPLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_APPLE_PRIVATE_KEY\n-----END PRIVATE KEY-----"
+
+GOOGLE_CLIENT_ID=GOOGLE_WEB_ISTEMCI_KIMLIGI
+GOOGLE_CLIENT_SECRET=GOOGLE_WEB_ISTEMCI_GIZLI_ANAHTARI
+GOOGLE_REDIRECT_URI=https://www.isg-mevzuat-rehberi.com.tr/api/auth/google/callback

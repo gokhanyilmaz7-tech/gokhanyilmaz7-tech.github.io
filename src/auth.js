@@ -36,12 +36,8 @@ function openDialog() {
   overlay.id = 'account-dialog';
   overlay.className = 'account-overlay';
   const localAdminButton = ['localhost', '127.0.0.1'].includes(window.location.hostname) ? '<button id="local-admin-login" class="account-switch" type="button">Yerel yönetici olarak test et</button>' : '';
-  overlay.innerHTML = `<section class="account-dialog" role="dialog" aria-modal="true" aria-labelledby="account-title"><button class="account-close" type="button" aria-label="Kapat">×</button><p class="eyebrow">MEVZUAT REHBERİ</p><h2 id="account-title">Hesabınıza giriş yapın</h2><p class="account-help">Favori ve rapor kayıtlarınız için üye girişi gereklidir.</p><form id="account-form"><label>E-posta<input id="account-email" type="email" autocomplete="email" required></label><label>Şifre<input id="account-password" type="password" minlength="8" autocomplete="current-password" required></label><p id="account-message" class="account-message"></p><button class="account-submit" type="submit">Giriş yap</button></form><button id="apple-login" class="apple-login" type="button"> Apple ile kayıt ol / giriş yap</button>${localAdminButton}<button id="account-switch" class="account-switch" type="button">Hesabınız yok mu? Kayıt olun</button></section>`;
+  overlay.innerHTML = `<section class="account-dialog" role="dialog" aria-modal="true" aria-labelledby="account-title"><button class="account-close" type="button" aria-label="Kapat">×</button><p class="eyebrow">MEVZUAT REHBERİ</p><h2 id="account-title">Hesabınıza giriş yapın</h2><p class="account-help">Favori ve rapor kayıtlarınız için üye girişi gereklidir.</p><p id="account-message" class="account-message" role="status"></p><button id="google-login" class="google-login" type="button">Google ile giriş yap</button><button id="apple-login" class="apple-login" type="button"> Apple ile kayıt ol / giriş yap</button>${localAdminButton}</section>`;
   document.body.append(overlay);
-  let mode = 'login';
-  const title = overlay.querySelector('#account-title');
-  const submit = overlay.querySelector('.account-submit');
-  const switchButton = overlay.querySelector('#account-switch');
   const message = overlay.querySelector('#account-message');
   overlay.querySelector('.account-close').onclick = () => overlay.remove();
   overlay.onclick = (event) => { if (event.target === overlay) overlay.remove(); };
@@ -84,24 +80,20 @@ function openDialog() {
     overlay.remove();
     window.location.reload();
   });
-  switchButton.onclick = () => { mode = mode === 'login' ? 'register' : 'login'; title.textContent = mode === 'login' ? 'Hesabınıza giriş yapın' : 'Ücretsiz hesap oluşturun'; submit.textContent = mode === 'login' ? 'Giriş yap' : 'Kayıt ol'; switchButton.textContent = mode === 'login' ? 'Hesabınız yok mu? Kayıt olun' : 'Zaten hesabınız var mı? Giriş yapın'; overlay.querySelector('#account-password').setAttribute('autocomplete', mode === 'login' ? 'current-password' : 'new-password'); };
-  overlay.querySelector('#account-form').onsubmit = async (event) => {
-    event.preventDefault();
-    message.textContent = 'İşleniyor…';
-    const response = await fetch(`/api/auth/${mode === 'login' ? 'login' : 'register'}`, {method: 'POST', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({email: overlay.querySelector('#account-email').value, password: overlay.querySelector('#account-password').value})});
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) { message.textContent = result.error || 'İşlem tamamlanamadı.'; return; }
-    
-    if (result.pending_approval) {
-        alert(result.message);
-        overlay.remove();
-        return;
+  overlay.querySelector('#google-login').onclick = async () => {
+    const button = overlay.querySelector('#google-login');
+    button.disabled = true;
+    message.textContent = 'Google girişine bağlanılıyor…';
+    try {
+      const returnTo = `${window.location.pathname}${window.location.search}`;
+      const response = await fetch(`/api/auth/google/start?format=json&returnTo=${encodeURIComponent(returnTo)}`, {credentials: 'same-origin', cache: 'no-store'});
+      const result = await response.json();
+      if (!response.ok || !result.url) throw new Error(result.error || 'Google girişi şu anda kullanılamıyor.');
+      window.location.assign(result.url);
+    } catch (error) {
+      message.textContent = error.message || 'Google girişine bağlanılamadı. Lütfen tekrar deneyin.';
+      button.disabled = false;
     }
-    userPromise = Promise.resolve(result.user);
-    
-    overlay.remove();
-    await hydrateFavorites();
-    window.location.reload();
   };
 }
 
@@ -234,6 +226,16 @@ export async function protectPage() {
 
 window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
+    const googleErrors = {
+      google: 'Google ile giriş tamamlanamadı. Lütfen tekrar deneyin.',
+      google_cancelled: 'Google ile giriş iptal edildi.',
+      google_link: 'Bu e-posta mevcut bir hesaba ait. Apple hesabınız varsa Apple ile giriş yapın; diğer hesaplar için yöneticiyle iletişime geçin.'
+    };
+    if (googleErrors[params.get('auth_error')]) {
+      openDialog();
+      document.querySelector('#account-message').textContent = googleErrors[params.get('auth_error')];
+      window.history.replaceState({}, '', '/');
+    }
     if (params.get('auth_error') === 'pending') {
         alert('Üyeliğiniz onaya gönderildi veya inceleniyor. Yönetici onayından sonra giriş yapabileceksiniz.');
         window.history.replaceState({}, '', '/');
@@ -251,8 +253,7 @@ window.navigateProtected = async function(url) {
   if (user) {
     window.location.href = url;
   } else {
-    // Alert or just show login
-    // The user said "butonlara tıklandığında uyarı versin. üye olma veya üye girişi ekranı çıksın"
+    // Üyelere özel içerik için giriş seçeneklerini göster.
     openDialog();
     const msg = document.querySelector('.account-help');
     if(msg) msg.textContent = 'Erişmek istediğiniz bölüm üyelere özeldir. Lütfen giriş yapın veya kayıt olun.';
