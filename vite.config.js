@@ -20,6 +20,8 @@ export default defineConfig({
         program: 'program.html',
         gorevler: 'gorevler.html',
         noksanlar: 'noksanlar.html',
+        gizlilik: 'gizlilik.html',
+        kullanimSartlari: 'kullanim-sartlari.html',
       },
     },
   },
