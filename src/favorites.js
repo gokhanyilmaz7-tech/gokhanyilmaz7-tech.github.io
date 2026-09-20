@@ -63,6 +63,10 @@ export async function setupFavorites({sectionId, sectionTitle}) {
       await persistFavorites(data, FAVORITES_KEY);
       button.classList.add('is-favorite'); button.textContent = 'Favorilerde'; button.setAttribute('aria-label', 'Bu hüküm favorilerde');
       closePanel();
+      if (localStorage.getItem('pending-favorite-injection')) {
+        localStorage.removeItem('pending-favorite-injection');
+        window.location.assign('/favoriler.html');
+      }
     };
     panel.querySelector('.favorite-save-title').focus();
   };
