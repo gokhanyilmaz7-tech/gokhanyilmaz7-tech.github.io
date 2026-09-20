@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,734,878 words
+- 967 files · ~1,734,620 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1178 nodes · 2181 edges · 69 communities (60 shown, 4 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 101 edges (avg confidence: 0.85)
+- 1178 nodes · 2176 edges · 69 communities (60 shown, 4 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `715a54de`
+- Built from commit: `29959f29`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -134,7 +134,7 @@ Cohesion: 0.11
 Nodes (31): applyProvisionTitle(), blocks, color(), compact(), content, copyProvision(), editProvisionTitle(), escapeHtml() (+23 more)
 
 ### Community 6 - "program.js"
-Cohesion: 0.16
+Cohesion: 0.15
 Nodes (26): archiveList, changeMonth(), closeArchiveModal(), closeAssignModal(), currentMonth, currentYear, dayNames, deleteArchiveItem() (+18 more)
 
 ### Community 7 - "admin-provisions.js"

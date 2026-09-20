@@ -34,13 +34,10 @@ async function init() {
   }
   
   await loadData();
-  renderTasks();
   renderCalendar();
   
   document.getElementById('btn-prev-month').addEventListener('click', () => changeMonth(-1));
   document.getElementById('btn-next-month').addEventListener('click', () => changeMonth(1));
-  document.getElementById('save-task-btn').addEventListener('click', saveTask);
-
   // Topbar Save & Archive Event Listeners
   const topbarSaveBtn = document.getElementById('btn-topbar-save');
   if (topbarSaveBtn) topbarSaveBtn.addEventListener('click', saveProgramToArchive);
@@ -182,34 +179,11 @@ function deleteTask(id) {
 }
 
 function renderTasks() {
-  const list = document.getElementById('task-list');
-  list.innerHTML = '';
-  tasks.filter(t => isTaskValidForPeriod(t, currentYear, currentMonth)).forEach(t => {
-    const card = document.createElement('div');
-    card.className = 'task-card';
-    
-    let periodText = '';
-    if (t.startYear !== undefined && t.endYear !== undefined) {
-      periodText = `${monthNames[t.startMonth]} ${t.startYear} - ${monthNames[t.endMonth]} ${t.endYear}`;
-    }
-    
-    card.innerHTML = `
-      <h4 style="padding-right: 16px;">${t.unvan}</h4>
-      ${periodText ? `<p class="task-period-preview">📅 ${periodText}</p>` : ''}
-      <p class="task-sgk-preview">SGK: ${t.sgk || '-'}</p>
-      <div class="task-details">
-        ${periodText ? `<p><span>Dönem:</span> ${periodText}</p>` : ''}
-        <p><span>SGK:</span> ${t.sgk || '-'}</p>
-        <p><span>Oto Kodu:</span> ${t.oto || '-'}</p>
-        <p><span>Dosya No:</span> ${t.dosya || '-'}</p>
-        <p><span>Adres:</span> ${t.adres || '-'}</p>
-      </div>
-      <button class="task-del" onclick="event.stopPropagation(); window.deleteTask('${t.id}')">×</button>
-    `;
-    card.addEventListener('click', () => card.classList.toggle('expanded'));
-    list.appendChild(card);
-  });
+  // Program sayfasında görev tanımı yönetimi kaldırıldı.
+  // Görevler, Görev Takip sayfasındaki ortak veri kaynağından yüklenir
+  // ve yalnızca günlere atama penceresinde seçilir.
 }
+
 window.deleteTask = deleteTask; 
 
 function changeMonth(delta) {
@@ -217,7 +191,6 @@ function changeMonth(delta) {
   if(currentMonth > 11) { currentMonth = 0; currentYear++; }
   if(currentMonth < 0) { currentMonth = 11; currentYear--; }
   renderCalendar();
-  renderTasks();
 }
 
 function renderMiniCal(elId, y, m) {
@@ -527,7 +500,6 @@ function loadArchiveItem(id) {
   if (item.year !== undefined) currentYear = item.year;
 
   saveData();
-  renderTasks();
   renderCalendar();
   closeArchiveModal();
   alert(`"${item.monthName} ${item.year}" görev programı takvime yüklendi!`);

@@ -8,10 +8,10 @@
 }
 
 .program-layout {
-  display: flex;
+  display: block;
   flex: 1;
   overflow: hidden;
-  height: calc(100vh - 72px); /* minus topbar */
+  height: calc(100vh - 72px); /* üst çubuk hariç */
 }
 
 /* Tasks Sidebar */
@@ -65,11 +65,13 @@
 
 /* Calendar Main Area */
 .calendar-main {
-  flex: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 32px 40px;
+  padding: 24px clamp(16px, 3vw, 36px);
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .cal-main-header {
@@ -848,3 +850,7 @@
   font-weight: 600;
   margin: 2px 0 6px 0;
 }
+
+.program-page .calendar-main{max-width:none}
+.program-page .main-calendar-grid{width:100%}
+.program-page .cal-main-header{width:100%;box-sizing:border-box}

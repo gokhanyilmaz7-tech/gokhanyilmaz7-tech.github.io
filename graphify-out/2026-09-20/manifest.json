@@ -5664,9 +5664,9 @@
     "semantic_hash": "3ce370013dcda1de09c691be8b984679"
   },
   "src/report-page.js": {
-    "mtime": 1789936156.3634036,
-    "seen": 1789936159.2586272,
-    "ast_hash": "bf035eb27e57c606b596d0fb49bc506f",
+    "mtime": 1789936702.4185374,
+    "seen": 1789936705.5547159,
+    "ast_hash": "eedf5fd187df60466120167746dfc054",
     "semantic_hash": ""
   },
   "src/report.js": {
@@ -5682,9 +5682,9 @@
     "semantic_hash": ""
   },
   "src/section.js": {
-    "mtime": 1789934023.4395933,
-    "seen": 1789934031.7137122,
-    "ast_hash": "43f8cd5f5134ea273d1886303d2755d9",
+    "mtime": 1789936421.739721,
+    "seen": 1789936429.8598669,
+    "ast_hash": "5474ebfedbb5366f1810020a5f488c36",
     "semantic_hash": ""
   },
   "test_run.js": {
