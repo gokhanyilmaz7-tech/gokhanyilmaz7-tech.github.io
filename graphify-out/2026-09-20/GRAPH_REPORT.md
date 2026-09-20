@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,734,629 words
+- 967 files · ~1,734,639 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1176 nodes · 2170 edges · 69 communities (60 shown, 4 thin omitted)
+- 1176 nodes · 2172 edges · 70 communities (61 shown, 4 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 101 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3b9e529b`
+- Built from commit: `d66fdc8b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -79,6 +79,7 @@
 - modulepreload-polyfill-B5Qt9EMX.js
 - Mevzuat Rehberi
 - admin.js
+- admin-jppI3dUa.js
 
 ## God Nodes (most connected - your core abstractions)
 1. `_` - 38 edges
@@ -107,15 +108,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (69 total, 4 thin omitted)
+## Communities (70 total, 4 thin omitted)
 
 ### Community 0 - "report-page.js"
 Cohesion: 0.06
-Nodes (79): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+71 more)
+Nodes (80): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+72 more)
 
 ### Community 1 - "_"
-Cohesion: 0.07
-Nodes (81): e(), n, o(), r(), s(), b(), d(), f() (+73 more)
+Cohesion: 0.08
+Nodes (76): b(), d(), f(), h(), m(), v(), w(), y() (+68 more)
 
 ### Community 2 - "BrowserTab"
 Cohesion: 0.09
@@ -349,9 +350,13 @@ Nodes (3): Mevzuat Rehberi, Yönetici girişi, Çalıştırma
 Cohesion: 0.35
 Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+2 more)
 
+### Community 69 - "admin-jppI3dUa.js"
+Cohesion: 0.53
+Nodes (5): e(), n, o(), r(), s()
+
 ## Knowledge Gaps
 - **339 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+334 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 425 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 424 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -366,8 +371,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `n`, `r`, `I` to the rest of the system?**
   _339 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `report-page.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.06317103620474407 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06367041198501873 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
-  _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07592592592592592 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**
   _Cohesion score 0.0915915915915916 - nodes in this community are weakly interconnected._

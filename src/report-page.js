@@ -146,6 +146,47 @@ const ensureOriginalDescription = (item) => {
   if (item.originalHtml === undefined) item.originalHtml = item.html || '';
   if (item.originalText === undefined) item.originalText = item.text || '';
 };
+const textNodesIn = (root) => {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  return nodes;
+};
+
+const replaceTextKeepingFormat = (html, text) => {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = stripGreenText(normalizeHtml(html));
+  const lines = String(text || '').split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  const paragraphs = [...wrapper.querySelectorAll('p')].filter((paragraph) => paragraph.innerText.trim());
+  if (!paragraphs.length) return `<p>${esc(text)}</p>`;
+  const template = paragraphs[paragraphs.length - 1];
+  lines.forEach((line, index) => {
+    let paragraph = paragraphs[index];
+    if (!paragraph) {
+      paragraph = template.cloneNode(true);
+      wrapper.appendChild(paragraph);
+      paragraphs.push(paragraph);
+    }
+    const nodes = textNodesIn(paragraph);
+    if (!nodes.length) {
+      paragraph.textContent = line;
+      return;
+    }
+    nodes[0].textContent = line;
+    nodes.slice(1).forEach((node) => { node.textContent = ''; });
+  });
+  paragraphs.slice(lines.length || 1).forEach((paragraph) => paragraph.remove());
+  if (!lines.length) {
+    const nodes = textNodesIn(paragraphs[0]);
+    if (nodes[0]) nodes[0].textContent = '';
+    nodes.slice(1).forEach((node) => { node.textContent = ''; });
+  }
+  return wrapper.innerHTML;
+};
 let data = readWorkspace();
 let sortMode = 'manual';
 let reportSearchTimer;
@@ -205,7 +246,7 @@ function renderStream() {
   const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = () => { localStorage.removeItem('pending-legislation-injection'); localStorage.removeItem('pending-favorite-injection'); openLegislationModal(); }; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
   stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = await customEditTitlePrompt(item?.title || ''); if (title === null || !item) return; item.title = title.trim(); await save(); render(); }; });
-  stream.querySelectorAll('[data-report-description-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionEdit); if (!item) return; ensureOriginalDescription(item); const currentText = item.html ? plainTextFromHtml(stripGreenText(normalizeHtml(item.html))) : item.text || ''; const description = await customEditDescriptionPrompt(currentText); if (description === null) return; item.text = description.trim(); item.html = ''; await save(); render(); }; });
+  stream.querySelectorAll('[data-report-description-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionEdit); if (!item) return; ensureOriginalDescription(item); const currentText = item.html ? plainTextFromHtml(stripGreenText(normalizeHtml(item.html))) : item.text || ''; const description = await customEditDescriptionPrompt(currentText); if (description === null) return; const nextDescription = description.trim(); if (item.html) item.html = replaceTextKeepingFormat(item.html, nextDescription); else item.text = nextDescription; await save(); render(); }; });
   stream.querySelectorAll('[data-report-description-restore]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionRestore); if (!item) return; if (item.originalHtml !== undefined || item.originalText !== undefined) { item.html = item.originalHtml || ''; item.text = item.originalText || ''; } await save(); render(); }; });
     stream.querySelectorAll('[data-report-open-legislation]').forEach((button) => { button.onclick = () => { localStorage.setItem('pending-legislation-injection', button.dataset.reportOpenLegislation); localStorage.removeItem('pending-favorite-injection'); openLegislationModal(); }; });
 stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
