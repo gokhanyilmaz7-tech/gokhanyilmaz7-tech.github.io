@@ -167,6 +167,49 @@
       .export-menu-item.danger:hover {
         background: #fef2f2;
       }
+      .noksan-tools-card {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin: 0 0 18px;
+        padding: 16px 18px;
+      }
+      .noksan-tools-title {
+        color: #0f172a;
+        font-size: 1rem;
+        font-weight: 900;
+        margin: 0 0 4px;
+      }
+      .noksan-tools-desc {
+        color: #64748b;
+        font-size: 0.86rem;
+        font-weight: 650;
+        margin: 0;
+      }
+      .btn-reset-noksan-page {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 999px;
+        color: #b91c1c;
+        cursor: pointer;
+        font-size: 0.86rem;
+        font-weight: 850;
+        padding: 10px 14px;
+        white-space: nowrap;
+        transition: background 0.15s, color 0.15s, transform 0.15s;
+      }
+      .btn-reset-noksan-page:hover,
+      .btn-reset-noksan-page:focus-visible {
+        background: #dc2626;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
 
       /* Single Column Category List */
       .category-accordion-list {
@@ -572,6 +615,13 @@
         .preview-item-main {
           flex-direction: column;
         }
+        .noksan-tools-card {
+          align-items: stretch;
+          flex-direction: column;
+        }
+        .btn-reset-noksan-page {
+          width: 100%;
+        }
       }
       .preview-modal-footer {
         padding: 16px 20px;
@@ -650,6 +700,14 @@
         </div>
         </div>
       </div>
+
+      <section class="noksan-tools-card" aria-label="Noksanlık araçları">
+        <div>
+          <h2 class="noksan-tools-title">Araçlar</h2>
+          <p class="noksan-tools-desc">Seçimleri ve düzenlenmiş geçici metinleri temizleyip sayfayı orijinal noksanlık listesine döndürür.</p>
+        </div>
+        <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini sıfırla</button>
+      </section>
 
       <!-- Single Column Category Accordion List -->
       <div id="category-accordion-list" class="category-accordion-list">

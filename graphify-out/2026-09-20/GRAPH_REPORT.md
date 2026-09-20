@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,731,711 words
+- 967 files · ~1,732,058 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1133 nodes · 2023 edges · 69 communities (60 shown, 4 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 93 edges (avg confidence: 0.85)
+- 1135 nodes · 2030 edges · 69 communities (60 shown, 4 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 95 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5416ac7c`
+- Built from commit: `6ccaac28`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -78,7 +78,7 @@
 - scroll-top.js
 - modulepreload-polyfill-B5Qt9EMX.js
 - Mevzuat Rehberi
-- admin-jppI3dUa.js
+- admin.js
 
 ## God Nodes (most connected - your core abstractions)
 1. `_` - 38 edges
@@ -114,8 +114,8 @@ Cohesion: 0.07
 Nodes (75): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+67 more)
 
 ### Community 1 - "_"
-Cohesion: 0.08
-Nodes (76): b(), d(), f(), h(), m(), v(), w(), y() (+68 more)
+Cohesion: 0.07
+Nodes (81): e(), n, o(), r(), s(), b(), d(), f() (+73 more)
 
 ### Community 2 - "BrowserTab"
 Cohesion: 0.09
@@ -142,8 +142,8 @@ Cohesion: 0.21
 Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), applyProvisionOverrides(), bindInlineToolbar(), blockNodes(), caretAtBlockStart(), copyFormatTemplate() (+13 more)
 
 ### Community 8 - "noksanlar.js"
-Cohesion: 0.19
-Nodes (24): clearBasket(), closePreviewModal(), copyToClipboard(), customTexts, escapeHtml(), exportToCsv(), exportToPdf(), exportToTedbirler() (+16 more)
+Cohesion: 0.18
+Nodes (26): clearBasket(), closeEditModal(), closePreviewModal(), copyToClipboard(), customTexts, escapeHtml(), exportToCsv(), exportToPdf() (+18 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -182,8 +182,8 @@ Cohesion: 0.19
 Nodes (16): archive, attachmentsMap, escapeHtml(), escapeJs(), initEventListeners(), loadAllAttachments(), loadProgramData(), monthNames (+8 more)
 
 ### Community 18 - "ipc.js"
-Cohesion: 0.12
-Nodes (26): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+18 more)
+Cohesion: 0.19
+Nodes (16): copyButton, escapeHtml(), filterRows(), formatCell(), isFullWidthNote(), isHeaderRepeat(), isMajor(), isNote() (+8 more)
 
 ### Community 19 - "ipc-CC3fB8bB.js"
 Cohesion: 0.18
@@ -345,9 +345,9 @@ Nodes (3): pageCount, pdf, sections
 Cohesion: 0.50
 Nodes (3): Mevzuat Rehberi, Yönetici girişi, Çalıştırma
 
-### Community 69 - "admin-jppI3dUa.js"
-Cohesion: 0.53
-Nodes (5): e(), n, o(), r(), s()
+### Community 68 - "admin.js"
+Cohesion: 0.35
+Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+2 more)
 
 ## Knowledge Gaps
 - **338 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+333 more)
@@ -368,6 +368,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `report-page.js` be split into smaller, more focused modules?**
   _Cohesion score 0.0667578659370725 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
-  _Cohesion score 0.07592592592592592 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**
   _Cohesion score 0.0915915915915916 - nodes in this community are weakly interconnected._

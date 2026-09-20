@@ -63,6 +63,7 @@ function initNoksanlar() {
   document.getElementById('btn-export-tedbirler')?.addEventListener('click', exportToTedbirler);
   document.getElementById('btn-export-tedbirler-main')?.addEventListener('click', exportToTedbirler);
   document.getElementById('btn-clear-basket')?.addEventListener('click', clearBasket);
+  document.getElementById('btn-reset-noksan-page')?.addEventListener('click', resetNoksanPage);
 
   // Modal Footer Export Events
   document.getElementById('modal-export-word')?.addEventListener('click', exportToWord);
@@ -125,12 +126,11 @@ function renderAccordions() {
             ${matchingItems.map((item, idx) => {
               const strId = String(item.id);
               const isSelected = selectedIds.has(strId);
-              const displayText = customTexts[strId] || item.text;
               return `
                 <tr class="noksan-row ${isSelected ? 'selected' : ''}" data-id="${strId}">
                   <td class="sira-no">${idx + 1}</td>
                   <td>
-                    <div class="noksan-text">${escapeHtml(displayText)}</div>
+                    <div class="noksan-text">${escapeHtml(item.text)}</div>
                   </td>
                   <td class="noksan-action-cell">
                     <button class="btn-edit-noksan" type="button" data-edit-id="${strId}">✏️ Düzenle</button>
@@ -224,7 +224,6 @@ function saveEditedNoksan() {
   }
 
   saveSelectionState();
-  syncVisibleNoksanText(activeEditId, customTexts[activeEditId] || item.text);
 
   const previewModal = document.getElementById('preview-modal');
   if (previewModal && !previewModal.classList.contains('hidden')) {
@@ -234,10 +233,28 @@ function saveEditedNoksan() {
   closeEditModal();
 }
 
-function syncVisibleNoksanText(strId, text) {
-  document.querySelectorAll(`.noksan-row[data-id="${strId}"] .noksan-text`).forEach((el) => {
-    el.textContent = text;
-  });
+function resetNoksanPage() {
+  if (selectedIds.size === 0 && Object.keys(customTexts).length === 0 && !searchQuery) {
+    renderAccordions();
+    updateExportBadge();
+    closePreviewModal();
+    closeEditModal();
+    return;
+  }
+
+  selectedIds.clear();
+  customTexts = {};
+  searchQuery = '';
+  localStorage.removeItem('isg-selected-noksanliklar');
+  localStorage.removeItem('isg-custom-noksanliklar');
+
+  const searchInput = document.getElementById('noksan-search');
+  if (searchInput) searchInput.value = '';
+
+  closePreviewModal();
+  closeEditModal();
+  renderAccordions();
+  updateExportBadge();
 }
 
 function toggleSelection(strId) {
@@ -346,7 +363,6 @@ function renderPreviewModalList() {
       const nextText = e.target.innerText.trim();
       customTexts[strId] = nextText;
       saveSelectionState();
-      syncVisibleNoksanText(strId, nextText || item.text);
     });
 
     div.querySelector('.btn-remove-item').onclick = () => {
