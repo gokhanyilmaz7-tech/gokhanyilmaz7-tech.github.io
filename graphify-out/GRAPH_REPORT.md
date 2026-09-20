@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,734,620 words
+- 967 files · ~1,734,675 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1178 nodes · 2176 edges · 69 communities (60 shown, 4 thin omitted)
+- 1179 nodes · 2177 edges · 69 communities (60 shown, 4 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `29959f29`
+- Built from commit: `adee32b8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -134,7 +134,7 @@ Cohesion: 0.11
 Nodes (31): applyProvisionTitle(), blocks, color(), compact(), content, copyProvision(), editProvisionTitle(), escapeHtml() (+23 more)
 
 ### Community 6 - "program.js"
-Cohesion: 0.15
+Cohesion: 0.14
 Nodes (26): archiveList, changeMonth(), closeArchiveModal(), closeAssignModal(), currentMonth, currentYear, dayNames, deleteArchiveItem() (+18 more)
 
 ### Community 7 - "admin-provisions.js"
@@ -351,7 +351,7 @@ Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load()
 
 ## Knowledge Gaps
 - **339 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+334 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 424 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 425 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions

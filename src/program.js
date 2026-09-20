@@ -310,13 +310,28 @@ function renderCalendar() {
 }
 
 let activeDateStr = null;
-function openAssignModal(dateStr, day) {
+async function refreshTasksForAssignment() {
+  try {
+    const res = await fetch('/api/program');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.tasks && Array.isArray(data.tasks)) {
+      tasks = data.tasks;
+      localStorage.setItem(`mevzuat-tasks-${user.id}`, JSON.stringify(tasks));
+    }
+  } catch (err) {
+    console.warn('Görev listesi yenilenemedi, mevcut kayıtlar kullanılıyor.');
+  }
+}
+
+async function openAssignModal(dateStr, day) {
   activeDateStr = dateStr;
+  await refreshTasksForAssignment();
   
   const sel = document.getElementById('assign-task-select');
   sel.innerHTML = '<option value="">-- Görev Seçin --</option>';
-  tasks.filter(t => isTaskValidForPeriod(t, currentYear, currentMonth))
-       .forEach(t => sel.innerHTML += `<option value="${t.id}">${t.unvan}</option>`);
+  tasks.forEach(t => sel.innerHTML += `<option value="${t.id}">${t.unvan || 'İsimsiz görev'}</option>`);
+  if (!tasks.length) sel.innerHTML += '<option value="" disabled>Görev Takip sayfasında kayıtlı görev yok</option>';
   
   document.getElementById('assign-manual-text').value = '';
   

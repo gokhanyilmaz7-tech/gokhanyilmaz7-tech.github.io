@@ -7662,7 +7662,7 @@
       "file_type": "code",
       "norm_label": "closearchivemodal()",
       "source_file": "src/program.js",
-      "source_location": "L457"
+      "source_location": "L472"
     },
     {
       "id": "src_program_closeassignmodal",
@@ -7674,7 +7674,7 @@
       "file_type": "code",
       "norm_label": "closeassignmodal()",
       "source_file": "src/program.js",
-      "source_location": "L374"
+      "source_location": "L389"
     },
     {
       "id": "src_program_deletearchiveitem",
@@ -7686,7 +7686,7 @@
       "file_type": "code",
       "norm_label": "deletearchiveitem()",
       "source_file": "src/program.js",
-      "source_location": "L509"
+      "source_location": "L524"
     },
     {
       "id": "src_program_deletetask",
@@ -7734,7 +7734,7 @@
       "file_type": "code",
       "norm_label": "loadarchiveitem()",
       "source_file": "src/program.js",
-      "source_location": "L491"
+      "source_location": "L506"
     },
     {
       "id": "src_program_loaddata",
@@ -7758,7 +7758,7 @@
       "file_type": "code",
       "norm_label": "openarchivemodal()",
       "source_file": "src/program.js",
-      "source_location": "L452"
+      "source_location": "L467"
     },
     {
       "id": "src_program_openassignmodal",
@@ -7769,6 +7769,18 @@
       "community_name": "program.js",
       "file_type": "code",
       "norm_label": "openassignmodal()",
+      "source_file": "src/program.js",
+      "source_location": "L327"
+    },
+    {
+      "id": "src_program_refreshtasksforassignment",
+      "label": "refreshTasksForAssignment()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "program.js",
+      "file_type": "code",
+      "norm_label": "refreshtasksforassignment()",
       "source_file": "src/program.js",
       "source_location": "L313"
     },
@@ -7782,7 +7794,7 @@
       "file_type": "code",
       "norm_label": "renderarchivelist()",
       "source_file": "src/program.js",
-      "source_location": "L461"
+      "source_location": "L476"
     },
     {
       "id": "src_program_rendercalendar",
@@ -7830,7 +7842,7 @@
       "file_type": "code",
       "norm_label": "saveassign()",
       "source_file": "src/program.js",
-      "source_location": "L378"
+      "source_location": "L393"
     },
     {
       "id": "src_program_savedata",
@@ -7854,7 +7866,7 @@
       "file_type": "code",
       "norm_label": "saveprogramtoarchive()",
       "source_file": "src/program.js",
-      "source_location": "L430"
+      "source_location": "L445"
     },
     {
       "id": "src_program_savetask",
@@ -21175,7 +21187,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L512",
+      "source_location": "L527",
       "weight": 1.0
     },
     {
@@ -21187,7 +21199,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L513",
+      "source_location": "L528",
       "weight": 1.0
     },
     {
@@ -21271,7 +21283,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L502",
+      "source_location": "L517",
       "weight": 1.0
     },
     {
@@ -21283,7 +21295,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L503",
+      "source_location": "L518",
       "weight": 1.0
     },
     {
@@ -21295,7 +21307,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L504",
+      "source_location": "L519",
       "weight": 1.0
     },
     {
@@ -21307,19 +21319,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L453",
+      "source_location": "L468",
       "weight": 1.0
     },
     {
       "source": "src_program_openassignmodal",
-      "target": "src_program_istaskvalidforperiod",
+      "target": "src_program_refreshtasksforassignment",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L318",
+      "source_location": "L329",
       "weight": 1.0
     },
     {
@@ -21355,7 +21367,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L405",
+      "source_location": "L420",
       "weight": 1.0
     },
     {
@@ -21367,7 +21379,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L407",
+      "source_location": "L422",
       "weight": 1.0
     },
     {
@@ -21379,7 +21391,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L408",
+      "source_location": "L423",
       "weight": 1.0
     },
     {
@@ -21391,7 +21403,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/program.js",
-      "source_location": "L448",
+      "source_location": "L463",
       "weight": 1.0
     },
     {
@@ -35677,7 +35689,7 @@
     },
     {
       "source": "src_program",
-      "target": "src_program_openassignmodal",
+      "target": "src_program_refreshtasksforassignment",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -35688,13 +35700,24 @@
     },
     {
       "source": "src_program",
+      "target": "src_program_openassignmodal",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/program.js",
+      "source_location": "L327",
+      "weight": 1.0
+    },
+    {
+      "source": "src_program",
       "target": "src_program_closeassignmodal",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L374",
+      "source_location": "L389",
       "weight": 1.0
     },
     {
@@ -35705,7 +35728,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L378",
+      "source_location": "L393",
       "weight": 1.0
     },
     {
@@ -35727,7 +35750,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L430",
+      "source_location": "L445",
       "weight": 1.0
     },
     {
@@ -35738,7 +35761,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L452",
+      "source_location": "L467",
       "weight": 1.0
     },
     {
@@ -35749,7 +35772,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L457",
+      "source_location": "L472",
       "weight": 1.0
     },
     {
@@ -35760,7 +35783,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L461",
+      "source_location": "L476",
       "weight": 1.0
     },
     {
@@ -35771,7 +35794,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L491",
+      "source_location": "L506",
       "weight": 1.0
     },
     {
@@ -35782,7 +35805,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/program.js",
-      "source_location": "L509",
+      "source_location": "L524",
       "weight": 1.0
     },
     {
@@ -38813,5 +38836,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "29959f29bd287ac2729751ebd2e78cdff39984ca"
+  "built_at_commit": "adee32b80a8fbc831a7bb7fee03de901891b8bc3"
 }
