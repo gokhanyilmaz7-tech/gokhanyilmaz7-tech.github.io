@@ -11,7 +11,7 @@ let openCategories = new Set();
 let activeEditId = null;
 const FAVORITE_NOKSAN_KEY = 'isg-favorite-noksan-lists';
 let favoriteNoksanData = loadFavoriteNoksanData();
-let activeFavoriteListId = favoriteNoksanData.activeListId || favoriteNoksanData.lists[0]?.id || null;
+let activeFavoriteListId = favoriteNoksanData.activeListId || null;
 let pendingFavoriteNoksanId = null;
 
 function initNoksanlar() {
@@ -284,14 +284,21 @@ function renderFavoriteNoksanTools(message = '') {
   const status = document.getElementById('favorite-noksan-status');
   if (!listEl) return;
 
-  if (!activeFavoriteListId && favoriteNoksanData.lists.length) {
-    activeFavoriteListId = favoriteNoksanData.lists[0].id;
-  }
+  const listlessRow = `
+    <div class="noksan-favorite-list-row ${activeFavoriteListId ? '' : 'active'}" data-list-id="">
+      <button class="noksan-favorite-list-name" type="button" data-select-favorite-list="" title="Listesiz çalış">
+        Listesiz işlem
+        <span class="noksan-favorite-list-count">Geçici seçimlerle çalış</span>
+      </button>
+      <span></span>
+      <span></span>
+    </div>
+  `;
 
   if (!favoriteNoksanData.lists.length) {
-    listEl.innerHTML = '<p class="noksan-favorite-status">Henüz favori liste yok.</p>';
+    listEl.innerHTML = `${listlessRow}<p class="noksan-favorite-status">Henüz favori liste yok.</p>`;
   } else {
-    listEl.innerHTML = favoriteNoksanData.lists.map((list) => `
+    listEl.innerHTML = listlessRow + favoriteNoksanData.lists.map((list) => `
       <div class="noksan-favorite-list-row ${list.id === activeFavoriteListId ? 'active' : ''}" data-list-id="${escapeHtml(list.id)}">
         <button class="noksan-favorite-list-name" type="button" data-select-favorite-list="${escapeHtml(list.id)}" title="Bu listeyi seç">
           ${escapeHtml(list.name)}
@@ -303,7 +310,7 @@ function renderFavoriteNoksanTools(message = '') {
     `).join('');
 
     listEl.querySelectorAll('[data-select-favorite-list]').forEach((button) => {
-      button.addEventListener('click', () => selectFavoriteList(button.dataset.selectFavoriteList));
+      button.addEventListener('click', () => selectFavoriteList(button.dataset.selectFavoriteList || null));
     });
     listEl.querySelectorAll('[data-preview-favorite-list]').forEach((button) => {
       button.addEventListener('click', () => loadFavoriteNoksanList(button.dataset.previewFavoriteList));
@@ -315,7 +322,7 @@ function renderFavoriteNoksanTools(message = '') {
 
   if (status) {
     const list = activeFavoriteList();
-    status.textContent = message || (list ? `Seçili liste: ${list.name}` : 'Liste oluşturmak için “Liste oluştur” düğmesine basın.');
+    status.textContent = message || (list ? `Seçili liste: ${list.name}` : 'Listesiz işlem modu açık.');
   }
 
   updatePreviewFavoriteName();
@@ -329,11 +336,17 @@ function updatePreviewFavoriteName() {
 }
 
 function selectFavoriteList(listId) {
+  if (!listId) {
+    activeFavoriteListId = null;
+    saveFavoriteNoksanData();
+    renderFavoriteNoksanTools('Listesiz işlem modu açıldı.');
+    renderAccordions();
+    updateExportBadge();
+    return;
+  }
+
   if (!favoriteListById(listId)) return;
-  activeFavoriteListId = listId;
-  saveFavoriteNoksanData();
-  renderFavoriteNoksanTools('Favori liste seçildi.');
-  renderAccordions();
+  applyFavoriteListToSelection(listId, 'Favori liste sol tarafa yüklendi.', false);
 }
 
 function createFavoriteNoksanList() {
@@ -359,7 +372,11 @@ function deleteFavoriteNoksanList(listId) {
   if (!confirm(`${list.name} favori listesi silinsin mi?`)) return;
   favoriteNoksanData.lists = favoriteNoksanData.lists.filter(item => item.id !== list.id);
   if (activeFavoriteListId === list.id) {
-    activeFavoriteListId = favoriteNoksanData.lists[0]?.id || null;
+    activeFavoriteListId = null;
+    selectedIds.clear();
+    customTexts = {};
+    saveSelectionState();
+    updateExportBadge();
   }
   saveFavoriteNoksanData();
   renderFavoriteNoksanTools('Favori liste silindi.');
@@ -448,7 +465,7 @@ function saveSelectedToActiveFavoriteList() {
   renderAccordions();
 }
 
-function loadFavoriteNoksanList(listId) {
+function applyFavoriteListToSelection(listId, message, openPreview = false) {
   const list = favoriteListById(listId);
   if (!list) {
     renderFavoriteNoksanTools('Önce bir favori liste oluşturun.');
@@ -468,8 +485,13 @@ function loadFavoriteNoksanList(listId) {
   saveSelectionState();
   renderAccordions();
   updateExportBadge();
-  renderFavoriteNoksanTools(`${list.name} önizlemeye yüklendi.`);
-  openPreviewModal();
+  renderFavoriteNoksanTools(message || `${list.name} sol tarafa yüklendi.`);
+  if (openPreview) openPreviewModal();
+}
+
+function loadFavoriteNoksanList(listId) {
+  const list = favoriteListById(listId);
+  applyFavoriteListToSelection(listId, list ? `${list.name} önizlemeye yüklendi.` : undefined, true);
 }
 
 function openEditorForItem(strId) {

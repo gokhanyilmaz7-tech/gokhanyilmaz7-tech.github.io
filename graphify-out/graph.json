@@ -69,486 +69,6 @@
       "source_location": "L4"
     },
     {
-      "id": "src_auth_currentuser",
-      "label": "currentUser()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "currentuser()",
-      "source_file": "src/auth.js",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_auth_hydratefavorites",
-      "label": "hydrateFavorites()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "hydratefavorites()",
-      "source_file": "src/auth.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_auth_isadminmode",
-      "label": "isAdminMode()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "isadminmode()",
-      "source_file": "src/auth.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_auth_openaccountsettings",
-      "label": "openAccountSettings()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "openaccountsettings()",
-      "source_file": "src/auth.js",
-      "source_location": "L107"
-    },
-    {
-      "id": "src_auth_opendialog",
-      "label": "openDialog()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "opendialog()",
-      "source_file": "src/auth.js",
-      "source_location": "L33"
-    },
-    {
-      "id": "src_auth_persistfavorites",
-      "label": "persistFavorites()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "persistfavorites()",
-      "source_file": "src/auth.js",
-      "source_location": "L26"
-    },
-    {
-      "id": "src_auth_protectpage",
-      "label": "protectPage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "protectpage()",
-      "source_file": "src/auth.js",
-      "source_location": "L203"
-    },
-    {
-      "id": "src_auth_requireaccount",
-      "label": "requireAccount()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "requireaccount()",
-      "source_file": "src/auth.js",
-      "source_location": "L100"
-    },
-    {
-      "id": "src_auth_setupaccountui",
-      "label": "setupAccountUI()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "setupaccountui()",
-      "source_file": "src/auth.js",
-      "source_location": "L146"
-    },
-    {
-      "id": "src_favorites_esc",
-      "label": "esc()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "esc()",
-      "source_file": "src/favorites.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "src_favorites_favoriteids",
-      "label": "favoriteIds()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "favoriteids()",
-      "source_file": "src/favorites.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_favorites_page_allitems",
-      "label": "allItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "allitems()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L38"
-    },
-    {
-      "id": "src_favorites_page_createlist",
-      "label": "createList()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "createlist()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L99"
-    },
-    {
-      "id": "src_favorites_page_currentitems",
-      "label": "currentItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "currentitems()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L46"
-    },
-    {
-      "id": "src_favorites_page_esc",
-      "label": "esc()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "esc()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_favorites_page_moveitem",
-      "label": "moveItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "moveitem()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L57"
-    },
-    {
-      "id": "src_favorites_page_moveitemto",
-      "label": "moveItemTo()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "moveitemto()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L82"
-    },
-    {
-      "id": "src_favorites_page_normalizefavoritehtml",
-      "label": "normalizeFavoriteHtml()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "normalizefavoritehtml()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_favorites_page_openlegislationmodal",
-      "label": "openLegislationModal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "openlegislationmodal()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L187"
-    },
-    {
-      "id": "src_favorites_page_read",
-      "label": "read()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "read()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L13"
-    },
-    {
-      "id": "src_favorites_page_render",
-      "label": "render()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "render()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L167"
-    },
-    {
-      "id": "src_favorites_page_renderpending",
-      "label": "renderPending()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "renderpending()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L134"
-    },
-    {
-      "id": "src_favorites_page_renderstream",
-      "label": "renderStream()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "renderstream()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L153"
-    },
-    {
-      "id": "src_favorites_page_rendertools",
-      "label": "renderTools()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "rendertools()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L110"
-    },
-    {
-      "id": "src_favorites_page_save",
-      "label": "save()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "save()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_favorites_page_sortitems",
-      "label": "sortItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "sortitems()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L48"
-    },
-    {
-      "id": "src_favorites_page_sourcehref",
-      "label": "sourceHref()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "sourcehref()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_favorites_page_uid",
-      "label": "uid()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "uid()",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_favorites_readfavorites",
-      "label": "readFavorites()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "readfavorites()",
-      "source_file": "src/favorites.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_favorites_setupfavorites",
-      "label": "setupFavorites()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "setupfavorites()",
-      "source_file": "src/favorites.js",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_favorites_uid",
-      "label": "uid()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "uid()",
-      "source_file": "src/favorites.js",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_favorites_writefavorites",
-      "label": "writeFavorites()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "writefavorites()",
-      "source_file": "src/favorites.js",
-      "source_location": "L8"
-    },
-    {
-      "id": "src_main_executeglobalsearch",
-      "label": "executeGlobalSearch()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "executeglobalsearch()",
-      "source_file": "src/main.js",
-      "source_location": "L119"
-    },
-    {
-      "id": "src_main_loadmanifest",
-      "label": "loadManifest()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "loadmanifest()",
-      "source_file": "src/main.js",
-      "source_location": "L102"
-    },
-    {
-      "id": "src_main_rendersections",
-      "label": "renderSections()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "rendersections()",
-      "source_file": "src/main.js",
-      "source_location": "L86"
-    },
-    {
-      "id": "src_main_visualfor",
-      "label": "visualFor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "visualfor()",
-      "source_file": "src/main.js",
-      "source_location": "L81"
-    },
-    {
-      "id": "src_report_addreportcopy",
-      "label": "addReportCopy()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "addreportcopy()",
-      "source_file": "src/report.js",
-      "source_location": "L86"
-    },
-    {
-      "id": "src_report_allfavoriteitems",
-      "label": "allFavoriteItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "allfavoriteitems()",
-      "source_file": "src/report.js",
-      "source_location": "L21"
-    },
-    {
-      "id": "src_report_bindfavoritereportbuttons",
-      "label": "bindFavoriteReportButtons()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "bindfavoritereportbuttons()",
-      "source_file": "src/report.js",
-      "source_location": "L124"
-    },
-    {
-      "id": "src_report_esc",
-      "label": "esc()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "esc()",
-      "source_file": "src/report.js",
-      "source_location": "L4"
-    },
-    {
       "id": "src_report_page_bulktitleprompt",
       "label": "bulkTitlePrompt()",
       "_callable": true,
@@ -849,30 +369,6 @@
       "source_location": "L137"
     },
     {
-      "id": "src_report_readworkspace",
-      "label": "readWorkspace()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "readworkspace()",
-      "source_file": "src/report.js",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_report_reportbutton",
-      "label": "reportButton()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "reportbutton()",
-      "source_file": "src/report.js",
-      "source_location": "L141"
-    },
-    {
       "id": "src_report_reportitems",
       "label": "reportItems()",
       "_callable": true,
@@ -883,78 +379,6 @@
       "norm_label": "reportitems()",
       "source_file": "src/report.js",
       "source_location": "L20"
-    },
-    {
-      "id": "src_report_reportrepeatbutton",
-      "label": "reportRepeatButton()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "reportrepeatbutton()",
-      "source_file": "src/report.js",
-      "source_location": "L142"
-    },
-    {
-      "id": "src_report_reportsourceid",
-      "label": "reportSourceId()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "reportsourceid()",
-      "source_file": "src/report.js",
-      "source_location": "L22"
-    },
-    {
-      "id": "src_report_saveworkspace",
-      "label": "saveWorkspace()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "saveworkspace()",
-      "source_file": "src/report.js",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_report_setupsectionreports",
-      "label": "setupSectionReports()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "setupsectionreports()",
-      "source_file": "src/report.js",
-      "source_location": "L95"
-    },
-    {
-      "id": "src_report_togglereport",
-      "label": "toggleReport()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "togglereport()",
-      "source_file": "src/report.js",
-      "source_location": "L33"
-    },
-    {
-      "id": "src_report_updatereportbuttons",
-      "label": "updateReportButtons()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "updatereportbuttons()",
-      "source_file": "src/report.js",
-      "source_location": "L24"
     },
     {
       "id": "assets_admin_jppi3dua_e",
@@ -6806,7 +6230,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "c()",
       "source_file": "assets/main-BGzingDg.js",
@@ -6818,7 +6242,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "o()",
       "source_file": "assets/main-BGzingDg.js",
@@ -6830,7 +6254,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "t()",
       "source_file": "assets/main-BGzingDg.js",
@@ -6842,7 +6266,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "u()",
       "source_file": "assets/main-BGzingDg.js",
@@ -6854,19 +6278,67 @@
       "_callable": true,
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "v()",
       "source_file": "assets/main-BGzingDg.js",
       "source_location": "L18"
     },
     {
+      "id": "assets_main_bhaxn0r2_a",
+      "label": "a()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "a()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_l",
+      "label": "l()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "l()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_o",
+      "label": "o()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "o()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L21"
+    },
+    {
       "id": "assets_main_bmbvswpm_c",
       "label": "c()",
       "_callable": true,
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "c()",
       "source_file": "assets/main-BMbVswpm.js",
@@ -6877,8 +6349,8 @@
       "label": "m()",
       "_callable": true,
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "m()",
       "source_file": "assets/main-BMbVswpm.js",
@@ -6889,8 +6361,8 @@
       "label": "r()",
       "_callable": true,
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "r()",
       "source_file": "assets/main-BMbVswpm.js",
@@ -6901,8 +6373,8 @@
       "label": "t()",
       "_callable": true,
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "t()",
       "source_file": "assets/main-BMbVswpm.js",
@@ -6913,8 +6385,8 @@
       "label": "u()",
       "_callable": true,
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "u()",
       "source_file": "assets/main-BMbVswpm.js",
@@ -6925,8 +6397,8 @@
       "label": "c()",
       "_callable": true,
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "c()",
       "source_file": "assets/main-CBWctxH4.js",
@@ -6937,8 +6409,8 @@
       "label": "d()",
       "_callable": true,
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "d()",
       "source_file": "assets/main-CBWctxH4.js",
@@ -6949,8 +6421,8 @@
       "label": "p()",
       "_callable": true,
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "p()",
       "source_file": "assets/main-CBWctxH4.js",
@@ -6961,8 +6433,8 @@
       "label": "r()",
       "_callable": true,
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "r()",
       "source_file": "assets/main-CBWctxH4.js",
@@ -6973,12 +6445,552 @@
       "label": "t()",
       "_callable": true,
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "t()",
       "source_file": "assets/main-CBWctxH4.js",
       "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_c",
+      "label": "c()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "c()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_m",
+      "label": "m()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "m()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_u",
+      "label": "u()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "u()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_n",
+      "label": "N()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "n()",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_t",
+      "label": "t",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx_i",
+      "label": "i()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "i()",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_auth_requireaccount",
+      "label": "requireAccount()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "requireaccount()",
+      "source_file": "src/auth.js",
+      "source_location": "L100"
+    },
+    {
+      "id": "src_favorites_page_allitems",
+      "label": "allItems()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "allitems()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L38"
+    },
+    {
+      "id": "src_favorites_page_createlist",
+      "label": "createList()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "createlist()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L99"
+    },
+    {
+      "id": "src_favorites_page_currentitems",
+      "label": "currentItems()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "currentitems()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L46"
+    },
+    {
+      "id": "src_favorites_page_esc",
+      "label": "esc()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "esc()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_favorites_page_moveitem",
+      "label": "moveItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "moveitem()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L57"
+    },
+    {
+      "id": "src_favorites_page_moveitemto",
+      "label": "moveItemTo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "moveitemto()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L82"
+    },
+    {
+      "id": "src_favorites_page_normalizefavoritehtml",
+      "label": "normalizeFavoriteHtml()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "normalizefavoritehtml()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_favorites_page_openlegislationmodal",
+      "label": "openLegislationModal()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "openlegislationmodal()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L187"
+    },
+    {
+      "id": "src_favorites_page_read",
+      "label": "read()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "read()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_favorites_page_render",
+      "label": "render()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "render()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L167"
+    },
+    {
+      "id": "src_favorites_page_renderpending",
+      "label": "renderPending()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "renderpending()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L134"
+    },
+    {
+      "id": "src_favorites_page_renderstream",
+      "label": "renderStream()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "renderstream()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L153"
+    },
+    {
+      "id": "src_favorites_page_rendertools",
+      "label": "renderTools()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "rendertools()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L110"
+    },
+    {
+      "id": "src_favorites_page_save",
+      "label": "save()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "save()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_favorites_page_sortitems",
+      "label": "sortItems()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "sortitems()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L48"
+    },
+    {
+      "id": "src_favorites_page_sourcehref",
+      "label": "sourceHref()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "sourcehref()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_favorites_page_uid",
+      "label": "uid()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "uid()",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_auth_currentuser",
+      "label": "currentUser()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "currentuser()",
+      "source_file": "src/auth.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_auth_hydratefavorites",
+      "label": "hydrateFavorites()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "hydratefavorites()",
+      "source_file": "src/auth.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_auth_isadminmode",
+      "label": "isAdminMode()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "isadminmode()",
+      "source_file": "src/auth.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_auth_openaccountsettings",
+      "label": "openAccountSettings()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "openaccountsettings()",
+      "source_file": "src/auth.js",
+      "source_location": "L107"
+    },
+    {
+      "id": "src_auth_opendialog",
+      "label": "openDialog()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "opendialog()",
+      "source_file": "src/auth.js",
+      "source_location": "L33"
+    },
+    {
+      "id": "src_auth_persistfavorites",
+      "label": "persistFavorites()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "persistfavorites()",
+      "source_file": "src/auth.js",
+      "source_location": "L26"
+    },
+    {
+      "id": "src_auth_protectpage",
+      "label": "protectPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "protectpage()",
+      "source_file": "src/auth.js",
+      "source_location": "L203"
+    },
+    {
+      "id": "src_auth_setupaccountui",
+      "label": "setupAccountUI()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "setupaccountui()",
+      "source_file": "src/auth.js",
+      "source_location": "L146"
+    },
+    {
+      "id": "src_favorites_esc",
+      "label": "esc()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "esc()",
+      "source_file": "src/favorites.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "src_favorites_favoriteids",
+      "label": "favoriteIds()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "favoriteids()",
+      "source_file": "src/favorites.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_favorites_readfavorites",
+      "label": "readFavorites()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "readfavorites()",
+      "source_file": "src/favorites.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_favorites_setupfavorites",
+      "label": "setupFavorites()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "setupfavorites()",
+      "source_file": "src/favorites.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_favorites_uid",
+      "label": "uid()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "uid()",
+      "source_file": "src/favorites.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_favorites_writefavorites",
+      "label": "writeFavorites()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "writefavorites()",
+      "source_file": "src/favorites.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "src_main_executeglobalsearch",
+      "label": "executeGlobalSearch()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "executeglobalsearch()",
+      "source_file": "src/main.js",
+      "source_location": "L119"
+    },
+    {
+      "id": "src_main_loadmanifest",
+      "label": "loadManifest()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "loadmanifest()",
+      "source_file": "src/main.js",
+      "source_location": "L102"
+    },
+    {
+      "id": "src_main_rendersections",
+      "label": "renderSections()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "rendersections()",
+      "source_file": "src/main.js",
+      "source_location": "L86"
+    },
+    {
+      "id": "src_main_visualfor",
+      "label": "visualFor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "visualfor()",
+      "source_file": "src/main.js",
+      "source_location": "L81"
     },
     {
       "id": "src_section_color",
@@ -7173,64 +7185,148 @@
       "source_location": "L492"
     },
     {
-      "id": "assets_main_cd5p1bfo_c",
-      "label": "c()",
+      "id": "src_report_addreportcopy",
+      "label": "addReportCopy()",
       "_callable": true,
       "_origin": "ast",
       "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community_name": "report.js",
       "file_type": "code",
-      "norm_label": "c()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L18"
+      "norm_label": "addreportcopy()",
+      "source_file": "src/report.js",
+      "source_location": "L86"
     },
     {
-      "id": "assets_main_cd5p1bfo_m",
-      "label": "m()",
+      "id": "src_report_allfavoriteitems",
+      "label": "allFavoriteItems()",
       "_callable": true,
       "_origin": "ast",
       "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community_name": "report.js",
       "file_type": "code",
-      "norm_label": "m()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
+      "norm_label": "allfavoriteitems()",
+      "source_file": "src/report.js",
+      "source_location": "L21"
     },
     {
-      "id": "assets_main_cd5p1bfo_r",
-      "label": "r()",
+      "id": "src_report_bindfavoritereportbuttons",
+      "label": "bindFavoriteReportButtons()",
       "_callable": true,
       "_origin": "ast",
       "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community_name": "report.js",
       "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
+      "norm_label": "bindfavoritereportbuttons()",
+      "source_file": "src/report.js",
+      "source_location": "L124"
     },
     {
-      "id": "assets_main_cd5p1bfo_s",
-      "label": "s()",
+      "id": "src_report_esc",
+      "label": "esc()",
       "_callable": true,
       "_origin": "ast",
       "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community_name": "report.js",
       "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
+      "norm_label": "esc()",
+      "source_file": "src/report.js",
+      "source_location": "L4"
     },
     {
-      "id": "assets_main_cd5p1bfo_u",
-      "label": "u()",
+      "id": "src_report_readworkspace",
+      "label": "readWorkspace()",
       "_callable": true,
       "_origin": "ast",
       "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community_name": "report.js",
       "file_type": "code",
-      "norm_label": "u()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
+      "norm_label": "readworkspace()",
+      "source_file": "src/report.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_report_reportbutton",
+      "label": "reportButton()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "reportbutton()",
+      "source_file": "src/report.js",
+      "source_location": "L141"
+    },
+    {
+      "id": "src_report_reportrepeatbutton",
+      "label": "reportRepeatButton()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "reportrepeatbutton()",
+      "source_file": "src/report.js",
+      "source_location": "L142"
+    },
+    {
+      "id": "src_report_reportsourceid",
+      "label": "reportSourceId()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "reportsourceid()",
+      "source_file": "src/report.js",
+      "source_location": "L22"
+    },
+    {
+      "id": "src_report_saveworkspace",
+      "label": "saveWorkspace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "saveworkspace()",
+      "source_file": "src/report.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_report_setupsectionreports",
+      "label": "setupSectionReports()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "setupsectionreports()",
+      "source_file": "src/report.js",
+      "source_location": "L95"
+    },
+    {
+      "id": "src_report_togglereport",
+      "label": "toggleReport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "togglereport()",
+      "source_file": "src/report.js",
+      "source_location": "L33"
+    },
+    {
+      "id": "src_report_updatereportbuttons",
+      "label": "updateReportButtons()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "report.js",
+      "file_type": "code",
+      "norm_label": "updatereportbuttons()",
+      "source_file": "src/report.js",
+      "source_location": "L24"
     },
     {
       "id": "assets_main_dig814bc_l",
@@ -7363,78 +7459,6 @@
       "norm_label": "u()",
       "source_file": "assets/main-DRONz_BM.js",
       "source_location": "L20"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_n",
-      "label": "N()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "n()",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_t",
-      "label": "t",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_a",
-      "label": "a()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "a()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_l",
-      "label": "l()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "l()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_o",
-      "label": "o()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "o()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L21"
     },
     {
       "id": "work_oauth_aktarim_handler_do_get",
@@ -7857,30 +7881,6 @@
       "source_location": "L19"
     },
     {
-      "id": "assets_modulepreload_polyfill_b5qt9emx_i",
-      "label": "i()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 69,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "i()",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 69,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
-    },
-    {
       "id": "src_admin_provisions_adjustfirstlineindent",
       "label": "adjustFirstLineIndent()",
       "_callable": true,
@@ -8157,6 +8157,18 @@
       "source_location": "L258"
     },
     {
+      "id": "src_noksanlar_applyfavoritelisttoselection",
+      "label": "applyFavoriteListToSelection()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "noksanlar.js",
+      "file_type": "code",
+      "norm_label": "applyfavoritelisttoselection()",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L468"
+    },
+    {
       "id": "src_noksanlar_clearbasket",
       "label": "clearBasket()",
       "_callable": true,
@@ -8166,7 +8178,7 @@
       "file_type": "code",
       "norm_label": "clearbasket()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L682"
+      "source_location": "L704"
     },
     {
       "id": "src_noksanlar_closeeditmodal",
@@ -8178,7 +8190,7 @@
       "file_type": "code",
       "norm_label": "closeeditmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L495"
+      "source_location": "L517"
     },
     {
       "id": "src_noksanlar_closefavoritepicker",
@@ -8190,7 +8202,7 @@
       "file_type": "code",
       "norm_label": "closefavoritepicker()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L385"
+      "source_location": "L402"
     },
     {
       "id": "src_noksanlar_closepreviewmodal",
@@ -8202,7 +8214,7 @@
       "file_type": "code",
       "norm_label": "closepreviewmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L633"
+      "source_location": "L655"
     },
     {
       "id": "src_noksanlar_copytoclipboard",
@@ -8214,7 +8226,7 @@
       "file_type": "code",
       "norm_label": "copytoclipboard()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L788"
+      "source_location": "L810"
     },
     {
       "id": "src_noksanlar_createfavoritenoksanlist",
@@ -8226,7 +8238,7 @@
       "file_type": "code",
       "norm_label": "createfavoritenoksanlist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L339"
+      "source_location": "L352"
     },
     {
       "id": "src_noksanlar_createlocalid",
@@ -8262,7 +8274,7 @@
       "file_type": "code",
       "norm_label": "deletefavoritenoksanlist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L356"
+      "source_location": "L369"
     },
     {
       "id": "src_noksanlar_escapehtml",
@@ -8274,7 +8286,7 @@
       "file_type": "code",
       "norm_label": "escapehtml()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L805"
+      "source_location": "L827"
     },
     {
       "id": "src_noksanlar_exporttocsv",
@@ -8286,7 +8298,7 @@
       "file_type": "code",
       "norm_label": "exporttocsv()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L768"
+      "source_location": "L790"
     },
     {
       "id": "src_noksanlar_exporttopdf",
@@ -8298,7 +8310,7 @@
       "file_type": "code",
       "norm_label": "exporttopdf()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L731"
+      "source_location": "L753"
     },
     {
       "id": "src_noksanlar_exporttotedbirler",
@@ -8310,7 +8322,7 @@
       "file_type": "code",
       "norm_label": "exporttotedbirler()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L814"
+      "source_location": "L836"
     },
     {
       "id": "src_noksanlar_exporttoword",
@@ -8322,7 +8334,7 @@
       "file_type": "code",
       "norm_label": "exporttoword()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L696"
+      "source_location": "L718"
     },
     {
       "id": "src_noksanlar_favoritelistbyid",
@@ -8346,7 +8358,7 @@
       "file_type": "code",
       "norm_label": "getselecteditemlist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L592"
+      "source_location": "L614"
     },
     {
       "id": "src_noksanlar_initnoksanlar",
@@ -8406,7 +8418,7 @@
       "file_type": "code",
       "norm_label": "loadfavoritenoksanlist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L451"
+      "source_location": "L492"
     },
     {
       "id": "src_noksanlar_normalizefavoriteitem",
@@ -8430,7 +8442,7 @@
       "file_type": "code",
       "norm_label": "openeditorforitem()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L475"
+      "source_location": "L497"
     },
     {
       "id": "src_noksanlar_openfavoritepicker",
@@ -8442,7 +8454,7 @@
       "file_type": "code",
       "norm_label": "openfavoritepicker()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L369"
+      "source_location": "L386"
     },
     {
       "id": "src_noksanlar_openpreviewmodal",
@@ -8454,7 +8466,7 @@
       "file_type": "code",
       "norm_label": "openpreviewmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L626"
+      "source_location": "L648"
     },
     {
       "id": "src_noksanlar_renderaccordions",
@@ -8490,7 +8502,7 @@
       "file_type": "code",
       "norm_label": "renderfavoritepicker()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L390"
+      "source_location": "L407"
     },
     {
       "id": "src_noksanlar_renderpreviewmodallist",
@@ -8502,7 +8514,7 @@
       "file_type": "code",
       "norm_label": "renderpreviewmodallist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L638"
+      "source_location": "L660"
     },
     {
       "id": "src_noksanlar_resetnoksanpage",
@@ -8514,7 +8526,7 @@
       "file_type": "code",
       "norm_label": "resetnoksanpage()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L540"
+      "source_location": "L562"
     },
     {
       "id": "src_noksanlar_resetsinglenoksan",
@@ -8526,7 +8538,7 @@
       "file_type": "code",
       "norm_label": "resetsinglenoksan()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L526"
+      "source_location": "L548"
     },
     {
       "id": "src_noksanlar_saveeditednoksan",
@@ -8538,7 +8550,7 @@
       "file_type": "code",
       "norm_label": "saveeditednoksan()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L501"
+      "source_location": "L523"
     },
     {
       "id": "src_noksanlar_savefavoritenoksandata",
@@ -8562,7 +8574,7 @@
       "file_type": "code",
       "norm_label": "saveselectedtoactivefavoritelist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L434"
+      "source_location": "L451"
     },
     {
       "id": "src_noksanlar_saveselectionstate",
@@ -8586,7 +8598,7 @@
       "file_type": "code",
       "norm_label": "selectfavoritelist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L331"
+      "source_location": "L338"
     },
     {
       "id": "src_noksanlar_togglenoksanfavoritelist",
@@ -8598,7 +8610,7 @@
       "file_type": "code",
       "norm_label": "togglenoksanfavoritelist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L412"
+      "source_location": "L429"
     },
     {
       "id": "src_noksanlar_toggleselection",
@@ -8610,7 +8622,7 @@
       "file_type": "code",
       "norm_label": "toggleselection()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L565"
+      "source_location": "L587"
     },
     {
       "id": "src_noksanlar_updateexportbadge",
@@ -8622,7 +8634,7 @@
       "file_type": "code",
       "norm_label": "updateexportbadge()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L607"
+      "source_location": "L629"
     },
     {
       "id": "src_noksanlar_updatepreviewfavoritename",
@@ -8634,7 +8646,7 @@
       "file_type": "code",
       "norm_label": "updatepreviewfavoritename()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L324"
+      "source_location": "L331"
     },
     {
       "id": "assets_mevzuat_ciqbrbqf_e",
@@ -8778,116 +8790,6 @@
       "file_type": "code",
       "norm_label": "z()",
       "source_file": "assets/mevzuat-cIqBrbqF.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_auth",
-      "label": "auth.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "auth.js",
-      "source_file": "src/auth.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_favorites",
-      "label": "favorites.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "favorites.js",
-      "source_file": "src/favorites.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_favorites_page",
-      "label": "favorites-page.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "favorites-page.js",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_favorites_page_context",
-      "label": "context",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "context",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L31"
-    },
-    {
-      "id": "src_favorites_page_data",
-      "label": "data",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "data",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L25"
-    },
-    {
-      "id": "src_favorites_page_pendingraw",
-      "label": "pendingRaw",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "pendingraw",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L169"
-    },
-    {
-      "id": "src_favorites_page_requestedid",
-      "label": "requestedId",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "requestedid",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L170"
-    },
-    {
-      "id": "src_main",
-      "label": "main.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "main.js",
-      "source_file": "src/main.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_main_app",
-      "label": "app",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "app",
-      "source_file": "src/main.js",
-      "source_location": "L8"
-    },
-    {
-      "id": "src_report",
-      "label": "report.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "report-page.js",
-      "file_type": "code",
-      "norm_label": "report.js",
-      "source_file": "src/report.js",
       "source_location": "L1"
     },
     {
@@ -12329,7 +12231,7 @@
       "label": "main-BGzingDg.js",
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "main-bgzingdg.js",
       "source_file": "assets/main-BGzingDg.js",
@@ -12340,7 +12242,7 @@
       "label": "m",
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "m",
       "source_file": "assets/main-BGzingDg.js",
@@ -12351,7 +12253,7 @@
       "label": "r",
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "r",
       "source_file": "assets/main-BGzingDg.js",
@@ -12362,18 +12264,51 @@
       "label": "s",
       "_origin": "ast",
       "community": 47,
-      "community_name": "main-BGzingDg.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "s",
       "source_file": "assets/main-BGzingDg.js",
       "source_location": "L16"
     },
     {
+      "id": "assets_main_bhaxn0r2",
+      "label": "main-BhAxn0r2.js",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "main-bhaxn0r2.js",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_c",
+      "label": "c",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "c",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_t",
+      "label": "t",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
       "id": "assets_main_bmbvswpm",
       "label": "main-BMbVswpm.js",
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "main-bmbvswpm.js",
       "source_file": "assets/main-BMbVswpm.js",
@@ -12383,8 +12318,8 @@
       "id": "assets_main_bmbvswpm_n",
       "label": "n",
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "n",
       "source_file": "assets/main-BMbVswpm.js",
@@ -12394,8 +12329,8 @@
       "id": "assets_main_bmbvswpm_o",
       "label": "o",
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "o",
       "source_file": "assets/main-BMbVswpm.js",
@@ -12405,8 +12340,8 @@
       "id": "assets_main_bmbvswpm_v",
       "label": "v",
       "_origin": "ast",
-      "community": 48,
-      "community_name": "main-BMbVswpm.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "v",
       "source_file": "assets/main-BMbVswpm.js",
@@ -12416,8 +12351,8 @@
       "id": "assets_main_cbwctxh4",
       "label": "main-CBWctxH4.js",
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "main-cbwctxh4.js",
       "source_file": "assets/main-CBWctxH4.js",
@@ -12427,8 +12362,8 @@
       "id": "assets_main_cbwctxh4_s",
       "label": "s",
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "s",
       "source_file": "assets/main-CBWctxH4.js",
@@ -12438,8 +12373,8 @@
       "id": "assets_main_cbwctxh4_u",
       "label": "u",
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "u",
       "source_file": "assets/main-CBWctxH4.js",
@@ -12449,12 +12384,232 @@
       "id": "assets_main_cbwctxh4_v",
       "label": "v",
       "_origin": "ast",
-      "community": 49,
-      "community_name": "main-CBWctxH4.js",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "v",
       "source_file": "assets/main-CBWctxH4.js",
       "source_location": "L1"
+    },
+    {
+      "id": "assets_main_cd5p1bfo",
+      "label": "main-CD5P1BfO.js",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "main-cd5p1bfo.js",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_n",
+      "label": "n",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "n",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_o",
+      "label": "o",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "o",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_v",
+      "label": "v",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur",
+      "label": "mevzuatBaglantilari-CiURpUUR.js",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "mevzuatbaglantilari-ciurpuur.js",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_e",
+      "label": "e",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "e",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_i",
+      "label": "I",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "i",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_m",
+      "label": "M",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "m",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_r",
+      "label": "R",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_v",
+      "label": "V",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx",
+      "label": "modulepreload-polyfill-B5Qt9EMX.js",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "modulepreload-polyfill-b5qt9emx.js",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_favorites_page",
+      "label": "favorites-page.js",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "favorites-page.js",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_favorites_page_context",
+      "label": "context",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "context",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L31"
+    },
+    {
+      "id": "src_favorites_page_data",
+      "label": "data",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "data",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L25"
+    },
+    {
+      "id": "src_favorites_page_pendingraw",
+      "label": "pendingRaw",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "pendingraw",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L169"
+    },
+    {
+      "id": "src_favorites_page_requestedid",
+      "label": "requestedId",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "favorites-page.js",
+      "file_type": "code",
+      "norm_label": "requestedid",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L170"
+    },
+    {
+      "id": "src_auth",
+      "label": "auth.js",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "auth.js",
+      "source_file": "src/auth.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_favorites",
+      "label": "favorites.js",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "favorites.js",
+      "source_file": "src/favorites.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_main",
+      "label": "main.js",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "main.js",
+      "source_file": "src/main.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_main_app",
+      "label": "app",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "auth.js",
+      "file_type": "code",
+      "norm_label": "app",
+      "source_file": "src/main.js",
+      "source_location": "L8"
     },
     {
       "id": "src_section",
@@ -12589,47 +12744,14 @@
       "source_location": "L13"
     },
     {
-      "id": "assets_main_cd5p1bfo",
-      "label": "main-CD5P1BfO.js",
+      "id": "src_report",
+      "label": "report.js",
       "_origin": "ast",
       "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community_name": "report.js",
       "file_type": "code",
-      "norm_label": "main-cd5p1bfo.js",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_n",
-      "label": "n",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "n",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_o",
-      "label": "o",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "o",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_v",
-      "label": "v",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/main-CD5P1BfO.js",
+      "norm_label": "report.js",
+      "source_file": "src/report.js",
       "source_location": "L1"
     },
     {
@@ -12707,105 +12829,6 @@
       "file_type": "code",
       "norm_label": "o",
       "source_file": "assets/main-DRONz_BM.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur",
-      "label": "mevzuatBaglantilari-CiURpUUR.js",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "mevzuatbaglantilari-ciurpuur.js",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_e",
-      "label": "e",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "e",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_i",
-      "label": "I",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "i",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_m",
-      "label": "M",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "m",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_r",
-      "label": "R",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "r",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_v",
-      "label": "V",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2",
-      "label": "main-BhAxn0r2.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "main-bhaxn0r2.js",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_c",
-      "label": "c",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "c",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_t",
-      "label": "t",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "assets/main-BhAxn0r2.js",
       "source_location": "L16"
     },
     {
@@ -13251,17 +13274,6 @@
       "norm_label": "app",
       "source_file": "src/admin.js",
       "source_location": "L4"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx",
-      "label": "modulepreload-polyfill-B5Qt9EMX.js",
-      "_origin": "ast",
-      "community": 69,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "modulepreload-polyfill-b5qt9emx.js",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
     },
     {
       "id": "src_admin_provisions",
@@ -19643,6 +19655,90 @@
       "weight": 1.0
     },
     {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_favoritelistbyid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L469",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_renderfavoritenoksantools",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L471",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_savefavoritenoksandata",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L484",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_saveselectionstate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L485",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_renderaccordions",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L486",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_updateexportbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L487",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanlar_openpreviewmodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L489",
+      "weight": 1.0
+    },
+    {
       "source": "src_noksanlar_clearbasket",
       "target": "src_noksanlar_renderaccordions",
       "relation": "calls",
@@ -19651,7 +19747,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L689",
+      "source_location": "L711",
       "weight": 1.0
     },
     {
@@ -19663,7 +19759,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L690",
+      "source_location": "L712",
       "weight": 1.0
     },
     {
@@ -19675,7 +19771,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L691",
+      "source_location": "L713",
       "weight": 1.0
     },
     {
@@ -19687,7 +19783,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L789",
+      "source_location": "L811",
       "weight": 1.0
     },
     {
@@ -19699,7 +19795,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L344",
+      "source_location": "L357",
       "weight": 1.0
     },
     {
@@ -19711,47 +19807,11 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L348",
+      "source_location": "L361",
       "weight": 1.0
     },
     {
       "source": "src_noksanlar_createfavoritenoksanlist",
-      "target": "src_noksanlar_savefavoritenoksandata",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L351",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_createfavoritenoksanlist",
-      "target": "src_noksanlar_renderaccordions",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L353",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_deletefavoritenoksanlist",
-      "target": "src_noksanlar_favoritelistbyid",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L357",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_deletefavoritenoksanlist",
       "target": "src_noksanlar_savefavoritenoksandata",
       "relation": "calls",
       "_origin": "ast",
@@ -19763,19 +19823,7 @@
       "weight": 1.0
     },
     {
-      "source": "src_noksanlar_deletefavoritenoksanlist",
-      "target": "src_noksanlar_renderfavoritenoksantools",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L365",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "source": "src_noksanlar_createfavoritenoksanlist",
       "target": "src_noksanlar_renderaccordions",
       "relation": "calls",
       "_origin": "ast",
@@ -19787,6 +19835,78 @@
       "weight": 1.0
     },
     {
+      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "target": "src_noksanlar_favoritelistbyid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L370",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "target": "src_noksanlar_saveselectionstate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L378",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "target": "src_noksanlar_updateexportbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L379",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "target": "src_noksanlar_savefavoritenoksandata",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L381",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "target": "src_noksanlar_renderfavoritenoksantools",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L382",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_deletefavoritenoksanlist",
+      "target": "src_noksanlar_renderaccordions",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L383",
+      "weight": 1.0
+    },
+    {
       "source": "src_noksanlar_exporttocsv",
       "target": "src_noksanlar_getselecteditemlist",
       "relation": "calls",
@@ -19795,7 +19915,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L769",
+      "source_location": "L791",
       "weight": 1.0
     },
     {
@@ -19807,7 +19927,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L732",
+      "source_location": "L754",
       "weight": 1.0
     },
     {
@@ -19819,7 +19939,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L756",
+      "source_location": "L778",
       "weight": 1.0
     },
     {
@@ -19831,7 +19951,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L815",
+      "source_location": "L837",
       "weight": 1.0
     },
     {
@@ -19843,7 +19963,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L849",
+      "source_location": "L871",
       "weight": 1.0
     },
     {
@@ -19855,7 +19975,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L697",
+      "source_location": "L719",
       "weight": 1.0
     },
     {
@@ -19867,7 +19987,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L715",
+      "source_location": "L737",
       "weight": 1.0
     },
     {
@@ -19939,79 +20059,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L452",
+      "source_location": "L493",
       "weight": 1.0
     },
     {
       "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanlar_renderfavoritenoksantools",
+      "target": "src_noksanlar_applyfavoritelisttoselection",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L454",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanlar_savefavoritenoksandata",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L467",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanlar_saveselectionstate",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L468",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanlar_renderaccordions",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L469",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanlar_updateexportbadge",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L470",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanlar_openpreviewmodal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L472",
+      "source_location": "L494",
       "weight": 1.0
     },
     {
@@ -20023,7 +20083,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L370",
+      "source_location": "L387",
       "weight": 1.0
     },
     {
@@ -20035,7 +20095,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L374",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -20047,7 +20107,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L377",
+      "source_location": "L394",
       "weight": 1.0
     },
     {
@@ -20059,7 +20119,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L381",
+      "source_location": "L398",
       "weight": 1.0
     },
     {
@@ -20071,7 +20131,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L629",
+      "source_location": "L651",
       "weight": 1.0
     },
     {
@@ -20155,7 +20215,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L295",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -20167,7 +20227,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L306",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_renderfavoritenoksantools",
+      "target": "src_noksanlar_loadfavoritenoksanlist",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L316",
       "weight": 1.0
     },
     {
@@ -20179,7 +20251,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L317",
+      "source_location": "L324",
       "weight": 1.0
     },
     {
@@ -20191,7 +20263,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L321",
+      "source_location": "L328",
       "weight": 1.0
     },
     {
@@ -20203,7 +20275,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L397",
+      "source_location": "L414",
       "weight": 1.0
     },
     {
@@ -20215,7 +20287,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L399",
+      "source_location": "L416",
       "weight": 1.0
     },
     {
@@ -20227,7 +20299,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L408",
+      "source_location": "L425",
       "weight": 1.0
     },
     {
@@ -20239,7 +20311,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L643",
+      "source_location": "L665",
       "weight": 1.0
     },
     {
@@ -20251,7 +20323,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L645",
+      "source_location": "L667",
       "weight": 1.0
     },
     {
@@ -20263,7 +20335,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L661",
+      "source_location": "L683",
       "weight": 1.0
     },
     {
@@ -20275,7 +20347,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L670",
+      "source_location": "L692",
       "weight": 1.0
     },
     {
@@ -20287,7 +20359,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L674",
+      "source_location": "L696",
       "weight": 1.0
     },
     {
@@ -20299,7 +20371,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L542",
+      "source_location": "L564",
       "weight": 1.0
     },
     {
@@ -20311,7 +20383,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L543",
+      "source_location": "L565",
       "weight": 1.0
     },
     {
@@ -20323,11 +20395,95 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L544",
+      "source_location": "L566",
       "weight": 1.0
     },
     {
       "source": "src_noksanlar_resetnoksanpage",
+      "target": "src_noksanlar_closeeditmodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L567",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetnoksanpage",
+      "target": "src_noksanlar_renderfavoritenoksantools",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L584",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetsinglenoksan",
+      "target": "src_noksanlar_saveselectionstate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L553",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetsinglenoksan",
+      "target": "src_noksanlar_renderpreviewmodallist",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L558",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_saveeditednoksan",
+      "target": "src_noksanlar_saveselectionstate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L537",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_saveeditednoksan",
+      "target": "src_noksanlar_renderaccordions",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L538",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_saveeditednoksan",
+      "target": "src_noksanlar_renderpreviewmodallist",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L542",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_saveeditednoksan",
       "target": "src_noksanlar_closeeditmodal",
       "relation": "calls",
       "_origin": "ast",
@@ -20339,90 +20495,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_noksanlar_resetnoksanpage",
-      "target": "src_noksanlar_renderfavoritenoksantools",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L562",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_resetsinglenoksan",
-      "target": "src_noksanlar_saveselectionstate",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L531",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_resetsinglenoksan",
-      "target": "src_noksanlar_renderpreviewmodallist",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L536",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_saveselectionstate",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L515",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_renderaccordions",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L516",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_renderpreviewmodallist",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L520",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_closeeditmodal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L523",
-      "weight": 1.0
-    },
-    {
       "source": "src_noksanlar_saveselectedtoactivefavoritelist",
       "target": "src_noksanlar_activefavoritelist",
       "relation": "calls",
@@ -20431,7 +20503,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L435",
+      "source_location": "L452",
       "weight": 1.0
     },
     {
@@ -20443,7 +20515,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L437",
+      "source_location": "L454",
       "weight": 1.0
     },
     {
@@ -20455,7 +20527,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L442",
+      "source_location": "L459",
       "weight": 1.0
     },
     {
@@ -20467,7 +20539,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L446",
+      "source_location": "L463",
       "weight": 1.0
     },
     {
@@ -20479,7 +20551,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L447",
+      "source_location": "L464",
       "weight": 1.0
     },
     {
@@ -20491,19 +20563,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L448",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_selectfavoritelist",
-      "target": "src_noksanlar_favoritelistbyid",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L332",
+      "source_location": "L465",
       "weight": 1.0
     },
     {
@@ -20515,7 +20575,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L334",
+      "source_location": "L341",
       "weight": 1.0
     },
     {
@@ -20527,7 +20587,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L336",
+      "source_location": "L343",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_selectfavoritelist",
+      "target": "src_noksanlar_updateexportbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L344",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_selectfavoritelist",
+      "target": "src_noksanlar_favoritelistbyid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L348",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_selectfavoritelist",
+      "target": "src_noksanlar_applyfavoritelisttoselection",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L349",
       "weight": 1.0
     },
     {
@@ -20539,7 +20635,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L413",
+      "source_location": "L430",
       "weight": 1.0
     },
     {
@@ -20551,7 +20647,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L414",
+      "source_location": "L431",
       "weight": 1.0
     },
     {
@@ -20563,7 +20659,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L421",
+      "source_location": "L438",
       "weight": 1.0
     },
     {
@@ -20575,7 +20671,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L422",
+      "source_location": "L439",
       "weight": 1.0
     },
     {
@@ -20587,7 +20683,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L430",
+      "source_location": "L447",
       "weight": 1.0
     },
     {
@@ -20599,7 +20695,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L572",
+      "source_location": "L594",
       "weight": 1.0
     },
     {
@@ -20611,7 +20707,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L583",
+      "source_location": "L605",
       "weight": 1.0
     },
     {
@@ -20623,7 +20719,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L327",
+      "source_location": "L334",
       "weight": 1.0
     },
     {
@@ -23279,6 +23375,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_noksanlar_applyfavoritelisttoselection",
+      "target": "src_noksanliklardata_noksanlik_items",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L479",
+      "weight": 1.0
+    },
+    {
       "source": "src_noksanlar_currentitemforfavorite",
       "target": "src_noksanliklardata_noksanlik_items",
       "relation": "references",
@@ -23288,18 +23396,6 @@
       "context": "call",
       "source_file": "src/noksanlar.js",
       "source_location": "L276",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_loadfavoritenoksanlist",
-      "target": "src_noksanliklardata_noksanlik_items",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L462",
       "weight": 1.0
     },
     {
@@ -23323,7 +23419,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L479",
+      "source_location": "L501",
       "weight": 1.0
     },
     {
@@ -23347,7 +23443,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L504",
+      "source_location": "L526",
       "weight": 1.0
     },
     {
@@ -23359,7 +23455,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L443",
+      "source_location": "L460",
       "weight": 1.0
     },
     {
@@ -34313,7 +34409,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L324",
+      "source_location": "L331",
       "weight": 1.0
     },
     {
@@ -34324,7 +34420,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L331",
+      "source_location": "L338",
       "weight": 1.0
     },
     {
@@ -34335,7 +34431,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L339",
+      "source_location": "L352",
       "weight": 1.0
     },
     {
@@ -34346,7 +34442,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L356",
+      "source_location": "L369",
       "weight": 1.0
     },
     {
@@ -34357,7 +34453,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L369",
+      "source_location": "L386",
       "weight": 1.0
     },
     {
@@ -34368,7 +34464,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L385",
+      "source_location": "L402",
       "weight": 1.0
     },
     {
@@ -34379,7 +34475,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L390",
+      "source_location": "L407",
       "weight": 1.0
     },
     {
@@ -34390,7 +34486,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L412",
+      "source_location": "L429",
       "weight": 1.0
     },
     {
@@ -34401,7 +34497,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L434",
+      "source_location": "L451",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar",
+      "target": "src_noksanlar_applyfavoritelisttoselection",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/noksanlar.js",
+      "source_location": "L468",
       "weight": 1.0
     },
     {
@@ -34412,7 +34519,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L451",
+      "source_location": "L492",
       "weight": 1.0
     },
     {
@@ -34423,7 +34530,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L475",
+      "source_location": "L497",
       "weight": 1.0
     },
     {
@@ -34434,7 +34541,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L495",
+      "source_location": "L517",
       "weight": 1.0
     },
     {
@@ -34445,7 +34552,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L501",
+      "source_location": "L523",
       "weight": 1.0
     },
     {
@@ -34456,7 +34563,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L526",
+      "source_location": "L548",
       "weight": 1.0
     },
     {
@@ -34467,7 +34574,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L540",
+      "source_location": "L562",
       "weight": 1.0
     },
     {
@@ -34478,7 +34585,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L565",
+      "source_location": "L587",
       "weight": 1.0
     },
     {
@@ -34489,7 +34596,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L592",
+      "source_location": "L614",
       "weight": 1.0
     },
     {
@@ -34500,7 +34607,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L607",
+      "source_location": "L629",
       "weight": 1.0
     },
     {
@@ -34511,7 +34618,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L626",
+      "source_location": "L648",
       "weight": 1.0
     },
     {
@@ -34522,7 +34629,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L633",
+      "source_location": "L655",
       "weight": 1.0
     },
     {
@@ -34533,29 +34640,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L638",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar",
-      "target": "src_noksanlar_clearbasket",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/noksanlar.js",
-      "source_location": "L682",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar",
-      "target": "src_noksanlar_exporttoword",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/noksanlar.js",
-      "source_location": "L696",
+      "source_location": "L660",
       "weight": 1.0
     },
     {
@@ -34571,13 +34656,35 @@
     },
     {
       "source": "src_noksanlar",
+      "target": "src_noksanlar_clearbasket",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/noksanlar.js",
+      "source_location": "L704",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar",
+      "target": "src_noksanlar_exporttoword",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/noksanlar.js",
+      "source_location": "L718",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar",
       "target": "src_noksanlar_exporttopdf",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L731",
+      "source_location": "L753",
       "weight": 1.0
     },
     {
@@ -34588,18 +34695,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L768",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar",
-      "target": "src_noksanlar_copytoclipboard",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/noksanlar.js",
-      "source_location": "L788",
+      "source_location": "L790",
       "weight": 1.0
     },
     {
@@ -34615,13 +34711,24 @@
     },
     {
       "source": "src_noksanlar",
+      "target": "src_noksanlar_copytoclipboard",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/noksanlar.js",
+      "source_location": "L810",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar",
       "target": "src_noksanlar_escapehtml",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L805",
+      "source_location": "L827",
       "weight": 1.0
     },
     {
@@ -34632,7 +34739,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L814",
+      "source_location": "L836",
       "weight": 1.0
     },
     {
@@ -37850,5 +37957,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8706265c211f8ec122b3d253807c77af4a58aa73"
+  "built_at_commit": "a0ba7bd4e21ec9d6b3e93f5e8b627be2f140c4ca"
 }

@@ -46,14 +46,12 @@
   "44": "ipc-lMc67Oxm.js",
   "45": "index-BFuwxWrC.js",
   "46": "main-ANpTSETr.js",
-  "47": "main-BGzingDg.js",
-  "48": "main-BMbVswpm.js",
-  "49": "main-CBWctxH4.js",
-  "50": "main-CD5P1BfO.js",
+  "47": "modulepreload-polyfill-B5Qt9EMX.js",
+  "48": "favorites-page.js",
+  "49": "auth.js",
+  "50": "report.js",
   "51": "main-DIG814bC.js",
   "52": "main-DRONz_BM.js",
-  "53": "mevzuatBaglantilari-CiURpUUR.js",
-  "54": "main-BhAxn0r2.js",
   "55": "Handler",
   "56": "test_run.js",
   "57": "manifest.json",
@@ -66,6 +64,5 @@
   "65": "vite.config.js",
   "66": "Mevzuat Rehberi",
   "67": "google-degisiklik.py",
-  "68": "admin.js",
-  "69": "modulepreload-polyfill-B5Qt9EMX.js"
+  "68": "admin.js"
 }
