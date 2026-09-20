@@ -246,7 +246,7 @@ function renderStream() {
   const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = () => { localStorage.removeItem('pending-legislation-injection'); localStorage.removeItem('pending-favorite-injection'); openLegislationModal(); }; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
   stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = await customEditTitlePrompt(item?.title || ''); if (title === null || !item) return; item.title = title.trim(); await save(); render(); }; });
-  stream.querySelectorAll('[data-report-description-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionEdit); if (!item) return; ensureOriginalDescription(item); const currentText = item.html ? plainTextFromHtml(stripGreenText(normalizeHtml(item.html))) : item.text || ''; const description = await customEditDescriptionPrompt(currentText); if (description === null) return; const nextDescription = description.trim(); if (item.html) item.html = replaceTextKeepingFormat(item.html, nextDescription); else item.text = nextDescription; await save(); render(); }; });
+  stream.querySelectorAll('[data-report-description-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionEdit); if (!item) return; ensureOriginalDescription(item); const currentText = item.html ? plainTextFromHtml(stripGreenText(normalizeHtml(item.html))) : item.text || ''; const description = await customEditDescriptionPrompt(currentText, item.html || ''); if (description === null) return; if (item.html) { item.html = description.html || replaceTextKeepingFormat(item.html, description.text || ''); item.text = String(description.text || '').trim(); } else item.text = String(description.text || '').trim(); await save(); render(); }; });
   stream.querySelectorAll('[data-report-description-restore]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionRestore); if (!item) return; if (item.originalHtml !== undefined || item.originalText !== undefined) { item.html = item.originalHtml || ''; item.text = item.originalText || ''; } await save(); render(); }; });
     stream.querySelectorAll('[data-report-open-legislation]').forEach((button) => { button.onclick = () => { localStorage.setItem('pending-legislation-injection', button.dataset.reportOpenLegislation); localStorage.removeItem('pending-favorite-injection'); openLegislationModal(); }; });
 stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
@@ -637,14 +637,18 @@ function bulkTitlePrompt(missingItems) {
   });
 }
 
-function customEditDescriptionPrompt(currentDescription) {
+function customEditDescriptionPrompt(currentDescription, currentHtml = '') {
   return new Promise((resolve) => {
     const modalId = 'custom-edit-description-modal';
     if (document.getElementById(modalId)) document.getElementById(modalId).remove();
 
+    const hasHtml = Boolean(String(currentHtml || '').trim());
     const cleanCurrentDescription = String(currentDescription || '').replace(/[&<>"']/g, function(m) {
       return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
     });
+    const editorContent = hasHtml
+      ? stripGreenText(normalizeHtml(currentHtml))
+      : `<p>${cleanCurrentDescription}</p>`;
 
     const modalHTML = `
       <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
@@ -654,7 +658,7 @@ function customEditDescriptionPrompt(currentDescription) {
             <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; cursor: pointer; color: #627d98;">&times;</button>
           </div>
           <div style="padding: 1.25rem; background: #fff;">
-            <textarea id="${modalId}-input" rows="10" placeholder="Açıklamayı buraya yazın..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; outline: none; font-family: inherit; line-height: 1.5; resize: vertical;">${cleanCurrentDescription}</textarea>
+            <div id="${modalId}-input" contenteditable="true" role="textbox" aria-label="Açıklamayı düzenle" style="width: 100%; min-height: 260px; max-height: 420px; overflow: auto; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; outline: none; background: #fff; color: #000; font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.35; resize: vertical;">${editorContent}</div>
           </div>
           <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
             <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; color: #627d98; font-weight: 600;">İptal</button>
@@ -667,11 +671,15 @@ function customEditDescriptionPrompt(currentDescription) {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     const modalEl = document.getElementById(modalId);
     const inputEl = document.getElementById(modalId + '-input');
-    setTimeout(() => { inputEl.focus(); inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length); }, 50);
+    setTimeout(() => { inputEl.focus(); }, 50);
     const cleanup = () => modalEl.remove();
     document.getElementById(modalId + '-cancel').onclick = () => { cleanup(); resolve(null); };
     document.getElementById(modalId + '-close').onclick = () => { cleanup(); resolve(null); };
-    document.getElementById(modalId + '-submit').onclick = () => { const value = inputEl.value; cleanup(); resolve(value); };
+    document.getElementById(modalId + '-submit').onclick = () => {
+      const value = hasHtml ? {html: inputEl.innerHTML, text: inputEl.innerText} : {html: '', text: inputEl.innerText};
+      cleanup();
+      resolve(value);
+    };
   });
 }
 
