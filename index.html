@@ -34,30 +34,17 @@
             <button onclick="navigateProtected('/favoriler.html')" class="hero-secondary" type="button">Favorilerim</button>
           </div>
         </div>
-        <div class="hero-panel" aria-label="Uygulama özeti">
-          <div class="hero-panel-header">
-            <span class="pulse-ring"></span>
-            <strong>Bugünkü çalışma masası</strong>
-          </div>
-          <div class="hero-metric-grid">
-            <div><span>58+</span><small>mevzuat kaynağı</small></div>
-            <div><span>2026</span><small>güncel İPC tablosu</small></div>
-            <div><span>2</span><small>kimlik sağlayıcı</small></div>
-          </div>
-          <p>Google veya Apple hesabınızla giriş yapın; onaydan sonra kişisel favori ve rapor alanlarınız açılır.</p>
-        </div>
+        <nav class="hero-link-panel" aria-label="Hızlı araçlar">
+          <button onclick="navigateProtected('/noksanlar.html')" class="hero-tool-card" type="button" title="İSG Noksanlık Listesi"><span class="hero-tool-icon">⚠️</span><span>Noksanlar</span></button>
+          <button onclick="navigateProtected('/tedbirler.html')" class="hero-tool-card" type="button" title="Tedbirler Menüsü"><span class="hero-tool-icon">＋</span><span>Tedbirler</span></button>
+          <button onclick="window.location.href='/ipc.html'" class="hero-tool-card" type="button" title="İdari Para Cezaları"><span class="hero-tool-icon">₺</span><span>İPC 2026</span></button>
+          <button onclick="window.location.href='/isg-hesaplama.html'" class="hero-tool-card" type="button" title="İSG Süre Hesaplama"><span class="hero-tool-icon">⏱️</span><span>Hesaplama</span></button>
+          <button onclick="navigateProtected('/hukumler.html')" class="hero-tool-card" type="button" title="Hükümler"><span class="hero-tool-icon">📖</span><span>Hükümler</span></button>
+          <button onclick="navigateProtected('/favoriler.html')" class="hero-tool-card" type="button" title="Favorilerim"><span class="hero-tool-icon">⭐</span><span>Favorilerim</span></button>
+          <button onclick="navigateProtected('/program.html')" class="hero-tool-card" type="button" title="Görev Programı"><span class="hero-tool-icon">📅</span><span>Program</span></button>
+          <button onclick="navigateProtected('/gorevler.html')" class="hero-tool-card" type="button" title="Görev Takip Merkezi"><span class="hero-tool-icon">🛡️</span><span>Görev Takip</span></button>
+        </nav>
       </section>
-
-      <nav class="sidebar-actions-round quick-actions" aria-label="Hızlı araçlar">
-        <button onclick="navigateProtected('/noksanlar.html')" class="round-btn glow-6" type="button" title="İSG Noksanlık Listesi"><span>⚠️</span> Noksanlar</button>
-        <button onclick="navigateProtected('/tedbirler.html')" class="round-btn glow-1" type="button" title="Tedbirler Menüsü"><span>＋</span> Tedbirler</button>
-        <button onclick="window.location.href='/ipc.html'" class="round-btn glow-3" type="button" title="İdari Para Cezaları"><span>₺</span> İPC 2026</button>
-        <button onclick="window.location.href='/isg-hesaplama.html'" class="round-btn glow-5" type="button" title="İSG Süre Hesaplama"><span>⏱️</span> Hesaplama</button>
-        <button onclick="navigateProtected('/hukumler.html')" class="round-btn glow-4" type="button" title="Hükümler"><span>📖</span> Hükümler</button>
-        <button onclick="navigateProtected('/favoriler.html')" class="round-btn glow-2" type="button" title="Favorilerim"><span>⭐</span> Favorilerim</button>
-        <button onclick="navigateProtected('/program.html')" class="round-btn glow-7" type="button" title="Görev Programı"><span>📅</span> Program</button>
-        <button onclick="navigateProtected('/gorevler.html')" class="round-btn glow-8" type="button" title="Görev Takip Merkezi"><span>🛡️</span> Görev Takip</button>
-      </nav>
 
       <section class="legislation-layout">
         <section class="legislation-card legislation-main-card">
