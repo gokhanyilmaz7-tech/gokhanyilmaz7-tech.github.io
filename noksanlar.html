@@ -53,7 +53,7 @@
 
       .noksan-shell {
         max-width: 1100px;
-        margin: 20px 380px 40px 16px;
+        margin: 20px 284px 40px 16px;
         padding: 0 16px;
       }
 
@@ -172,7 +172,7 @@
         top: 96px;
         right: 20px;
         z-index: 90;
-        width: 340px;
+        width: 244px;
         box-sizing: border-box;
         background: rgba(255, 255, 255, 0.96);
         border: 1px solid #d7e2ef;
@@ -203,8 +203,8 @@
         border-radius: 14px;
         color: #b91c1c;
         cursor: pointer;
-        font-size: 1rem;
-        font-weight: 850;
+        font-size: 10pt;
+        font-weight: 400;
         padding: 12px 16px;
         text-align: center;
         box-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) inset;
@@ -218,6 +218,75 @@
         outline: none;
         transform: translateY(-1px);
         box-shadow: 0 10px 24px rgba(185, 28, 28, 0.12);
+      }
+      .noksan-favorite-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        padding-top: 14px;
+        border-top: 1px solid #d9e3ee;
+      }
+      .noksan-favorite-title {
+        color: #7890a7;
+        font-size: 0.74rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        margin: 0;
+        text-transform: uppercase;
+      }
+      .noksan-favorite-select,
+      .noksan-favorite-input {
+        width: 100%;
+        min-height: 36px;
+        box-sizing: border-box;
+        border: 1px solid #c8d7e5;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #36536d;
+        font: 600 0.78rem Inter, system-ui, sans-serif;
+        padding: 8px 9px;
+        outline: none;
+      }
+      .noksan-favorite-input::placeholder { color: #9badbe; }
+      .noksan-favorite-select:focus,
+      .noksan-favorite-input:focus {
+        border-color: #8cb5e6;
+        box-shadow: 0 0 0 3px rgba(140, 181, 230, 0.18);
+      }
+      .noksan-favorite-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+      }
+      .noksan-favorite-btn {
+        min-height: 34px;
+        border: 1px solid #c8d7e5;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #42637e;
+        cursor: pointer;
+        font: 700 0.72rem Inter, system-ui, sans-serif;
+        padding: 8px 9px;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .noksan-favorite-btn:hover,
+      .noksan-favorite-btn:focus-visible {
+        border-color: #8caac2;
+        background: #f2f6fa;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .noksan-favorite-btn.primary {
+        border-color: #2679d0;
+        background: #2679d0;
+        color: #ffffff;
+      }
+      .noksan-favorite-btn.danger { color: #b91c1c; }
+      .noksan-favorite-status {
+        min-height: 16px;
+        color: #64748b;
+        font: 600 0.72rem Inter, system-ui, sans-serif;
+        margin: 0;
       }
       @media (max-width: 1100px) {
         .noksan-shell {
@@ -306,7 +375,7 @@
         text-align: center !important;
       }
       .noksan-action-header {
-        width: 92px;
+        width: 128px;
         text-align: center !important;
       }
       .inner-table th {
@@ -363,7 +432,8 @@
         gap: 6px;
       }
       .btn-edit-noksan,
-      .btn-reset-noksan {
+      .btn-reset-noksan,
+      .btn-favorite-noksan {
         width: 34px;
         height: 34px;
         border-radius: 999px;
@@ -386,6 +456,11 @@
         background: #fff7ed;
         color: #c2410c;
       }
+      .btn-favorite-noksan {
+        border: 1px solid #fde68a;
+        background: #fffbeb;
+        color: #b45309;
+      }
       .btn-edit-noksan:hover,
       .btn-edit-noksan:focus-visible {
         background: #1d4ed8;
@@ -398,6 +473,15 @@
       .btn-reset-noksan:focus-visible {
         background: #ea580c;
         border-color: #ea580c;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .btn-favorite-noksan:hover,
+      .btn-favorite-noksan:focus-visible,
+      .btn-favorite-noksan.active {
+        background: #f59e0b;
+        border-color: #f59e0b;
         color: #ffffff;
         outline: none;
         transform: translateY(-1px);
@@ -654,9 +738,12 @@
           padding-left: 6px;
           padding-right: 8px;
         }
-        .btn-edit-noksan {
-          font-size: 0.72rem;
-          padding: 6px 8px;
+        .btn-edit-noksan,
+        .btn-reset-noksan,
+        .btn-favorite-noksan {
+          width: 32px;
+          height: 32px;
+          font-size: 0.95rem;
         }
         .preview-item-row,
         .preview-item-main {
@@ -752,7 +839,19 @@
         <div>
           <h2 class="noksan-tools-title">NOKSANLIK ARAÇLARI</h2>
         </div>
-        <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini sıfırla</button>
+        <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini Sıfırla</button>
+        <div class="noksan-favorite-tools" aria-label="Favori noksan listeleri">
+          <p class="noksan-favorite-title">Favori Noksanlar</p>
+          <select id="favorite-noksan-list" class="noksan-favorite-select" aria-label="Favori noksan listesi seç"></select>
+          <input id="favorite-noksan-list-name" class="noksan-favorite-input" type="text" placeholder="Yeni liste adı" autocomplete="off" />
+          <div class="noksan-favorite-actions">
+            <button id="btn-create-favorite-noksan-list" class="noksan-favorite-btn primary" type="button">Liste oluştur</button>
+            <button id="btn-load-favorite-noksan-list" class="noksan-favorite-btn" type="button">Önizle</button>
+            <button id="btn-save-selected-to-favorite-list" class="noksan-favorite-btn" type="button">Seçilenleri kaydet</button>
+            <button id="btn-delete-favorite-noksan-list" class="noksan-favorite-btn danger" type="button">Listeyi sil</button>
+          </div>
+          <p id="favorite-noksan-status" class="noksan-favorite-status"></p>
+        </div>
       </section>
 
       <!-- Single Column Category Accordion List -->
@@ -788,7 +887,7 @@
     <div id="preview-modal" class="preview-modal hidden">
       <div class="preview-modal-content">
         <div class="preview-modal-header">
-          <h3>📋 Seçilen Noksanlıklar Önizleme (<span id="modal-selected-count">0</span> Adet)</h3>
+          <h3>📋 Seçilen Noksanlıklar Önizleme (<span id="modal-selected-count">0</span> Adet)<span id="preview-favorite-list-name"></span></h3>
           <button id="btn-close-preview" class="btn-close-modal" type="button">&times;</button>
         </div>
         <div id="preview-modal-body" class="preview-modal-body">
