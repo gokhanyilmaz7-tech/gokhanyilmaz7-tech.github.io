@@ -5664,15 +5664,15 @@
     "semantic_hash": "3ce370013dcda1de09c691be8b984679"
   },
   "src/report-page.js": {
-    "mtime": 1789932660.5067043,
-    "seen": 1789932669.8143308,
-    "ast_hash": "393c7db1232973c5eb07bd446b006e60",
+    "mtime": 1789932968.558795,
+    "seen": 1789932971.555511,
+    "ast_hash": "23912c1d0a7d734cd955ff3b85db4988",
     "semantic_hash": ""
   },
   "src/report.js": {
-    "mtime": 1789931715.7587965,
-    "seen": 1789931731.503387,
-    "ast_hash": "932deafc93ae6b0bbf172432cfcc6790",
+    "mtime": 1789932833.6239655,
+    "seen": 1789932836.484894,
+    "ast_hash": "5f6693428cd0e67d768e421406fc04f6",
     "semantic_hash": ""
   },
   "src/scroll-top.js": {
