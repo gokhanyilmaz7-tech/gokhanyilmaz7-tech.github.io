@@ -53,7 +53,7 @@
 
       .noksan-shell {
         max-width: 1100px;
-        margin: 20px 340px 40px 16px;
+        margin: 20px 302px 40px 16px;
         padding: 0 16px;
       }
 
@@ -172,7 +172,7 @@
         top: 96px;
         right: 20px;
         z-index: 90;
-        width: 282px;
+        width: 244px;
         box-sizing: border-box;
         background: rgba(255, 255, 255, 0.96);
         border: 1px solid rgba(148, 163, 184, 0.26);
@@ -189,13 +189,6 @@
         font-size: 1rem;
         font-weight: 900;
         margin: 0 0 4px;
-      }
-      .noksan-tools-desc {
-        color: #64748b;
-        font-size: 0.84rem;
-        font-weight: 650;
-        line-height: 1.45;
-        margin: 0;
       }
       .btn-reset-noksan-page {
         align-self: stretch;
@@ -304,7 +297,7 @@
         text-align: center !important;
       }
       .noksan-action-header {
-        width: 132px;
+        width: 92px;
         text-align: center !important;
       }
       .inner-table th {
@@ -351,24 +344,51 @@
         text-align: right;
         white-space: nowrap;
       }
-      .noksan-row:not(.selected) .btn-edit-noksan {
+      .noksan-row:not(.selected) .noksan-row-actions {
         display: none;
+      }
+      .noksan-row-actions {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+      }
+      .btn-edit-noksan,
+      .btn-reset-noksan {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 800;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
       }
       .btn-edit-noksan {
         border: 1px solid #bfdbfe;
-        border-radius: 999px;
         background: #eff6ff;
         color: #1d4ed8;
-        cursor: pointer;
-        font-size: 0.78rem;
-        font-weight: 800;
-        padding: 7px 11px;
-        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .btn-reset-noksan {
+        border: 1px solid #fed7aa;
+        background: #fff7ed;
+        color: #c2410c;
       }
       .btn-edit-noksan:hover,
       .btn-edit-noksan:focus-visible {
         background: #1d4ed8;
         border-color: #1d4ed8;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .btn-reset-noksan:hover,
+      .btn-reset-noksan:focus-visible {
+        background: #ea580c;
+        border-color: #ea580c;
         color: #ffffff;
         outline: none;
         transform: translateY(-1px);
@@ -722,7 +742,6 @@
       <section class="noksan-tools-card" aria-label="Noksanlık araçları">
         <div>
           <h2 class="noksan-tools-title">Araçlar</h2>
-          <p class="noksan-tools-desc">Seçimleri ve düzenlenmiş geçici metinleri temizleyip sayfayı orijinal noksanlık listesine döndürür.</p>
         </div>
         <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini sıfırla</button>
       </section>

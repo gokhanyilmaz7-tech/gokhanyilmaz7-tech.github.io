@@ -8154,7 +8154,7 @@
       "file_type": "code",
       "norm_label": "clearbasket()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L361"
+      "source_location": "L377"
     },
     {
       "id": "src_noksanlar_closeeditmodal",
@@ -8178,7 +8178,7 @@
       "file_type": "code",
       "norm_label": "closepreviewmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L312"
+      "source_location": "L329"
     },
     {
       "id": "src_noksanlar_copytoclipboard",
@@ -8190,7 +8190,7 @@
       "file_type": "code",
       "norm_label": "copytoclipboard()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L467"
+      "source_location": "L483"
     },
     {
       "id": "src_noksanlar_escapehtml",
@@ -8202,7 +8202,7 @@
       "file_type": "code",
       "norm_label": "escapehtml()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L484"
+      "source_location": "L500"
     },
     {
       "id": "src_noksanlar_exporttocsv",
@@ -8214,7 +8214,7 @@
       "file_type": "code",
       "norm_label": "exporttocsv()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L447"
+      "source_location": "L463"
     },
     {
       "id": "src_noksanlar_exporttopdf",
@@ -8226,7 +8226,7 @@
       "file_type": "code",
       "norm_label": "exporttopdf()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L410"
+      "source_location": "L426"
     },
     {
       "id": "src_noksanlar_exporttotedbirler",
@@ -8238,7 +8238,7 @@
       "file_type": "code",
       "norm_label": "exporttotedbirler()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L493"
+      "source_location": "L509"
     },
     {
       "id": "src_noksanlar_exporttoword",
@@ -8250,7 +8250,7 @@
       "file_type": "code",
       "norm_label": "exporttoword()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L375"
+      "source_location": "L391"
     },
     {
       "id": "src_noksanlar_getselecteditemlist",
@@ -8262,7 +8262,7 @@
       "file_type": "code",
       "norm_label": "getselecteditemlist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L271"
+      "source_location": "L288"
     },
     {
       "id": "src_noksanlar_initnoksanlar",
@@ -8298,7 +8298,7 @@
       "file_type": "code",
       "norm_label": "openpreviewmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L305"
+      "source_location": "L322"
     },
     {
       "id": "src_noksanlar_renderaccordions",
@@ -8310,7 +8310,7 @@
       "file_type": "code",
       "norm_label": "renderaccordions()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L82"
+      "source_location": "L83"
     },
     {
       "id": "src_noksanlar_renderpreviewmodallist",
@@ -8322,7 +8322,19 @@
       "file_type": "code",
       "norm_label": "renderpreviewmodallist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L317"
+      "source_location": "L334"
+    },
+    {
+      "id": "src_noksanlar_resetnoksanpage",
+      "label": "resetNoksanPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "noksanlar.js",
+      "file_type": "code",
+      "norm_label": "resetnoksanpage()",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L236"
     },
     {
       "id": "src_noksanlar_saveeditednoksan",
@@ -8349,18 +8361,6 @@
       "source_location": "L181"
     },
     {
-      "id": "src_noksanlar_syncvisiblenoksantext",
-      "label": "syncVisibleNoksanText()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "noksanlar.js",
-      "file_type": "code",
-      "norm_label": "syncvisiblenoksantext()",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L237"
-    },
-    {
       "id": "src_noksanlar_toggleselection",
       "label": "toggleSelection()",
       "_callable": true,
@@ -8370,7 +8370,7 @@
       "file_type": "code",
       "norm_label": "toggleselection()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L243"
+      "source_location": "L260"
     },
     {
       "id": "src_noksanlar_updateexportbadge",
@@ -8382,7 +8382,7 @@
       "file_type": "code",
       "norm_label": "updateexportbadge()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L286"
+      "source_location": "L303"
     },
     {
       "id": "assets_mevzuat_ciqbrbqf_e",
@@ -19388,7 +19388,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L368",
+      "source_location": "L384",
       "weight": 1.0
     },
     {
@@ -19400,7 +19400,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L369",
+      "source_location": "L385",
       "weight": 1.0
     },
     {
@@ -19412,7 +19412,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L370",
+      "source_location": "L386",
       "weight": 1.0
     },
     {
@@ -19424,7 +19424,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L468",
+      "source_location": "L484",
       "weight": 1.0
     },
     {
@@ -19436,7 +19436,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L448",
+      "source_location": "L464",
       "weight": 1.0
     },
     {
@@ -19448,7 +19448,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L411",
+      "source_location": "L427",
       "weight": 1.0
     },
     {
@@ -19460,7 +19460,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L435",
+      "source_location": "L451",
       "weight": 1.0
     },
     {
@@ -19472,7 +19472,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L494",
+      "source_location": "L510",
       "weight": 1.0
     },
     {
@@ -19484,7 +19484,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L528",
+      "source_location": "L544",
       "weight": 1.0
     },
     {
@@ -19496,7 +19496,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L376",
+      "source_location": "L392",
       "weight": 1.0
     },
     {
@@ -19508,7 +19508,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L394",
+      "source_location": "L410",
       "weight": 1.0
     },
     {
@@ -19544,7 +19544,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L308",
+      "source_location": "L325",
       "weight": 1.0
     },
     {
@@ -19556,7 +19556,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L108",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
@@ -19592,7 +19592,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L322",
+      "source_location": "L339",
       "weight": 1.0
     },
     {
@@ -19604,7 +19604,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L339",
+      "source_location": "L356",
       "weight": 1.0
     },
     {
@@ -19616,19 +19616,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L348",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_renderpreviewmodallist",
-      "target": "src_noksanlar_syncvisiblenoksantext",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L349",
+      "source_location": "L365",
       "weight": 1.0
     },
     {
@@ -19640,7 +19628,55 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L353",
+      "source_location": "L369",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetnoksanpage",
+      "target": "src_noksanlar_renderaccordions",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetnoksanpage",
+      "target": "src_noksanlar_updateexportbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L239",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetnoksanpage",
+      "target": "src_noksanlar_closepreviewmodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_resetnoksanpage",
+      "target": "src_noksanlar_closeeditmodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L241",
       "weight": 1.0
     },
     {
@@ -19657,18 +19693,6 @@
     },
     {
       "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_syncvisiblenoksantext",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L227",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
       "target": "src_noksanlar_renderpreviewmodallist",
       "relation": "calls",
       "_origin": "ast",
@@ -19676,7 +19700,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L231",
+      "source_location": "L230",
       "weight": 1.0
     },
     {
@@ -19688,7 +19712,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L234",
+      "source_location": "L233",
       "weight": 1.0
     },
     {
@@ -19700,7 +19724,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L251",
+      "source_location": "L268",
       "weight": 1.0
     },
     {
@@ -19712,7 +19736,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L262",
+      "source_location": "L279",
       "weight": 1.0
     },
     {
@@ -22388,7 +22412,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L88",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -33260,13 +33284,13 @@
     },
     {
       "source": "src_noksanlar",
-      "target": "src_noksanlar_syncvisiblenoksantext",
+      "target": "src_noksanlar_resetnoksanpage",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L237",
+      "source_location": "L236",
       "weight": 1.0
     },
     {
@@ -33277,7 +33301,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L243",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -33288,7 +33312,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L271",
+      "source_location": "L288",
       "weight": 1.0
     },
     {
@@ -33299,7 +33323,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L286",
+      "source_location": "L303",
       "weight": 1.0
     },
     {
@@ -33310,7 +33334,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L305",
+      "source_location": "L322",
       "weight": 1.0
     },
     {
@@ -33321,7 +33345,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L312",
+      "source_location": "L329",
       "weight": 1.0
     },
     {
@@ -33332,7 +33356,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L317",
+      "source_location": "L334",
       "weight": 1.0
     },
     {
@@ -33343,7 +33367,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L361",
+      "source_location": "L377",
       "weight": 1.0
     },
     {
@@ -33354,7 +33378,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L375",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -33365,7 +33389,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L410",
+      "source_location": "L426",
       "weight": 1.0
     },
     {
@@ -33376,7 +33400,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L447",
+      "source_location": "L463",
       "weight": 1.0
     },
     {
@@ -33387,7 +33411,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L467",
+      "source_location": "L483",
       "weight": 1.0
     },
     {
@@ -33398,7 +33422,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L484",
+      "source_location": "L500",
       "weight": 1.0
     },
     {
@@ -33409,7 +33433,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L493",
+      "source_location": "L509",
       "weight": 1.0
     },
     {
@@ -33442,7 +33466,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L82",
+      "source_location": "L83",
       "weight": 1.0
     },
     {
@@ -36320,7 +36344,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -36441,6 +36465,18 @@
       "context": "argument",
       "source_file": "src/noksanlar.js",
       "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_initnoksanlar",
+      "target": "src_noksanlar_resetnoksanpage",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "argument",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -36589,5 +36625,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6ccaac2817e95a78721971ef5d7eefcaf2a6d040"
+  "built_at_commit": "8eb15629dcead9552e707e487a7b6d110a3da2fc"
 }

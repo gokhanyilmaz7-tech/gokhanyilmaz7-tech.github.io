@@ -92,7 +92,8 @@ function renderAccordions() {
     // Filter items by search query if exists
     const matchingItems = items.filter(item => {
       if (!searchQuery) return true;
-      return item.text.toLowerCase().includes(searchQuery) || cat.toLowerCase().includes(searchQuery);
+      const visibleText = customTexts[String(item.id)] || item.text;
+      return visibleText.toLowerCase().includes(searchQuery) || cat.toLowerCase().includes(searchQuery);
     });
 
     if (searchQuery && matchingItems.length === 0) return;
@@ -126,14 +127,18 @@ function renderAccordions() {
             ${matchingItems.map((item, idx) => {
               const strId = String(item.id);
               const isSelected = selectedIds.has(strId);
+              const visibleText = customTexts[strId] || item.text;
               return `
                 <tr class="noksan-row ${isSelected ? 'selected' : ''}" data-id="${strId}">
                   <td class="sira-no">${idx + 1}</td>
                   <td>
-                    <div class="noksan-text">${escapeHtml(item.text)}</div>
+                    <div class="noksan-text">${escapeHtml(visibleText)}</div>
                   </td>
                   <td class="noksan-action-cell">
-                    <button class="btn-edit-noksan" type="button" data-edit-id="${strId}">✏️ Düzenle</button>
+                    <span class="noksan-row-actions" aria-label="Seçili noksanlık işlemleri">
+                      <button class="btn-edit-noksan" type="button" data-edit-id="${strId}" title="Düzenle" aria-label="Düzenle">✏️</button>
+                      <button class="btn-reset-noksan" type="button" data-reset-id="${strId}" title="Orijinale döndür" aria-label="Orijinale döndür">↩️</button>
+                    </span>
                   </td>
                 </tr>
               `;
@@ -162,7 +167,7 @@ function renderAccordions() {
         toggleSelection(strId);
       });
       tr.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-edit-noksan')) return;
+        if (e.target.closest('.btn-edit-noksan, .btn-reset-noksan')) return;
         toggleSelection(strId);
       });
     });
@@ -171,6 +176,13 @@ function renderAccordions() {
       button.addEventListener('click', (e) => {
         e.stopPropagation();
         openEditorForItem(button.dataset.editId);
+      });
+    });
+
+    accordionItem.querySelectorAll('.btn-reset-noksan').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        resetSingleNoksan(button.dataset.resetId);
       });
     });
 
@@ -224,6 +236,7 @@ function saveEditedNoksan() {
   }
 
   saveSelectionState();
+  renderAccordions();
 
   const previewModal = document.getElementById('preview-modal');
   if (previewModal && !previewModal.classList.contains('hidden')) {
@@ -231,6 +244,20 @@ function saveEditedNoksan() {
   }
 
   closeEditModal();
+}
+
+function resetSingleNoksan(strId) {
+  const sId = String(strId);
+  if (!selectedIds.has(sId)) return;
+
+  delete customTexts[sId];
+  saveSelectionState();
+  renderAccordions();
+
+  const previewModal = document.getElementById('preview-modal');
+  if (previewModal && !previewModal.classList.contains('hidden')) {
+    renderPreviewModalList();
+  }
 }
 
 function resetNoksanPage() {
@@ -261,7 +288,6 @@ function toggleSelection(strId) {
   const sId = String(strId);
   if (selectedIds.has(sId)) {
     selectedIds.delete(sId);
-    delete customTexts[sId];
   } else {
     selectedIds.add(sId);
   }
