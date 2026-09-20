@@ -13,6 +13,7 @@ const FAVORITE_NOKSAN_KEY = 'isg-favorite-noksan-lists';
 let favoriteNoksanData = loadFavoriteNoksanData();
 let activeFavoriteListId = favoriteNoksanData.activeListId || null;
 let pendingFavoriteNoksanId = null;
+let pendingListlessListName = null;
 
 function initNoksanlar() {
   renderAccordions();
@@ -75,6 +76,8 @@ function initNoksanlar() {
   document.getElementById('favorite-picker-modal')?.addEventListener('click', (e) => {
     if (e.target.id === 'favorite-picker-modal') closeFavoritePicker();
   });
+  document.getElementById('btn-listless-keep')?.addEventListener('click', () => completeListlessMode(true));
+  document.getElementById('btn-listless-delete')?.addEventListener('click', () => completeListlessMode(false));
 
   // Modal Footer Export Events
   document.getElementById('modal-export-word')?.addEventListener('click', exportToWord);
@@ -337,32 +340,49 @@ function updatePreviewFavoriteName() {
 
 function selectFavoriteList(listId) {
   if (!listId) {
-    const shouldKeepCurrentSelection = selectedIds.size > 0
-      ? confirm(`Önceki listenin seçili noksanları korunsun mu?
-
-Tamam: Seçili noksanlar korunsun.
-İptal: Seçili noksanlar sıfırlansın.`)
-      : true;
-
-    activeFavoriteListId = null;
-    if (!shouldKeepCurrentSelection) {
-      selectedIds.clear();
-      customTexts = {};
-      localStorage.removeItem('isg-selected-noksanliklar');
-      localStorage.removeItem('isg-custom-noksanliklar');
-    } else {
-      saveSelectionState();
+    if (selectedIds.size > 0) {
+      const list = activeFavoriteList();
+      pendingListlessListName = list?.name || 'Önceki liste';
+      openListlessConfirmModal(pendingListlessListName);
+      return;
     }
 
-    saveFavoriteNoksanData();
-    renderFavoriteNoksanTools(shouldKeepCurrentSelection ? 'Listesiz işlem modu açıldı; seçimler korundu.' : 'Listesiz işlem modu açıldı; seçimler sıfırlandı.');
-    renderAccordions();
-    updateExportBadge();
+    completeListlessMode(true);
     return;
   }
 
   if (!favoriteListById(listId)) return;
   applyFavoriteListToSelection(listId, 'Favori liste sol tarafa yüklendi.', false);
+}
+
+function openListlessConfirmModal(listName) {
+  const modal = document.getElementById('listless-confirm-modal');
+  const message = document.getElementById('listless-confirm-message');
+  if (message) message.textContent = `${listName} seçili noksanları korunsun mu?`;
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeListlessConfirmModal() {
+  document.getElementById('listless-confirm-modal')?.classList.add('hidden');
+  pendingListlessListName = null;
+}
+
+function completeListlessMode(shouldKeepCurrentSelection) {
+  activeFavoriteListId = null;
+  if (!shouldKeepCurrentSelection) {
+    selectedIds.clear();
+    customTexts = {};
+    localStorage.removeItem('isg-selected-noksanliklar');
+    localStorage.removeItem('isg-custom-noksanliklar');
+  } else {
+    saveSelectionState();
+  }
+
+  saveFavoriteNoksanData();
+  closeListlessConfirmModal();
+  renderFavoriteNoksanTools(shouldKeepCurrentSelection ? 'Listesiz işlem modu açıldı; seçimler korundu.' : 'Listesiz işlem modu açıldı; seçimler sıfırlandı.');
+  renderAccordions();
+  updateExportBadge();
 }
 
 function createFavoriteNoksanList() {

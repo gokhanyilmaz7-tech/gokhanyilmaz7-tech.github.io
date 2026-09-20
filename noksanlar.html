@@ -612,6 +612,25 @@
         gap: 10px;
         flex-wrap: wrap;
       }
+      .listless-confirm-content {
+        max-width: 420px;
+      }
+      .listless-confirm-body {
+        color: #0f172a;
+        font: 800 1rem/1.45 Arial, sans-serif;
+        text-align: center;
+      }
+      .listless-confirm-body p {
+        margin: 0;
+      }
+      .btn-listless-delete {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .btn-listless-keep {
+        background: #2563eb;
+        color: #ffffff;
+      }
       .btn-edit-action {
         border: none;
         border-radius: 10px;
@@ -907,6 +926,19 @@
         <div class="edit-modal-footer">
           <button id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" type="button">Vazgeç</button>
           <button id="btn-save-edit" class="btn-edit-action btn-edit-save" type="button">Kaydet</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Listesiz işlem seçim modalı -->
+    <div id="listless-confirm-modal" class="edit-modal hidden">
+      <div class="edit-modal-content listless-confirm-content">
+        <div class="edit-modal-body listless-confirm-body">
+          <p id="listless-confirm-message"></p>
+        </div>
+        <div class="edit-modal-footer">
+          <button id="btn-listless-delete" class="btn-edit-action btn-listless-delete" type="button">SİL</button>
+          <button id="btn-listless-keep" class="btn-edit-action btn-listless-keep" type="button">KORU</button>
         </div>
       </div>
     </div>
