@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,734,785 words
+- 967 files · ~1,734,836 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1178 nodes · 2179 edges · 69 communities (60 shown, 4 thin omitted)
+- 1178 nodes · 2181 edges · 69 communities (60 shown, 4 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 101 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `521f480a`
+- Built from commit: `c39f749b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -366,7 +366,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `n`, `r`, `I` to the rest of the system?**
   _339 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `report-page.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.06258958432871477 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0630673674151935 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
   _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**

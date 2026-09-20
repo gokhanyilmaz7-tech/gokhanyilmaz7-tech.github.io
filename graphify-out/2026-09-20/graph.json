@@ -582,7 +582,7 @@
       "file_type": "code",
       "norm_label": "copytitlestoclipboard()",
       "source_file": "src/report-page.js",
-      "source_location": "L837"
+      "source_location": "L845"
     },
     {
       "id": "src_report_page_customeditdescriptionprompt",
@@ -606,7 +606,7 @@
       "file_type": "code",
       "norm_label": "customedittitleprompt()",
       "source_file": "src/report-page.js",
-      "source_location": "L678"
+      "source_location": "L686"
     },
     {
       "id": "src_report_page_custommanualprompt",
@@ -642,7 +642,7 @@
       "file_type": "code",
       "norm_label": "ensuretitles()",
       "source_file": "src/report-page.js",
-      "source_location": "L728"
+      "source_location": "L736"
     },
     {
       "id": "src_report_page_esc",
@@ -678,7 +678,7 @@
       "file_type": "code",
       "norm_label": "exportwordtitles()",
       "source_file": "src/report-page.js",
-      "source_location": "L746"
+      "source_location": "L754"
     },
     {
       "id": "src_report_page_items",
@@ -21607,7 +21607,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L838",
+      "source_location": "L846",
       "weight": 1.0
     },
     {
@@ -21619,7 +21619,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L840",
+      "source_location": "L848",
       "weight": 1.0
     },
     {
@@ -21631,7 +21631,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L848",
+      "source_location": "L856",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_page_customeditdescriptionprompt",
+      "target": "src_report_page_normalizehtml",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report-page.js",
+      "source_location": "L650",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_page_customeditdescriptionprompt",
+      "target": "src_report_page_stripgreentext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report-page.js",
+      "source_location": "L650",
       "weight": 1.0
     },
     {
@@ -21643,7 +21667,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L732",
+      "source_location": "L740",
       "weight": 1.0
     },
     {
@@ -21655,7 +21679,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L741",
+      "source_location": "L749",
       "weight": 1.0
     },
     {
@@ -21667,7 +21691,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L742",
+      "source_location": "L750",
       "weight": 1.0
     },
     {
@@ -21703,7 +21727,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L747",
+      "source_location": "L755",
       "weight": 1.0
     },
     {
@@ -21715,7 +21739,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L749",
+      "source_location": "L757",
       "weight": 1.0
     },
     {
@@ -21727,7 +21751,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L765",
+      "source_location": "L773",
       "weight": 1.0
     },
     {
@@ -36268,7 +36292,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L678",
+      "source_location": "L686",
       "weight": 1.0
     },
     {
@@ -36279,7 +36303,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L728",
+      "source_location": "L736",
       "weight": 1.0
     },
     {
@@ -36290,7 +36314,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L746",
+      "source_location": "L754",
       "weight": 1.0
     },
     {
@@ -36301,7 +36325,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L837",
+      "source_location": "L845",
       "weight": 1.0
     },
     {
@@ -38849,5 +38873,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "521f480aacd230800287b2f4092713fc39d23ebb"
+  "built_at_commit": "c39f749bc924b33efd2c8ec68be885dd71142f80"
 }
