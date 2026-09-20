@@ -337,9 +337,25 @@ function updatePreviewFavoriteName() {
 
 function selectFavoriteList(listId) {
   if (!listId) {
+    const shouldKeepCurrentSelection = selectedIds.size > 0
+      ? confirm(`Önceki listenin seçili noksanları korunsun mu?
+
+Tamam: Seçili noksanlar korunsun.
+İptal: Seçili noksanlar sıfırlansın.`)
+      : true;
+
     activeFavoriteListId = null;
+    if (!shouldKeepCurrentSelection) {
+      selectedIds.clear();
+      customTexts = {};
+      localStorage.removeItem('isg-selected-noksanliklar');
+      localStorage.removeItem('isg-custom-noksanliklar');
+    } else {
+      saveSelectionState();
+    }
+
     saveFavoriteNoksanData();
-    renderFavoriteNoksanTools('Listesiz işlem modu açıldı.');
+    renderFavoriteNoksanTools(shouldKeepCurrentSelection ? 'Listesiz işlem modu açıldı; seçimler korundu.' : 'Listesiz işlem modu açıldı; seçimler sıfırlandı.');
     renderAccordions();
     updateExportBadge();
     return;

@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,733,581 words
+- 967 files · ~1,733,644 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1157 nodes · 2115 edges · 69 communities (60 shown, 4 thin omitted)
+- 1158 nodes · 2123 edges · 66 communities (58 shown, 3 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8706265c`
+- Built from commit: `a0ba7bd4`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -62,14 +62,12 @@
 - ipc-lMc67Oxm.js
 - index-BFuwxWrC.js
 - main-ANpTSETr.js
-- main-BGzingDg.js
-- main-BMbVswpm.js
-- main-CBWctxH4.js
-- main-CD5P1BfO.js
+- modulepreload-polyfill-B5Qt9EMX.js
+- favorites-page.js
+- auth.js
+- report.js
 - main-DIG814bC.js
 - main-DRONz_BM.js
-- mevzuatBaglantilari-CiURpUUR.js
-- main-BhAxn0r2.js
 - Handler
 - test_run.js
 - manifest.json
@@ -78,7 +76,6 @@
 - scroll-top.js
 - Mevzuat Rehberi
 - admin.js
-- modulepreload-polyfill-B5Qt9EMX.js
 
 ## God Nodes (most connected - your core abstractions)
 1. `_` - 38 edges
@@ -107,11 +104,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (69 total, 4 thin omitted)
+## Communities (66 total, 3 thin omitted)
 
 ### Community 0 - "report-page.js"
-Cohesion: 0.07
-Nodes (75): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+67 more)
+Cohesion: 0.17
+Nodes (26): bulkTitlePrompt(), copyTitlesToClipboard(), customEditTitlePrompt(), customManualPrompt(), data, ensureTitles(), esc(), exportWord() (+18 more)
 
 ### Community 1 - "_"
 Cohesion: 0.07
@@ -143,7 +140,7 @@ Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), app
 
 ### Community 8 - "noksanlar.js"
 Cohesion: 0.13
-Nodes (48): activeFavoriteList(), clearBasket(), closeEditModal(), closeFavoritePicker(), closePreviewModal(), copyToClipboard(), createFavoriteNoksanList(), createLocalId() (+40 more)
+Nodes (49): activeFavoriteList(), applyFavoriteListToSelection(), clearBasket(), closeEditModal(), closeFavoritePicker(), closePreviewModal(), copyToClipboard(), createFavoriteNoksanList() (+41 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -297,21 +294,21 @@ Nodes (8): a(), d(), l(), o(), p, r, s(), u()
 Cohesion: 0.33
 Nodes (8): c(), m(), n, o, r(), s(), u(), v
 
-### Community 47 - "main-BGzingDg.js"
-Cohesion: 0.33
-Nodes (8): c(), m, o(), r, s, t(), u(), v()
+### Community 47 - "modulepreload-polyfill-B5Qt9EMX.js"
+Cohesion: 0.05
+Nodes (47): c(), m, o(), r, s, t(), u(), v() (+39 more)
 
-### Community 48 - "main-BMbVswpm.js"
-Cohesion: 0.33
-Nodes (8): c(), m(), n, o, r(), t(), u(), v
+### Community 48 - "favorites-page.js"
+Cohesion: 0.22
+Nodes (20): requireAccount(), allItems(), context, createList(), currentItems(), data, esc(), moveItem() (+12 more)
 
-### Community 49 - "main-CBWctxH4.js"
-Cohesion: 0.33
-Nodes (8): c(), d(), p(), r(), s, t(), u, v
+### Community 49 - "auth.js"
+Cohesion: 0.19
+Nodes (17): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), setupAccountUI() (+9 more)
 
-### Community 50 - "main-CD5P1BfO.js"
-Cohesion: 0.33
-Nodes (8): c(), m(), n, o, r(), s(), u(), v
+### Community 50 - "report.js"
+Cohesion: 0.38
+Nodes (12): addReportCopy(), allFavoriteItems(), bindFavoriteReportButtons(), esc(), readWorkspace(), reportButton(), reportRepeatButton(), reportSourceId() (+4 more)
 
 ### Community 51 - "main-DIG814bC.js"
 Cohesion: 0.36
@@ -320,14 +317,6 @@ Nodes (8): c, d, l(), n(), o(), p(), t, u()
 ### Community 52 - "main-DRONz_BM.js"
 Cohesion: 0.33
 Nodes (8): a(), c(), d, i(), l(), n(), o, u()
-
-### Community 53 - "mevzuatBaglantilari-CiURpUUR.js"
-Cohesion: 0.29
-Nodes (7): e, I, M, N(), R, t, V
-
-### Community 54 - "main-BhAxn0r2.js"
-Cohesion: 0.43
-Nodes (6): a(), c, l(), o(), r(), t
 
 ### Community 56 - "test_run.js"
 Cohesion: 0.33
@@ -352,7 +341,7 @@ Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load()
 ## Knowledge Gaps
 - **339 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+334 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 425 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -365,9 +354,9 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `n`, `r`, `I` to the rest of the system?**
   _339 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `report-page.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.0667578659370725 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
   _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**
   _Cohesion score 0.0915915915915916 - nodes in this community are weakly interconnected._
+- **Should `index.js` be split into smaller, more focused modules?**
+  _Cohesion score 0.09508196721311475 - nodes in this community are weakly interconnected._
