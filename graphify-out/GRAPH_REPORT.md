@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,733,287 words
+- 967 files · ~1,733,581 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1150 nodes · 2096 edges · 70 communities (61 shown, 4 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 101 edges (avg confidence: 0.85)
+- 1157 nodes · 2115 edges · 69 communities (60 shown, 4 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6657f9ae`
+- Built from commit: `8706265c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -76,7 +76,6 @@
 - public/manifest.json
 - hesaplama.js
 - scroll-top.js
-- admin-jppI3dUa.js
 - Mevzuat Rehberi
 - admin.js
 - modulepreload-polyfill-B5Qt9EMX.js
@@ -87,11 +86,11 @@
 3. `w()` - 21 edges
 4. `$` - 21 edges
 5. `requireAccount()` - 20 edges
-6. `initNoksanlar()` - 20 edges
-7. `fetch()` - 19 edges
-8. `renderStream()` - 17 edges
-9. `h()` - 16 edges
-10. `k()` - 16 edges
+6. `fetch()` - 19 edges
+7. `initNoksanlar()` - 18 edges
+8. `renderAccordions()` - 18 edges
+9. `renderStream()` - 17 edges
+10. `h()` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `N()` --indirect_call--> `g()`  [INFERRED]
@@ -108,15 +107,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (70 total, 4 thin omitted)
+## Communities (69 total, 4 thin omitted)
 
 ### Community 0 - "report-page.js"
 Cohesion: 0.07
 Nodes (75): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+67 more)
 
 ### Community 1 - "_"
-Cohesion: 0.08
-Nodes (76): b(), d(), f(), h(), m(), v(), w(), y() (+68 more)
+Cohesion: 0.07
+Nodes (81): e(), n, o(), r(), s(), b(), d(), f() (+73 more)
 
 ### Community 2 - "BrowserTab"
 Cohesion: 0.09
@@ -143,8 +142,8 @@ Cohesion: 0.21
 Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), applyProvisionOverrides(), bindInlineToolbar(), blockNodes(), caretAtBlockStart(), copyFormatTemplate() (+13 more)
 
 ### Community 8 - "noksanlar.js"
-Cohesion: 0.15
-Nodes (41): activeFavoriteList(), addNoksanToActiveFavoriteList(), clearBasket(), closeEditModal(), closePreviewModal(), copyToClipboard(), createFavoriteNoksanList(), createLocalId() (+33 more)
+Cohesion: 0.13
+Nodes (48): activeFavoriteList(), clearBasket(), closeEditModal(), closeFavoritePicker(), closePreviewModal(), copyToClipboard(), createFavoriteNoksanList(), createLocalId() (+40 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -342,10 +341,6 @@ Nodes (3): pageCount, pdf, sections
 Cohesion: 0.50
 Nodes (3): pageCount, pdf, sections
 
-### Community 61 - "admin-jppI3dUa.js"
-Cohesion: 0.53
-Nodes (5): e(), n, o(), r(), s()
-
 ### Community 66 - "Mevzuat Rehberi"
 Cohesion: 0.50
 Nodes (3): Mevzuat Rehberi, Yönetici girişi, Çalıştırma
@@ -373,6 +368,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `report-page.js` be split into smaller, more focused modules?**
   _Cohesion score 0.0667578659370725 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
-  _Cohesion score 0.07592592592592592 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**
   _Cohesion score 0.0915915915915916 - nodes in this community are weakly interconnected._

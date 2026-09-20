@@ -234,30 +234,61 @@
         margin: 0;
         text-transform: uppercase;
       }
-      .noksan-favorite-select,
-      .noksan-favorite-input {
-        width: 100%;
-        min-height: 36px;
-        box-sizing: border-box;
-        border: 1px solid #c8d7e5;
-        border-radius: 10px;
-        background: #ffffff;
-        color: #36536d;
-        font: 600 0.78rem Inter, system-ui, sans-serif;
-        padding: 8px 9px;
-        outline: none;
-      }
-      .noksan-favorite-input::placeholder { color: #9badbe; }
-      .noksan-favorite-select:focus,
-      .noksan-favorite-input:focus {
-        border-color: #8cb5e6;
-        box-shadow: 0 0 0 3px rgba(140, 181, 230, 0.18);
-      }
-      .noksan-favorite-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+      .noksan-favorite-list {
+        display: flex;
+        flex-direction: column;
         gap: 7px;
       }
+      .noksan-favorite-list-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 6px;
+        align-items: center;
+        padding: 7px;
+        border: 1px solid #d7e2ef;
+        border-radius: 12px;
+        background: #ffffff;
+      }
+      .noksan-favorite-list-row.active {
+        border-color: #8cb5e6;
+        background: #eef6ff;
+      }
+      .noksan-favorite-list-name {
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        color: #36536d;
+        font: 700 0.78rem Inter, system-ui, sans-serif;
+        outline: none;
+      }
+      .noksan-favorite-list-name:focus { color: #185c9f; }
+      .noksan-favorite-list-count {
+        display: block;
+        color: #7890a7;
+        font: 600 0.68rem Inter, system-ui, sans-serif;
+      }
+      .noksan-favorite-list-icon {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #c8d7e5;
+        border-radius: 9px;
+        background: #ffffff;
+        color: #42637e;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: inline-grid;
+        place-items: center;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .noksan-favorite-list-icon:hover,
+      .noksan-favorite-list-icon:focus-visible {
+        border-color: #8caac2;
+        background: #f2f6fa;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .noksan-favorite-list-icon.danger { color: #b91c1c; }
+      .noksan-favorite-actions { display: flex; }
       .noksan-favorite-btn {
         min-height: 34px;
         border: 1px solid #c8d7e5;
@@ -842,13 +873,10 @@
         <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini Sıfırla</button>
         <div class="noksan-favorite-tools" aria-label="Favori noksan listeleri">
           <p class="noksan-favorite-title">Favori Noksanlar</p>
-          <select id="favorite-noksan-list" class="noksan-favorite-select" aria-label="Favori noksan listesi seç"></select>
-          <input id="favorite-noksan-list-name" class="noksan-favorite-input" type="text" placeholder="Yeni liste adı" autocomplete="off" />
+          <div id="favorite-noksan-list" class="noksan-favorite-list" aria-label="Favori noksan listeleri"></div>
           <div class="noksan-favorite-actions">
             <button id="btn-create-favorite-noksan-list" class="noksan-favorite-btn primary" type="button">Liste oluştur</button>
-            <button id="btn-load-favorite-noksan-list" class="noksan-favorite-btn" type="button">Önizle</button>
             <button id="btn-save-selected-to-favorite-list" class="noksan-favorite-btn" type="button">Seçilenleri kaydet</button>
-            <button id="btn-delete-favorite-noksan-list" class="noksan-favorite-btn danger" type="button">Listeyi sil</button>
           </div>
           <p id="favorite-noksan-status" class="noksan-favorite-status"></p>
         </div>
@@ -880,6 +908,17 @@
           <button id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" type="button">Vazgeç</button>
           <button id="btn-save-edit" class="btn-edit-action btn-edit-save" type="button">Kaydet</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Favori liste seçimi modalı -->
+    <div id="favorite-picker-modal" class="edit-modal hidden">
+      <div class="edit-modal-content">
+        <div class="edit-modal-header">
+          <h3>⭐ Favori Liste Seç</h3>
+          <button id="btn-close-favorite-picker" class="btn-close-modal" type="button">&times;</button>
+        </div>
+        <div id="favorite-picker-body" class="edit-modal-body"></div>
       </div>
     </div>
 

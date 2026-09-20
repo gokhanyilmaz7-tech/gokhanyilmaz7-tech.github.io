@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,732,347 words
+- 967 files · ~1,733,287 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1136 nodes · 2038 edges · 64 communities (56 shown, 3 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 96 edges (avg confidence: 0.85)
+- 1150 nodes · 2096 edges · 70 communities (61 shown, 4 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 101 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `cf38386a`
+- Built from commit: `6657f9ae`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -63,17 +63,23 @@
 - index-BFuwxWrC.js
 - main-ANpTSETr.js
 - main-BGzingDg.js
-- modulepreload-polyfill-B5Qt9EMX.js
+- main-BMbVswpm.js
+- main-CBWctxH4.js
+- main-CD5P1BfO.js
 - main-DIG814bC.js
 - main-DRONz_BM.js
+- mevzuatBaglantilari-CiURpUUR.js
+- main-BhAxn0r2.js
 - Handler
 - test_run.js
 - manifest.json
 - public/manifest.json
 - hesaplama.js
 - scroll-top.js
+- admin-jppI3dUa.js
 - Mevzuat Rehberi
 - admin.js
+- modulepreload-polyfill-B5Qt9EMX.js
 
 ## God Nodes (most connected - your core abstractions)
 1. `_` - 38 edges
@@ -81,11 +87,11 @@
 3. `w()` - 21 edges
 4. `$` - 21 edges
 5. `requireAccount()` - 20 edges
-6. `fetch()` - 19 edges
-7. `renderStream()` - 17 edges
-8. `h()` - 16 edges
-9. `k()` - 16 edges
-10. `A()` - 16 edges
+6. `initNoksanlar()` - 20 edges
+7. `fetch()` - 19 edges
+8. `renderStream()` - 17 edges
+9. `h()` - 16 edges
+10. `k()` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `N()` --indirect_call--> `g()`  [INFERRED]
@@ -102,7 +108,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (64 total, 3 thin omitted)
+## Communities (70 total, 4 thin omitted)
 
 ### Community 0 - "report-page.js"
 Cohesion: 0.07
@@ -137,8 +143,8 @@ Cohesion: 0.21
 Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), applyProvisionOverrides(), bindInlineToolbar(), blockNodes(), caretAtBlockStart(), copyFormatTemplate() (+13 more)
 
 ### Community 8 - "noksanlar.js"
-Cohesion: 0.19
-Nodes (27): clearBasket(), closeEditModal(), closePreviewModal(), copyToClipboard(), customTexts, escapeHtml(), exportToCsv(), exportToPdf() (+19 more)
+Cohesion: 0.15
+Nodes (41): activeFavoriteList(), addNoksanToActiveFavoriteList(), clearBasket(), closeEditModal(), closePreviewModal(), copyToClipboard(), createFavoriteNoksanList(), createLocalId() (+33 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -296,9 +302,17 @@ Nodes (8): c(), m(), n, o, r(), s(), u(), v
 Cohesion: 0.33
 Nodes (8): c(), m, o(), r, s, t(), u(), v()
 
-### Community 48 - "modulepreload-polyfill-B5Qt9EMX.js"
-Cohesion: 0.05
-Nodes (44): e(), n, o(), r(), s(), a(), c, l() (+36 more)
+### Community 48 - "main-BMbVswpm.js"
+Cohesion: 0.33
+Nodes (8): c(), m(), n, o, r(), t(), u(), v
+
+### Community 49 - "main-CBWctxH4.js"
+Cohesion: 0.33
+Nodes (8): c(), d(), p(), r(), s, t(), u, v
+
+### Community 50 - "main-CD5P1BfO.js"
+Cohesion: 0.33
+Nodes (8): c(), m(), n, o, r(), s(), u(), v
 
 ### Community 51 - "main-DIG814bC.js"
 Cohesion: 0.36
@@ -307,6 +321,14 @@ Nodes (8): c, d, l(), n(), o(), p(), t, u()
 ### Community 52 - "main-DRONz_BM.js"
 Cohesion: 0.33
 Nodes (8): a(), c(), d, i(), l(), n(), o, u()
+
+### Community 53 - "mevzuatBaglantilari-CiURpUUR.js"
+Cohesion: 0.29
+Nodes (7): e, I, M, N(), R, t, V
+
+### Community 54 - "main-BhAxn0r2.js"
+Cohesion: 0.43
+Nodes (6): a(), c, l(), o(), r(), t
 
 ### Community 56 - "test_run.js"
 Cohesion: 0.33
@@ -320,6 +342,10 @@ Nodes (3): pageCount, pdf, sections
 Cohesion: 0.50
 Nodes (3): pageCount, pdf, sections
 
+### Community 61 - "admin-jppI3dUa.js"
+Cohesion: 0.53
+Nodes (5): e(), n, o(), r(), s()
+
 ### Community 66 - "Mevzuat Rehberi"
 Cohesion: 0.50
 Nodes (3): Mevzuat Rehberi, Yönetici girişi, Çalıştırma
@@ -329,21 +355,21 @@ Cohesion: 0.35
 Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+2 more)
 
 ## Knowledge Gaps
-- **338 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+333 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 424 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **339 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+334 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 425 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `_` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Why does `$` connect `$` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Why does `$` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `n`, `r`, `I` to the rest of the system?**
-  _338 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _339 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `report-page.js` be split into smaller, more focused modules?**
   _Cohesion score 0.0667578659370725 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**

@@ -12,6 +12,7 @@ let activeEditId = null;
 const FAVORITE_NOKSAN_KEY = 'isg-favorite-noksan-lists';
 let favoriteNoksanData = loadFavoriteNoksanData();
 let activeFavoriteListId = favoriteNoksanData.activeListId || favoriteNoksanData.lists[0]?.id || null;
+let pendingFavoriteNoksanId = null;
 
 function initNoksanlar() {
   renderAccordions();
@@ -68,11 +69,12 @@ function initNoksanlar() {
   document.getElementById('btn-export-tedbirler-main')?.addEventListener('click', exportToTedbirler);
   document.getElementById('btn-clear-basket')?.addEventListener('click', clearBasket);
   document.getElementById('btn-reset-noksan-page')?.addEventListener('click', resetNoksanPage);
-  document.getElementById('favorite-noksan-list')?.addEventListener('change', (e) => { activeFavoriteListId = e.target.value || null; saveFavoriteNoksanData(); renderAccordions(); renderFavoriteNoksanTools('Favori liste seçildi.'); });
   document.getElementById('btn-create-favorite-noksan-list')?.addEventListener('click', createFavoriteNoksanList);
-  document.getElementById('btn-load-favorite-noksan-list')?.addEventListener('click', loadActiveFavoriteNoksanList);
   document.getElementById('btn-save-selected-to-favorite-list')?.addEventListener('click', saveSelectedToActiveFavoriteList);
-  document.getElementById('btn-delete-favorite-noksan-list')?.addEventListener('click', deleteActiveFavoriteNoksanList);
+  document.getElementById('btn-close-favorite-picker')?.addEventListener('click', closeFavoritePicker);
+  document.getElementById('favorite-picker-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'favorite-picker-modal') closeFavoritePicker();
+  });
 
   // Modal Footer Export Events
   document.getElementById('modal-export-word')?.addEventListener('click', exportToWord);
@@ -137,7 +139,7 @@ function renderAccordions() {
               const strId = String(item.id);
               const isSelected = selectedIds.has(strId);
               const visibleText = customTexts[strId] || item.text;
-              const favoriteActive = isItemInActiveFavoriteList(strId);
+              const favoriteActive = isItemInAnyFavoriteList(strId);
               return `
                 <tr class="noksan-row ${isSelected ? 'selected' : ''}" data-id="${strId}">
                   <td class="sira-no">${idx + 1}</td>
@@ -200,7 +202,7 @@ function renderAccordions() {
     accordionItem.querySelectorAll('.btn-favorite-noksan').forEach((button) => {
       button.addEventListener('click', (e) => {
         e.stopPropagation();
-        addNoksanToActiveFavoriteList(button.dataset.favoriteId);
+        openFavoritePicker(button.dataset.favoriteId);
       });
     });
 
@@ -257,8 +259,16 @@ function activeFavoriteList() {
   return favoriteNoksanData.lists.find(list => list.id === activeFavoriteListId) || null;
 }
 
-function isItemInActiveFavoriteList(strId) {
-  const list = activeFavoriteList();
+function favoriteListById(listId) {
+  return favoriteNoksanData.lists.find(list => list.id === listId) || null;
+}
+
+function isItemInAnyFavoriteList(strId) {
+  return favoriteNoksanData.lists.some(list => list.items.some(item => String(item.id) === String(strId)));
+}
+
+function isItemInFavoriteList(strId, listId) {
+  const list = favoriteListById(listId);
   return Boolean(list && list.items.some(item => String(item.id) === String(strId)));
 }
 
@@ -270,76 +280,155 @@ function currentItemForFavorite(strId) {
 }
 
 function renderFavoriteNoksanTools(message = '') {
-  const select = document.getElementById('favorite-noksan-list');
+  const listEl = document.getElementById('favorite-noksan-list');
   const status = document.getElementById('favorite-noksan-status');
-  if (!select) return;
+  if (!listEl) return;
 
   if (!activeFavoriteListId && favoriteNoksanData.lists.length) {
     activeFavoriteListId = favoriteNoksanData.lists[0].id;
   }
 
-  select.innerHTML = favoriteNoksanData.lists.length
-    ? favoriteNoksanData.lists.map((list) => `<option value="${escapeHtml(list.id)}" ${list.id === activeFavoriteListId ? 'selected' : ''}>${escapeHtml(list.name)} (${list.items.length})</option>`).join('')
-    : '<option value="">Favori listesi yok</option>';
+  if (!favoriteNoksanData.lists.length) {
+    listEl.innerHTML = '<p class="noksan-favorite-status">Henüz favori liste yok.</p>';
+  } else {
+    listEl.innerHTML = favoriteNoksanData.lists.map((list) => `
+      <div class="noksan-favorite-list-row ${list.id === activeFavoriteListId ? 'active' : ''}" data-list-id="${escapeHtml(list.id)}">
+        <button class="noksan-favorite-list-name" type="button" data-select-favorite-list="${escapeHtml(list.id)}" title="Bu listeyi seç">
+          ${escapeHtml(list.name)}
+          <span class="noksan-favorite-list-count">${list.items.length} noksanlık</span>
+        </button>
+        <button class="noksan-favorite-list-icon" type="button" data-preview-favorite-list="${escapeHtml(list.id)}" title="Listeyi önizle" aria-label="Listeyi önizle">👁️</button>
+        <button class="noksan-favorite-list-icon danger" type="button" data-delete-favorite-list="${escapeHtml(list.id)}" title="Listeyi sil" aria-label="Listeyi sil">🗑️</button>
+      </div>
+    `).join('');
+
+    listEl.querySelectorAll('[data-select-favorite-list]').forEach((button) => {
+      button.addEventListener('click', () => selectFavoriteList(button.dataset.selectFavoriteList));
+    });
+    listEl.querySelectorAll('[data-preview-favorite-list]').forEach((button) => {
+      button.addEventListener('click', () => loadFavoriteNoksanList(button.dataset.previewFavoriteList));
+    });
+    listEl.querySelectorAll('[data-delete-favorite-list]').forEach((button) => {
+      button.addEventListener('click', () => deleteFavoriteNoksanList(button.dataset.deleteFavoriteList));
+    });
+  }
 
   if (status) {
     const list = activeFavoriteList();
-    status.textContent = message || (list ? `${list.name}: ${list.items.length} noksanlık` : 'Önce bir favori liste oluşturun.');
+    status.textContent = message || (list ? `Seçili liste: ${list.name}` : 'Liste oluşturmak için “Liste oluştur” düğmesine basın.');
   }
 
+  updatePreviewFavoriteName();
+}
+
+function updatePreviewFavoriteName() {
   const previewName = document.getElementById('preview-favorite-list-name');
-  if (previewName) {
-    const list = activeFavoriteList();
-    previewName.textContent = list ? ` · ${list.name}` : '';
-  }
+  if (!previewName) return;
+  const list = activeFavoriteList();
+  previewName.textContent = list ? ` · ${list.name}` : '';
+}
+
+function selectFavoriteList(listId) {
+  if (!favoriteListById(listId)) return;
+  activeFavoriteListId = listId;
+  saveFavoriteNoksanData();
+  renderFavoriteNoksanTools('Favori liste seçildi.');
+  renderAccordions();
 }
 
 function createFavoriteNoksanList() {
-  const input = document.getElementById('favorite-noksan-list-name');
-  const name = input?.value.trim() || `Favori Liste ${favoriteNoksanData.lists.length + 1}`;
-  const newList = { id: createLocalId(), name, items: [] };
+  const name = prompt('Favori noksan listesi adı:');
+  if (name === null) return;
+  const cleanedName = name.trim();
+  if (!cleanedName) {
+    renderFavoriteNoksanTools('Liste adı boş bırakılamaz.');
+    return;
+  }
+
+  const newList = { id: createLocalId(), name: cleanedName, items: [] };
   favoriteNoksanData.lists.push(newList);
   activeFavoriteListId = newList.id;
-  if (input) input.value = '';
   saveFavoriteNoksanData();
   renderFavoriteNoksanTools('Yeni favori noksan listesi oluşturuldu.');
   renderAccordions();
 }
 
-function deleteActiveFavoriteNoksanList() {
-  const list = activeFavoriteList();
+function deleteFavoriteNoksanList(listId) {
+  const list = favoriteListById(listId);
   if (!list) return;
   if (!confirm(`${list.name} favori listesi silinsin mi?`)) return;
   favoriteNoksanData.lists = favoriteNoksanData.lists.filter(item => item.id !== list.id);
-  activeFavoriteListId = favoriteNoksanData.lists[0]?.id || null;
+  if (activeFavoriteListId === list.id) {
+    activeFavoriteListId = favoriteNoksanData.lists[0]?.id || null;
+  }
   saveFavoriteNoksanData();
   renderFavoriteNoksanTools('Favori liste silindi.');
   renderAccordions();
 }
 
-function addNoksanToActiveFavoriteList(strId) {
-  let list = activeFavoriteList();
-  if (!list) {
-    const newList = { id: createLocalId(), name: 'Genel Favoriler', items: [] };
-    favoriteNoksanData.lists.push(newList);
-    activeFavoriteListId = newList.id;
-    list = newList;
-  }
-
+function openFavoritePicker(strId) {
   const favoriteItem = currentItemForFavorite(strId);
   if (!favoriteItem) return;
 
+  if (!favoriteNoksanData.lists.length) {
+    const newList = { id: createLocalId(), name: 'Genel Favoriler', items: [] };
+    favoriteNoksanData.lists.push(newList);
+    activeFavoriteListId = newList.id;
+    saveFavoriteNoksanData();
+  }
+
+  pendingFavoriteNoksanId = String(strId);
+  renderFavoritePicker();
+  document.getElementById('favorite-picker-modal')?.classList.remove('hidden');
+}
+
+function closeFavoritePicker() {
+  document.getElementById('favorite-picker-modal')?.classList.add('hidden');
+  pendingFavoriteNoksanId = null;
+}
+
+function renderFavoritePicker() {
+  const body = document.getElementById('favorite-picker-body');
+  if (!body || !pendingFavoriteNoksanId) return;
+
+  body.innerHTML = `
+    <div class="noksan-favorite-list">
+      ${favoriteNoksanData.lists.map((list) => {
+        const active = isItemInFavoriteList(pendingFavoriteNoksanId, list.id);
+        return `
+          <button class="noksan-favorite-btn ${active ? 'primary' : ''}" type="button" data-picker-list="${escapeHtml(list.id)}">
+            ${active ? '⭐' : '☆'} ${escapeHtml(list.name)} (${list.items.length})
+          </button>
+        `;
+      }).join('')}
+    </div>
+  `;
+
+  body.querySelectorAll('[data-picker-list]').forEach((button) => {
+    button.addEventListener('click', () => toggleNoksanFavoriteList(pendingFavoriteNoksanId, button.dataset.pickerList));
+  });
+}
+
+function toggleNoksanFavoriteList(strId, listId) {
+  const list = favoriteListById(listId);
+  const favoriteItem = currentItemForFavorite(strId);
+  if (!list || !favoriteItem) return;
+
   const existingIndex = list.items.findIndex(item => String(item.id) === String(strId));
   if (existingIndex >= 0) {
-    list.items[existingIndex] = favoriteItem;
-    renderFavoriteNoksanTools('Favori noksan güncellendi.');
+    list.items.splice(existingIndex, 1);
+    activeFavoriteListId = list.id;
+    saveFavoriteNoksanData();
+    renderFavoriteNoksanTools('Noksanlık favori listeden çıkarıldı.');
   } else {
     list.items.push(favoriteItem);
+    activeFavoriteListId = list.id;
+    saveFavoriteNoksanData();
     renderFavoriteNoksanTools('Noksanlık favori listeye eklendi.');
   }
 
-  saveFavoriteNoksanData();
   renderAccordions();
+  renderFavoritePicker();
 }
 
 function saveSelectedToActiveFavoriteList() {
@@ -359,13 +448,14 @@ function saveSelectedToActiveFavoriteList() {
   renderAccordions();
 }
 
-function loadActiveFavoriteNoksanList() {
-  const list = activeFavoriteList();
+function loadFavoriteNoksanList(listId) {
+  const list = favoriteListById(listId);
   if (!list) {
     renderFavoriteNoksanTools('Önce bir favori liste oluşturun.');
     return;
   }
 
+  activeFavoriteListId = list.id;
   selectedIds = new Set(list.items.map(item => String(item.id)));
   customTexts = {};
   list.items.forEach((favoriteItem) => {
@@ -374,6 +464,7 @@ function loadActiveFavoriteNoksanList() {
       customTexts[String(favoriteItem.id)] = favoriteItem.text;
     }
   });
+  saveFavoriteNoksanData();
   saveSelectionState();
   renderAccordions();
   updateExportBadge();
