@@ -462,7 +462,7 @@
       "file_type": "code",
       "norm_label": "executeglobalsearch()",
       "source_file": "src/main.js",
-      "source_location": "L117"
+      "source_location": "L119"
     },
     {
       "id": "src_main_loadmanifest",
@@ -474,7 +474,7 @@
       "file_type": "code",
       "norm_label": "loadmanifest()",
       "source_file": "src/main.js",
-      "source_location": "L100"
+      "source_location": "L102"
     },
     {
       "id": "src_main_rendersections",
@@ -19304,7 +19304,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.js",
-      "source_location": "L105",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -32976,7 +32976,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.js",
-      "source_location": "L100",
+      "source_location": "L102",
       "weight": 1.0
     },
     {
@@ -32987,7 +32987,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.js",
-      "source_location": "L117",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -36330,5 +36330,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e5eab43c99f9ee282d62f9c865fee255b026bef2"
+  "built_at_commit": "6e19ef82995c6279e9954c3c04ca32f50eebe310"
 }

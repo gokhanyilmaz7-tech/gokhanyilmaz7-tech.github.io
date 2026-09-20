@@ -5640,10 +5640,10 @@
     "semantic_hash": "109349fe400dc9598591a642b39b5afd"
   },
   "src/main.js": {
-    "mtime": 1788123873.475132,
-    "seen": 1789843109.229633,
-    "ast_hash": "6d4bacf4ee4f1818df7321d69932b042",
-    "semantic_hash": "6d4bacf4ee4f1818df7321d69932b042"
+    "mtime": 1789889394.21671,
+    "seen": 1789889401.552167,
+    "ast_hash": "5caefe7d197e8e3cf337dcd53dcb13bd",
+    "semantic_hash": ""
   },
   "src/noksanlar.js": {
     "mtime": 1787955205.5011928,

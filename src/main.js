@@ -31,7 +31,7 @@ app.innerHTML = `
 
     </aside>
     <section class="content">
-      <div class="welcome"><div class="welcome-icon">§</div><p class="eyebrow">DAYANAKLAR (GENEL)</p><h2>Bir mevzuat seçin</h2><p>Soldaki listeden bir kanun veya yönetmelik seçin. İçerik, okunabilir ve kolay kopyalanabilir ayrı bir sekmede açılır.</p></div>
+      <div class="welcome"><div class="welcome-icon">§</div><p class="eyebrow">DAYANAKLAR (GENEL)</p><h2>Bir mevzuat seçin</h2><p>Soldaki listeden bir kanun veya yönetmelik seçin. İçerik, okunabilir ve kolay kopyalanabilir şekilde aynı ekranda açılır.</p></div>
     </section>
   </main>
   `;
@@ -93,7 +93,9 @@ function renderSections(filter = '') {
     ${(() => { const visual = visualFor(section); return `<button class="section-item" data-id="${section.id}" type="button"><span class="section-visual"><img src="${visual.image}" alt="${visual.label}" loading="lazy" /></span><span class="section-number">${String(state.sections.indexOf(section) + 1).padStart(2, '0')}</span><span class="section-name">${section.title}</span><span class="section-arrow">›</span></button>`; })()}
     `).join('') : '<p class="empty-state">Aramanızla eşleşen mevzuat yok.</p>';
   $('#section-list').querySelectorAll('[data-id]').forEach((button) => {
-    button.addEventListener('click', () => window.open(`/mevzuat.html?id=${encodeURIComponent(button.dataset.id)}`, '_blank'));
+    button.addEventListener('click', () => {
+        window.location.href = `/mevzuat?id=${encodeURIComponent(button.dataset.id)}`;
+      });
   });
 }
 
@@ -240,7 +242,7 @@ async function executeGlobalSearch(query) {
             let escape = (s) => s.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#039;'}[c]));
             snippet = escape(snippet);
         }
-        legMatches.push(`<div class="global-provision-card" onclick="window.open('/mevzuat.html?id=${encodeURIComponent(leg.id)}&page=${page.page}&highlight=${encodeURIComponent(query)}', '_blank')">
+        legMatches.push(`<div class="global-provision-card" onclick="window.location.href='/mevzuat?id=${encodeURIComponent(leg.id)}&page=${page.page}&highlight=${encodeURIComponent(query)}'">
           <div class="g-card-body">
             <p>${snippet}</p>
           </div>

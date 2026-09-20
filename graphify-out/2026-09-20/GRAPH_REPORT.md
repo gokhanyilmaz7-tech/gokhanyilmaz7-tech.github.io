@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,731,440 words
+- 967 files · ~1,731,655 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1126 nodes · 2005 edges · 70 communities (61 shown, 4 thin omitted)
+- 1130 nodes · 2013 edges · 70 communities (61 shown, 4 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 93 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `359bbc74`
+- Built from commit: `e5eab43c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -124,7 +124,7 @@ Nodes (27): App, Bool, Context, Equatable, Identifiable, BrowserCoordinator, Bro
 
 ### Community 3 - "index.js"
 Cohesion: 0.10
-Nodes (54): env, helpers, base64(), decode(), encoder, googleAuth(), json(), readCookie() (+46 more)
+Nodes (58): env, helpers, base64(), decode(), encoder, googleAuth(), json(), readCookie() (+50 more)
 
 ### Community 4 - "mevzuat-RJufrWaC.js"
 Cohesion: 0.09
@@ -365,7 +365,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `_` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **Why does `$` connect `$` to `modulepreload-polyfill-B5Qt9EMX.js`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Why does `$` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `n`, `r`, `I` to the rest of the system?**
