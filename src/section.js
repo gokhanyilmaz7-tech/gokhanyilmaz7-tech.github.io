@@ -448,6 +448,11 @@ async function load() {
   document.body.style.setProperty("--start-counter", data.startProvision ? data.startProvision - 1 : 0);
   title.textContent = data.title;
   document.title = data.title;
+  const oldReturnButton = document.querySelector('#return-to-report');
+  if (oldReturnButton) oldReturnButton.remove();
+  if (new URLSearchParams(window.location.search).get('return') === 'tedbirler') {
+    title.insertAdjacentHTML('beforebegin', '<a id="return-to-report" class="back-link report-return-link" href="/tedbirler.html">Tedbirler sayfasına git</a>');
+  }
   content.innerHTML = pages.map((page, index) => formatLayoutPage(page, 400, index === 0)).join('');
   await setupAccountUI();
   linkCrossPageAnnotations();

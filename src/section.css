@@ -292,3 +292,7 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 .favorite-injection-mode .favorite-star {
     display: inline-flex !important;
 }
+
+.report-return-link{margin-left:auto;margin-right:16px;border:1px solid rgba(255,255,255,.26);border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.08);white-space:nowrap}
+.report-return-link:hover{background:rgba(255,255,255,.16);transform:none}
+@media(max-width:860px){.report-return-link{order:3;margin-left:0;margin-right:0;padding:8px 10px;font-size:12px}}
