@@ -33,7 +33,7 @@ export async function verifyGoogleToken(token, clientId, nonce) {
   if (!await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, base64(parts[2]), encoder.encode(`${parts[0]}.${parts[1]}`))) throw new Error('Google kimliği doğrulanamadı.');
   return payload;
 }
-export async function googleAuth(request, env, {createSession, passwordHash, randomId}) {
+export async function googleAuth(request, env, {createSession, passwordHash, randomId, notifyPendingUser}) {
   const url = new URL(request.url);
   if (request.method !== 'GET' || !['/api/auth/google/start', '/api/auth/google/callback'].includes(url.pathname)) return json({error: 'İstek bulunamadı.'}, 404);
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || !env.GOOGLE_REDIRECT_URI) return json({error: 'Google girişi henüz yapılandırılmadı.'}, 503);
@@ -67,21 +67,28 @@ export async function googleAuth(request, env, {createSession, passwordHash, ran
     if (!response.ok) throw new Error('Google yetkilendirmesi başarısız.');
     const identity = await verifyGoogleToken(tokens.id_token, env.GOOGLE_CLIENT_ID, readCookie(request, 'nonce'));
     const email = identity.email.trim().toLowerCase();
-    let user = await env.DB.prepare('SELECT id, email, google_sub, apple_sub, is_approved FROM users WHERE google_sub = ?').bind(identity.sub).first();
+    let user = await env.DB.prepare('SELECT id, email, google_sub, apple_sub, is_approved, approval_status, rejection_reason, blacklisted_at, notification_status FROM users WHERE google_sub = ?').bind(identity.sub).first();
     if (!user) {
-      const existing = await env.DB.prepare('SELECT id, email, google_sub, apple_sub, is_approved FROM users WHERE email = ?').bind(email).first();
+      const existing = await env.DB.prepare('SELECT id, email, google_sub, apple_sub, is_approved, approval_status, rejection_reason, blacklisted_at, notification_status FROM users WHERE email = ?').bind(email).first();
       // Apple hesapları ve Google'ın sahipliğini doğrulamadığı harici adresler otomatik birleştirilmez.
       if (existing && (existing.apple_sub || existing.google_sub || !(email.endsWith('@gmail.com') || identity.hd))) return finish('/?auth_error=google_link');
       if (existing) {
         const linked = await env.DB.prepare('UPDATE users SET google_sub = ? WHERE id = ? AND google_sub IS NULL AND apple_sub IS NULL').bind(identity.sub, existing.id).run();
         if (linked.meta?.changes !== 1) return finish('/?auth_error=google_link');
-        user = existing;
+        user = {...existing, google_sub: identity.sub};
       } else {
-        user = {id: randomId(), email, is_approved: 0};
-        await env.DB.prepare('INSERT INTO users (id, email, password_hash, google_sub, created_at, is_approved) VALUES (?, ?, ?, ?, ?, 0)').bind(user.id, email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
+        user = {id: randomId(), email, google_sub: identity.sub, is_approved: 0, approval_status: 'pending'};
+        await env.DB.prepare("INSERT INTO users (id, email, password_hash, google_sub, created_at, is_approved, approval_status) VALUES (?, ?, ?, ?, ?, 0, 'pending')").bind(user.id, email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
+        await notifyPendingUser?.(env, user, request);
       }
     }
-    if (!user.is_approved) return finish('/?auth_error=pending');
+    const status = user.blacklisted_at ? 'blocked' : String(user.approval_status || (user.is_approved ? 'approved' : 'pending'));
+    if (status === 'blocked') return finish('/?auth_error=blocked');
+    if (status === 'rejected') {
+      const reason = String(user.rejection_reason || '').trim();
+      return finish(`/?auth_error=rejected${reason ? `&reason=${encodeURIComponent(reason.slice(0, 280))}` : ''}`);
+    }
+    if (status !== 'approved' || Number(user.is_approved) !== 1) return finish('/?auth_error=pending');
     return finish(safeReturn(readCookie(request, 'return'), origin), await createSession(user.id, env, request));
   } catch {
     return finish('/?auth_error=google');

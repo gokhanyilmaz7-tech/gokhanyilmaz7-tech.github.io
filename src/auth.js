@@ -229,7 +229,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const googleErrors = {
       google: 'Google ile giriş tamamlanamadı. Lütfen tekrar deneyin.',
       google_cancelled: 'Google ile giriş iptal edildi.',
-      google_link: 'Bu e-posta mevcut bir hesaba ait. Apple hesabınız varsa Apple ile giriş yapın; diğer hesaplar için yöneticiyle iletişime geçin.'
+      google_link: 'Bu e-posta mevcut bir hesaba ait. Apple hesabınız varsa Apple ile giriş yapın; diğer hesaplar için yöneticiyle iletişime geçin.',
+      blocked: 'Bu hesap için giriş engellenmiştir. Gerekli olduğunu düşünüyorsanız yöneticiyle iletişime geçin.'
     };
     if (googleErrors[params.get('auth_error')]) {
       openDialog();
@@ -238,6 +239,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     if (params.get('auth_error') === 'pending') {
         alert('Üyeliğiniz onaya gönderildi veya inceleniyor. Yönetici onayından sonra giriş yapabileceksiniz.');
+        window.history.replaceState({}, '', '/');
+    }
+    if (params.get('auth_error') === 'rejected') {
+        const reason = params.get('reason');
+        alert(`Üyelik başvurunuz onaylanmadı.${reason ? `\n\nAçıklama: ${reason}` : ''}`);
         window.history.replaceState({}, '', '/');
     }
     if (params.get('auth_required') === '1') {

@@ -7,3 +7,12 @@ APPLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_APPLE_PRIVATE_KEY\n-----END
 GOOGLE_CLIENT_ID=GOOGLE_WEB_ISTEMCI_KIMLIGI
 GOOGLE_CLIENT_SECRET=GOOGLE_WEB_ISTEMCI_GIZLI_ANAHTARI
 GOOGLE_REDIRECT_URI=https://www.isg-mevzuat-rehberi.com.tr/api/auth/google/callback
+
+# Yeni kullanıcı onay başvurusu için isteğe bağlı yönetici bildirimleri.
+ADMIN_NOTIFY_WEBHOOK=
+RESEND_API_KEY=
+ADMIN_NOTIFY_EMAIL=gokhanyilmaz7@icloud.com
+ADMIN_NOTIFY_FROM="İSG Mevzuat Rehberi <onay@isg-mevzuat-rehberi.com.tr>"
+WHATSAPP_ACCESS_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=
+ADMIN_WHATSAPP_TO=

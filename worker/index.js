@@ -68,8 +68,8 @@ async function currentUser(request, env) {
   const raw = cookie(request, SESSION_COOKIE);
   if (!raw) return null;
   const tokenHash = base64Url(await sha256(raw));
-  const row = await env.DB.prepare('SELECT users.id, users.email, users.apple_sub, users.is_approved FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.token_hash = ? AND sessions.expires_at > ?').bind(tokenHash, Date.now()).first();
-  return (row && row.is_approved) ? {...row, isAdmin: isAdmin(row)} : null;
+  const row = await env.DB.prepare("SELECT users.id, users.email, users.apple_sub, users.is_approved, users.approval_status, users.blacklisted_at FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.token_hash = ? AND sessions.expires_at > ?").bind(tokenHash, Date.now()).first();
+  return (row && isApprovedUser(row)) ? {...row, isAdmin: isAdmin(row)} : null;
 }
 
 function isAdmin(user) {
@@ -81,6 +81,80 @@ function isAdmin(user) {
 function isLocalRequest(request) {
   const hostname = new URL(request.url).hostname;
   return hostname === 'localhost' || hostname === '127.0.0.1';
+}
+
+function approvalStatus(user) {
+  if (user?.blacklisted_at) return 'blocked';
+  return String(user?.approval_status || (user?.is_approved ? 'approved' : 'pending'));
+}
+
+function isApprovedUser(user) {
+  return approvalStatus(user) === 'approved' && Number(user?.is_approved) === 1;
+}
+
+function authRedirectForUser(user, request) {
+  const origin = new URL(request.url).origin;
+  const status = approvalStatus(user);
+  if (status === 'blocked') return new URL('/?auth_error=blocked', origin);
+  if (status === 'rejected') {
+    const redirect = new URL('/?auth_error=rejected', origin);
+    const reason = String(user?.rejection_reason || '').trim();
+    if (reason) redirect.searchParams.set('reason', reason.slice(0, 280));
+    return redirect;
+  }
+  if (status !== 'approved') return new URL('/?auth_error=pending', origin);
+  return null;
+}
+
+function adminUrl(request) {
+  return new URL('/admin.html', new URL(request.url).origin).href;
+}
+
+function userProvider(user) {
+  if (user?.google_sub) return 'Google';
+  if (user?.apple_sub) return 'Apple';
+  return 'E-posta';
+}
+
+function pendingMessage(user, request) {
+  return `Yeni kullanıcı onay bekliyor:\n\nE-posta: ${user.email}\nGiriş yöntemi: ${userProvider(user)}\nYönetici paneli: ${adminUrl(request)}`;
+}
+
+async function sendAdminNotification(env, message) {
+  const results = [];
+  if (env.ADMIN_NOTIFY_WEBHOOK) {
+    const response = await fetch(env.ADMIN_NOTIFY_WEBHOOK, {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({text: message})});
+    results.push({channel: 'webhook', ok: response.ok, status: response.status});
+  }
+  if (env.RESEND_API_KEY && env.ADMIN_NOTIFY_EMAIL) {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json'},
+      body: JSON.stringify({from: env.ADMIN_NOTIFY_FROM || 'İSG Mevzuat Rehberi <onboarding@resend.dev>', to: [env.ADMIN_NOTIFY_EMAIL], subject: 'Yeni kullanıcı onayı bekliyor', text: message})
+    });
+    results.push({channel: 'email', ok: response.ok, status: response.status});
+  }
+  if (env.WHATSAPP_ACCESS_TOKEN && env.WHATSAPP_PHONE_NUMBER_ID && env.ADMIN_WHATSAPP_TO) {
+    const response = await fetch(`https://graph.facebook.com/v21.0/${env.WHATSAPP_PHONE_NUMBER_ID}/messages`, {
+      method: 'POST',
+      headers: {authorization: `Bearer ${env.WHATSAPP_ACCESS_TOKEN}`, 'content-type': 'application/json'},
+      body: JSON.stringify({messaging_product: 'whatsapp', to: env.ADMIN_WHATSAPP_TO, type: 'text', text: {preview_url: true, body: message}})
+    });
+    results.push({channel: 'whatsapp', ok: response.ok, status: response.status});
+  }
+  return results;
+}
+
+async function notifyPendingUser(env, user, request) {
+  if (!env.ADMIN_NOTIFY_WEBHOOK && !env.RESEND_API_KEY && !env.WHATSAPP_ACCESS_TOKEN) return;
+  try {
+    const results = await sendAdminNotification(env, pendingMessage(user, request));
+    const ok = results.some((result) => result.ok);
+    const detail = results.map((result) => `${result.channel}:${result.status}`).join(', ');
+    await env.DB.prepare("UPDATE users SET notification_status = ?, notification_error = ?, notified_at = ? WHERE id = ?").bind(ok ? 'sent' : 'failed', ok ? '' : detail.slice(0, 500), Date.now(), user.id).run();
+  } catch (notificationError) {
+    await env.DB.prepare("UPDATE users SET notification_status = 'failed', notification_error = ?, notified_at = ? WHERE id = ?").bind(String(notificationError?.message || notificationError).slice(0, 500), Date.now(), user.id).run();
+  }
 }
 
 function cookieHeader(name, value, maxAge = 600, sameSite = 'Lax') {
@@ -172,18 +246,18 @@ async function appleAuth(request, env, pathname) {
       const identity = await verifyAppleIdentityToken(tokens.id_token, env, decodeURIComponent(cookie(request, APPLE_NONCE_COOKIE)));
       const email = String(identity.email || '').trim().toLowerCase();
       if (!email) throw new Error('Apple hesabından e-posta alınamadı.');
-      let user = await env.DB.prepare('SELECT id, email, apple_sub, is_approved FROM users WHERE apple_sub = ? OR email = ?').bind(identity.sub, email).first();
+      let user = await env.DB.prepare('SELECT id, email, google_sub, apple_sub, created_at, is_approved, approval_status, rejection_reason, blacklisted_at, notification_status FROM users WHERE apple_sub = ? OR email = ?').bind(identity.sub, email).first();
       
       if (!user) {
-        user = {id: randomId(), email, is_approved: 0};
-        await env.DB.prepare('INSERT INTO users (id, email, password_hash, apple_sub, created_at, is_approved) VALUES (?, ?, ?, ?, ?, 0)').bind(user.id, user.email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
+        user = {id: randomId(), email, apple_sub: identity.sub, is_approved: 0, approval_status: 'pending'};
+        await env.DB.prepare("INSERT INTO users (id, email, password_hash, apple_sub, created_at, is_approved, approval_status) VALUES (?, ?, ?, ?, ?, 0, 'pending')").bind(user.id, user.email, await passwordHash(randomId(32)), identity.sub, Date.now()).run();
+        await notifyPendingUser(env, user, request);
       } else {
         await env.DB.prepare('UPDATE users SET email = ?, apple_sub = ? WHERE id = ?').bind(email, identity.sub, user.id).run();
+        user = {...user, email, apple_sub: identity.sub};
       }
-      if (!user.is_approved) {
-        const redirect = new URL('/?auth_error=pending', new URL(request.url).origin);
-        return new Response(null, {status: 302, headers: {location: redirect.toString()}});
-      }
+      const blockedRedirect = authRedirectForUser(user, request);
+      if (blockedRedirect) return new Response(null, {status: 302, headers: {location: blockedRedirect.toString()}});
 
       const redirect = new URL(decodeURIComponent(cookie(request, APPLE_RETURN_COOKIE) || '/admin.html'), new URL(request.url).origin);
       const response = new Response(null, {status: 302, headers: {location: redirect.toString()}});
@@ -266,11 +340,75 @@ async function adminSummary(request, env) {
   const user = await currentUser(request, env);
   if (!user?.isAdmin) return error('Yönetici yetkisi gerekiyor.', 403);
   const [users, lists, reports] = await Promise.all([
-    env.DB.prepare('SELECT id, email, apple_sub, created_at, is_approved FROM users ORDER BY created_at DESC').all(),
+    env.DB.prepare('SELECT id, email, google_sub, apple_sub, created_at, is_approved, approval_status, rejection_reason, reviewed_at, reviewed_by, blacklisted_at, notification_status, notification_error, notified_at FROM users ORDER BY created_at DESC').all(),
     env.DB.prepare('SELECT COUNT(*) AS count FROM favorite_lists').first(),
     env.DB.prepare('SELECT COUNT(*) AS count FROM report_items').first(),
   ]);
-  return json({user: {id: user.id, email: user.email, isAdmin: true}, counts: {users: Number(users.results.length), lists: Number(lists?.count || 0), reports: Number(reports?.count || 0)}, users: users.results.map((entry) => ({id: entry.id, email: entry.email, provider: entry.apple_sub ? 'Apple' : 'E-posta', createdAt: entry.created_at, isApproved: entry.is_approved}))});
+  const mappedUsers = users.results.map((entry) => {
+    const status = approvalStatus(entry);
+    const subject = encodeURIComponent('İSG Mevzuat Rehberi üyelik başvurunuz');
+    const approvedText = `Merhaba,\n\nİSG Mevzuat Rehberi üyelik başvurunuz onaylandı. Uygulamaya Google veya Apple hesabınızla giriş yapabilirsiniz.\n\n${new URL('/', new URL(request.url).origin).href}`;
+    const rejectedText = `Merhaba,\n\nİSG Mevzuat Rehberi üyelik başvurunuz şu gerekçeyle onaylanmadı:\n\n${entry.rejection_reason || 'Başvurunuz uygun bulunmadı.'}\n\nSorunuz varsa bu mesaja yanıt verebilirsiniz.`;
+    const body = encodeURIComponent(status === 'approved' ? approvedText : rejectedText);
+    return {
+      id: entry.id,
+      email: entry.email,
+      provider: userProvider(entry),
+      createdAt: entry.created_at,
+      isApproved: Number(entry.is_approved) === 1,
+      status,
+      rejectionReason: entry.rejection_reason || '',
+      reviewedAt: entry.reviewed_at || null,
+      reviewedBy: entry.reviewed_by || '',
+      blacklistedAt: entry.blacklisted_at || null,
+      notificationStatus: entry.notification_status || '',
+      notificationError: entry.notification_error || '',
+      notifiedAt: entry.notified_at || null,
+      mailto: `mailto:${encodeURIComponent(entry.email)}?subject=${subject}&body=${body}`,
+      whatsapp: `https://wa.me/?text=${body}`
+    };
+  });
+  return json({user: {id: user.id, email: user.email, isAdmin: true}, counts: {users: Number(mappedUsers.length), pending: mappedUsers.filter((entry) => entry.status === 'pending').length, blocked: mappedUsers.filter((entry) => entry.status === 'blocked').length, lists: Number(lists?.count || 0), reports: Number(reports?.count || 0)}, users: mappedUsers});
+}
+
+async function adminUserAction(request, env, url) {
+  const user = await currentUser(request, env);
+  if (!user?.isAdmin) return new Response('Not Found', {status: 404});
+  const parts = url.pathname.split('/').filter(Boolean);
+  const targetId = parts[2];
+  const action = parts[3] || (request.method === 'POST' ? 'approve' : request.method === 'DELETE' ? 'delete' : '');
+  if (!targetId) return error('Kullanıcı seçimi geçersiz.', 400);
+  const target = await env.DB.prepare('SELECT id, email FROM users WHERE id = ?').bind(targetId).first();
+  if (!target) return error('Kullanıcı bulunamadı.', 404);
+  if (target.id === user.id && ['reject', 'blacklist', 'delete'].includes(action)) return error('Kendi yönetici hesabınız üzerinde bu işlem yapılamaz.', 400);
+  const body = await request.json().catch(() => ({}));
+  const reason = String(body?.reason || '').trim().slice(0, 1000);
+  const now = Date.now();
+  if (action === 'approve' && request.method === 'POST') {
+    await env.DB.prepare("UPDATE users SET is_approved = 1, approval_status = 'approved', rejection_reason = '', blacklisted_at = NULL, reviewed_at = ?, reviewed_by = ? WHERE id = ?").bind(now, user.email, targetId).run();
+    return json({ok: true});
+  }
+  if (action === 'reject' && request.method === 'POST') {
+    if (!reason) return error('Red açıklaması zorunludur.', 400);
+    await env.DB.batch([
+      env.DB.prepare("UPDATE users SET is_approved = 0, approval_status = 'rejected', rejection_reason = ?, reviewed_at = ?, reviewed_by = ? WHERE id = ?").bind(reason, now, user.email, targetId),
+      env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(targetId)
+    ]);
+    return json({ok: true});
+  }
+  if (action === 'blacklist' && request.method === 'POST') {
+    if (!reason) return error('Kara liste açıklaması zorunludur.', 400);
+    await env.DB.batch([
+      env.DB.prepare("UPDATE users SET is_approved = 0, approval_status = 'rejected', rejection_reason = ?, blacklisted_at = ?, reviewed_at = ?, reviewed_by = ? WHERE id = ?").bind(reason, now, now, user.email, targetId),
+      env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(targetId)
+    ]);
+    return json({ok: true});
+  }
+  if (action === 'delete' && request.method === 'DELETE') {
+    await env.DB.prepare('DELETE FROM users WHERE id = ?').bind(targetId).run();
+    return json({ok: true});
+  }
+  return error('İstek desteklenmiyor.', 405);
 }
 
 function cleanProvisionHtml(value) {
@@ -489,24 +627,11 @@ async function adminTaskAttachmentsAPI(request, env, url) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname.startsWith('/api/auth/google/')) return googleAuth(request, env, {createSession, passwordHash, randomId});
+    if (url.pathname.startsWith('/api/auth/google/')) return googleAuth(request, env, {createSession, passwordHash, randomId, notifyPendingUser});
     if (url.pathname.startsWith('/api/auth/apple/')) return (await appleAuth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
     if (url.pathname.startsWith('/api/auth/')) return (await auth(request, env, url.pathname)) || error('İstek bulunamadı.', 404);
-        if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
-    if (url.pathname.startsWith('/api/admin/users/') && request.method === 'POST') {
-      const user = await currentUser(request, env);
-      if (!user?.isAdmin) return new Response('Not Found', {status: 404});
-      const targetId = url.pathname.split('/').pop();
-      await env.DB.prepare('UPDATE users SET is_approved = 1 WHERE id = ?').bind(targetId).run();
-      return json({ok: true});
-    }
-    if (url.pathname.startsWith('/api/admin/users/') && request.method === 'DELETE') {
-      const user = await currentUser(request, env);
-      if (!user?.isAdmin) return new Response('Not Found', {status: 404});
-      const targetId = url.pathname.split('/').pop();
-      await env.DB.prepare('DELETE FROM users WHERE id = ?').bind(targetId).run();
-      return json({ok: true});
-    }
+    if (url.pathname === '/api/admin/summary' && request.method === 'GET') return adminSummary(request, env);
+    if (url.pathname.startsWith('/api/admin/users/')) return adminUserAction(request, env, url);
     if (url.pathname === '/api/admin/provisions') return adminProvisions(request, env);
     if (url.pathname === '/api/favorites') return favorites(request, env);
     if (url.pathname === '/api/program') return programAPI(request, env);
