@@ -136,6 +136,16 @@ const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&am
 const sourceHref = (item) => { const match = String(item.sourceId || item.id || '').match(/-(\d+)-(\d+)$/); const params = new URLSearchParams(); if (match) { params.set('page', match[1]); params.set('block', match[2]); } return `/mevzuat.html?id=${encodeURIComponent(item.sectionId)}${params.toString() ? `&${params}` : ''}`; };
 const uid = () => crypto.randomUUID();
 const normalizeHtml = (html) => String(html || '').replaceAll('white-space:pre', 'white-space:normal');
+const plainTextFromHtml = (html) => {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = String(html || '');
+  return wrapper.innerText.trim();
+};
+const ensureOriginalDescription = (item) => {
+  if (!item) return;
+  if (item.originalHtml === undefined) item.originalHtml = item.html || '';
+  if (item.originalText === undefined) item.originalText = item.text || '';
+};
 let data = readWorkspace();
 let sortMode = 'manual';
 let reportSearchTimer;
@@ -190,11 +200,13 @@ function renderStream() {
     const index = data.reports.findIndex((entry) => entry.id === item.id);
     const otherPositions = data.reports.map((entry, position) => reportSourceId(entry) === reportSourceId(item) && entry.id !== item.id ? position + 1 : 0).filter(Boolean);
     const duplicateNote = otherPositions.length ? `<div class="report-duplicate-sequence">(${otherPositions.join(', ')})</div>` : '';
-    return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<p style="text-align: justify; font-size: 16px; font-weight: normal; color: blue; margin-bottom: 0.5rem; line-height: 1.4;">${esc(item.title)}</p>` : ''}${(item.html || item.text) ? `<div class="favorite-provision-rich-text">` + (item.html ? stripGreenText(normalizeHtml(item.html)) : `<p>${esc(item.text)}</p>`) + `</div>` : ''}${String(item.id).startsWith('manual-') ? '' : `<a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a>`}</div><div class="favorite-card-actions"><button data-report-open-legislation="${esc(item.id)}" style="color:#2e67d2; font-weight:600;">Mevzuat ekle</button><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
+    return `<div class="favorite-provision-shell report-provision-shell"><button class="favorite-card-position" data-report-position="${esc(item.id)}" type="button" aria-label="Rapor sıra numarasını değiştir" title="Bu hükmü doğrudan başka sıraya taşı">${index + 1}</button>${reportRepeatButton(item, 'report-repeat report-plus-card')}${duplicateNote}<article class="favorite-provision-card report-provision-card"><div class="favorite-card-main">${item.title ? `<p style="text-align: justify; font-size: 16px; font-weight: normal; color: blue; margin-bottom: 0.5rem; line-height: 1.4;">${esc(item.title)}</p>` : ''}${(item.html || item.text) ? `<div class="favorite-provision-rich-text">` + (item.html ? stripGreenText(normalizeHtml(item.html)) : `<p>${esc(item.text)}</p>`) + `</div>` : ''}${String(item.id).startsWith('manual-') ? '' : `<a class="favorite-source-link" href="${sourceHref(item)}">Seçili mevzuatta aç →</a>`}</div><div class="favorite-card-actions"><button data-report-open-legislation="${esc(item.id)}" style="color:#2e67d2; font-weight:600;">Mevzuat ekle</button><button data-report-edit="${esc(item.id)}">Başlığı değiştir</button><button data-report-description-edit="${esc(item.id)}">Açıklamayı değiştir</button><button class="report-restore-description" data-report-description-restore="${esc(item.id)}" aria-label="Açıklamayı eski haline getir" title="Açıklamayı eski haline getir">↩</button><button data-report-remove="${esc(item.id)}">Rapordan çıkar</button><div class="favorite-card-reorder"><button data-report-move="up" data-item="${esc(item.id)}" ${index <= 0 ? 'disabled' : ''} aria-label="Yukarı taşı" title="Yukarı taşı">↑</button><button data-report-move="down" data-item="${esc(item.id)}" ${index >= data.reports.length - 1 ? 'disabled' : ''} aria-label="Aşağı taşı" title="Aşağı taşı">↓</button></div></div></article></div>`;
   }).join('') : '<div class="favorite-empty" style="padding-top: 2rem;"> <div style="display: flex; gap: 4rem; justify-content: center; margin-bottom: 1rem;"> <div style="text-align: center;"><button type="button" id="open-legislation-modal" class="favorite-empty-star" aria-label="Mevzuat listesini aç" title="Mevzuattan Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #2e67d2;">Mevzuattan Ekle</p></div> <div style="text-align: center;"><button type="button" id="add-manual-deficiency" class="favorite-empty-star" aria-label="Manuel Ekle" title="Manuel tespit Ekle" style="background:none; border:none; padding:0; cursor:pointer; outline:none;"><span style="transition: transform 0.2s; display:inline-block; color: #b91c1c;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">＋</span></button><p style="margin-top: 0.5rem; font-weight: bold; color: #b91c1c;">Kendin Yaz</p></div> </div> <h2 style="margin-top: 3.5rem;">Raporunuz boş</h2><p>Yukarıdaki butonları kullanarak rapora tespit veya mevzuat maddesi ekleyebilirsiniz.</p></div>';
   const emptyButton = stream.querySelector('#open-legislation-modal'); if (emptyButton) { emptyButton.onclick = () => { localStorage.removeItem('pending-legislation-injection'); openLegislationModal(); }; } const emptyManualButton = stream.querySelector('#add-manual-deficiency'); if (emptyManualButton) { emptyManualButton.onclick = startAddingManualDeficiencies; } stream.querySelectorAll('[data-report-position]').forEach((button) => { button.onclick = () => { const position = prompt(`Yeni sıra numarası (1-${data.reports.length}):`, button.textContent.trim()); if (position !== null) moveTo(button.dataset.reportPosition, position); }; });
   stream.querySelectorAll('[data-report-move]').forEach((button) => { button.onclick = () => move(button.dataset.item, button.dataset.reportMove === 'up' ? -1 : 1); });
-  stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = await customEditTitlePrompt(item?.title || '', item?.html || item?.text || ''); if (title === null || !item) return; item.title = title.trim(); await save(); render(); }; });
+  stream.querySelectorAll('[data-report-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportEdit); const title = await customEditTitlePrompt(item?.title || ''); if (title === null || !item) return; item.title = title.trim(); await save(); render(); }; });
+  stream.querySelectorAll('[data-report-description-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionEdit); if (!item) return; ensureOriginalDescription(item); const currentText = item.html ? plainTextFromHtml(stripGreenText(normalizeHtml(item.html))) : item.text || ''; const description = await customEditDescriptionPrompt(currentText); if (description === null) return; item.text = description.trim(); item.html = ''; await save(); render(); }; });
+  stream.querySelectorAll('[data-report-description-restore]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = data.reports.find((entry) => entry.id === button.dataset.reportDescriptionRestore); if (!item) return; if (item.originalHtml !== undefined || item.originalText !== undefined) { item.html = item.originalHtml || ''; item.text = item.originalText || ''; } await save(); render(); }; });
     stream.querySelectorAll('[data-report-open-legislation]').forEach((button) => { button.onclick = () => { localStorage.setItem('pending-legislation-injection', button.dataset.reportOpenLegislation); openLegislationModal(); }; });
 stream.querySelectorAll('[data-report-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.reports = data.reports.filter((item) => item.id !== button.dataset.reportRemove); save(); render(); }; });
   stream.querySelectorAll('.report-repeat').forEach((button) => { button.onclick = async () => { const item = data.reports.find((entry) => entry.id === button.dataset.reportId); if (!item) return; await addReportCopy(item); data = readWorkspace(); render(); }; });
@@ -580,6 +592,44 @@ function bulkTitlePrompt(missingItems) {
       cleanup();
       resolve(results);
     };
+  });
+}
+
+function customEditDescriptionPrompt(currentDescription) {
+  return new Promise((resolve) => {
+    const modalId = 'custom-edit-description-modal';
+    if (document.getElementById(modalId)) document.getElementById(modalId).remove();
+
+    const cleanCurrentDescription = String(currentDescription || '').replace(/[&<>"']/g, function(m) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
+    });
+
+    const modalHTML = `
+      <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
+        <div style="background: white; border-radius: 12px; width: 90%; max-width: 860px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 24px rgba(16, 42, 67, 0.3);">
+          <div style="padding: 1.25rem; background: #f8fafc; border-bottom: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 1.25rem; margin: 0; color: #102a43; font-weight: bold;">✏️ AÇIKLAMAYI DÜZENLE</h2>
+            <button id="${modalId}-close" style="background: none; border: none; font-size: 1.75rem; cursor: pointer; color: #627d98;">&times;</button>
+          </div>
+          <div style="padding: 1.25rem; background: #fff;">
+            <textarea id="${modalId}-input" rows="10" placeholder="Açıklamayı buraya yazın..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; outline: none; font-family: inherit; line-height: 1.5; resize: vertical;">${cleanCurrentDescription}</textarea>
+          </div>
+          <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="${modalId}-cancel" style="padding: 0.75rem 1.75rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; color: #627d98; font-weight: 600;">İptal</button>
+            <button id="${modalId}-submit" style="padding: 0.75rem 2rem; background: #2e67d2; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(46, 103, 210, 0.2);">Kaydet</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    const modalEl = document.getElementById(modalId);
+    const inputEl = document.getElementById(modalId + '-input');
+    setTimeout(() => { inputEl.focus(); inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length); }, 50);
+    const cleanup = () => modalEl.remove();
+    document.getElementById(modalId + '-cancel').onclick = () => { cleanup(); resolve(null); };
+    document.getElementById(modalId + '-close').onclick = () => { cleanup(); resolve(null); };
+    document.getElementById(modalId + '-submit').onclick = () => { const value = inputEl.value; cleanup(); resolve(value); };
   });
 }
 

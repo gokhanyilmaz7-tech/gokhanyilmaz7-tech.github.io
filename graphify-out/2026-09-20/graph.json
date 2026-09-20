@@ -570,7 +570,7 @@
       "file_type": "code",
       "norm_label": "copytitlestoclipboard()",
       "source_file": "src/report-page.js",
-      "source_location": "L750"
+      "source_location": "L745"
     },
     {
       "id": "src_report_page_customedittitleprompt",
@@ -606,7 +606,7 @@
       "file_type": "code",
       "norm_label": "ensuretitles()",
       "source_file": "src/report-page.js",
-      "source_location": "L641"
+      "source_location": "L636"
     },
     {
       "id": "src_report_page_esc",
@@ -642,7 +642,7 @@
       "file_type": "code",
       "norm_label": "exportwordtitles()",
       "source_file": "src/report-page.js",
-      "source_location": "L659"
+      "source_location": "L654"
     },
     {
       "id": "src_report_page_items",
@@ -21463,7 +21463,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L751",
+      "source_location": "L746",
       "weight": 1.0
     },
     {
@@ -21475,7 +21475,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L753",
+      "source_location": "L748",
       "weight": 1.0
     },
     {
@@ -21487,7 +21487,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L761",
+      "source_location": "L756",
       "weight": 1.0
     },
     {
@@ -21499,7 +21499,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L645",
+      "source_location": "L640",
       "weight": 1.0
     },
     {
@@ -21511,7 +21511,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L654",
+      "source_location": "L649",
       "weight": 1.0
     },
     {
@@ -21523,7 +21523,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L655",
+      "source_location": "L650",
       "weight": 1.0
     },
     {
@@ -21559,7 +21559,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L660",
+      "source_location": "L655",
       "weight": 1.0
     },
     {
@@ -21571,7 +21571,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L662",
+      "source_location": "L657",
       "weight": 1.0
     },
     {
@@ -21583,7 +21583,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report-page.js",
-      "source_location": "L678",
+      "source_location": "L673",
       "weight": 1.0
     },
     {
@@ -35997,7 +35997,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L641",
+      "source_location": "L636",
       "weight": 1.0
     },
     {
@@ -36008,7 +36008,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L659",
+      "source_location": "L654",
       "weight": 1.0
     },
     {
@@ -36019,7 +36019,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report-page.js",
-      "source_location": "L750",
+      "source_location": "L745",
       "weight": 1.0
     },
     {
@@ -38567,5 +38567,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d710b3e5d91ad46020a23eecc720248b1694e84c"
+  "built_at_commit": "fc3d20c923485df3e77487b4c3a7d58e756f1eba"
 }
