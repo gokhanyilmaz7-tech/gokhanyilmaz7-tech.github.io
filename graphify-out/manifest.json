@@ -5646,9 +5646,9 @@
     "semantic_hash": ""
   },
   "src/noksanlar.js": {
-    "mtime": 1789929067.9766867,
-    "seen": 1789929075.5835578,
-    "ast_hash": "5e574aac573281f6557f79ffa782bdb1",
+    "mtime": 1789929536.09374,
+    "seen": 1789929546.9860108,
+    "ast_hash": "994b92f2f81f6dafb6fab27bd3ebc757",
     "semantic_hash": ""
   },
   "src/noksanliklarData.js": {
@@ -5766,9 +5766,9 @@
     "semantic_hash": ""
   },
   "noksanlar.html": {
-    "mtime": 1789928643.3780935,
-    "seen": 1789928657.17786,
-    "ast_hash": "8456ae56e66435b2acfe10a30622a8f9",
+    "mtime": 1789929536.0932298,
+    "seen": 1789929546.986503,
+    "ast_hash": "d38f3f2d5aad3a4b861ded23c60e9b70",
     "semantic_hash": ""
   },
   "program.html": {

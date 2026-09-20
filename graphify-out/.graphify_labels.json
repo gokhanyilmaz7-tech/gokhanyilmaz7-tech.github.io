@@ -26,7 +26,6 @@
   "24": "mevzuat-BEeRYWaR.js",
   "25": "mevzuat-BGv5QIPh.js",
   "26": "mevzuat-DSJalpAl.js",
-  "27": "legislation-links.js",
   "28": "ipc-BE23aU6z.js",
   "29": "ipc-Bg33kEaG.js",
   "30": "ipc-DeRxyg-7.js",
@@ -67,8 +66,5 @@
   "65": "vite.config.js",
   "66": "Mevzuat Rehberi",
   "67": "google-degisiklik.py",
-  "68": "admin.js",
-  "69": "auth.js",
-  "70": "favorites-page.js",
-  "71": "report.js"
+  "68": "admin.js"
 }

@@ -79,6 +79,8 @@ function initNoksanlar() {
   });
   document.getElementById('btn-listless-keep')?.addEventListener('click', () => completeListlessMode(true));
   document.getElementById('btn-listless-delete')?.addEventListener('click', () => completeListlessMode(false));
+  document.getElementById('btn-stay-on-noksanlar')?.addEventListener('click', closeTedbirlerSuccessModal);
+  document.getElementById('btn-go-tedbirler-page')?.addEventListener('click', () => { window.location.href = '/tedbirler.html'; });
 
   // Modal Footer Export Events
   document.getElementById('modal-export-word')?.addEventListener('click', exportToWord);
@@ -937,6 +939,13 @@ async function exportToTedbirler() {
   
   localStorage.setItem(KEY, JSON.stringify(data));
   await persistFavorites(data, KEY);
-  alert('Seçili noksanlıklar Tedbirler sayfasına başarıyla aktarıldı!');
-  window.location.href = '/tedbirler.html';
+  openTedbirlerSuccessModal();
+}
+
+function openTedbirlerSuccessModal() {
+  document.getElementById('tedbirler-success-modal')?.classList.remove('hidden');
+}
+
+function closeTedbirlerSuccessModal() {
+  document.getElementById('tedbirler-success-modal')?.classList.add('hidden');
 }

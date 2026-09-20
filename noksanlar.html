@@ -631,6 +631,25 @@
         background: #2563eb;
         color: #ffffff;
       }
+      .tedbirler-success-content {
+        max-width: 460px;
+      }
+      .tedbirler-success-body {
+        color: #0f172a;
+        font: 800 1rem/1.45 Arial, sans-serif;
+        text-align: center;
+      }
+      .tedbirler-success-body p {
+        margin: 0;
+      }
+      .btn-stay-page {
+        background: #e2e8f0;
+        color: #334155;
+      }
+      .btn-go-tedbirler {
+        background: #5b21b6;
+        color: #ffffff;
+      }
       .btn-edit-action {
         border: none;
         border-radius: 10px;
@@ -939,6 +958,19 @@
         <div class="edit-modal-footer">
           <button id="btn-listless-delete" class="btn-edit-action btn-listless-delete" type="button">SİL</button>
           <button id="btn-listless-keep" class="btn-edit-action btn-listless-keep" type="button">KORU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tedbirlere aktarım başarı modalı -->
+    <div id="tedbirler-success-modal" class="edit-modal hidden">
+      <div class="edit-modal-content tedbirler-success-content">
+        <div class="edit-modal-body tedbirler-success-body">
+          <p>Noksanlıklar tedbirlere aktarıldı.</p>
+        </div>
+        <div class="edit-modal-footer">
+          <button id="btn-stay-on-noksanlar" class="btn-edit-action btn-stay-page" type="button">Sayfada kal</button>
+          <button id="btn-go-tedbirler-page" class="btn-edit-action btn-go-tedbirler" type="button">Tedbirler Sayfasına git</button>
         </div>
       </div>
     </div>

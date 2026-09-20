@@ -67,5 +67,8 @@
   "65": "vite.config.js",
   "66": "Mevzuat Rehberi",
   "67": "google-degisiklik.py",
-  "68": "admin.js"
+  "68": "admin.js",
+  "69": "auth.js",
+  "70": "favorites-page.js",
+  "71": "report.js"
 }
