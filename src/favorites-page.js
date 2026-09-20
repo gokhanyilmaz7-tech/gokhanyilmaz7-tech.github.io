@@ -185,6 +185,8 @@ render();
 
 
 async function openLegislationModal() {
+  localStorage.setItem('pending-favorite-injection', '1');
+  localStorage.removeItem('pending-legislation-injection');
   const modalId = 'legislation-selection-modal';
   if (document.getElementById(modalId)) return;
   const modalHTML = `

@@ -7314,7 +7314,7 @@
       "file_type": "code",
       "norm_label": "mergespecificprovisions()",
       "source_file": "src/section.js",
-      "source_location": "L553"
+      "source_location": "L570"
     },
     {
       "id": "src_section_mergewordfragments",
@@ -7422,7 +7422,7 @@
       "file_type": "code",
       "norm_label": "splitcard()",
       "source_file": "src/section.js",
-      "source_location": "L519"
+      "source_location": "L536"
     },
     {
       "id": "src_section_writeprovisiontitles",
@@ -22591,7 +22591,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L606",
+      "source_location": "L623",
       "weight": 1.0
     },
     {
@@ -36437,17 +36437,6 @@
     },
     {
       "source": "src_section",
-      "target": "src_section_splitcard",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/section.js",
-      "source_location": "L519",
-      "weight": 1.0
-    },
-    {
-      "source": "src_section",
       "target": "src_section_editprovisiontitle",
       "relation": "contains",
       "_origin": "ast",
@@ -36459,13 +36448,24 @@
     },
     {
       "source": "src_section",
+      "target": "src_section_splitcard",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L536",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
       "target": "src_section_mergespecificprovisions",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L553",
+      "source_location": "L570",
       "weight": 1.0
     },
     {
@@ -38607,7 +38607,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/scroll-top.js",
-      "source_location": "L86",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -38619,7 +38619,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/section.js",
-      "source_location": "L508",
+      "source_location": "L525",
       "weight": 1.0
     },
     {
@@ -38672,5 +38672,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a597f706d15e81eaba432ea432b079c24b5f925b"
+  "built_at_commit": "9725f5ed8e5438473e72cd4a4acf0963cc5cd0a3"
 }
