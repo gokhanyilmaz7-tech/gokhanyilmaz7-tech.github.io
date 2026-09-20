@@ -294,7 +294,7 @@
       "file_type": "code",
       "norm_label": "openlegislationmodal()",
       "source_file": "src/favorites-page.js",
-      "source_location": "L188"
+      "source_location": "L195"
     },
     {
       "id": "src_favorites_page_read",
@@ -318,7 +318,7 @@
       "file_type": "code",
       "norm_label": "render()",
       "source_file": "src/favorites-page.js",
-      "source_location": "L168"
+      "source_location": "L176"
     },
     {
       "id": "src_favorites_page_renderpending",
@@ -330,7 +330,7 @@
       "file_type": "code",
       "norm_label": "renderpending()",
       "source_file": "src/favorites-page.js",
-      "source_location": "L135"
+      "source_location": "L142"
     },
     {
       "id": "src_favorites_page_renderstream",
@@ -342,7 +342,7 @@
       "file_type": "code",
       "norm_label": "renderstream()",
       "source_file": "src/favorites-page.js",
-      "source_location": "L154"
+      "source_location": "L161"
     },
     {
       "id": "src_favorites_page_rendertools",
@@ -501,6 +501,18 @@
       "source_location": "L81"
     },
     {
+      "id": "src_report_additemstoreport",
+      "label": "addItemsToReport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "report-page.js",
+      "file_type": "code",
+      "norm_label": "additemstoreport()",
+      "source_file": "src/report.js",
+      "source_location": "L94"
+    },
+    {
       "id": "src_report_addreportcopy",
       "label": "addReportCopy()",
       "_callable": true,
@@ -534,7 +546,7 @@
       "file_type": "code",
       "norm_label": "bindfavoritereportbuttons()",
       "source_file": "src/report.js",
-      "source_location": "L131"
+      "source_location": "L147"
     },
     {
       "id": "src_report_esc",
@@ -906,7 +918,7 @@
       "file_type": "code",
       "norm_label": "reportbutton()",
       "source_file": "src/report.js",
-      "source_location": "L148"
+      "source_location": "L164"
     },
     {
       "id": "src_report_reportitems",
@@ -930,7 +942,7 @@
       "file_type": "code",
       "norm_label": "reportrepeatbutton()",
       "source_file": "src/report.js",
-      "source_location": "L149"
+      "source_location": "L165"
     },
     {
       "id": "src_report_reportsourceid",
@@ -966,7 +978,7 @@
       "file_type": "code",
       "norm_label": "setupsectionreports()",
       "source_file": "src/report.js",
-      "source_location": "L95"
+      "source_location": "L111"
     },
     {
       "id": "src_report_togglereport",
@@ -6590,7 +6602,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "c()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6602,7 +6614,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "d()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6614,7 +6626,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "f()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6626,7 +6638,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "j()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6638,7 +6650,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "k()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6650,7 +6662,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "q()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6662,7 +6674,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "r()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6674,7 +6686,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "v()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6686,7 +6698,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "w()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -6698,226 +6710,10 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "z()",
       "source_file": "assets/ipc-G5DsBTQ7.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_a",
-      "label": "a()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "a()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_l",
-      "label": "l()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "l()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_o",
-      "label": "o()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "o()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L21"
-    },
-    {
-      "id": "assets_main_cbwctxh4_c",
-      "label": "c()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "c()",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cbwctxh4_d",
-      "label": "d()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "d()",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L18"
-    },
-    {
-      "id": "assets_main_cbwctxh4_p",
-      "label": "p()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "p()",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cbwctxh4_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cbwctxh4_t",
-      "label": "t()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "t()",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_c",
-      "label": "c()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "c()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L18"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_m",
-      "label": "m()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "m()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_u",
-      "label": "u()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "u()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_n",
-      "label": "N()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "n()",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_t",
-      "label": "t",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx_i",
-      "label": "i()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "i()",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
       "source_location": "L1"
     },
     {
@@ -7170,6 +6966,66 @@
       "file_type": "code",
       "norm_label": "u()",
       "source_file": "assets/main-BMbVswpm.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cbwctxh4_c",
+      "label": "c()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "c()",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cbwctxh4_d",
+      "label": "d()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "d()",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "assets_main_cbwctxh4_p",
+      "label": "p()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "p()",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cbwctxh4_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cbwctxh4_t",
+      "label": "t()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "t()",
+      "source_file": "assets/main-CBWctxH4.js",
       "source_location": "L16"
     },
     {
@@ -7437,6 +7293,66 @@
       "source_location": "L29"
     },
     {
+      "id": "assets_main_cd5p1bfo_c",
+      "label": "c()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "c()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_m",
+      "label": "m()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "m()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_u",
+      "label": "u()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "u()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
       "id": "assets_main_dig814bc_l",
       "label": "l()",
       "_callable": true,
@@ -7567,6 +7483,78 @@
       "norm_label": "u()",
       "source_file": "assets/main-DRONz_BM.js",
       "source_location": "L20"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_n",
+      "label": "N()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "n()",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_t",
+      "label": "t",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_a",
+      "label": "a()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "a()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_l",
+      "label": "l()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "l()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_o",
+      "label": "o()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "o()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L21"
     },
     {
       "id": "work_oauth_aktarim_handler_do_get",
@@ -7867,6 +7855,30 @@
       "norm_label": "initsmartbacklinks()",
       "source_file": "src/scroll-top.js",
       "source_location": "L72"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx_i",
+      "label": "i()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "i()",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
     },
     {
       "id": "scripts_update_source_pdf_main",
@@ -9060,7 +9072,7 @@
       "file_type": "code",
       "norm_label": "pendingraw",
       "source_file": "src/favorites-page.js",
-      "source_location": "L170"
+      "source_location": "L178"
     },
     {
       "id": "src_favorites_page_requestedid",
@@ -9071,7 +9083,7 @@
       "file_type": "code",
       "norm_label": "requestedid",
       "source_file": "src/favorites-page.js",
-      "source_location": "L171"
+      "source_location": "L179"
     },
     {
       "id": "src_main",
@@ -12391,7 +12403,7 @@
       "label": "ipc-G5DsBTQ7.js",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "ipc-g5dsbtq7.js",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -12402,7 +12414,7 @@
       "label": "E",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "e",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -12413,7 +12425,7 @@
       "label": "g",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "g",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -12424,7 +12436,7 @@
       "label": "H",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "h",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -12435,7 +12447,7 @@
       "label": "L",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "l",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -12446,7 +12458,7 @@
       "label": "m",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "m",
       "source_file": "assets/ipc-G5DsBTQ7.js",
@@ -12457,208 +12469,10 @@
       "label": "T",
       "_origin": "ast",
       "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "community_name": "ipc-G5DsBTQ7.js",
       "file_type": "code",
       "norm_label": "t",
       "source_file": "assets/ipc-G5DsBTQ7.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2",
-      "label": "main-BhAxn0r2.js",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "main-bhaxn0r2.js",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_c",
-      "label": "c",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "c",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_t",
-      "label": "t",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cbwctxh4",
-      "label": "main-CBWctxH4.js",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "main-cbwctxh4.js",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_cbwctxh4_s",
-      "label": "s",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "s",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cbwctxh4_u",
-      "label": "u",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "u",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cbwctxh4_v",
-      "label": "v",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/main-CBWctxH4.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_cd5p1bfo",
-      "label": "main-CD5P1BfO.js",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "main-cd5p1bfo.js",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_n",
-      "label": "n",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "n",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_o",
-      "label": "o",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "o",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_v",
-      "label": "v",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur",
-      "label": "mevzuatBaglantilari-CiURpUUR.js",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "mevzuatbaglantilari-ciurpuur.js",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_e",
-      "label": "e",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "e",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_i",
-      "label": "I",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "i",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_m",
-      "label": "M",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "m",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_r",
-      "label": "R",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "r",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_v",
-      "label": "V",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx",
-      "label": "modulepreload-polyfill-B5Qt9EMX.js",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "modulepreload-polyfill-b5qt9emx.js",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
       "source_location": "L1"
     },
     {
@@ -12827,6 +12641,50 @@
       "source_location": "L1"
     },
     {
+      "id": "assets_main_cbwctxh4",
+      "label": "main-CBWctxH4.js",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "main-cbwctxh4.js",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_cbwctxh4_s",
+      "label": "s",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "s",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cbwctxh4_u",
+      "label": "u",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "u",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cbwctxh4_v",
+      "label": "v",
+      "_origin": "ast",
+      "community": 49,
+      "community_name": "main-CBWctxH4.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/main-CBWctxH4.js",
+      "source_location": "L1"
+    },
+    {
       "id": "src_section",
       "label": "section.js",
       "_origin": "ast",
@@ -12959,6 +12817,50 @@
       "source_location": "L13"
     },
     {
+      "id": "assets_main_cd5p1bfo",
+      "label": "main-CD5P1BfO.js",
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "main-cd5p1bfo.js",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_n",
+      "label": "n",
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "n",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_o",
+      "label": "o",
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "o",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_v",
+      "label": "v",
+      "_origin": "ast",
+      "community": 50,
+      "community_name": "main-CD5P1BfO.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L1"
+    },
+    {
       "id": "assets_main_dig814bc",
       "label": "main-DIG814bC.js",
       "_origin": "ast",
@@ -13033,6 +12935,105 @@
       "file_type": "code",
       "norm_label": "o",
       "source_file": "assets/main-DRONz_BM.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur",
+      "label": "mevzuatBaglantilari-CiURpUUR.js",
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "mevzuatbaglantilari-ciurpuur.js",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_e",
+      "label": "e",
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "e",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_i",
+      "label": "I",
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "i",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_m",
+      "label": "M",
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "m",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_r",
+      "label": "R",
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "r",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_v",
+      "label": "V",
+      "_origin": "ast",
+      "community": 53,
+      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2",
+      "label": "main-BhAxn0r2.js",
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "main-bhaxn0r2.js",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_c",
+      "label": "c",
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "c",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_t",
+      "label": "t",
+      "_origin": "ast",
+      "community": 54,
+      "community_name": "main-BhAxn0r2.js",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "assets/main-BhAxn0r2.js",
       "source_location": "L16"
     },
     {
@@ -13353,6 +13354,17 @@
       "norm_label": "globalstyle",
       "source_file": "src/scroll-top.js",
       "source_location": "L30"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx",
+      "label": "modulepreload-polyfill-B5Qt9EMX.js",
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "modulepreload-polyfill-b5qt9emx.js",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
     },
     {
       "id": "scripts_update_source_pdf",
@@ -19159,7 +19171,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L168",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -19171,7 +19183,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L168",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -19183,7 +19195,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L168",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -19195,7 +19207,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L141",
+      "source_location": "L148",
       "weight": 1.0
     },
     {
@@ -19207,7 +19219,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L144",
+      "source_location": "L151",
       "weight": 1.0
     },
     {
@@ -19219,7 +19231,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L149",
+      "source_location": "L156",
       "weight": 1.0
     },
     {
@@ -19231,7 +19243,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L156",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
@@ -19243,7 +19255,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L156",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
@@ -19255,7 +19267,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L161",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -19267,7 +19279,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L161",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -19279,7 +19291,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L161",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -19291,19 +19303,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L161",
-      "weight": 1.0
-    },
-    {
-      "source": "src_favorites_page_renderstream",
-      "target": "src_report_reportbutton",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L161",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -19315,19 +19315,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L161",
-      "weight": 1.0
-    },
-    {
-      "source": "src_favorites_page_renderstream",
-      "target": "src_report_reportrepeatbutton",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L161",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -19339,7 +19327,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L162",
+      "source_location": "L169",
       "weight": 1.0
     },
     {
@@ -19351,7 +19339,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L163",
+      "source_location": "L170",
       "weight": 1.0
     },
     {
@@ -19363,7 +19351,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L164",
+      "source_location": "L171",
       "weight": 1.0
     },
     {
@@ -19375,7 +19363,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/favorites-page.js",
-      "source_location": "L164",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "src_favorites_page_renderstream",
+      "target": "src_report_additemstoreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L173",
       "weight": 1.0
     },
     {
@@ -19424,6 +19424,18 @@
       "context": "call",
       "source_file": "src/favorites-page.js",
       "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "src_favorites_page_rendertools",
+      "target": "src_report_additemstoreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/favorites-page.js",
+      "source_location": "L126",
       "weight": 1.0
     },
     {
@@ -21407,6 +21419,54 @@
       "weight": 1.0
     },
     {
+      "source": "src_report_additemstoreport",
+      "target": "src_report_reportsourceid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_additemstoreport",
+      "target": "src_report_saveworkspace",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_additemstoreport",
+      "target": "src_auth_requireaccount",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_additemstoreport",
+      "target": "src_report_readworkspace",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
       "source": "src_report_addreportcopy",
       "target": "src_auth_requireaccount",
       "relation": "calls",
@@ -21463,7 +21523,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L136",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -21475,7 +21535,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L137",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -21487,7 +21547,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L144",
+      "source_location": "L160",
       "weight": 1.0
     },
     {
@@ -22111,7 +22171,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L148",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -22123,7 +22183,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L149",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -22140,66 +22200,6 @@
     },
     {
       "source": "src_report_setupsectionreports",
-      "target": "src_report_reportsourceid",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/report.js",
-      "source_location": "L105",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report_setupsectionreports",
-      "target": "src_report_updatereportbuttons",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/report.js",
-      "source_location": "L106",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report_setupsectionreports",
-      "target": "src_report_reportrepeatbutton",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/report.js",
-      "source_location": "L113",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report_setupsectionreports",
-      "target": "src_report_addreportcopy",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/report.js",
-      "source_location": "L120",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report_setupsectionreports",
-      "target": "src_report_togglereport",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/report.js",
-      "source_location": "L127",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report_setupsectionreports",
       "target": "src_auth_hydratefavorites",
       "relation": "calls",
       "_origin": "ast",
@@ -22207,7 +22207,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L96",
+      "source_location": "L112",
       "weight": 1.0
     },
     {
@@ -22219,7 +22219,67 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/report.js",
-      "source_location": "L97",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_setupsectionreports",
+      "target": "src_report_reportsourceid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_setupsectionreports",
+      "target": "src_report_updatereportbuttons",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_setupsectionreports",
+      "target": "src_report_reportrepeatbutton",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_setupsectionreports",
+      "target": "src_report_addreportcopy",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report_setupsectionreports",
+      "target": "src_report_togglereport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/report.js",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -24636,19 +24696,7 @@
     },
     {
       "source": "src_favorites_page",
-      "target": "src_report_bindfavoritereportbuttons",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L6",
-      "weight": 1.0
-    },
-    {
-      "source": "src_favorites_page",
-      "target": "src_report_reportbutton",
+      "target": "src_report_additemstoreport",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -24661,18 +24709,6 @@
     {
       "source": "src_favorites_page",
       "target": "src_report_reportitems",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/favorites-page.js",
-      "source_location": "L6",
-      "weight": 1.0
-    },
-    {
-      "source": "src_favorites_page",
-      "target": "src_report_reportrepeatbutton",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -33984,17 +34020,6 @@
     },
     {
       "source": "src_favorites_page",
-      "target": "src_favorites_page_renderpending",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/favorites-page.js",
-      "source_location": "L135",
-      "weight": 1.0
-    },
-    {
-      "source": "src_favorites_page",
       "target": "src_favorites_page_save",
       "relation": "contains",
       "_origin": "ast",
@@ -34002,6 +34027,17 @@
       "confidence_score": 1.0,
       "source_file": "src/favorites-page.js",
       "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "src_favorites_page",
+      "target": "src_favorites_page_renderpending",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/favorites-page.js",
+      "source_location": "L142",
       "weight": 1.0
     },
     {
@@ -34023,7 +34059,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/favorites-page.js",
-      "source_location": "L154",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -34034,7 +34070,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/favorites-page.js",
-      "source_location": "L168",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -34045,7 +34081,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/favorites-page.js",
-      "source_location": "L170",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -34056,7 +34092,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/favorites-page.js",
-      "source_location": "L171",
+      "source_location": "L179",
       "weight": 1.0
     },
     {
@@ -34067,7 +34103,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/favorites-page.js",
-      "source_location": "L188",
+      "source_location": "L195",
       "weight": 1.0
     },
     {
@@ -35678,35 +35714,24 @@
     },
     {
       "source": "src_report",
+      "target": "src_report_setupsectionreports",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/report.js",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report",
       "target": "src_report_bindfavoritereportbuttons",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report.js",
-      "source_location": "L131",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report",
-      "target": "src_report_reportbutton",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/report.js",
-      "source_location": "L148",
-      "weight": 1.0
-    },
-    {
-      "source": "src_report",
-      "target": "src_report_reportrepeatbutton",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/report.js",
-      "source_location": "L149",
+      "source_location": "L147",
       "weight": 1.0
     },
     {
@@ -35718,6 +35743,28 @@
       "confidence_score": 1.0,
       "source_file": "src/report.js",
       "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report",
+      "target": "src_report_reportbutton",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/report.js",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "src_report",
+      "target": "src_report_reportrepeatbutton",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/report.js",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -35810,13 +35857,13 @@
     },
     {
       "source": "src_report",
-      "target": "src_report_setupsectionreports",
+      "target": "src_report_additemstoreport",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/report.js",
-      "source_location": "L95",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -38672,5 +38719,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c1a646a5658c9839586be2e57f7271ec712bce4b"
+  "built_at_commit": "3b9e529bda24440e7a55f2e8df9ac3eeef066137"
 }

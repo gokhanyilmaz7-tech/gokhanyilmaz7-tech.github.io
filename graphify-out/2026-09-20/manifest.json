@@ -5604,9 +5604,9 @@
     "semantic_hash": ""
   },
   "src/favorites-page.js": {
-    "mtime": 1789934488.6029563,
-    "seen": 1789934497.809607,
-    "ast_hash": "34bde34029237de67b30ec2b9039f63f",
+    "mtime": 1789934893.2653584,
+    "seen": 1789934903.9075341,
+    "ast_hash": "9dfe90e1834613f6e8118e036e2ad648",
     "semantic_hash": ""
   },
   "src/favorites.js": {
@@ -5670,9 +5670,9 @@
     "semantic_hash": ""
   },
   "src/report.js": {
-    "mtime": 1789932833.6239655,
-    "seen": 1789932836.484894,
-    "ast_hash": "5f6693428cd0e67d768e421406fc04f6",
+    "mtime": 1789934813.3430274,
+    "seen": 1789934903.908,
+    "ast_hash": "d2b4250d1cc4660c00b88610f0bffe91",
     "semantic_hash": ""
   },
   "src/scroll-top.js": {

@@ -125,6 +125,7 @@ function renderTools() {
   if (transferAllBtn) transferAllBtn.onclick = async () => {
     const result = await addItemsToReport(allItems());
     if (!result.total) return;
+    if (result.added) data = read();
     alert(result.added ? `${result.added} favori hüküm tedbirlere aktarıldı.` : 'Tüm favori hükümler zaten tedbirlerde yer alıyor.');
     render();
   };
@@ -170,7 +171,7 @@ function renderStream() {
   stream.querySelectorAll('[data-move]').forEach((button) => { button.onclick = () => moveItem(button.dataset.item, button.dataset.move === 'up' ? -1 : 1); });
   stream.querySelectorAll('[data-edit]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; const item = allItems().find((entry) => entry.id === button.dataset.edit); const title = prompt('Favori başlığı:', item?.title || ''); if (title === null) return; item.title = title.trim(); save(data); renderStream(); }; });
   stream.querySelectorAll('[data-remove]').forEach((button) => { button.onclick = async () => { if (!(await requireAccount())) return; data.lists.forEach((list) => { list.items = list.items.filter((item) => item.id !== button.dataset.remove); }); save(data); render(); }; });
-  stream.querySelectorAll('[data-transfer]').forEach((button) => { button.onclick = async () => { const item = allItems().find((entry) => entry.id === button.dataset.transfer); if (!item) return; const result = await addItemsToReport([item]); if (result.added) alert('Favori hüküm tedbirlere aktarıldı.'); render(); }; });
+  stream.querySelectorAll('[data-transfer]').forEach((button) => { button.onclick = async () => { const item = allItems().find((entry) => entry.id === button.dataset.transfer); if (!item) return; const result = await addItemsToReport([item]); if (result.added) { data = read(); alert('Favori hüküm tedbirlere aktarıldı.'); } render(); }; });
 }
 
 function render() { renderTools(); renderPending(); renderStream(); }
