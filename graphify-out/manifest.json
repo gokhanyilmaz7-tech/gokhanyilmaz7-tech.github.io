@@ -5676,15 +5676,15 @@
     "semantic_hash": ""
   },
   "src/scroll-top.js": {
-    "mtime": 1788376737.8068473,
-    "seen": 1789843109.2296388,
-    "ast_hash": "b2e8691d2658e729a8b1929219759afe",
-    "semantic_hash": "b2e8691d2658e729a8b1929219759afe"
+    "mtime": 1789933711.8086686,
+    "seen": 1789933714.766261,
+    "ast_hash": "aee993521964e2f1af07786062ea185d",
+    "semantic_hash": ""
   },
   "src/section.js": {
-    "mtime": 1789933352.1898124,
-    "seen": 1789933354.967993,
-    "ast_hash": "eb4afb939562cc5130e8edafeab5acdf",
+    "mtime": 1789933711.8090017,
+    "seen": 1789933714.766262,
+    "ast_hash": "1c3c398f6b9a8fb5dc5d8f9ed8ca9906",
     "semantic_hash": ""
   },
   "test_run.js": {

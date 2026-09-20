@@ -5682,9 +5682,9 @@
     "semantic_hash": "b2e8691d2658e729a8b1929219759afe"
   },
   "src/section.js": {
-    "mtime": 1789931715.7578666,
-    "seen": 1789931731.503403,
-    "ast_hash": "03c56f6ad0e6bdcc260bc10a2dec32a7",
+    "mtime": 1789933352.1898124,
+    "seen": 1789933354.967993,
+    "ast_hash": "eb4afb939562cc5130e8edafeab5acdf",
     "semantic_hash": ""
   },
   "test_run.js": {

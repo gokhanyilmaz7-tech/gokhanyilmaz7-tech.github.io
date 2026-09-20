@@ -68,37 +68,16 @@ globalStyle.textContent = `
 `;
 document.head.appendChild(globalStyle);
 
-// Universal Smart Back Handler (Closes tab if duplicate/opened from main list)
+// Evrensel ana sayfa dönüşü: hiçbir sayfada sekme kapatma veya geçmişe dönme denemesi yapılmaz.
 function initSmartBackLinks() {
   const links = document.querySelectorAll('.back-link, .ipc-back, #home-return, a[href="/"]');
   links.forEach(link => {
     if (link.dataset.smartBackInit) return;
     link.dataset.smartBackInit = 'true';
-    
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // 1. If opened via window.open from parent window
-      if (window.opener && !window.opener.closed) {
-        try { window.opener.focus(); } catch (err) {}
-        try { window.close(); return; } catch (err) {}
-      }
-      
-      // 2. Try window.close() (closes tab if opened in a new tab)
-      try {
-        window.close();
-      } catch (err) {}
-      
-      // 3. Fallback: if browser prevented window.close() (same-tab navigation)
-      setTimeout(() => {
-        if (!window.closed) {
-          if (window.history.length > 1 && document.referrer && document.referrer.includes(window.location.host)) {
-            window.history.back();
-          } else {
-            window.location.href = link.getAttribute('href') || '/';
-          }
-        }
-      }, 120);
+    link.setAttribute('href', '/');
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.assign('/');
     });
   });
 }

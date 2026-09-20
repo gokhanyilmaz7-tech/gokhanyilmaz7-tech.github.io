@@ -490,26 +490,9 @@ document.addEventListener('copy', (event) => {
 
 function returnToHome(event) {
   event.preventDefault();
-  const homeUrl = new URL('/', window.location.origin).href;
-  const opener = window.opener;
-  if (opener && !opener.closed) {
-    try {
-      opener.location.href = homeUrl;
-      opener.focus();
-      window.close();
-      setTimeout(() => { if (!document.hidden) window.location.href = homeUrl; }, 180);
-      return;
-    } catch (error) { /* Tarayıcı sekme erişimini kısıtlarsa aşağıdaki yöntem kullanılır. */ }
-  }
-  const homeWindow = window.open(homeUrl, 'mevzuat-home');
-  if (homeWindow) {
-    homeWindow.focus();
-    window.close();
-    setTimeout(() => { if (!document.hidden) window.location.href = homeUrl; }, 180);
-  } else {
-    window.location.href = homeUrl;
-  }
+  window.location.assign('/');
 }
+
 
 search.addEventListener('input', (event) => {
   clearTimeout(searchTimer);
