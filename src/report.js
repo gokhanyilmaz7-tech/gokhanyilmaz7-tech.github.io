@@ -24,9 +24,9 @@ export const reportSourceId = (item) => item.sourceId || item.id;
 function updateReportButtons(itemId, saved) {
   document.querySelectorAll(`[data-report-id="${CSS.escape(itemId)}"]`).forEach((button) => {
     button.classList.toggle('is-reported', saved);
-    button.textContent = saved ? '✓' : '＋';
-    button.setAttribute('aria-label', saved ? 'Raporunuzda' : 'Rapora ekle');
-    button.title = saved ? 'Rapordan çıkar' : 'Rapora ekle';
+    button.textContent = saved ? 'Tedbirlerden Çıkar' : 'Tedbirlere Ekle';
+    button.setAttribute('aria-label', saved ? 'Tedbirlerde' : 'Tedbirlere ekle');
+    button.title = saved ? 'Tedbirlerden çıkar' : 'Tedbirlere ekle';
   });
 }
 
@@ -98,7 +98,7 @@ export async function setupSectionReports({sectionId, sectionTitle}) {
   document.querySelectorAll('.report-plus').forEach((button) => {
     const card = button.closest('.provision-card');
     const page = card?.closest('.article-page')?.dataset.page || '0';
-    const item = {id: `${sectionId}-${page}-${button.dataset.reportId}`, sectionId, sectionTitle, location: `Sayfa ${page} · Hüküm ${button.dataset.reportId}`, text: card?.querySelector('.provision-content')?.innerText.trim() || '', html: card?.querySelector('.copy-html-source')?.innerHTML || '', title: ''};
+    const item = {id: `${sectionId}-${page}-${button.dataset.reportId}`, sectionId, sectionTitle, location: `Sayfa ${page} · Hüküm ${button.dataset.reportId}`, text: card?.querySelector('.provision-content')?.innerText.trim() || '', html: card?.querySelector('.copy-html-source')?.innerHTML || '', title: card?.querySelector('.provision-custom-title')?.textContent.trim() || ''};
     button.dataset.reportId = item.id;
     button.dataset.reportItem = JSON.stringify(item);
     const saved = data.reports.some((entry) => reportSourceId(entry) === item.id);

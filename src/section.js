@@ -24,6 +24,46 @@ function normalize(value) { return value.toLocaleLowerCase('tr-TR').normalize('N
 function compact(value) { return normalize(value).replace(/\s+/g, ''); }
 function color(values) { return `rgb(${values.map((value) => Math.round(Number(value || 0) * 255)).join(', ')})`; }
 
+const provisionTitleKey = (card) => `${id || 'mevzuat'}-${card.closest('.article-page')?.dataset.page || '0'}-${card.dataset.block || '0'}`;
+const readProvisionTitles = () => { try { return JSON.parse(localStorage.getItem('mevzuat-provision-titles') || '{}'); } catch { return {}; } };
+const writeProvisionTitles = (titles) => localStorage.setItem('mevzuat-provision-titles', JSON.stringify(titles));
+
+function applyProvisionTitle(card, value = '') {
+  let title = card.querySelector('.provision-custom-title');
+  if (!value) {
+    title?.remove();
+    card.classList.remove('has-custom-title');
+    return;
+  }
+  if (!title) {
+    title = document.createElement('div');
+    title.className = 'provision-custom-title';
+    card.prepend(title);
+  }
+  title.textContent = value;
+  card.classList.add('has-custom-title');
+}
+
+function hydrateProvisionTitles() {
+  const titles = readProvisionTitles();
+  document.querySelectorAll('.provision-card').forEach((card) => applyProvisionTitle(card, titles[provisionTitleKey(card)] || ''));
+}
+
+function editProvisionTitle(button) {
+  const card = button.closest('.provision-card');
+  if (!card) return;
+  const titles = readProvisionTitles();
+  const key = provisionTitleKey(card);
+  const currentTitle = titles[key] || card.querySelector('.provision-custom-title')?.textContent || '';
+  const nextTitle = window.prompt('Bu hüküm için başlık yazın:', currentTitle);
+  if (nextTitle === null) return;
+  const cleanTitle = nextTitle.trim();
+  if (cleanTitle) titles[key] = cleanTitle; else delete titles[key];
+  writeProvisionTitles(titles);
+  applyProvisionTitle(card, cleanTitle);
+}
+
+
 function mergeWordFragments(words) {
   const merged = [];
   words.slice().sort((a, b) => a.x - b.x).forEach((word) => {
@@ -158,7 +198,7 @@ function formatLayoutPage(page, totalPages, skipFirstRecord = false) {
     const top = Math.max(0, Math.min(...group.lines.map((line) => line.y)) - 10);
     const bottom = Math.max(...group.lines.map((line) => line.y + line.height)) + 10;
     const exactInner = group.lines.map((line) => `<div class="exact-line" style="left:${line.words[0].x * xScale + shiftX}px;top:${line.y - top}px">${line.html.replace(/^<div[^>]*>|<\/div>$/g, '')}</div>`).join('');
-    const common = `<button class="favorite-star" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">☆</button><button class="report-plus" data-report-id="${index}" type="button" aria-label="Rapora ekle" title="Rapora ekle">＋</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button></div><div class="provision-content">`;
+    const common = `<button class="provision-title-button" data-title-id="${index}" type="button" aria-label="Bu hükme başlık ekle" title="Başlık ekle">▣</button><div class="copy-actions"><button class="copy-provision copy-all" data-copy-mode="all" type="button" title="Bu grubun tamamını biçimli olarak kopyala">Tümünü Kopyala</button><button class="copy-provision copy-single" data-copy-mode="single" type="button" title="Yalnızca bu hükmü biçimli olarak kopyala">Kopyala</button><button class="favorite-star card-action-button" data-favorite-id="${index}" type="button" aria-label="Bu hükmü favorilere ekle" title="Favorilere ekle">Favorilere Ekle</button><button class="report-plus card-action-button" data-report-id="${index}" type="button" aria-label="Tedbirlere ekle" title="Tedbirlere ekle">Tedbirlere Ekle</button></div><div class="provision-content">`;
     const source = `<div class="copy-html-source">${copyParts.join('')}</div>`;
     const annotationClass = annotationOnly ? ' annotation-card' : '';
     const groupText = group.lines.map((line) => line.text).join(' ');
@@ -409,6 +449,7 @@ async function load() {
   linkCrossPageAnnotations();
   linkLongProvisions();
   mergeSpecificProvisions();
+  hydrateProvisionTitles();
   blocks = [...content.querySelectorAll('.provision-card')].map(card => {
     return {
       element: card,
@@ -420,6 +461,8 @@ async function load() {
     };
   });
   content.addEventListener('click', (event) => {
+    const titleButton = event.target.closest('.provision-title-button');
+    if (titleButton) { editProvisionTitle(titleButton); return; }
     const button = event.target.closest('.copy-provision');
     if (button) copyProvision(button);
   });

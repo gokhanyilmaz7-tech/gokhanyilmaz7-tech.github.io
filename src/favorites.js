@@ -22,7 +22,7 @@ export async function setupFavorites({sectionId, sectionTitle}) {
     const favoriteId = `${sectionId}-${page}-${button.dataset.favoriteId}`;
     const saved = savedIds.has(favoriteId);
     button.classList.toggle('is-favorite', saved);
-    button.textContent = saved ? '★' : '☆';
+    button.textContent = saved ? 'Favorilerde' : 'Favorilere Ekle';
     button.setAttribute('aria-label', saved ? 'Bu hüküm favorilerde' : 'Bu hükmü favorilere ekle');
   });
 
@@ -61,7 +61,7 @@ export async function setupFavorites({sectionId, sectionTitle}) {
         if (listIds.includes(list.id)) list.items.push(savedItem);
       });
       await persistFavorites(data, FAVORITES_KEY);
-      button.classList.add('is-favorite'); button.textContent = '★'; button.setAttribute('aria-label', 'Bu hüküm favorilerde');
+      button.classList.add('is-favorite'); button.textContent = 'Favorilerde'; button.setAttribute('aria-label', 'Bu hüküm favorilerde');
       closePanel();
     };
     panel.querySelector('.favorite-save-title').focus();
@@ -75,6 +75,6 @@ export async function setupFavorites({sectionId, sectionTitle}) {
     const card = button.closest('.provision-card');
     if (!card) return;
     const page = card.closest('.article-page')?.dataset.page || '0';
-    openPanel(button, {id: `${sectionId}-${page}-${button.dataset.favoriteId}`, sectionId, sectionTitle, location: `Sayfa ${page} · Hüküm ${button.dataset.favoriteId}`, text: card.querySelector('.provision-content')?.innerText.trim() || '', html: card.querySelector('.copy-html-source')?.innerHTML || '', title: ''});
+    openPanel(button, {id: `${sectionId}-${page}-${button.dataset.favoriteId}`, sectionId, sectionTitle, location: `Sayfa ${page} · Hüküm ${button.dataset.favoriteId}`, text: card.querySelector('.provision-content')?.innerText.trim() || '', html: card.querySelector('.copy-html-source')?.innerHTML || '', title: card.querySelector('.provision-custom-title')?.textContent.trim() || ''});
   });
 }

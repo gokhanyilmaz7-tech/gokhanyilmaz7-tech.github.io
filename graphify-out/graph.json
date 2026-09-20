@@ -957,54 +957,6 @@
       "source_location": "L24"
     },
     {
-      "id": "assets_admin_jppi3dua_e",
-      "label": "e()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "e()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_o",
-      "label": "o()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "o()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
       "id": "assets_auth_d2fpd3ts_b",
       "label": "b()",
       "_callable": true,
@@ -2865,66 +2817,6 @@
       "source_location": "L27"
     },
     {
-      "id": "src_legislation_links_normalize",
-      "label": "normalize()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "normalize()",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L63"
-    },
-    {
-      "id": "src_legislation_links_officialurl",
-      "label": "officialUrl()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "officialurl()",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L84"
-    },
-    {
-      "id": "src_legislation_links_render",
-      "label": "render()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "render()",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L85"
-    },
-    {
-      "id": "src_legislation_links_rendercalendar",
-      "label": "renderCalendar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "rendercalendar()",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L119"
-    },
-    {
-      "id": "src_legislation_links_updateclock",
-      "label": "updateClock()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "updateclock()",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L107"
-    },
-    {
       "id": "assets_ipc_cc3fb8bb_a",
       "label": "A()",
       "_callable": true,
@@ -3979,6 +3871,66 @@
       "norm_label": "z()",
       "source_file": "assets/mevzuat-DSJalpAl.js",
       "source_location": "L1"
+    },
+    {
+      "id": "src_legislation_links_normalize",
+      "label": "normalize()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "normalize()",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L63"
+    },
+    {
+      "id": "src_legislation_links_officialurl",
+      "label": "officialUrl()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "officialurl()",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L84"
+    },
+    {
+      "id": "src_legislation_links_render",
+      "label": "render()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "render()",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L85"
+    },
+    {
+      "id": "src_legislation_links_rendercalendar",
+      "label": "renderCalendar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "rendercalendar()",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L119"
+    },
+    {
+      "id": "src_legislation_links_updateclock",
+      "label": "updateClock()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "updateclock()",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L107"
     },
     {
       "id": "assets_ipc_be23au6z_c",
@@ -6573,12 +6525,60 @@
       "source_location": "L1"
     },
     {
+      "id": "assets_admin_jppi3dua_e",
+      "label": "e()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "e()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_admin_jppi3dua_o",
+      "label": "o()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "o()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_admin_jppi3dua_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_admin_jppi3dua_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
+    },
+    {
       "id": "assets_ipc_lmc67oxm_b",
       "label": "b()",
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "b()",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6590,7 +6590,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "d()",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6602,7 +6602,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "e()",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6614,7 +6614,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "f()",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6626,7 +6626,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "i()",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6638,7 +6638,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "l",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6650,7 +6650,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "m()",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -6662,10 +6662,226 @@
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "t()",
       "source_file": "assets/ipc-lMc67Oxm.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_anptsetr_c",
+      "label": "c()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "c()",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "assets_main_anptsetr_m",
+      "label": "m()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "m()",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_anptsetr_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_anptsetr_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_anptsetr_u",
+      "label": "u()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "u()",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_a",
+      "label": "a()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "a()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_l",
+      "label": "l()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "l()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_o",
+      "label": "o()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "o()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_c",
+      "label": "c()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "c()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_m",
+      "label": "m()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "m()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_r",
+      "label": "r()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_u",
+      "label": "u()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "u()",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_n",
+      "label": "N()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "n()",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_t",
+      "label": "t",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx_i",
+      "label": "i()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "i()",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx_s",
+      "label": "s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "s()",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
       "source_location": "L1"
     },
     {
@@ -6739,66 +6955,6 @@
       "norm_label": "u()",
       "source_file": "assets/index-BFuwxWrC.js",
       "source_location": "L20"
-    },
-    {
-      "id": "assets_main_anptsetr_c",
-      "label": "c()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "c()",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L18"
-    },
-    {
-      "id": "assets_main_anptsetr_m",
-      "label": "m()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "m()",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_anptsetr_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_anptsetr_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_anptsetr_u",
-      "label": "u()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "u()",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L16"
     },
     {
       "id": "assets_main_bgzingdg_c",
@@ -6981,6 +7137,18 @@
       "source_location": "L16"
     },
     {
+      "id": "src_section_applyprovisiontitle",
+      "label": "applyProvisionTitle()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "section.js",
+      "file_type": "code",
+      "norm_label": "applyprovisiontitle()",
+      "source_file": "src/section.js",
+      "source_location": "L31"
+    },
+    {
       "id": "src_section_color",
       "label": "color()",
       "_callable": true,
@@ -7014,7 +7182,19 @@
       "file_type": "code",
       "norm_label": "copyprovision()",
       "source_file": "src/section.js",
-      "source_location": "L280"
+      "source_location": "L320"
+    },
+    {
+      "id": "src_section_editprovisiontitle",
+      "label": "editProvisionTitle()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "section.js",
+      "file_type": "code",
+      "norm_label": "editprovisiontitle()",
+      "source_file": "src/section.js",
+      "source_location": "L52"
     },
     {
       "id": "src_section_escapehtml",
@@ -7038,7 +7218,19 @@
       "file_type": "code",
       "norm_label": "formatlayoutpage()",
       "source_file": "src/section.js",
-      "source_location": "L46"
+      "source_location": "L86"
+    },
+    {
+      "id": "src_section_hydrateprovisiontitles",
+      "label": "hydrateProvisionTitles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "section.js",
+      "file_type": "code",
+      "norm_label": "hydrateprovisiontitles()",
+      "source_file": "src/section.js",
+      "source_location": "L47"
     },
     {
       "id": "src_section_linkcrosspageannotations",
@@ -7050,7 +7242,7 @@
       "file_type": "code",
       "norm_label": "linkcrosspageannotations()",
       "source_file": "src/section.js",
-      "source_location": "L317"
+      "source_location": "L357"
     },
     {
       "id": "src_section_linklongprovisions",
@@ -7062,7 +7254,7 @@
       "file_type": "code",
       "norm_label": "linklongprovisions()",
       "source_file": "src/section.js",
-      "source_location": "L340"
+      "source_location": "L380"
     },
     {
       "id": "src_section_load",
@@ -7074,7 +7266,7 @@
       "file_type": "code",
       "norm_label": "load()",
       "source_file": "src/section.js",
-      "source_location": "L382"
+      "source_location": "L422"
     },
     {
       "id": "src_section_mergespecificprovisions",
@@ -7086,7 +7278,7 @@
       "file_type": "code",
       "norm_label": "mergespecificprovisions()",
       "source_file": "src/section.js",
-      "source_location": "L526"
+      "source_location": "L569"
     },
     {
       "id": "src_section_mergewordfragments",
@@ -7098,7 +7290,7 @@
       "file_type": "code",
       "norm_label": "mergewordfragments()",
       "source_file": "src/section.js",
-      "source_location": "L27"
+      "source_location": "L67"
     },
     {
       "id": "src_section_moveresult",
@@ -7110,7 +7302,7 @@
       "file_type": "code",
       "norm_label": "moveresult()",
       "source_file": "src/section.js",
-      "source_location": "L311"
+      "source_location": "L351"
     },
     {
       "id": "src_section_normalize",
@@ -7125,6 +7317,30 @@
       "source_location": "L23"
     },
     {
+      "id": "src_section_provisiontitlekey",
+      "label": "provisionTitleKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "section.js",
+      "file_type": "code",
+      "norm_label": "provisiontitlekey()",
+      "source_file": "src/section.js",
+      "source_location": "L27"
+    },
+    {
+      "id": "src_section_readprovisiontitles",
+      "label": "readProvisionTitles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "section.js",
+      "file_type": "code",
+      "norm_label": "readprovisiontitles()",
+      "source_file": "src/section.js",
+      "source_location": "L28"
+    },
+    {
       "id": "src_section_render",
       "label": "render()",
       "_callable": true,
@@ -7134,7 +7350,7 @@
       "file_type": "code",
       "norm_label": "render()",
       "source_file": "src/section.js",
-      "source_location": "L192"
+      "source_location": "L232"
     },
     {
       "id": "src_section_returntohome",
@@ -7146,7 +7362,7 @@
       "file_type": "code",
       "norm_label": "returntohome()",
       "source_file": "src/section.js",
-      "source_location": "L447"
+      "source_location": "L490"
     },
     {
       "id": "src_section_scrolltorequestedprovision",
@@ -7158,7 +7374,7 @@
       "file_type": "code",
       "norm_label": "scrolltorequestedprovision()",
       "source_file": "src/section.js",
-      "source_location": "L247"
+      "source_location": "L287"
     },
     {
       "id": "src_section_splitcard",
@@ -7170,67 +7386,19 @@
       "file_type": "code",
       "norm_label": "splitcard()",
       "source_file": "src/section.js",
-      "source_location": "L492"
+      "source_location": "L535"
     },
     {
-      "id": "assets_main_cd5p1bfo_c",
-      "label": "c()",
+      "id": "src_section_writeprovisiontitles",
+      "label": "writeProvisionTitles()",
       "_callable": true,
       "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
+      "community": 5,
+      "community_name": "section.js",
       "file_type": "code",
-      "norm_label": "c()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L18"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_m",
-      "label": "m()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "m()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_u",
-      "label": "u()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "u()",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
+      "norm_label": "writeprovisiontitles()",
+      "source_file": "src/section.js",
+      "source_location": "L29"
     },
     {
       "id": "assets_main_dig814bc_l",
@@ -7363,78 +7531,6 @@
       "norm_label": "u()",
       "source_file": "assets/main-DRONz_BM.js",
       "source_location": "L20"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_n",
-      "label": "N()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "n()",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_t",
-      "label": "t",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_a",
-      "label": "a()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "a()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_l",
-      "label": "l()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "l()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_o",
-      "label": "o()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "o()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L21"
     },
     {
       "id": "work_oauth_aktarim_handler_do_get",
@@ -7735,30 +7831,6 @@
       "norm_label": "initsmartbacklinks()",
       "source_file": "src/scroll-top.js",
       "source_location": "L72"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx_i",
-      "label": "i()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 61,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "i()",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 61,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
     },
     {
       "id": "scripts_update_source_pdf_main",
@@ -9021,28 +9093,6 @@
       "source_location": "L139"
     },
     {
-      "id": "assets_admin_jppi3dua",
-      "label": "admin-jppI3dUa.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "admin-jppi3dua.js",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_n",
-      "label": "n",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "n",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
       "id": "assets_auth_d2fpd3ts",
       "label": "auth-D2Fpd3TS.js",
       "_origin": "ast",
@@ -10077,138 +10127,6 @@
       "source_location": "L5"
     },
     {
-      "id": "src_legislation_links",
-      "label": "legislation-links.js",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "legislation-links.js",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_legislation_links_clockel",
-      "label": "clockEl",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "clockel",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L102"
-    },
-    {
-      "id": "src_legislation_links_count",
-      "label": "count",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "count",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L82"
-    },
-    {
-      "id": "src_legislation_links_currentcaldate",
-      "label": "currentCalDate",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "currentcaldate",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L118"
-    },
-    {
-      "id": "src_legislation_links_dateel",
-      "label": "dateEl",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "dateel",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L103"
-    },
-    {
-      "id": "src_legislation_links_daysfull",
-      "label": "daysFull",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "daysfull",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L105"
-    },
-    {
-      "id": "src_legislation_links_laws",
-      "label": "laws",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "laws",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "src_legislation_links_list",
-      "label": "list",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "list",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L81"
-    },
-    {
-      "id": "src_legislation_links_monthsfull",
-      "label": "monthsFull",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "monthsfull",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L104"
-    },
-    {
-      "id": "src_legislation_links_orderedlaws",
-      "label": "orderedLaws",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "orderedlaws",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L77"
-    },
-    {
-      "id": "src_legislation_links_pinnedlaws",
-      "label": "pinnedLaws",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "pinnedlaws",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L76"
-    },
-    {
-      "id": "src_legislation_links_pinnedtitles",
-      "label": "pinnedTitles",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ipc.js",
-      "file_type": "code",
-      "norm_label": "pinnedtitles",
-      "source_file": "src/legislation-links.js",
-      "source_location": "L64"
-    },
-    {
       "id": "assets_ipc_cc3fb8bb",
       "label": "ipc-CC3fB8bB.js",
       "_origin": "ast",
@@ -11100,6 +11018,138 @@
       "norm_label": "w",
       "source_file": "assets/mevzuat-DSJalpAl.js",
       "source_location": "L1"
+    },
+    {
+      "id": "src_legislation_links",
+      "label": "legislation-links.js",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "legislation-links.js",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_legislation_links_clockel",
+      "label": "clockEl",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "clockel",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L102"
+    },
+    {
+      "id": "src_legislation_links_count",
+      "label": "count",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "count",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L82"
+    },
+    {
+      "id": "src_legislation_links_currentcaldate",
+      "label": "currentCalDate",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "currentcaldate",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L118"
+    },
+    {
+      "id": "src_legislation_links_dateel",
+      "label": "dateEl",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "dateel",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L103"
+    },
+    {
+      "id": "src_legislation_links_daysfull",
+      "label": "daysFull",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "daysfull",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L105"
+    },
+    {
+      "id": "src_legislation_links_laws",
+      "label": "laws",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "laws",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "src_legislation_links_list",
+      "label": "list",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "list",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L81"
+    },
+    {
+      "id": "src_legislation_links_monthsfull",
+      "label": "monthsFull",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "monthsfull",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L104"
+    },
+    {
+      "id": "src_legislation_links_orderedlaws",
+      "label": "orderedLaws",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "orderedlaws",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L77"
+    },
+    {
+      "id": "src_legislation_links_pinnedlaws",
+      "label": "pinnedLaws",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "pinnedlaws",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L76"
+    },
+    {
+      "id": "src_legislation_links_pinnedtitles",
+      "label": "pinnedTitles",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "legislation-links.js",
+      "file_type": "code",
+      "norm_label": "pinnedtitles",
+      "source_file": "src/legislation-links.js",
+      "source_location": "L64"
     },
     {
       "id": "assets_ipc_be23au6z",
@@ -12290,11 +12340,33 @@
       "source_location": "L1"
     },
     {
+      "id": "assets_admin_jppi3dua",
+      "label": "admin-jppI3dUa.js",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "admin-jppi3dua.js",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_admin_jppi3dua_n",
+      "label": "n",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "n",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
+    },
+    {
       "id": "assets_ipc_lmc67oxm",
       "label": "ipc-lMc67Oxm.js",
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "ipc-lmc67oxm.js",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -12305,7 +12377,7 @@
       "label": "c",
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "c",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -12316,7 +12388,7 @@
       "label": "h",
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "h",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -12327,7 +12399,7 @@
       "label": "s",
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "s",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -12338,7 +12410,7 @@
       "label": "u",
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "u",
       "source_file": "assets/ipc-lMc67Oxm.js",
@@ -12349,10 +12421,208 @@
       "label": "y",
       "_origin": "ast",
       "community": 44,
-      "community_name": "ipc-lMc67Oxm.js",
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
       "file_type": "code",
       "norm_label": "y",
       "source_file": "assets/ipc-lMc67Oxm.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_anptsetr",
+      "label": "main-ANpTSETr.js",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "main-anptsetr.js",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_anptsetr_n",
+      "label": "n",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "n",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_anptsetr_o",
+      "label": "o",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "o",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_anptsetr_v",
+      "label": "v",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/main-ANpTSETr.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2",
+      "label": "main-BhAxn0r2.js",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "main-bhaxn0r2.js",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_c",
+      "label": "c",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "c",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_bhaxn0r2_t",
+      "label": "t",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "assets/main-BhAxn0r2.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo",
+      "label": "main-CD5P1BfO.js",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "main-cd5p1bfo.js",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_n",
+      "label": "n",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "n",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_o",
+      "label": "o",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "o",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "assets_main_cd5p1bfo_v",
+      "label": "v",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/main-CD5P1BfO.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur",
+      "label": "mevzuatBaglantilari-CiURpUUR.js",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "mevzuatbaglantilari-ciurpuur.js",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_e",
+      "label": "e",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "e",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_i",
+      "label": "I",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "i",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_m",
+      "label": "M",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "m",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_r",
+      "label": "R",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "r",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_mevzuatbaglantilari_ciurpuur_v",
+      "label": "V",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "v",
+      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_modulepreload_polyfill_b5qt9emx",
+      "label": "modulepreload-polyfill-B5Qt9EMX.js",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
+      "file_type": "code",
+      "norm_label": "modulepreload-polyfill-b5qt9emx.js",
+      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
       "source_location": "L1"
     },
     {
@@ -12387,50 +12657,6 @@
       "norm_label": "r",
       "source_file": "assets/index-BFuwxWrC.js",
       "source_location": "L16"
-    },
-    {
-      "id": "assets_main_anptsetr",
-      "label": "main-ANpTSETr.js",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "main-anptsetr.js",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_anptsetr_n",
-      "label": "n",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "n",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_anptsetr_o",
-      "label": "o",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "o",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_anptsetr_v",
-      "label": "v",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "main-ANpTSETr.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/main-ANpTSETr.js",
-      "source_location": "L1"
     },
     {
       "id": "assets_main_bgzingdg",
@@ -12697,50 +12923,6 @@
       "source_location": "L13"
     },
     {
-      "id": "assets_main_cd5p1bfo",
-      "label": "main-CD5P1BfO.js",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "main-cd5p1bfo.js",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_n",
-      "label": "n",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "n",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_o",
-      "label": "o",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "o",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_main_cd5p1bfo_v",
-      "label": "v",
-      "_origin": "ast",
-      "community": 50,
-      "community_name": "main-CD5P1BfO.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/main-CD5P1BfO.js",
-      "source_location": "L1"
-    },
-    {
       "id": "assets_main_dig814bc",
       "label": "main-DIG814bC.js",
       "_origin": "ast",
@@ -12815,105 +12997,6 @@
       "file_type": "code",
       "norm_label": "o",
       "source_file": "assets/main-DRONz_BM.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur",
-      "label": "mevzuatBaglantilari-CiURpUUR.js",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "mevzuatbaglantilari-ciurpuur.js",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_e",
-      "label": "e",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "e",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_i",
-      "label": "I",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "i",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_m",
-      "label": "M",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "m",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_r",
-      "label": "R",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "r",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_mevzuatbaglantilari_ciurpuur_v",
-      "label": "V",
-      "_origin": "ast",
-      "community": 53,
-      "community_name": "mevzuatBaglantilari-CiURpUUR.js",
-      "file_type": "code",
-      "norm_label": "v",
-      "source_file": "assets/mevzuatBaglantilari-CiURpUUR.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2",
-      "label": "main-BhAxn0r2.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "main-bhaxn0r2.js",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_c",
-      "label": "c",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "c",
-      "source_file": "assets/main-BhAxn0r2.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_main_bhaxn0r2_t",
-      "label": "t",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "main-BhAxn0r2.js",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "assets/main-BhAxn0r2.js",
       "source_location": "L16"
     },
     {
@@ -13234,17 +13317,6 @@
       "norm_label": "globalstyle",
       "source_file": "src/scroll-top.js",
       "source_location": "L30"
-    },
-    {
-      "id": "assets_modulepreload_polyfill_b5qt9emx",
-      "label": "modulepreload-polyfill-B5Qt9EMX.js",
-      "_origin": "ast",
-      "community": 61,
-      "community_name": "modulepreload-polyfill-B5Qt9EMX.js",
-      "file_type": "code",
-      "norm_label": "modulepreload-polyfill-b5qt9emx.js",
-      "source_file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
-      "source_location": "L1"
     },
     {
       "id": "scripts_update_source_pdf",
@@ -22151,39 +22223,51 @@
       "weight": 1.0
     },
     {
-      "source": "src_section_formatlayoutpage",
-      "target": "src_section_color",
+      "source": "src_section_editprovisiontitle",
+      "target": "src_section_readprovisiontitles",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L109",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
-      "source": "src_section_formatlayoutpage",
-      "target": "src_section_escapehtml",
+      "source": "src_section_editprovisiontitle",
+      "target": "src_section_provisiontitlekey",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L118",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
-      "source": "src_section_formatlayoutpage",
-      "target": "src_section_compact",
+      "source": "src_section_editprovisiontitle",
+      "target": "src_section_writeprovisiontitles",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L165",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_editprovisiontitle",
+      "target": "src_section_applyprovisiontitle",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -22195,7 +22279,79 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L96",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_formatlayoutpage",
+      "target": "src_section_color",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_formatlayoutpage",
+      "target": "src_section_escapehtml",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_formatlayoutpage",
+      "target": "src_section_compact",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L205",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_hydrateprovisiontitles",
+      "target": "src_section_readprovisiontitles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_hydrateprovisiontitles",
+      "target": "src_section_applyprovisiontitle",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_hydrateprovisiontitles",
+      "target": "src_section_provisiontitlekey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -22207,7 +22363,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L351",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -22219,7 +22375,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L407",
+      "source_location": "L447",
       "weight": 1.0
     },
     {
@@ -22231,7 +22387,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L408",
+      "source_location": "L448",
       "weight": 1.0
     },
     {
@@ -22243,7 +22399,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L409",
+      "source_location": "L449",
       "weight": 1.0
     },
     {
@@ -22255,7 +22411,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L410",
+      "source_location": "L450",
       "weight": 1.0
     },
     {
@@ -22267,7 +22423,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L411",
+      "source_location": "L451",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_load",
+      "target": "src_section_hydrateprovisiontitles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L452",
       "weight": 1.0
     },
     {
@@ -22279,7 +22447,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L415",
+      "source_location": "L456",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section_load",
+      "target": "src_section_editprovisiontitle",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/section.js",
+      "source_location": "L465",
       "weight": 1.0
     },
     {
@@ -22291,7 +22471,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L424",
+      "source_location": "L467",
       "weight": 1.0
     },
     {
@@ -22303,7 +22483,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L426",
+      "source_location": "L469",
       "weight": 1.0
     },
     {
@@ -22315,7 +22495,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L427",
+      "source_location": "L470",
       "weight": 1.0
     },
     {
@@ -22327,7 +22507,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L428",
+      "source_location": "L471",
       "weight": 1.0
     },
     {
@@ -22339,7 +22519,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L579",
+      "source_location": "L622",
       "weight": 1.0
     },
     {
@@ -22351,7 +22531,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L193",
+      "source_location": "L233",
       "weight": 1.0
     },
     {
@@ -22363,7 +22543,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L254",
+      "source_location": "L294",
       "weight": 1.0
     },
     {
@@ -22375,7 +22555,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/section.js",
-      "source_location": "L265",
+      "source_location": "L305",
       "weight": 1.0
     },
     {
@@ -35976,17 +36156,6 @@
     },
     {
       "source": "src_section",
-      "target": "src_section_render",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/section.js",
-      "source_location": "L192",
-      "weight": 1.0
-    },
-    {
-      "source": "src_section",
       "target": "src_section_escapehtml",
       "relation": "contains",
       "_origin": "ast",
@@ -36009,6 +36178,17 @@
     },
     {
       "source": "src_section",
+      "target": "src_section_render",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
       "target": "src_section_compact",
       "relation": "contains",
       "_origin": "ast",
@@ -36016,17 +36196,6 @@
       "confidence_score": 1.0,
       "source_file": "src/section.js",
       "source_location": "L24",
-      "weight": 1.0
-    },
-    {
-      "source": "src_section",
-      "target": "src_section_scrolltorequestedprovision",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/section.js",
-      "source_location": "L247",
       "weight": 1.0
     },
     {
@@ -36042,7 +36211,7 @@
     },
     {
       "source": "src_section",
-      "target": "src_section_mergewordfragments",
+      "target": "src_section_provisiontitlekey",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -36053,13 +36222,57 @@
     },
     {
       "source": "src_section",
+      "target": "src_section_readprovisiontitles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
+      "target": "src_section_scrolltorequestedprovision",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L287",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
+      "target": "src_section_writeprovisiontitles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
+      "target": "src_section_applyprovisiontitle",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
       "target": "src_section_copyprovision",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L280",
+      "source_location": "L320",
       "weight": 1.0
     },
     {
@@ -36070,7 +36283,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L311",
+      "source_location": "L351",
       "weight": 1.0
     },
     {
@@ -36081,7 +36294,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L317",
+      "source_location": "L357",
       "weight": 1.0
     },
     {
@@ -36092,7 +36305,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L340",
+      "source_location": "L380",
       "weight": 1.0
     },
     {
@@ -36103,18 +36316,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L382",
+      "source_location": "L422",
       "weight": 1.0
     },
     {
       "source": "src_section",
-      "target": "src_section_formatlayoutpage",
+      "target": "src_section_hydrateprovisiontitles",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L46",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
+      "target": "src_section_editprovisiontitle",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -36125,7 +36349,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L492",
+      "source_location": "L535",
       "weight": 1.0
     },
     {
@@ -36136,7 +36360,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/section.js",
-      "source_location": "L526",
+      "source_location": "L569",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
+      "target": "src_section_mergewordfragments",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -36148,6 +36383,17 @@
       "confidence_score": 1.0,
       "source_file": "src/section.js",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_section",
+      "target": "src_section_formatlayoutpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/section.js",
+      "source_location": "L86",
       "weight": 1.0
     },
     {
@@ -38268,7 +38514,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/section.js",
-      "source_location": "L481",
+      "source_location": "L524",
       "weight": 1.0
     },
     {
@@ -38321,5 +38567,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e12c4ca997ab1a4c276374f5aa560379d610ac73"
+  "built_at_commit": "d710b3e5d91ad46020a23eecc720248b1694e84c"
 }
