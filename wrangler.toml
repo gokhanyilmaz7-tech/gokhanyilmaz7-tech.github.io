@@ -8,6 +8,10 @@ APPLE_TEAM_ID = "4L6B4S88G6"
 APPLE_KEY_ID = "WJ94KH56BZ"
 APPLE_CLIENT_ID = "com.isgmevzuatrehberi.web"
 APPLE_REDIRECT_URI = "https://www.isg-mevzuat-rehberi.com.tr/api/auth/apple/callback"
+ADMIN_NOTIFY_EMAIL = "gokhanyilmaz7@icloud.com"
+ADMIN_NOTIFY_FROM = "İSG Mevzuat Rehberi <onboarding@resend.dev>"
+RESEND_MONTHLY_LIMIT = "2500"
+RESEND_DAILY_LIMIT = "90"
 
 [assets]
 directory = "./dist"

@@ -120,6 +120,39 @@ function pendingMessage(user, request) {
   return `Yeni kullanıcı onay bekliyor:\n\nE-posta: ${user.email}\nGiriş yöntemi: ${userProvider(user)}\nYönetici paneli: ${adminUrl(request)}`;
 }
 
+function numberEnv(value, fallback) {
+  const number = Number(value);
+  return Number.isFinite(number) && number >= 0 ? Math.floor(number) : fallback;
+}
+
+function currentPeriodBounds() {
+  const now = new Date();
+  const monthStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1);
+  const dayStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  return {monthStart, dayStart};
+}
+
+async function resendQuotaAvailable(env) {
+  const monthlyLimit = numberEnv(env.RESEND_MONTHLY_LIMIT, 2500);
+  const dailyLimit = numberEnv(env.RESEND_DAILY_LIMIT, 90);
+  if (monthlyLimit === 0 || dailyLimit === 0) return {ok: false, reason: 'Resend bildirimi kapalı.'};
+  const {monthStart, dayStart} = currentPeriodBounds();
+  const [monthly, daily] = await Promise.all([
+    env.DB.prepare("SELECT COUNT(*) AS count FROM users WHERE notification_status = 'sent' AND notified_at >= ?").bind(monthStart).first(),
+    env.DB.prepare("SELECT COUNT(*) AS count FROM users WHERE notification_status = 'sent' AND notified_at >= ?").bind(dayStart).first()
+  ]);
+  const monthlyCount = Number(monthly?.count || 0);
+  const dailyCount = Number(daily?.count || 0);
+  if (monthlyCount >= monthlyLimit) return {ok: false, reason: `Aylık ücretsiz e-posta kotası doldu (${monthlyCount}/${monthlyLimit}).`};
+  if (dailyCount >= dailyLimit) return {ok: false, reason: `Günlük ücretsiz e-posta kotası doldu (${dailyCount}/${dailyLimit}).`};
+  return {ok: true, monthlyCount, dailyCount, monthlyLimit, dailyLimit};
+}
+
+async function responseDetail(response) {
+  const text = await response.text().catch(() => '');
+  return text ? `${response.status}:${text.slice(0, 220)}` : String(response.status);
+}
+
 async function sendAdminNotification(env, message) {
   const results = [];
   if (env.ADMIN_NOTIFY_WEBHOOK) {
@@ -127,12 +160,17 @@ async function sendAdminNotification(env, message) {
     results.push({channel: 'webhook', ok: response.ok, status: response.status});
   }
   if (env.RESEND_API_KEY && env.ADMIN_NOTIFY_EMAIL) {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json'},
-      body: JSON.stringify({from: env.ADMIN_NOTIFY_FROM || 'İSG Mevzuat Rehberi <onboarding@resend.dev>', to: [env.ADMIN_NOTIFY_EMAIL], subject: 'Yeni kullanıcı onayı bekliyor', text: message})
-    });
-    results.push({channel: 'email', ok: response.ok, status: response.status});
+    const quota = await resendQuotaAvailable(env);
+    if (quota.ok) {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json'},
+        body: JSON.stringify({from: env.ADMIN_NOTIFY_FROM || 'İSG Mevzuat Rehberi <onboarding@resend.dev>', to: [env.ADMIN_NOTIFY_EMAIL], subject: 'Yeni kullanıcı onayı bekliyor', text: message})
+      });
+      results.push({channel: 'email', ok: response.ok, status: response.status, detail: response.ok ? '' : await responseDetail(response)});
+    } else {
+      results.push({channel: 'email', ok: false, status: 'quota', detail: quota.reason});
+    }
   }
   if (env.WHATSAPP_ACCESS_TOKEN && env.WHATSAPP_PHONE_NUMBER_ID && env.ADMIN_WHATSAPP_TO) {
     const response = await fetch(`https://graph.facebook.com/v21.0/${env.WHATSAPP_PHONE_NUMBER_ID}/messages`, {
@@ -140,7 +178,7 @@ async function sendAdminNotification(env, message) {
       headers: {authorization: `Bearer ${env.WHATSAPP_ACCESS_TOKEN}`, 'content-type': 'application/json'},
       body: JSON.stringify({messaging_product: 'whatsapp', to: env.ADMIN_WHATSAPP_TO, type: 'text', text: {preview_url: true, body: message}})
     });
-    results.push({channel: 'whatsapp', ok: response.ok, status: response.status});
+    results.push({channel: 'whatsapp', ok: response.ok, status: response.status, detail: response.ok ? '' : await responseDetail(response)});
   }
   return results;
 }
@@ -150,7 +188,7 @@ async function notifyPendingUser(env, user, request) {
   try {
     const results = await sendAdminNotification(env, pendingMessage(user, request));
     const ok = results.some((result) => result.ok);
-    const detail = results.map((result) => `${result.channel}:${result.status}`).join(', ');
+    const detail = results.map((result) => `${result.channel}:${result.detail || result.status}`).join(', ');
     await env.DB.prepare("UPDATE users SET notification_status = ?, notification_error = ?, notified_at = ? WHERE id = ?").bind(ok ? 'sent' : 'failed', ok ? '' : detail.slice(0, 500), Date.now(), user.id).run();
   } catch (notificationError) {
     await env.DB.prepare("UPDATE users SET notification_status = 'failed', notification_error = ?, notified_at = ? WHERE id = ?").bind(String(notificationError?.message || notificationError).slice(0, 500), Date.now(), user.id).run();
