@@ -290,6 +290,9 @@
         text-align: right;
         white-space: nowrap;
       }
+      .noksan-row:not(.selected) .btn-edit-noksan {
+        display: none;
+      }
       .btn-edit-noksan {
         border: 1px solid #bfdbfe;
         border-radius: 999px;
@@ -333,6 +336,92 @@
       .floating-selected-badge:hover {
         transform: scale(1.05);
         background: #15803d;
+      }
+
+      /* Single item edit modal */
+      .edit-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.68);
+        backdrop-filter: blur(4px);
+        z-index: 1100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .edit-modal-content {
+        background: #ffffff;
+        width: 100%;
+        max-width: 720px;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 22px 46px rgba(15, 23, 42, 0.32);
+      }
+      .edit-modal-header {
+        padding: 16px 22px;
+        background: #1d4ed8;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .edit-modal-header h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 850;
+      }
+      .edit-modal-body {
+        padding: 20px 22px;
+        background: #f8fafc;
+      }
+      .edit-noksan-category {
+        color: #475569;
+        font-size: 0.82rem;
+        font-weight: 800;
+        margin: 0 0 10px;
+      }
+      .edit-noksan-textarea {
+        width: 100%;
+        min-height: 190px;
+        resize: vertical;
+        border: 1px solid #bfdbfe;
+        border-radius: 12px;
+        color: #0f172a;
+        font: 700 0.95rem/1.55 Arial, sans-serif;
+        padding: 14px 16px;
+        box-sizing: border-box;
+      }
+      .edit-noksan-textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+        outline: none;
+      }
+      .edit-modal-footer {
+        padding: 16px 22px;
+        background: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn-edit-action {
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 800;
+        padding: 10px 16px;
+      }
+      .btn-edit-save {
+        background: #16a34a;
+        color: #ffffff;
+      }
+      .btn-edit-cancel {
+        background: #e2e8f0;
+        color: #334155;
       }
 
       /* Preview Modal */
@@ -571,6 +660,24 @@
     <!-- Floating selected count indicator (Clickable to open preview) -->
     <div id="floating-selected-badge" class="floating-selected-badge hidden">
       👁️ Önizle<span id="floating-count" style="display:none;">0</span>
+    </div>
+
+    <!-- Single selected item edit modal -->
+    <div id="edit-modal" class="edit-modal hidden">
+      <div class="edit-modal-content">
+        <div class="edit-modal-header">
+          <h3>✏️ Seçili Noksanlığı Düzenle</h3>
+          <button id="btn-close-edit" class="btn-close-modal" type="button">&times;</button>
+        </div>
+        <div class="edit-modal-body">
+          <p id="edit-noksan-category" class="edit-noksan-category">Seçili noksanlık</p>
+          <textarea id="edit-noksan-text" class="edit-noksan-textarea" spellcheck="false"></textarea>
+        </div>
+        <div class="edit-modal-footer">
+          <button id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" type="button">Vazgeç</button>
+          <button id="btn-save-edit" class="btn-edit-action btn-edit-save" type="button">Kaydet</button>
+        </div>
+      </div>
     </div>
 
     <!-- Preview Modal -->

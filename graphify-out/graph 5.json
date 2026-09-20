@@ -957,54 +957,6 @@
       "source_location": "L24"
     },
     {
-      "id": "assets_admin_jppi3dua_e",
-      "label": "e()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "e()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_o",
-      "label": "o()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "o()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_r",
-      "label": "r()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "r()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_s",
-      "label": "s()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "s()",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
       "id": "assets_auth_d2fpd3ts_b",
       "label": "b()",
       "_callable": true,
@@ -2719,6 +2671,114 @@
       "norm_label": "uploadattachmentfrommodal()",
       "source_file": "src/gorevler.js",
       "source_location": "L364"
+    },
+    {
+      "id": "src_admin_bindactions",
+      "label": "bindActions()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "bindactions()",
+      "source_file": "src/admin.js",
+      "source_location": "L62"
+    },
+    {
+      "id": "src_admin_deleteuser",
+      "label": "deleteUser()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "deleteuser()",
+      "source_file": "src/admin.js",
+      "source_location": "L56"
+    },
+    {
+      "id": "src_admin_escapehtml",
+      "label": "escapeHtml()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "escapehtml()",
+      "source_file": "src/admin.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_admin_formatdate",
+      "label": "formatDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "formatdate()",
+      "source_file": "src/admin.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_admin_load",
+      "label": "load()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "load()",
+      "source_file": "src/admin.js",
+      "source_location": "L150"
+    },
+    {
+      "id": "src_admin_postuseraction",
+      "label": "postUserAction()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "postuseraction()",
+      "source_file": "src/admin.js",
+      "source_location": "L45"
+    },
+    {
+      "id": "src_admin_render",
+      "label": "render()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "render()",
+      "source_file": "src/admin.js",
+      "source_location": "L127"
+    },
+    {
+      "id": "src_admin_statuslabel",
+      "label": "statusLabel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "statuslabel()",
+      "source_file": "src/admin.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_admin_userrow",
+      "label": "userRow()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "userrow()",
+      "source_file": "src/admin.js",
+      "source_location": "L19"
     },
     {
       "id": "src_ipc_copytable",
@@ -7773,112 +7833,52 @@
       "source_location": "L18"
     },
     {
-      "id": "src_admin_bindactions",
-      "label": "bindActions()",
+      "id": "assets_admin_jppi3dua_e",
+      "label": "e()",
       "_callable": true,
       "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
+      "community": 69,
+      "community_name": "admin-jppI3dUa.js",
       "file_type": "code",
-      "norm_label": "bindactions()",
-      "source_file": "src/admin.js",
-      "source_location": "L62"
+      "norm_label": "e()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
     },
     {
-      "id": "src_admin_deleteuser",
-      "label": "deleteUser()",
+      "id": "assets_admin_jppi3dua_o",
+      "label": "o()",
       "_callable": true,
       "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
+      "community": 69,
+      "community_name": "admin-jppI3dUa.js",
       "file_type": "code",
-      "norm_label": "deleteuser()",
-      "source_file": "src/admin.js",
-      "source_location": "L56"
+      "norm_label": "o()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
     },
     {
-      "id": "src_admin_escapehtml",
-      "label": "escapeHtml()",
+      "id": "assets_admin_jppi3dua_r",
+      "label": "r()",
       "_callable": true,
       "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
+      "community": 69,
+      "community_name": "admin-jppI3dUa.js",
       "file_type": "code",
-      "norm_label": "escapehtml()",
-      "source_file": "src/admin.js",
-      "source_location": "L6"
+      "norm_label": "r()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
     },
     {
-      "id": "src_admin_formatdate",
-      "label": "formatDate()",
+      "id": "assets_admin_jppi3dua_s",
+      "label": "s()",
       "_callable": true,
       "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
+      "community": 69,
+      "community_name": "admin-jppI3dUa.js",
       "file_type": "code",
-      "norm_label": "formatdate()",
-      "source_file": "src/admin.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_admin_load",
-      "label": "load()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
-      "file_type": "code",
-      "norm_label": "load()",
-      "source_file": "src/admin.js",
-      "source_location": "L150"
-    },
-    {
-      "id": "src_admin_postuseraction",
-      "label": "postUserAction()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
-      "file_type": "code",
-      "norm_label": "postuseraction()",
-      "source_file": "src/admin.js",
-      "source_location": "L45"
-    },
-    {
-      "id": "src_admin_render",
-      "label": "render()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
-      "file_type": "code",
-      "norm_label": "render()",
-      "source_file": "src/admin.js",
-      "source_location": "L127"
-    },
-    {
-      "id": "src_admin_statuslabel",
-      "label": "statusLabel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
-      "file_type": "code",
-      "norm_label": "statuslabel()",
-      "source_file": "src/admin.js",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_admin_userrow",
-      "label": "userRow()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
-      "file_type": "code",
-      "norm_label": "userrow()",
-      "source_file": "src/admin.js",
-      "source_location": "L19"
+      "norm_label": "s()",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
     },
     {
       "id": "src_admin_provisions_adjustfirstlineindent",
@@ -8154,19 +8154,7 @@
       "file_type": "code",
       "norm_label": "clearbasket()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L361"
-    },
-    {
-      "id": "src_noksanlar_closeeditmodal",
-      "label": "closeEditModal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "noksanlar.js",
-      "file_type": "code",
-      "norm_label": "closeeditmodal()",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L206"
+      "source_location": "L329"
     },
     {
       "id": "src_noksanlar_closepreviewmodal",
@@ -8178,7 +8166,7 @@
       "file_type": "code",
       "norm_label": "closepreviewmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L312"
+      "source_location": "L266"
     },
     {
       "id": "src_noksanlar_copytoclipboard",
@@ -8190,7 +8178,7 @@
       "file_type": "code",
       "norm_label": "copytoclipboard()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L467"
+      "source_location": "L435"
     },
     {
       "id": "src_noksanlar_escapehtml",
@@ -8202,7 +8190,7 @@
       "file_type": "code",
       "norm_label": "escapehtml()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L484"
+      "source_location": "L452"
     },
     {
       "id": "src_noksanlar_exporttocsv",
@@ -8214,7 +8202,7 @@
       "file_type": "code",
       "norm_label": "exporttocsv()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L447"
+      "source_location": "L415"
     },
     {
       "id": "src_noksanlar_exporttopdf",
@@ -8226,7 +8214,7 @@
       "file_type": "code",
       "norm_label": "exporttopdf()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L410"
+      "source_location": "L378"
     },
     {
       "id": "src_noksanlar_exporttotedbirler",
@@ -8238,7 +8226,7 @@
       "file_type": "code",
       "norm_label": "exporttotedbirler()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L493"
+      "source_location": "L461"
     },
     {
       "id": "src_noksanlar_exporttoword",
@@ -8250,7 +8238,7 @@
       "file_type": "code",
       "norm_label": "exporttoword()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L375"
+      "source_location": "L343"
     },
     {
       "id": "src_noksanlar_getselecteditemlist",
@@ -8262,7 +8250,7 @@
       "file_type": "code",
       "norm_label": "getselecteditemlist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L271"
+      "source_location": "L225"
     },
     {
       "id": "src_noksanlar_initnoksanlar",
@@ -8286,7 +8274,7 @@
       "file_type": "code",
       "norm_label": "openeditorforitem()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L186"
+      "source_location": "L177"
     },
     {
       "id": "src_noksanlar_openpreviewmodal",
@@ -8298,7 +8286,7 @@
       "file_type": "code",
       "norm_label": "openpreviewmodal()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L305"
+      "source_location": "L259"
     },
     {
       "id": "src_noksanlar_renderaccordions",
@@ -8310,7 +8298,7 @@
       "file_type": "code",
       "norm_label": "renderaccordions()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L82"
+      "source_location": "L74"
     },
     {
       "id": "src_noksanlar_renderpreviewmodallist",
@@ -8322,19 +8310,7 @@
       "file_type": "code",
       "norm_label": "renderpreviewmodallist()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L317"
-    },
-    {
-      "id": "src_noksanlar_saveeditednoksan",
-      "label": "saveEditedNoksan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "noksanlar.js",
-      "file_type": "code",
-      "norm_label": "saveeditednoksan()",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L212"
+      "source_location": "L271"
     },
     {
       "id": "src_noksanlar_saveselectionstate",
@@ -8346,7 +8322,7 @@
       "file_type": "code",
       "norm_label": "saveselectionstate()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L181"
+      "source_location": "L173"
     },
     {
       "id": "src_noksanlar_syncvisiblenoksantext",
@@ -8358,7 +8334,7 @@
       "file_type": "code",
       "norm_label": "syncvisiblenoksantext()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L237"
+      "source_location": "L191"
     },
     {
       "id": "src_noksanlar_toggleselection",
@@ -8370,7 +8346,7 @@
       "file_type": "code",
       "norm_label": "toggleselection()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L243"
+      "source_location": "L197"
     },
     {
       "id": "src_noksanlar_updateexportbadge",
@@ -8382,7 +8358,7 @@
       "file_type": "code",
       "norm_label": "updateexportbadge()",
       "source_file": "src/noksanlar.js",
-      "source_location": "L286"
+      "source_location": "L240"
     },
     {
       "id": "assets_mevzuat_ciqbrbqf_e",
@@ -8659,28 +8635,6 @@
       "norm_label": "data",
       "source_file": "src/report-page.js",
       "source_location": "L139"
-    },
-    {
-      "id": "assets_admin_jppi3dua",
-      "label": "admin-jppI3dUa.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "admin-jppi3dua.js",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "assets_admin_jppi3dua_n",
-      "label": "n",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "_",
-      "file_type": "code",
-      "norm_label": "n",
-      "source_file": "assets/admin-jppI3dUa.js",
-      "source_location": "L1"
     },
     {
       "id": "assets_auth_d2fpd3ts",
@@ -9649,6 +9603,28 @@
       "norm_label": "tasks",
       "source_file": "src/gorevler.js",
       "source_location": "L25"
+    },
+    {
+      "id": "src_admin",
+      "label": "admin.js",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "admin.js",
+      "source_file": "src/admin.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_admin_app",
+      "label": "app",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "ipc.js",
+      "file_type": "code",
+      "norm_label": "app",
+      "source_file": "src/admin.js",
+      "source_location": "L4"
     },
     {
       "id": "src_ipc",
@@ -12990,26 +12966,26 @@
       "source_location": "L1"
     },
     {
-      "id": "src_admin",
-      "label": "admin.js",
+      "id": "assets_admin_jppi3dua",
+      "label": "admin-jppI3dUa.js",
       "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
+      "community": 69,
+      "community_name": "admin-jppI3dUa.js",
       "file_type": "code",
-      "norm_label": "admin.js",
-      "source_file": "src/admin.js",
+      "norm_label": "admin-jppi3dua.js",
+      "source_file": "assets/admin-jppI3dUa.js",
       "source_location": "L1"
     },
     {
-      "id": "src_admin_app",
-      "label": "app",
+      "id": "assets_admin_jppi3dua_n",
+      "label": "n",
       "_origin": "ast",
-      "community": 68,
-      "community_name": "admin.js",
+      "community": 69,
+      "community_name": "admin-jppI3dUa.js",
       "file_type": "code",
-      "norm_label": "app",
-      "source_file": "src/admin.js",
-      "source_location": "L4"
+      "norm_label": "n",
+      "source_file": "assets/admin-jppI3dUa.js",
+      "source_location": "L1"
     },
     {
       "id": "src_admin_provisions",
@@ -19388,7 +19364,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L368",
+      "source_location": "L336",
       "weight": 1.0
     },
     {
@@ -19400,7 +19376,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L369",
+      "source_location": "L337",
       "weight": 1.0
     },
     {
@@ -19412,7 +19388,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L370",
+      "source_location": "L338",
       "weight": 1.0
     },
     {
@@ -19424,7 +19400,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L468",
+      "source_location": "L436",
       "weight": 1.0
     },
     {
@@ -19436,7 +19412,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L448",
+      "source_location": "L416",
       "weight": 1.0
     },
     {
@@ -19448,7 +19424,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L411",
+      "source_location": "L379",
       "weight": 1.0
     },
     {
@@ -19460,7 +19436,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L435",
+      "source_location": "L403",
       "weight": 1.0
     },
     {
@@ -19472,7 +19448,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L494",
+      "source_location": "L462",
       "weight": 1.0
     },
     {
@@ -19484,7 +19460,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L528",
+      "source_location": "L496",
       "weight": 1.0
     },
     {
@@ -19496,7 +19472,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L376",
+      "source_location": "L344",
       "weight": 1.0
     },
     {
@@ -19508,7 +19484,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L394",
+      "source_location": "L362",
       "weight": 1.0
     },
     {
@@ -19536,6 +19512,42 @@
       "weight": 1.0
     },
     {
+      "source": "src_noksanlar_openeditorforitem",
+      "target": "src_noksanlar_saveselectionstate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_openeditorforitem",
+      "target": "src_noksanlar_updateexportbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar_openeditorforitem",
+      "target": "src_noksanlar_openpreviewmodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/noksanlar.js",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
       "source": "src_noksanlar_openpreviewmodal",
       "target": "src_noksanlar_renderpreviewmodallist",
       "relation": "calls",
@@ -19544,7 +19556,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L308",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -19556,7 +19568,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L108",
+      "source_location": "L100",
       "weight": 1.0
     },
     {
@@ -19568,7 +19580,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L162",
+      "source_location": "L154",
       "weight": 1.0
     },
     {
@@ -19580,7 +19592,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L173",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -19592,7 +19604,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L322",
+      "source_location": "L276",
       "weight": 1.0
     },
     {
@@ -19604,7 +19616,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L339",
+      "source_location": "L293",
       "weight": 1.0
     },
     {
@@ -19616,7 +19628,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L348",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -19628,7 +19640,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L349",
+      "source_location": "L303",
       "weight": 1.0
     },
     {
@@ -19640,55 +19652,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L353",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_saveselectionstate",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L226",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_syncvisiblenoksantext",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L227",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_renderpreviewmodallist",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L231",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanlar_closeeditmodal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L234",
+      "source_location": "L307",
       "weight": 1.0
     },
     {
@@ -19700,7 +19664,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L251",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -19712,7 +19676,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L262",
+      "source_location": "L216",
       "weight": 1.0
     },
     {
@@ -22368,18 +22332,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_noksanlar_openeditorforitem",
-      "target": "src_noksanliklardata_noksanlik_items",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L190",
-      "weight": 1.0
-    },
-    {
       "source": "src_noksanlar_renderaccordions",
       "target": "src_noksanliklardata_noksanlik_categories",
       "relation": "references",
@@ -22388,19 +22340,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/noksanlar.js",
-      "source_location": "L88",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_saveeditednoksan",
-      "target": "src_noksanliklardata_noksanlik_items",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L215",
+      "source_location": "L80",
       "weight": 1.0
     },
     {
@@ -33222,7 +33162,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L181",
+      "source_location": "L173",
       "weight": 1.0
     },
     {
@@ -33233,29 +33173,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L186",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar",
-      "target": "src_noksanlar_closeeditmodal",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/noksanlar.js",
-      "source_location": "L206",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar",
-      "target": "src_noksanlar_saveeditednoksan",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/noksanlar.js",
-      "source_location": "L212",
+      "source_location": "L177",
       "weight": 1.0
     },
     {
@@ -33266,7 +33184,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L237",
+      "source_location": "L191",
       "weight": 1.0
     },
     {
@@ -33277,7 +33195,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L243",
+      "source_location": "L197",
       "weight": 1.0
     },
     {
@@ -33288,7 +33206,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L271",
+      "source_location": "L225",
       "weight": 1.0
     },
     {
@@ -33299,7 +33217,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L286",
+      "source_location": "L240",
       "weight": 1.0
     },
     {
@@ -33310,7 +33228,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L305",
+      "source_location": "L259",
       "weight": 1.0
     },
     {
@@ -33321,7 +33239,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L312",
+      "source_location": "L266",
       "weight": 1.0
     },
     {
@@ -33332,7 +33250,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L317",
+      "source_location": "L271",
       "weight": 1.0
     },
     {
@@ -33343,7 +33261,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L361",
+      "source_location": "L329",
       "weight": 1.0
     },
     {
@@ -33354,7 +33272,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L375",
+      "source_location": "L343",
       "weight": 1.0
     },
     {
@@ -33365,7 +33283,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L410",
+      "source_location": "L378",
       "weight": 1.0
     },
     {
@@ -33376,7 +33294,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L447",
+      "source_location": "L415",
       "weight": 1.0
     },
     {
@@ -33387,7 +33305,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L467",
+      "source_location": "L435",
       "weight": 1.0
     },
     {
@@ -33398,7 +33316,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L484",
+      "source_location": "L452",
       "weight": 1.0
     },
     {
@@ -33409,7 +33327,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
-      "source_location": "L493",
+      "source_location": "L461",
       "weight": 1.0
     },
     {
@@ -33425,6 +33343,17 @@
     },
     {
       "source": "src_noksanlar",
+      "target": "src_noksanlar_renderaccordions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/noksanlar.js",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "src_noksanlar",
       "target": "src_noksanlar_selectedids",
       "relation": "contains",
       "_origin": "ast",
@@ -33432,17 +33361,6 @@
       "confidence_score": 1.0,
       "source_file": "src/noksanlar.js",
       "source_location": "L8",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar",
-      "target": "src_noksanlar_renderaccordions",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/noksanlar.js",
-      "source_location": "L82",
       "weight": 1.0
     },
     {
@@ -36320,7 +36238,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L77",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -36349,7 +36267,7 @@
     },
     {
       "source": "src_noksanlar_initnoksanlar",
-      "target": "src_noksanlar_closeeditmodal",
+      "target": "src_noksanlar_exporttoword",
       "relation": "indirect_call",
       "_origin": "ast",
       "confidence": "INFERRED",
@@ -36361,30 +36279,6 @@
     },
     {
       "source": "src_noksanlar_initnoksanlar",
-      "target": "src_noksanlar_saveeditednoksan",
-      "relation": "indirect_call",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "context": "argument",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L53",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_initnoksanlar",
-      "target": "src_noksanlar_exporttoword",
-      "relation": "indirect_call",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "context": "argument",
-      "source_file": "src/noksanlar.js",
-      "source_location": "L59",
-      "weight": 1.0
-    },
-    {
-      "source": "src_noksanlar_initnoksanlar",
       "target": "src_noksanlar_exporttopdf",
       "relation": "indirect_call",
       "_origin": "ast",
@@ -36392,7 +36286,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L60",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -36404,7 +36298,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L61",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -36416,7 +36310,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L62",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -36428,7 +36322,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L63",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -36440,7 +36334,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/noksanlar.js",
-      "source_location": "L65",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -36589,5 +36483,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6ccaac2817e95a78721971ef5d7eefcaf2a6d040"
+  "built_at_commit": "5416ac7c7bc867f10896a7c61bc460aeb0bb3c40"
 }

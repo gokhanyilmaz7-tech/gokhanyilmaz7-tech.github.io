@@ -8,7 +8,7 @@ let rawSaved = JSON.parse(localStorage.getItem('isg-selected-noksanliklar') || '
 let selectedIds = new Set(rawSaved.map(id => String(id)));
 let customTexts = JSON.parse(localStorage.getItem('isg-custom-noksanliklar') || '{}');
 let openCategories = new Set();
-let pendingEditId = null;
+let activeEditId = null;
 
 function initNoksanlar() {
   renderAccordions();
@@ -45,6 +45,14 @@ function initNoksanlar() {
   document.getElementById('btn-close-preview')?.addEventListener('click', closePreviewModal);
   document.getElementById('preview-modal')?.addEventListener('click', (e) => {
     if (e.target.id === 'preview-modal') closePreviewModal();
+  });
+
+  // Single item edit modal events
+  document.getElementById('btn-close-edit')?.addEventListener('click', closeEditModal);
+  document.getElementById('btn-cancel-edit')?.addEventListener('click', closeEditModal);
+  document.getElementById('btn-save-edit')?.addEventListener('click', saveEditedNoksan);
+  document.getElementById('edit-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'edit-modal') closeEditModal();
   });
 
   // Main Export Events
@@ -177,16 +185,53 @@ function saveSelectionState() {
 
 function openEditorForItem(strId) {
   const sId = String(strId);
-  pendingEditId = sId;
-  if (!selectedIds.has(sId)) {
-    selectedIds.add(sId);
-    saveSelectionState();
-    document.querySelectorAll(`.noksan-row[data-id="${sId}"]`).forEach(tr => {
-      tr.classList.add('selected');
-    });
-    updateExportBadge();
+  if (!selectedIds.has(sId)) return;
+
+  const item = NOKSANLIK_ITEMS.find(noksan => String(noksan.id) === sId);
+  if (!item) return;
+
+  activeEditId = sId;
+  const modal = document.getElementById('edit-modal');
+  const textarea = document.getElementById('edit-noksan-text');
+  const categoryEl = document.getElementById('edit-noksan-category');
+  if (!modal || !textarea) return;
+
+  textarea.value = customTexts[sId] || item.text;
+  if (categoryEl) categoryEl.textContent = item.category || 'Seçili noksanlık';
+  modal.classList.remove('hidden');
+  textarea.focus();
+  textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+}
+
+function closeEditModal() {
+  const modal = document.getElementById('edit-modal');
+  if (modal) modal.classList.add('hidden');
+  activeEditId = null;
+}
+
+function saveEditedNoksan() {
+  if (!activeEditId) return;
+
+  const item = NOKSANLIK_ITEMS.find(noksan => String(noksan.id) === activeEditId);
+  const textarea = document.getElementById('edit-noksan-text');
+  if (!item || !textarea) return;
+
+  const nextText = textarea.value.trim();
+  if (nextText && nextText !== item.text) {
+    customTexts[activeEditId] = nextText;
+  } else {
+    delete customTexts[activeEditId];
   }
-  openPreviewModal();
+
+  saveSelectionState();
+  syncVisibleNoksanText(activeEditId, customTexts[activeEditId] || item.text);
+
+  const previewModal = document.getElementById('preview-modal');
+  if (previewModal && !previewModal.classList.contains('hidden')) {
+    renderPreviewModalList();
+  }
+
+  closeEditModal();
 }
 
 function syncVisibleNoksanText(strId, text) {
@@ -311,20 +356,6 @@ function renderPreviewModalList() {
     listEl.appendChild(div);
   });
 
-  if (pendingEditId) {
-    const target = listEl.querySelector(`[data-preview-id="${pendingEditId}"]`);
-    if (target) {
-      target.focus();
-      const range = document.createRange();
-      range.selectNodeContents(target);
-      range.collapse(false);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-      target.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }
-    pendingEditId = null;
-  }
 }
 
 function clearBasket() {
