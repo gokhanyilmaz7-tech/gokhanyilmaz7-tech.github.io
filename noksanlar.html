@@ -238,6 +238,14 @@
         border-collapse: collapse;
         font-size: 0.9rem;
       }
+      .sira-no-header {
+        width: 65px;
+        text-align: center !important;
+      }
+      .noksan-action-header {
+        width: 132px;
+        text-align: center !important;
+      }
       .inner-table th {
         background: #f8fafc;
         color: #475569;
@@ -277,6 +285,29 @@
       .noksan-text {
         color: #1e293b;
         line-height: 1.45;
+      }
+      .noksan-action-cell {
+        text-align: right;
+        white-space: nowrap;
+      }
+      .btn-edit-noksan {
+        border: 1px solid #bfdbfe;
+        border-radius: 999px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 800;
+        padding: 7px 11px;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .btn-edit-noksan:hover,
+      .btn-edit-noksan:focus-visible {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
       }
 
       /* Floating Counter Badge at bottom right */
@@ -361,6 +392,12 @@
         flex: 1;
         background: #f8fafc;
       }
+      .preview-empty-state {
+        color: #64748b;
+        text-align: center;
+        padding: 30px;
+        font-weight: 600;
+      }
       .preview-item-row {
         display: flex;
         justify-content: space-between;
@@ -373,7 +410,18 @@
         margin-bottom: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.03);
       }
-            .preview-item-text[contenteditable="true"] {
+      .preview-item-main {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        flex: 1;
+      }
+      .preview-item-number {
+        color: #64748b;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+      .preview-item-text[contenteditable="true"] {
         cursor: text;
         padding: 4px 6px;
         border-radius: 4px;
@@ -412,6 +460,29 @@
       .btn-remove-item:hover {
         background: #ef4444;
         color: #ffffff;
+      }
+      @media (max-width: 640px) {
+        .inner-table th:nth-child(1),
+        .inner-table td:nth-child(1) {
+          width: 46px;
+          padding-left: 8px;
+          padding-right: 8px;
+        }
+        .noksan-action-header {
+          width: 92px;
+        }
+        .noksan-action-cell {
+          padding-left: 6px;
+          padding-right: 8px;
+        }
+        .btn-edit-noksan {
+          font-size: 0.72rem;
+          padding: 6px 8px;
+        }
+        .preview-item-row,
+        .preview-item-main {
+          flex-direction: column;
+        }
       }
       .preview-modal-footer {
         padding: 16px 20px;

@@ -8,6 +8,7 @@ let rawSaved = JSON.parse(localStorage.getItem('isg-selected-noksanliklar') || '
 let selectedIds = new Set(rawSaved.map(id => String(id)));
 let customTexts = JSON.parse(localStorage.getItem('isg-custom-noksanliklar') || '{}');
 let openCategories = new Set();
+let pendingEditId = null;
 
 function initNoksanlar() {
   renderAccordions();
@@ -107,19 +108,24 @@ function renderAccordions() {
         <table class="inner-table">
           <thead>
             <tr>
-              <th style="width: 65px; text-align: center;">Sıra No</th>
+              <th class="sira-no-header">Sıra No</th>
               <th>Noksanlık Açıklaması / Maddesi</th>
+              <th class="noksan-action-header">İşlem</th>
             </tr>
           </thead>
           <tbody>
             ${matchingItems.map((item, idx) => {
               const strId = String(item.id);
               const isSelected = selectedIds.has(strId);
+              const displayText = customTexts[strId] || item.text;
               return `
                 <tr class="noksan-row ${isSelected ? 'selected' : ''}" data-id="${strId}">
                   <td class="sira-no">${idx + 1}</td>
                   <td>
-                    <div class="noksan-text">${escapeHtml(item.text)}</div>
+                    <div class="noksan-text">${escapeHtml(displayText)}</div>
+                  </td>
+                  <td class="noksan-action-cell">
+                    <button class="btn-edit-noksan" type="button" data-edit-id="${strId}">✏️ Düzenle</button>
                   </td>
                 </tr>
               `;
@@ -148,11 +154,44 @@ function renderAccordions() {
         toggleSelection(strId);
       });
       tr.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-edit-noksan')) return;
         toggleSelection(strId);
       });
     });
 
+    accordionItem.querySelectorAll('.btn-edit-noksan').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEditorForItem(button.dataset.editId);
+      });
+    });
+
     container.appendChild(accordionItem);
+  });
+}
+
+function saveSelectionState() {
+  localStorage.setItem('isg-selected-noksanliklar', JSON.stringify(Array.from(selectedIds)));
+  localStorage.setItem('isg-custom-noksanliklar', JSON.stringify(customTexts));
+}
+
+function openEditorForItem(strId) {
+  const sId = String(strId);
+  pendingEditId = sId;
+  if (!selectedIds.has(sId)) {
+    selectedIds.add(sId);
+    saveSelectionState();
+    document.querySelectorAll(`.noksan-row[data-id="${sId}"]`).forEach(tr => {
+      tr.classList.add('selected');
+    });
+    updateExportBadge();
+  }
+  openPreviewModal();
+}
+
+function syncVisibleNoksanText(strId, text) {
+  document.querySelectorAll(`.noksan-row[data-id="${strId}"] .noksan-text`).forEach((el) => {
+    el.textContent = text;
   });
 }
 
@@ -164,8 +203,7 @@ function toggleSelection(strId) {
   } else {
     selectedIds.add(sId);
   }
-  localStorage.setItem('isg-selected-noksanliklar', JSON.stringify(Array.from(selectedIds)));
-  localStorage.setItem('isg-custom-noksanliklar', JSON.stringify(customTexts));
+  saveSelectionState();
   
   // Re-render matching row states across DOM
   document.querySelectorAll(`.noksan-row[data-id="${sId}"]`).forEach(tr => {
@@ -242,7 +280,7 @@ function renderPreviewModalList() {
   listEl.innerHTML = '';
 
   if (selectedItems.length === 0) {
-    listEl.innerHTML = '<p style="color: #64748b; text-align: center; padding: 30px; font-weight: 600;">Henüz hiç noksanlık seçilmedi.</p>';
+    listEl.innerHTML = '<p class="preview-empty-state">Henüz hiç noksanlık seçilmedi.</p>';
     return;
   }
 
@@ -251,17 +289,19 @@ function renderPreviewModalList() {
     const div = document.createElement('div');
     div.className = 'preview-item-row';
     div.innerHTML = `
-      <div style="display: flex; gap: 10px; align-items: flex-start; flex: 1;">
-        <span style="font-weight: 800; color: #64748b; font-size: 0.9rem;">${idx + 1}.</span>
-        <div class="preview-item-text" contenteditable="true" spellcheck="false" title="Üzerine tıklayarak metni düzenleyebilirsiniz">${escapeHtml(item.text)}</div>
+      <div class="preview-item-main">
+        <span class="preview-item-number">${idx + 1}.</span>
+        <div class="preview-item-text" data-preview-id="${strId}" contenteditable="true" spellcheck="false" title="Üzerine tıklayarak metni düzenleyebilirsiniz">${escapeHtml(item.text)}</div>
       </div>
       <button class="btn-remove-item" title="Listeden Çıkar" type="button">✕ Çıkar</button>
     `;
 
     const editableText = div.querySelector('.preview-item-text');
     editableText.addEventListener('input', (e) => {
-      customTexts[strId] = e.target.innerText.trim();
-      localStorage.setItem('isg-custom-noksanliklar', JSON.stringify(customTexts));
+      const nextText = e.target.innerText.trim();
+      customTexts[strId] = nextText;
+      saveSelectionState();
+      syncVisibleNoksanText(strId, nextText || item.text);
     });
 
     div.querySelector('.btn-remove-item').onclick = () => {
@@ -270,6 +310,21 @@ function renderPreviewModalList() {
 
     listEl.appendChild(div);
   });
+
+  if (pendingEditId) {
+    const target = listEl.querySelector(`[data-preview-id="${pendingEditId}"]`);
+    if (target) {
+      target.focus();
+      const range = document.createRange();
+      range.selectNodeContents(target);
+      range.collapse(false);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+    pendingEditId = null;
+  }
 }
 
 function clearBasket() {

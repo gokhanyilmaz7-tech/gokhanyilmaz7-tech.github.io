@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,731,473 words
+- 967 files · ~1,731,711 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1130 nodes · 2013 edges · 70 communities (61 shown, 4 thin omitted)
+- 1133 nodes · 2023 edges · 69 communities (60 shown, 4 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 93 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6e19ef82`
+- Built from commit: `5416ac7c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -78,7 +78,6 @@
 - scroll-top.js
 - modulepreload-polyfill-B5Qt9EMX.js
 - Mevzuat Rehberi
-- admin.js
 - admin-jppI3dUa.js
 
 ## God Nodes (most connected - your core abstractions)
@@ -108,7 +107,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (70 total, 4 thin omitted)
+## Communities (69 total, 4 thin omitted)
 
 ### Community 0 - "report-page.js"
 Cohesion: 0.07
@@ -143,8 +142,8 @@ Cohesion: 0.21
 Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), applyProvisionOverrides(), bindInlineToolbar(), blockNodes(), caretAtBlockStart(), copyFormatTemplate() (+13 more)
 
 ### Community 8 - "noksanlar.js"
-Cohesion: 0.21
-Nodes (21): clearBasket(), closePreviewModal(), copyToClipboard(), customTexts, escapeHtml(), exportToCsv(), exportToPdf(), exportToTedbirler() (+13 more)
+Cohesion: 0.19
+Nodes (24): clearBasket(), closePreviewModal(), copyToClipboard(), customTexts, escapeHtml(), exportToCsv(), exportToPdf(), exportToTedbirler() (+16 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -183,8 +182,8 @@ Cohesion: 0.19
 Nodes (16): archive, attachmentsMap, escapeHtml(), escapeJs(), initEventListeners(), loadAllAttachments(), loadProgramData(), monthNames (+8 more)
 
 ### Community 18 - "ipc.js"
-Cohesion: 0.19
-Nodes (16): copyButton, escapeHtml(), filterRows(), formatCell(), isFullWidthNote(), isHeaderRepeat(), isMajor(), isNote() (+8 more)
+Cohesion: 0.12
+Nodes (26): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+18 more)
 
 ### Community 19 - "ipc-CC3fB8bB.js"
 Cohesion: 0.18
@@ -345,10 +344,6 @@ Nodes (3): pageCount, pdf, sections
 ### Community 66 - "Mevzuat Rehberi"
 Cohesion: 0.50
 Nodes (3): Mevzuat Rehberi, Yönetici girişi, Çalıştırma
-
-### Community 68 - "admin.js"
-Cohesion: 0.35
-Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+2 more)
 
 ### Community 69 - "admin-jppI3dUa.js"
 Cohesion: 0.53
