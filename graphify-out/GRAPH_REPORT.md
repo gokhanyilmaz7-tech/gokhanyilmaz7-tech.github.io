@@ -1,16 +1,16 @@
 # Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,733,808 words
+- 967 files · ~1,733,911 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1161 nodes · 2133 edges · 69 communities (60 shown, 4 thin omitted)
+- 1164 nodes · 2142 edges · 72 communities (63 shown, 4 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c6b56e95`
+- Built from commit: `bcb2218a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -79,6 +79,9 @@
 - modulepreload-polyfill-B5Qt9EMX.js
 - Mevzuat Rehberi
 - admin.js
+- auth.js
+- favorites-page.js
+- report.js
 
 ## God Nodes (most connected - your core abstractions)
 1. `_` - 38 edges
@@ -87,8 +90,8 @@
 4. `$` - 21 edges
 5. `requireAccount()` - 20 edges
 6. `initNoksanlar()` - 19 edges
-7. `fetch()` - 19 edges
-8. `renderAccordions()` - 18 edges
+7. `renderAccordions()` - 19 edges
+8. `fetch()` - 19 edges
 9. `renderStream()` - 17 edges
 10. `h()` - 16 edges
 
@@ -107,11 +110,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (69 total, 4 thin omitted)
+## Communities (72 total, 4 thin omitted)
 
 ### Community 0 - "report-page.js"
-Cohesion: 0.07
-Nodes (75): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+67 more)
+Cohesion: 0.17
+Nodes (26): bulkTitlePrompt(), copyTitlesToClipboard(), customEditTitlePrompt(), customManualPrompt(), data, ensureTitles(), esc(), exportWord() (+18 more)
 
 ### Community 1 - "_"
 Cohesion: 0.07
@@ -142,8 +145,8 @@ Cohesion: 0.21
 Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), applyProvisionOverrides(), bindInlineToolbar(), blockNodes(), caretAtBlockStart(), copyFormatTemplate() (+13 more)
 
 ### Community 8 - "noksanlar.js"
-Cohesion: 0.12
-Nodes (52): activeFavoriteList(), applyFavoriteListToSelection(), clearBasket(), closeEditModal(), closeFavoritePicker(), closeListlessConfirmModal(), closePreviewModal(), completeListlessMode() (+44 more)
+Cohesion: 0.11
+Nodes (55): activeFavoriteList(), applyFavoriteListToSelection(), clearBasket(), closeEditModal(), closeFavoritePicker(), closeListlessConfirmModal(), closePreviewModal(), completeListlessMode() (+47 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -349,6 +352,18 @@ Nodes (3): Mevzuat Rehberi, Yönetici girişi, Çalıştırma
 Cohesion: 0.35
 Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load(), postUserAction(), render() (+2 more)
 
+### Community 69 - "auth.js"
+Cohesion: 0.19
+Nodes (18): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+10 more)
+
+### Community 70 - "favorites-page.js"
+Cohesion: 0.21
+Nodes (19): allItems(), context, createList(), currentItems(), data, esc(), moveItem(), moveItemTo() (+11 more)
+
+### Community 71 - "report.js"
+Cohesion: 0.38
+Nodes (12): addReportCopy(), allFavoriteItems(), bindFavoriteReportButtons(), esc(), readWorkspace(), reportButton(), reportRepeatButton(), reportSourceId() (+4 more)
+
 ## Knowledge Gaps
 - **339 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+334 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 425 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
@@ -360,14 +375,14 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `_` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Why does `$` connect `$` to `modulepreload-polyfill-B5Qt9EMX.js`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **Why does `$` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `n`, `r`, `I` to the rest of the system?**
   _339 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `report-page.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.0667578659370725 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
   _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**
   _Cohesion score 0.0915915915915916 - nodes in this community are weakly interconnected._
+- **Should `index.js` be split into smaller, more focused modules?**
+  _Cohesion score 0.09508196721311475 - nodes in this community are weakly interconnected._

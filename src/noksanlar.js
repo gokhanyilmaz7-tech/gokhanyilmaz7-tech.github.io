@@ -14,6 +14,7 @@ let favoriteNoksanData = loadFavoriteNoksanData();
 let activeFavoriteListId = favoriteNoksanData.activeListId || null;
 let pendingFavoriteNoksanId = null;
 let pendingListlessListName = null;
+let showSelectedOnly = false;
 
 function initNoksanlar() {
   renderAccordions();
@@ -45,7 +46,7 @@ function initNoksanlar() {
   }
 
   // Floating Badge Click to Open Preview Modal
-  document.getElementById('floating-selected-badge')?.addEventListener('click', openPreviewModal);
+  document.getElementById('floating-selected-badge')?.addEventListener('click', toggleSelectedOnlyView);
 
   // Close Preview Modal Events
   document.getElementById('btn-close-preview')?.addEventListener('click', closePreviewModal);
@@ -105,15 +106,17 @@ function renderAccordions() {
     
     // Filter items by search query if exists
     const matchingItems = items.filter(item => {
+      const strId = String(item.id);
+      if (showSelectedOnly && !selectedIds.has(strId)) return false;
       if (!searchQuery) return true;
-      const visibleText = customTexts[String(item.id)] || item.text;
+      const visibleText = customTexts[strId] || item.text;
       return visibleText.toLowerCase().includes(searchQuery) || cat.toLowerCase().includes(searchQuery);
     });
 
-    if (searchQuery && matchingItems.length === 0) return;
+    if ((searchQuery || showSelectedOnly) && matchingItems.length === 0) return;
 
     const isExplicitOpen = openCategories.has(cat);
-    const isOpen = isExplicitOpen || (searchQuery.length > 0 && matchingItems.length > 0);
+    const isOpen = isExplicitOpen || ((searchQuery.length > 0 || showSelectedOnly) && matchingItems.length > 0);
 
     const accordionItem = document.createElement('div');
     accordionItem.className = `cat-accordion-item ${isOpen ? 'open' : ''}`;
@@ -522,12 +525,12 @@ function applyFavoriteListToSelection(listId, message, openPreview = false) {
   renderAccordions();
   updateExportBadge();
   renderFavoriteNoksanTools(message || `${list.name} sol tarafa yüklendi.`);
-  if (openPreview) openPreviewModal();
+  if (openPreview) setSelectedOnlyView(true);
 }
 
 function loadFavoriteNoksanList(listId) {
   const list = favoriteListById(listId);
-  applyFavoriteListToSelection(listId, list ? `${list.name} önizlemeye yüklendi.` : undefined, true);
+  applyFavoriteListToSelection(listId, list ? `${list.name} seçili noksanları gösteriliyor.` : undefined, true);
 }
 
 function openEditorForItem(strId) {
@@ -606,6 +609,7 @@ function resetNoksanPage() {
 
   selectedIds.clear();
   customTexts = {};
+  showSelectedOnly = false;
   searchQuery = '';
   localStorage.removeItem('isg-selected-noksanliklar');
   localStorage.removeItem('isg-custom-noksanliklar');
@@ -674,10 +678,37 @@ function updateExportBadge() {
   if (floatingBadge) {
     if (count > 0) {
       floatingBadge.classList.remove('hidden');
+      floatingBadge.firstChild.nodeValue = showSelectedOnly ? '↩️ Tümünü göster' : '👁️ Önizle';
     } else {
       floatingBadge.classList.add('hidden');
     }
   }
+  updateFavoritePreviewButtons();
+}
+
+function setSelectedOnlyView(nextValue) {
+  if (nextValue && selectedIds.size === 0) {
+    alert('Lütfen önce en az bir noksanlık seçiniz.');
+    return;
+  }
+
+  showSelectedOnly = nextValue;
+  closePreviewModal();
+  renderAccordions();
+  updateExportBadge();
+  renderFavoriteNoksanTools(showSelectedOnly ? 'Sadece seçili noksanlar gösteriliyor.' : 'Tüm noksanlıklar gösteriliyor.');
+}
+
+function toggleSelectedOnlyView() {
+  setSelectedOnlyView(!showSelectedOnly);
+}
+
+function updateFavoritePreviewButtons() {
+  document.querySelectorAll('[data-preview-favorite-list]').forEach((button) => {
+    button.textContent = showSelectedOnly ? '↩️' : '👁️';
+    button.title = showSelectedOnly ? 'Tümünü göster' : 'Listeyi önizle';
+    button.setAttribute('aria-label', button.title);
+  });
 }
 
 // Preview Modal Functions
@@ -741,8 +772,9 @@ function clearBasket() {
   if (selectedIds.size === 0) return;
   if (confirm('Seçtiğiniz tüm noksanlık maddelerini temizlemek istediğinize emin misiniz?')) {
     selectedIds.clear();
-  customTexts = {};
-  localStorage.removeItem('isg-custom-noksanliklar');
+    customTexts = {};
+    showSelectedOnly = false;
+    localStorage.removeItem('isg-custom-noksanliklar');
     localStorage.removeItem('isg-selected-noksanliklar');
     renderAccordions();
     updateExportBadge();
