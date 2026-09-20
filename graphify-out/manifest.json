@@ -5664,9 +5664,9 @@
     "semantic_hash": "3ce370013dcda1de09c691be8b984679"
   },
   "src/report-page.js": {
-    "mtime": 1789935658.20876,
-    "seen": 1789935666.525363,
-    "ast_hash": "c96c86faaf65a6344980c220f0510422",
+    "mtime": 1789935992.7750218,
+    "seen": 1789936000.593289,
+    "ast_hash": "3111b51b566bc5d4dfc9b0ba42a43d8b",
     "semantic_hash": ""
   },
   "src/report.js": {
