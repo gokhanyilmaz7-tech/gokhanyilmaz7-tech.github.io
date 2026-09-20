@@ -64,7 +64,7 @@ export async function toggleReport(item) {
           await saveWorkspace(data);
           localStorage.removeItem('pending-legislation-injection'); // done
           
-          alert("Hüküm seçildi, rapora bağlandı! Tespitlerna geri dönebilirsiniz.");
+          alert("Hüküm tedbirlere eklendi. Tedbirler sayfasına geri dönebilirsiniz.");
           try { window.close(); } catch(e){}
           return true;
       }
@@ -95,15 +95,22 @@ export async function addReportCopy(item) {
 export async function setupSectionReports({sectionId, sectionTitle}) {
   await hydrateFavorites(KEY);
   const data = readWorkspace();
+  const injectionId = localStorage.getItem('pending-legislation-injection');
   document.querySelectorAll('.report-plus').forEach((button) => {
     const card = button.closest('.provision-card');
     const page = card?.closest('.article-page')?.dataset.page || '0';
     const item = {id: `${sectionId}-${page}-${button.dataset.reportId}`, sectionId, sectionTitle, location: `Sayfa ${page} · Hüküm ${button.dataset.reportId}`, text: card?.querySelector('.provision-content')?.innerText.trim() || '', html: card?.querySelector('.copy-html-source')?.innerHTML || '', title: card?.querySelector('.provision-custom-title')?.textContent.trim() || ''};
     button.dataset.reportId = item.id;
     button.dataset.reportItem = JSON.stringify(item);
-    const saved = data.reports.some((entry) => reportSourceId(entry) === item.id);
+    const saved = !injectionId && data.reports.some((entry) => reportSourceId(entry) === item.id);
     updateReportButtons(item.id, saved);
-    if (saved && !button.parentElement.querySelector('.report-repeat')) button.insertAdjacentHTML('afterend', reportRepeatButton(item, 'report-repeat'));
+    if (injectionId) {
+      button.classList.remove('is-reported');
+      button.textContent = 'Tedbirlere Ekle';
+      button.setAttribute('aria-label', 'Tedbirlere ekle');
+      button.title = 'Tedbirlere ekle';
+    }
+    if (!injectionId && saved && !button.parentElement.querySelector('.report-repeat')) button.insertAdjacentHTML('afterend', reportRepeatButton(item, 'report-repeat'));
   });
   document.addEventListener('click', async (event) => {
     const repeat = event.target.closest('.report-repeat');
