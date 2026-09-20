@@ -91,6 +91,22 @@ export async function addReportCopy(item) {
   await saveWorkspace(data);
   return true;
 }
+export async function addItemsToReport(items) {
+  if (!(await requireAccount())) return {added: 0, total: 0};
+  const data = readWorkspace();
+  const list = Array.isArray(items) ? items : [];
+  let added = 0;
+  list.forEach((item) => {
+    if (!item?.id) return;
+    const exists = data.reports.some((entry) => reportSourceId(entry) === item.id);
+    if (exists) return;
+    data.reports.push({...item, sourceId: item.id, title: item.title || '', savedAt: item.savedAt || Date.now()});
+    added += 1;
+  });
+  if (added) await saveWorkspace(data);
+  return {added, total: list.length};
+}
+
 
 export async function setupSectionReports({sectionId, sectionTitle}) {
   await hydrateFavorites(KEY);
