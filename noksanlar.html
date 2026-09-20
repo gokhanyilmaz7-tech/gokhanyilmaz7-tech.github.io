@@ -53,7 +53,7 @@
 
       .noksan-shell {
         max-width: 1100px;
-        margin: 20px 302px 40px 16px;
+        margin: 20px 380px 40px 16px;
         padding: 0 16px;
       }
 
@@ -172,43 +172,52 @@
         top: 96px;
         right: 20px;
         z-index: 90;
-        width: 244px;
+        width: 340px;
         box-sizing: border-box;
         background: rgba(255, 255, 255, 0.96);
-        border: 1px solid rgba(148, 163, 184, 0.26);
+        border: 1px solid #d7e2ef;
         border-radius: 22px;
-        box-shadow: 0 18px 46px rgba(15, 23, 42, 0.18);
+        box-shadow: 0 18px 44px rgba(26, 43, 75, 0.08);
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        padding: 16px;
+        gap: 16px;
+        padding: 24px 22px 28px;
         backdrop-filter: blur(12px);
       }
       .noksan-tools-title {
-        color: #0f172a;
-        font-size: 1rem;
+        color: #7890a7;
+        font-size: 0.88rem;
         font-weight: 900;
-        margin: 0 0 4px;
+        letter-spacing: 0.14em;
+        line-height: 1.2;
+        margin: 0;
+        padding: 0 6px 14px;
+        border-bottom: 1px solid #d9e3ee;
+        text-transform: uppercase;
       }
       .btn-reset-noksan-page {
         align-self: stretch;
-        background: #fef2f2;
-        border: 1px solid #fecaca;
-        border-radius: 999px;
+        min-height: 54px;
+        background: #ffffff;
+        border: 1px solid #c8d7e5;
+        border-radius: 14px;
         color: #b91c1c;
         cursor: pointer;
-        font-size: 0.84rem;
+        font-size: 1rem;
         font-weight: 850;
-        padding: 10px 13px;
+        padding: 12px 16px;
         text-align: center;
-        transition: background 0.15s, color 0.15s, transform 0.15s;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) inset;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
       }
       .btn-reset-noksan-page:hover,
       .btn-reset-noksan-page:focus-visible {
-        background: #dc2626;
-        color: #ffffff;
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #991b1b;
         outline: none;
         transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(185, 28, 28, 0.12);
       }
       @media (max-width: 1100px) {
         .noksan-shell {
@@ -741,7 +750,7 @@
 
       <section class="noksan-tools-card" aria-label="Noksanlık araçları">
         <div>
-          <h2 class="noksan-tools-title">Araçlar</h2>
+          <h2 class="noksan-tools-title">NOKSANLIK ARAÇLARI</h2>
         </div>
         <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini sıfırla</button>
       </section>
