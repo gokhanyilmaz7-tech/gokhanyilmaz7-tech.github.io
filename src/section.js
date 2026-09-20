@@ -1,8 +1,9 @@
 import './section.css';
 import {setupFavorites} from './favorites.js';
 import {setupSectionReports} from './report.js';
-import {setupAccountUI, protectPage} from './auth.js';
-protectPage();
+import {setupAccountUI, protectPage, userStorageKey} from './auth.js';
+const sectionUser = await protectPage();
+if (!sectionUser) throw new Error('Mevzuat sayfası için giriş gerekiyor.');
 
 
 const params = new URLSearchParams(window.location.search);
@@ -25,8 +26,8 @@ function compact(value) { return normalize(value).replace(/\s+/g, ''); }
 function color(values) { return `rgb(${values.map((value) => Math.round(Number(value || 0) * 255)).join(', ')})`; }
 
 const provisionTitleKey = (card) => `${id || 'mevzuat'}-${card.closest('.article-page')?.dataset.page || '0'}-${card.dataset.block || '0'}`;
-const readProvisionTitles = () => { try { return JSON.parse(localStorage.getItem('mevzuat-provision-titles') || '{}'); } catch { return {}; } };
-const writeProvisionTitles = (titles) => localStorage.setItem('mevzuat-provision-titles', JSON.stringify(titles));
+const readProvisionTitles = () => { try { return JSON.parse(localStorage.getItem(userStorageKey('mevzuat-provision-titles')) || '{}'); } catch { return {}; } };
+const writeProvisionTitles = (titles) => localStorage.setItem(userStorageKey('mevzuat-provision-titles'), JSON.stringify(titles));
 
 function applyProvisionTitle(card, value = '') {
   let title = card.querySelector('.provision-custom-title');

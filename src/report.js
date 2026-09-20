@@ -1,11 +1,12 @@
-import {hydrateFavorites, persistFavorites, requireAccount} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount, userStorageKey} from './auth.js';
 
 const KEY = 'mevzuat-local-favorites';
+const localWorkspaceKey = () => userStorageKey(KEY);
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
 
 export const readWorkspace = () => {
   try {
-    const data = JSON.parse(localStorage.getItem(KEY) || '{"lists":[],"reports":[]}');
+    const data = JSON.parse(localStorage.getItem(localWorkspaceKey()) || '{"lists":[],"reports":[]}');
     data.lists = Array.isArray(data.lists) ? data.lists : [];
     data.reports = Array.isArray(data.reports) ? data.reports : [];
     return data;
@@ -13,7 +14,7 @@ export const readWorkspace = () => {
 };
 
 const saveWorkspace = async (data) => {
-  localStorage.setItem(KEY, JSON.stringify(data));
+  localStorage.setItem(localWorkspaceKey(), JSON.stringify(data));
   await persistFavorites(data, KEY);
 };
 

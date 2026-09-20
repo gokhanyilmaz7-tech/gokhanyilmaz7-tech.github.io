@@ -1,16 +1,16 @@
-# Graph Report - gokhanyilmaz7-tech.github  (2026-09-21)
+# Graph Report - gokhanyilmaz7-tech.github  (2026-09-20)
 
 ## Corpus Check
-- 967 files · ~1,734,886 words
+- 967 files · ~1,734,675 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1194 nodes · 2242 edges · 69 communities (60 shown, 4 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
+- 1179 nodes · 2177 edges · 69 communities (60 shown, 4 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 100 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `36007e4d`
+- Built from commit: `adee32b8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -85,12 +85,12 @@
 2. `$` - 29 edges
 3. `w()` - 21 edges
 4. `$` - 21 edges
-5. `userStorageKey()` - 21 edges
-6. `requireAccount()` - 21 edges
-7. `renderStream()` - 21 edges
-8. `initNoksanlar()` - 20 edges
-9. `fetch()` - 20 edges
-10. `renderAccordions()` - 19 edges
+5. `requireAccount()` - 21 edges
+6. `renderStream()` - 21 edges
+7. `initNoksanlar()` - 20 edges
+8. `renderAccordions()` - 19 edges
+9. `fetch()` - 19 edges
+10. `h()` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `N()` --indirect_call--> `g()`  [INFERRED]
@@ -101,8 +101,8 @@
   assets/favoriler-PrvOaiVw.js → assets/report-D4okbJGz.js
 - `j()` --indirect_call--> `S()`  [INFERRED]
   assets/favoriler-PrvOaiVw.js → assets/report-D4okbJGz.js
-- `customNoksanKey()` --calls--> `userStorageKey()`  [EXTRACTED]
-  src/noksanlar.js → src/auth.js
+- `init()` --calls--> `currentUser()`  [EXTRACTED]
+  src/program.js → src/auth.js
 
 ## Import Cycles
 - None detected.
@@ -111,7 +111,7 @@
 
 ### Community 0 - "report-page.js"
 Cohesion: 0.06
-Nodes (93): clearLegacyPrivateData(), currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), PRIVATE_LOCAL_PREFIXES (+85 more)
+Nodes (82): currentUser(), hydrateFavorites(), isAdminMode(), openAccountSettings(), openDialog(), persistFavorites(), protectPage(), requireAccount() (+74 more)
 
 ### Community 1 - "_"
 Cohesion: 0.07
@@ -122,8 +122,8 @@ Cohesion: 0.09
 Nodes (27): App, Bool, Context, Equatable, Identifiable, BrowserCoordinator, BrowserTab, .isHome (+19 more)
 
 ### Community 3 - "index.js"
-Cohesion: 0.09
-Nodes (59): env, helpers, base64(), decode(), encoder, googleAuth(), json(), readCookie() (+51 more)
+Cohesion: 0.10
+Nodes (58): env, helpers, base64(), decode(), encoder, googleAuth(), json(), readCookie() (+50 more)
 
 ### Community 4 - "mevzuat-RJufrWaC.js"
 Cohesion: 0.09
@@ -142,8 +142,8 @@ Cohesion: 0.21
 Nodes (21): adjustFirstLineIndent(), applyFormatTemplate(), applyOverride(), applyProvisionOverrides(), bindInlineToolbar(), blockNodes(), caretAtBlockStart(), copyFormatTemplate() (+13 more)
 
 ### Community 8 - "noksanlar.js"
-Cohesion: 0.10
-Nodes (61): activeFavoriteList(), applyFavoriteListToSelection(), clearBasket(), closeEditModal(), closeFavoritePicker(), closeListlessConfirmModal(), closePreviewModal(), closeTedbirlerSuccessModal() (+53 more)
+Cohesion: 0.11
+Nodes (57): activeFavoriteList(), applyFavoriteListToSelection(), clearBasket(), closeEditModal(), closeFavoritePicker(), closeListlessConfirmModal(), closePreviewModal(), closeTedbirlerSuccessModal() (+49 more)
 
 ### Community 9 - "mevzuat-cIqBrbqF.js"
 Cohesion: 0.13
@@ -351,14 +351,14 @@ Nodes (10): app, bindActions(), deleteUser(), escapeHtml(), formatDate(), load()
 
 ## Knowledge Gaps
 - **339 isolated node(s):** `n`, `r`, `I`, `p`, `r` (+334 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 424 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 425 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `_` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Why does `$` connect `$` to `modulepreload-polyfill-B5Qt9EMX.js`?**
   _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **Why does `$` connect `_` to `modulepreload-polyfill-B5Qt9EMX.js`?**
@@ -366,7 +366,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `n`, `r`, `I` to the rest of the system?**
   _339 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `report-page.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.05901766647252961 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0630673674151935 - nodes in this community are weakly interconnected._
 - **Should `_` be split into smaller, more focused modules?**
   _Cohesion score 0.06843090082865544 - nodes in this community are weakly interconnected._
 - **Should `BrowserTab` be split into smaller, more focused modules?**

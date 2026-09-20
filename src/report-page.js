@@ -126,12 +126,16 @@ function stripGreenText(htmlStr) {
 }
 
 import './favorites-page.css';
-protectPage();
+const reportUser = await protectPage();
+if (!reportUser) throw new Error('Tedbirler sayfası için giriş gerekiyor.');
 import './report-page.css';
-import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI, protectPage} from './auth.js';
+import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI, protectPage, userStorageKey} from './auth.js';
 import {addReportCopy, readWorkspace, reportItems, reportRepeatButton, reportSourceId} from './report.js';
 
 const KEY = 'mevzuat-local-favorites';
+const localWorkspaceKey = () => userStorageKey(KEY);
+const localArchiveKey = () => userStorageKey('noksanlik-archives');
+const localMetaKey = () => userStorageKey('noksanlik-meta');
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
 const sourceHref = (item) => { const match = String(item.sourceId || item.id || '').match(/-(\d+)-(\d+)$/); const params = new URLSearchParams(); if (match) { params.set('page', match[1]); params.set('block', match[2]); } params.set('return', 'tedbirler'); return `/mevzuat.html?id=${encodeURIComponent(item.sectionId)}${params.toString() ? `&${params}` : ''}`; };
 const uid = () => crypto.randomUUID();
@@ -191,13 +195,13 @@ let data = readWorkspace();
 let sortMode = 'manual';
 let reportSearchTimer;
 
-const save = async () => { localStorage.setItem(KEY, JSON.stringify(data)); await persistFavorites(data, KEY); };
+const save = async () => { localStorage.setItem(localWorkspaceKey(), JSON.stringify(data)); await persistFavorites(data, KEY); };
 const items = () => reportItems(data);
 const sortedItems = () => [...items()].sort((a, b) => sortMode === 'title' ? String(a.title || a.location).localeCompare(String(b.title || b.location), 'tr') : sortMode === 'oldest' ? (a.savedAt || 0) - (b.savedAt || 0) : sortMode === 'latest' ? (b.savedAt || 0) - (a.savedAt || 0) : 0);
 
 function renderTools() {
   const tools = document.querySelector('#report-side-tools');
-  const archivesCount = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]').length;
+  const archivesCount = JSON.parse(localStorage.getItem(localArchiveKey()) || '[]').length;
   tools.innerHTML = `<div class=\"side-tools-heading\"><span>RAPOR ARAÇLARI</span></div><button id="report-sort" class="side-tool-button">↕ Sıralama: ${sortMode === 'manual' ? 'özel sıra' : sortMode === 'latest' ? 'yeniden eskiye' : sortMode === 'oldest' ? 'eskiden yeniye' : 'başlığa göre'}</button><button id="report-word" class="primary-tool" style="font-size: 0.9rem;">▣ Alınması Gerekli Tedbirleri Word'e aktar</button><button id="report-copy-titles" class="side-tool-button">📋 Panoya Kopyala</button><button id="report-add-manual-tool" class="side-tool-button" style="color: #b91c1c; margin-top: 0.5rem;">✍️ Manuel tespit Ekle</button><button id="report-clear" class="side-tool-button report-clear-button" ${items().length ? '' : 'disabled'} style="margin-bottom: 2rem;">Tüm hükümleri çıkar</button>
   <div class="side-tools-heading"><span>ARŞİV</span></div>
   <button id="report-archive-save" class="side-tool-button" style="color: #2e67d2;">🖫 Mevcut Raporu Arşivle</button>
@@ -369,7 +373,7 @@ function saveInputs() {
     fCount: document.getElementById('report-female-count').value,
     mCount: document.getElementById('report-male-count').value
   };
-  localStorage.setItem('noksanlik-meta', JSON.stringify(meta));
+  localStorage.setItem(localMetaKey(), JSON.stringify(meta));
 }
 
 document.querySelectorAll('.report-company-input, .report-meta-input').forEach(el => {
@@ -378,7 +382,7 @@ document.querySelectorAll('.report-company-input, .report-meta-input').forEach(e
 });
 
 try {
-  const meta = JSON.parse(localStorage.getItem('noksanlik-meta'));
+  const meta = JSON.parse(localStorage.getItem(localMetaKey()));
   if (meta) {
     if(meta.company) document.getElementById('report-company-name').value = meta.company;
     if(meta.sgk) document.getElementById('report-sgk-no').value = meta.sgk;
@@ -495,7 +499,7 @@ async function saveArchive() {
     date: Date.now()
   };
 
-  const archives = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]');
+  const archives = JSON.parse(localStorage.getItem(localArchiveKey()) || '[]');
   const existingIndex = archives.findIndex(a => a.company.toLocaleLowerCase('tr-TR') === company.toLocaleLowerCase('tr-TR'));
   
   if (existingIndex >= 0) {
@@ -508,13 +512,13 @@ async function saveArchive() {
     archives.push(archiveData);
   }
   
-  localStorage.setItem('noksanlik-archives', JSON.stringify(archives));
+  localStorage.setItem(localArchiveKey(), JSON.stringify(archives));
   alert('"' + company + '" başarıyla arşivlendi!');
   renderTools();
 }
 
 function loadArchiveModal() {
-  const archives = JSON.parse(localStorage.getItem('noksanlik-archives') || '[]');
+  const archives = JSON.parse(localStorage.getItem(localArchiveKey()) || '[]');
   if (!archives.length) return alert('Arşivinizde kayıt bulunmuyor.');
   
   const modalId = 'archive-selection-modal';
@@ -546,7 +550,7 @@ function loadArchiveModal() {
   const modalEl = document.getElementById(modalId);
   window.selectArchive = async (index) => {
     if (!confirm('Ekranda görünen mevcut tespit raporu silinecek ve seçili arşiv yüklenecek. Devam etmek istiyor musunuz?')) return;
-    const a = JSON.parse(localStorage.getItem('noksanlik-archives'))[index];
+    const a = JSON.parse(localStorage.getItem(localArchiveKey()))[index];
     document.getElementById('report-company-name').value = a.company || '';
     document.getElementById('report-sgk-no').value = a.sgk || '';
     document.getElementById('report-hazard-class').value = a.hazard || '';
@@ -559,9 +563,9 @@ function loadArchiveModal() {
   };
   window.deleteArchive = (index) => {
     if (!confirm('Bu arşivi kalıcı olarak silmek istiyor musunuz?')) return;
-    const archs = JSON.parse(localStorage.getItem('noksanlik-archives'));
+    const archs = JSON.parse(localStorage.getItem(localArchiveKey()));
     archs.splice(index, 1);
-    localStorage.setItem('noksanlik-archives', JSON.stringify(archs));
+    localStorage.setItem(localArchiveKey(), JSON.stringify(archs));
     modalEl.remove();
     loadArchiveModal(); // re-render modal
   };
@@ -837,7 +841,7 @@ ${headerHtml}${reportHtml}
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 window.addEventListener('storage', (e) => {
-  if (e.key === 'mevzuat-local-favorites') {
+  if (e.key === localWorkspaceKey()) {
     data = readWorkspace();
     render();
   }

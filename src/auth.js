@@ -3,13 +3,48 @@ import './admin-mode.css';
 
 let userPromise;
 const ADMIN_MODE_KEY = 'mevzuat-admin-mode';
+const CURRENT_USER_KEY = 'mevzuat-current-user-id';
+const PRIVATE_LOCAL_PREFIXES = [
+  'mevzuat-local-favorites',
+  'isg-selected-noksanliklar',
+  'isg-custom-noksanliklar',
+  'isg-favorite-noksan-lists',
+  'noksanlik-archives',
+  'noksanlik-meta',
+];
+
+export function userStorageKey(base, userId = localStorage.getItem(CURRENT_USER_KEY)) {
+  return userId ? `${base}-${userId}` : base;
+}
+
+function rememberUser(user) {
+  if (user?.id) localStorage.setItem(CURRENT_USER_KEY, user.id);
+  else localStorage.removeItem(CURRENT_USER_KEY);
+}
+
+function clearLegacyPrivateData() {
+  PRIVATE_LOCAL_PREFIXES.forEach((key) => localStorage.removeItem(key));
+}
+
 
 export function isAdminMode() {
   return localStorage.getItem(ADMIN_MODE_KEY) !== 'user';
 }
 
 export async function currentUser() {
-  if (!userPromise) userPromise = fetch('/api/auth/me', {credentials: 'same-origin', cache: 'no-store'}).then((response) => response.ok ? response.json() : {user: null}).then((result) => result.user || null).catch(() => null);
+  if (!userPromise) {
+    userPromise = fetch('/api/auth/me', {credentials: 'same-origin', cache: 'no-store'})
+      .then((response) => response.ok ? response.json() : {user: null})
+      .then((result) => {
+        const user = result.user || null;
+        rememberUser(user);
+        return user;
+      })
+      .catch(() => {
+        rememberUser(null);
+        return null;
+      });
+  }
   return userPromise;
 }
 
@@ -19,13 +54,16 @@ export async function hydrateFavorites(key = 'mevzuat-local-favorites') {
   const response = await fetch('/api/favorites', {credentials: 'same-origin'});
   if (!response.ok) return null;
   const data = await response.json();
-  localStorage.setItem(key, JSON.stringify(data));
+  localStorage.setItem(userStorageKey(key, user.id), JSON.stringify(data));
+  localStorage.removeItem(key);
   return data;
 }
 
 export async function persistFavorites(data, key = 'mevzuat-local-favorites') {
-  if (!(await currentUser())) return false;
-  localStorage.setItem(key, JSON.stringify(data));
+  const user = await currentUser();
+  if (!user) return false;
+  localStorage.setItem(userStorageKey(key, user.id), JSON.stringify(data));
+  localStorage.removeItem(key);
   const response = await fetch('/api/favorites', {method: 'PUT', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify(data)});
   return response.ok;
 }
@@ -75,6 +113,7 @@ function openDialog() {
         overlay.remove();
         return;
     }
+    rememberUser(result.user);
     userPromise = Promise.resolve(result.user);
     
     overlay.remove();
@@ -126,19 +165,20 @@ function openAccountSettings(user) {
         overlay.remove();
         return;
     }
+    rememberUser(result.user);
     userPromise = Promise.resolve(result.user);
     
     message.textContent = 'Hesap bilgileriniz güncellendi.';
     setTimeout(() => window.location.reload(), 500);
   };
-  overlay.querySelector('#account-logout').onclick = async () => { await fetch('/api/auth/logout', {method: 'POST', credentials: 'same-origin'}); userPromise = Promise.resolve(null); window.location.reload(); };
+  overlay.querySelector('#account-logout').onclick = async () => { await fetch('/api/auth/logout', {method: 'POST', credentials: 'same-origin'}); rememberUser(null); clearLegacyPrivateData(); userPromise = Promise.resolve(null); window.location.reload(); };
   overlay.querySelector('#account-delete').onclick = async () => {
     if (!window.confirm('Hesabınız ve tüm favorileriniz kalıcı olarak silinsin mi?')) return;
     message.textContent = 'Hesap siliniyor…';
     const response = await fetch('/api/auth/account', {method: 'DELETE', credentials: 'same-origin', headers: {'content-type': 'application/json'}, body: JSON.stringify({currentPassword: overlay.querySelector('#account-current-password').value})});
     const result = await response.json().catch(() => ({}));
     if (!response.ok) { message.textContent = result.error || 'Hesap silinemedi.'; return; }
-    localStorage.removeItem('mevzuat-local-favorites');
+    clearLegacyPrivateData();
     window.location.href = '/';
   };
 }
@@ -188,6 +228,8 @@ export async function setupAccountUI() {
     logoutButton.onclick = async () => {
       if (!window.confirm('Çıkış yapmak istiyor musunuz?')) return;
       await fetch('/api/auth/logout', {method: 'POST', credentials: 'same-origin'});
+      rememberUser(null);
+      clearLegacyPrivateData();
       userPromise = Promise.resolve(null);
       window.location.reload();
     };
@@ -222,6 +264,7 @@ export async function protectPage() {
     document.body.style.display = '';
     if (cloak) cloak.remove();
   }
+  return user;
 }
 
 window.addEventListener('DOMContentLoaded', () => {

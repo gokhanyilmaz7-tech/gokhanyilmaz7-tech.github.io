@@ -1,15 +1,21 @@
 import './styles.css';
-protectPage();
 import { NOKSANLIK_CATEGORIES, NOKSANLIK_ITEMS } from './noksanliklarData.js';
-import { persistFavorites , protectPage} from './auth.js';
+import { persistFavorites, protectPage, userStorageKey } from './auth.js';
+
+const noksanUser = await protectPage();
+if (!noksanUser) throw new Error('Noksanlar sayfası için giriş gerekiyor.');
 
 let searchQuery = '';
-let rawSaved = JSON.parse(localStorage.getItem('isg-selected-noksanliklar') || '[]');
+const selectedNoksanKey = () => userStorageKey('isg-selected-noksanliklar');
+const customNoksanKey = () => userStorageKey('isg-custom-noksanliklar');
+const favoriteNoksanKey = () => userStorageKey('isg-favorite-noksan-lists');
+const workspaceKey = () => userStorageKey('mevzuat-local-favorites');
+
+let rawSaved = JSON.parse(localStorage.getItem(selectedNoksanKey()) || '[]');
 let selectedIds = new Set(rawSaved.map(id => String(id)));
-let customTexts = JSON.parse(localStorage.getItem('isg-custom-noksanliklar') || '{}');
+let customTexts = JSON.parse(localStorage.getItem(customNoksanKey()) || '{}');
 let openCategories = new Set();
 let activeEditId = null;
-const FAVORITE_NOKSAN_KEY = 'isg-favorite-noksan-lists';
 let favoriteNoksanData = loadFavoriteNoksanData();
 let activeFavoriteListId = favoriteNoksanData.activeListId || null;
 let pendingFavoriteNoksanId = null;
@@ -219,13 +225,13 @@ function renderAccordions() {
 }
 
 function saveSelectionState() {
-  localStorage.setItem('isg-selected-noksanliklar', JSON.stringify(Array.from(selectedIds)));
-  localStorage.setItem('isg-custom-noksanliklar', JSON.stringify(customTexts));
+  localStorage.setItem(selectedNoksanKey(), JSON.stringify(Array.from(selectedIds)));
+  localStorage.setItem(customNoksanKey(), JSON.stringify(customTexts));
 }
 
 function loadFavoriteNoksanData() {
   try {
-    const raw = localStorage.getItem(FAVORITE_NOKSAN_KEY);
+    const raw = localStorage.getItem(favoriteNoksanKey());
     const parsed = raw ? JSON.parse(raw) : null;
     if (parsed && Array.isArray(parsed.lists)) {
       return {
@@ -256,7 +262,7 @@ function normalizeFavoriteItem(item) {
 
 function saveFavoriteNoksanData() {
   favoriteNoksanData.activeListId = activeFavoriteListId;
-  localStorage.setItem(FAVORITE_NOKSAN_KEY, JSON.stringify(favoriteNoksanData));
+  localStorage.setItem(favoriteNoksanKey(), JSON.stringify(favoriteNoksanData));
 }
 
 function createLocalId() {
@@ -377,8 +383,8 @@ function completeListlessMode(shouldKeepCurrentSelection) {
   if (!shouldKeepCurrentSelection) {
     selectedIds.clear();
     customTexts = {};
-    localStorage.removeItem('isg-selected-noksanliklar');
-    localStorage.removeItem('isg-custom-noksanliklar');
+    localStorage.removeItem(selectedNoksanKey());
+    localStorage.removeItem(customNoksanKey());
   } else {
     saveSelectionState();
   }
@@ -613,8 +619,8 @@ function resetNoksanPage() {
   customTexts = {};
   showSelectedOnly = false;
   searchQuery = '';
-  localStorage.removeItem('isg-selected-noksanliklar');
-  localStorage.removeItem('isg-custom-noksanliklar');
+  localStorage.removeItem(selectedNoksanKey());
+  localStorage.removeItem(customNoksanKey());
 
   const searchInput = document.getElementById('noksan-search');
   if (searchInput) searchInput.value = '';
@@ -776,8 +782,8 @@ function clearBasket() {
     selectedIds.clear();
     customTexts = {};
     showSelectedOnly = false;
-    localStorage.removeItem('isg-custom-noksanliklar');
-    localStorage.removeItem('isg-selected-noksanliklar');
+    localStorage.removeItem(customNoksanKey());
+    localStorage.removeItem(selectedNoksanKey());
     renderAccordions();
     updateExportBadge();
     closePreviewModal();
@@ -910,10 +916,9 @@ async function exportToTedbirler() {
     return;
   }
   
-  const KEY = 'mevzuat-local-favorites';
   let data = { lists: [], reports: [] };
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(workspaceKey());
     if (raw) {
       data = JSON.parse(raw);
     }
@@ -937,7 +942,7 @@ async function exportToTedbirler() {
     });
   });
   
-  localStorage.setItem(KEY, JSON.stringify(data));
+  localStorage.setItem(workspaceKey(), JSON.stringify(data));
   await persistFavorites(data, KEY);
   openTedbirlerSuccessModal();
 }

@@ -78,6 +78,19 @@ function isAdmin(user) {
   return email === ADMIN_EMAIL || email === 'gokhanyilmaz7@icloud.com' || Boolean(user.apple_sub);
 }
 
+
+function isProtectedPage(pathname) {
+  return [
+    '/hukumler', '/hukumler.html',
+    '/mevzuat', '/mevzuat.html',
+    '/favoriler', '/favoriler.html',
+    '/noksanlar', '/noksanlar.html',
+    '/tedbirler', '/tedbirler.html',
+    '/program', '/program.html',
+    '/gorevler', '/gorevler.html',
+  ].includes(pathname);
+}
+
 function isLocalRequest(request) {
   const hostname = new URL(request.url).hostname;
   return hostname === 'localhost' || hostname === '127.0.0.1';
@@ -677,11 +690,20 @@ export default {
     
     if (url.pathname.startsWith('/api/admin/tasks/')) return adminTaskAttachmentsAPI(request, env, url);
 
-    if (url.pathname === '/admin.html' || url.pathname === '/admin' || url.pathname === '/admin/' ||
-        url.pathname === '/gorevler.html' || url.pathname === '/gorevler' || url.pathname === '/gorevler/') {
+    if (url.pathname === '/admin.html' || url.pathname === '/admin' || url.pathname === '/admin/') {
       const user = await currentUser(request, env);
       if (!user?.isAdmin) return new Response('Not Found', {status: 404});
     }
+
+    if (isProtectedPage(url.pathname)) {
+      const user = await currentUser(request, env);
+      if (!user) {
+        const redirectUrl = new URL('/', url.origin);
+        redirectUrl.searchParams.set('auth_required', '1');
+        return Response.redirect(redirectUrl.toString(), 302);
+      }
+    }
+
     return env.ASSETS.fetch(request);
   },
 };

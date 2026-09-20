@@ -1,11 +1,12 @@
 import './favorites.css';
-import {currentUser, hydrateFavorites, persistFavorites, requireAccount} from './auth.js';
+import {currentUser, hydrateFavorites, persistFavorites, requireAccount, userStorageKey} from './auth.js';
 
 const FAVORITES_KEY = 'mevzuat-local-favorites';
+const localFavoritesKey = () => userStorageKey(FAVORITES_KEY);
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
 const uid = () => crypto.randomUUID();
-const readFavorites = () => { try { return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '{"lists":[]}'); } catch { return {lists: []}; } };
-const writeFavorites = (data) => localStorage.setItem(FAVORITES_KEY, JSON.stringify(data));
+const readFavorites = () => { try { return JSON.parse(localStorage.getItem(localFavoritesKey()) || '{"lists":[]}'); } catch { return {lists: []}; } };
+const writeFavorites = (data) => localStorage.setItem(localFavoritesKey(), JSON.stringify(data));
 
 function favoriteIds() {
   const data = readFavorites();

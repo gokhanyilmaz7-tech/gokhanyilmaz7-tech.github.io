@@ -1,17 +1,20 @@
 import './favorites-page.css';
 import './report-link.css';
-import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI, protectPage} from './auth.js';
-protectPage();
+import {hydrateFavorites, persistFavorites, requireAccount, setupAccountUI, protectPage, userStorageKey} from './auth.js';
+
+const favoritesUser = await protectPage();
+if (!favoritesUser) throw new Error('Favoriler sayfası için giriş gerekiyor.');
 
 import {addItemsToReport, reportItems} from './report.js';
 
 const KEY = 'mevzuat-local-favorites';
+const localFavoritesKey = () => userStorageKey(KEY);
 const PENDING_KEY = 'mevzuat-pending-favorite';
 const esc = (value) => String(value || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
 const sourceHref = (item) => { const match = String(item.id || '').match(/-(\d+)-(\d+)$/); const params = new URLSearchParams(); if (match) { params.set('page', match[1]); params.set('block', match[2]); } return `/mevzuat.html?id=${encodeURIComponent(item.sectionId)}${params.toString() ? `&${params}` : ''}`; };
 const uid = () => crypto.randomUUID();
-const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{"lists":[]}'); } catch { return {lists: []}; } };
-const save = (data) => { localStorage.setItem(KEY, JSON.stringify(data)); persistFavorites(data, KEY); };
+const read = () => { try { return JSON.parse(localStorage.getItem(localFavoritesKey()) || '{"lists":[]}'); } catch { return {lists: []}; } };
+const save = (data) => { localStorage.setItem(localFavoritesKey(), JSON.stringify(data)); persistFavorites(data, KEY); };
 const normalizeFavoriteHtml = (html) => {
   let normalized = String(html || '').replaceAll('white-space:pre', 'white-space:normal');
   let previous;

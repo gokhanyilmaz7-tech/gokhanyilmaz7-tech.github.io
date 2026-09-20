@@ -67,9 +67,9 @@ async function loadProgramData() {
     userId = authData?.user?.id || '1';
   } catch(e){}
 
-  const tRaw = localStorage.getItem(`mevzuat-tasks-${userId}`) || localStorage.getItem('mevzuat-tasks-1') || localStorage.getItem('mevzuat-tasks');
-  const sRaw = localStorage.getItem(`mevzuat-schedule-${userId}`) || localStorage.getItem('mevzuat-schedule-1') || localStorage.getItem('mevzuat-schedule');
-  const aRaw = localStorage.getItem(`mevzuat-archive-${userId}`) || localStorage.getItem('mevzuat-archive-1') || localStorage.getItem('mevzuat-archive');
+  const tRaw = localStorage.getItem(`mevzuat-tasks-${userId}`);
+  const sRaw = localStorage.getItem(`mevzuat-schedule-${userId}`);
+  const aRaw = localStorage.getItem(`mevzuat-archive-${userId}`);
 
   let localT = [], localS = {}, localA = [];
   if (tRaw) { try { localT = JSON.parse(tRaw); } catch(e){} }
