@@ -583,18 +583,14 @@ function bulkTitlePrompt(missingItems) {
   });
 }
 
-function customEditTitlePrompt(currentTitle, fullText) {
+function customEditTitlePrompt(currentTitle) {
   return new Promise((resolve) => {
     const modalId = 'custom-edit-title-modal';
     if (document.getElementById(modalId)) document.getElementById(modalId).remove();
 
-    let previewHtml = '';
-    if (fullText) {
-      const escapedText = String(fullText).replace(/[&<>"']/g, function(m) {
-        return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
-      });
-      previewHtml = `<div style="padding: 1rem; background: #f1f5f9; border-left: 4px solid #cbd5e1; color: #475f7b; font-size: 0.95rem; line-height: 1.5; max-height: 30vh; overflow-y: auto; margin-bottom: 1rem; white-space: pre-wrap; word-wrap: break-word;">${escapedText}</div>`;
-    }
+    const cleanCurrentTitle = String(currentTitle || '').replace(/[&<>"']/g, function(m) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m];
+    });
 
     const modalHTML = `
       <div id="${modalId}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(16, 42, 67, 0.6); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(4px);">
@@ -606,8 +602,7 @@ function customEditTitlePrompt(currentTitle, fullText) {
           </div>
           
           <div style="padding: 1.25rem; background: #fff;">
-            ${previewHtml}
-            <textarea id="${modalId}-input" rows="3" placeholder="Başlığı buraya yazın..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; outline: none; font-family: inherit;">${currentTitle || ''}</textarea>
+            <textarea id="${modalId}-input" rows="3" placeholder="Başlığı buraya yazın..." style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1.05rem; outline: none; font-family: inherit;">${cleanCurrentTitle}</textarea>
           </div>
           
           <div style="padding: 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem;">

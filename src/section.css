@@ -202,7 +202,7 @@ h1 { margin: 0; color: var(--navy); font-family: 'Playfair Display', Georgia, se
 .provision-custom-title {
     margin: 0 8% 7pt;
     color: #000000;
-    font: 400 12pt/1.35 'Times New Roman', Times, serif;
+    font: 700 12pt/1.35 'Times New Roman', Times, serif;
 }
 .provision-card.has-custom-title:not(.annotation-card)::after {
     top: -24px;
