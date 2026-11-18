@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0e14"><link rel="icon" href="/aktuer-logo.png">
+  <title>Aktüerya · İSG Mevzuat Rehberi</title><style id="auth-cloak">body{display:none}</style>
+  <script type="module" crossorigin src="/assets/aktuerya-BZoRjSaC.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/theme-DHjZN_Pw.js">
+  <link rel="modulepreload" crossorigin href="/assets/auth-pOM6EU60.js">
+  <link rel="stylesheet" crossorigin href="/assets/theme-VD4HX-0U.css">
+  <link rel="stylesheet" crossorigin href="/assets/auth-oz-wxfZa.css">
+  <link rel="stylesheet" crossorigin href="/assets/aktuerya-Dg0CDBci.css">
+</head>
+<body>
+<header class="act-topbar">
+  <a href="/" class="act-brand"><img src="/aktuer-logo.png" alt="">İSG Mevzuat Rehberi</a>
+  <div class="account-actions"><button id="account-button">Hesabım</button><button id="logout-button" hidden>Çıkış</button></div>
+</header>
+<aside class="act-rail">
+  <nav class="act-tabs" aria-label="Aktüerya araçları">
+    <button data-tab="calculation" class="selected" aria-current="page"><span data-icon="calculator"></span><span>Tazminat hesabı</span></button>
+    <button data-tab="ggo"><span data-icon="file"></span><span>GGO hesabı</span></button>
+    <button data-tab="archive"><span data-icon="folder"></span><span>Hesaplarım</span></button>
+    <button data-tab="legislation"><span data-icon="file"></span><span>Mevzuatım</span></button>
+  </nav>
+  <nav class="act-section-nav" aria-label="Hesap bölümleri">
+    <a href="#form-section-0" data-section="0"><span data-icon="user"></span>Dosya ve kişi</a>
+    <a href="#form-section-1" data-section="1"><span data-icon="calculator"></span>Hesap yöntemi ve gelir</a>
+    <a href="#form-section-2" data-section="2"><span data-icon="care"></span>İş göremezlik ve bakıcı</a>
+    <a href="#form-section-3" data-section="3"><span data-icon="people"></span>Destek ve askerlik</a>
+    <a href="#form-section-4" data-section="4"><span data-icon="file"></span>TBK 55 faiz / mahsup</a>
+  </nav>
+  <a class="act-back" href="/"><span data-icon="back"></span>Rehbere dön</a>
+</aside>
+<main class="act-shell">
+  <section class="act-heading">
+    <div><h1>Aktüerya</h1><p>İş göremezlik ve destekten yoksun kalma hesapları</p></div>
+    <button id="open-data" class="primary"><span data-icon="sliders"></span>Teknik veriler</button>
+  </section>
+  <p id="act-status" role="status" aria-live="polite"></p>
+  <section id="calculation-panel">
+    <form id="calculation-form">
+      <div class="act-actions" style="justify-content:flex-end;margin-top:0">
+        <button type="button" id="open-calculation-file" class="quiet">Hesap dosyası aç</button>
+        <button type="button" id="open-calculation-text" class="quiet">Hesap girdilerini yapıştır</button>
+        <input id="calculation-file" type="file" accept=".json,application/json" hidden>
+      </div>
+      <section id="preparation" class="act-card preparation-card" aria-labelledby="preparation-title">
+        <div class="preparation-heading"><div><p class="eyebrow">HESABA HAZIRLIK</p><h2 id="preparation-title">Hazırlık kontrolü</h2></div><strong id="preparation-count"></strong></div>
+        <progress id="preparation-progress" max="1" value="0" aria-label="Dolu aktif bölümler"></progress>
+        <div id="preparation-items" class="preparation-grid"></div><p id="preparation-message" role="status"></p>
+      </section>
+      <div id="fields"></div><div id="row-fields"></div>
+      <div class="act-actions calculation-actions">
+        <button type="button" id="back-to-top" class="quiet"><span data-icon="up"></span>Başa dön</button>
+        <div id="bottom-report-actions" class="bottom-report-actions" hidden>
+          <button type="button" id="bottom-print-btn" class="blue-action-btn"><span data-icon="file"></span>Yazdır</button>
+          <button type="button" id="bottom-pdf-btn" class="blue-action-btn"><span data-icon="file"></span>PDF</button>
+        </div>
+        <button type="submit" class="primary"><span data-icon="calculator"></span>Hesapla ve kaydet</button>
+      </div>
+    </form>
+    <section id="result" aria-live="polite"></section>
+  </section>
+  <dialog id="calculation-text-dialog" class="act-card">
+    <h2>Hesap girdilerini yükle</h2><p>Hesap JSON içeriğini yapıştırın. Yeni hesap güncel kayıtlı teknik verilerinizi kullanır.</p>
+    <label>Hesap JSON<textarea id="calculation-text" aria-label="Hesap JSON içeriği" rows="12" style="width:100%;min-width:300px"></textarea></label>
+    <div class="act-actions"><button id="close-calculation-text">Vazgeç</button><button id="load-calculation-text" class="primary">Girdileri yükle</button></div>
+    <p id="calculation-text-status" role="status"></p>
+  </dialog>
+  <section id="ggo-panel" hidden>
+    <div class="act-card">
+      <div class="panel-heading"><span class="panel-symbol" data-icon="file"></span><h2>Gelirin asgari ücrete oranı</h2></div>
+      <p>Aylık vergi matrahı ve istisnalar kayıtlı teknik tablolarınızdan hesaplanır.</p>
+      <form id="ggo-form">
+        <div class="act-grid">
+          <label>Yıl<input name="year" type="number" min="1996" max="2100" value="2026" required></label>
+          <label>Aylık brüt ücret (TL)<input name="brut" type="number" step="0.01" min="0" value="50000" required></label>
+          <label>AGİ medeni durum<select name="medeni"><option value="bekar">Bekâr</option><option value="evli">Evli, eş çalışmıyor</option><option value="evli_1">Evli, 1 çocuk</option><option value="evli_2">Evli, 2 çocuk</option><option value="evli_3">Evli, 3 çocuk</option><option value="evli_4">Evli, 4 çocuk</option><option value="evli_5">Evli, 5 çocuk</option></select><small class="field-help">2022 öncesindeki AGİ hesabı için medeni durum / çocuk sayısını seçin. Eşin çalıştığı durumlara ait tutarlar teknik AGİ tablosunda ayrıca gösterilir.</small></label>
+          <div class="ggo-mode"><input name="minimum" type="checkbox" hidden><button id="minimum-toggle" type="button" aria-pressed="false">Asgari ücret</button></div>
+        </div>
+        <details><summary>Aylık ek gelirler</summary><p>12 ay için TL tutarlarını sırayla, noktalı virgülle ayırın. Boş aylar 0 kabul edilir.</p><div class="act-grid"><label>Nakdi ek gelirler<input name="nakdi" placeholder="0; 0; 0; …"></label><label>Yemek yardımı<input name="yemek" placeholder="0; 0; 0; …"></label><label>Ayni yardımlar<input name="ayni" placeholder="0; 0; 0; …"></label></div></details>
+        <details><summary>Netten brüte hesap</summary><div class="act-grid"><label>Hedef net (TL)<input name="targetNet" type="number" min="0" step="0.01"></label><label>Ay<select name="targetMonth" id="reverse-month"></select><small class="field-help">Hedef net ücretin ait olduğu ayı seçin; o ayın kümülatif vergi matrahı dikkate alınır.</small></label></div></details>
+        <button class="primary" type="submit"><span data-icon="calculator"></span>GGO hesapla</button>
+      <button id="reset-ggo" type="button">GGO sıfırla</button></form>
+    </div><section id="ggo-result"></section>
+  </section>
+  <section id="archive-panel" hidden><div class="act-card"><div class="panel-heading"><span class="panel-symbol" data-icon="folder"></span><h2>Hesaplarım</h2></div><p>Her kayıtta o hesapta kullanılan teknik veriler korunur.</p><div id="archive-list"></div></div></section>
+  <section id="legislation-panel" hidden>
+    <div class="act-card"><div class="panel-heading"><span class="panel-symbol" data-icon="file"></span><h2>Aktüerya mevzuatım</h2></div>
+      <p>Resmî ve güncel metinleri Mevzuat Bilgi Sistemi’nde açın. Listenizdeki değişiklikler yalnızca sizin hesabınıza kaydedilir. Kaynak listesini düzenlemek hesaplama kurallarını değiştirmez.</p>
+      <div class="act-actions"><button id="save-legislation" class="primary">Listemi kaydet</button><button id="reload-legislation">Kayıtlı listeyi yükle</button><button id="reset-legislation">Önerilen listeye dön</button></div>
+      <p id="legislation-status" role="status" aria-live="polite"></p><button id="add-zmss" type="button" hidden>+ ZMSS genel şartlarını ekle</button><div id="legislation-list"></div>
+    </div>
+    <div id="legislation-rules"></div>
+    <form id="legislation-form" class="act-card"><h2>Mevzuat ekle</h2><div class="act-grid">
+      <label>Mevzuat adı<input name="title" required maxlength="300"></label><label>Numarası<input name="number" maxlength="40"></label>
+      <label>Resmî mevzuat bağlantısı<input name="url" type="url" required placeholder="https://www.mevzuat.gov.tr/…" maxlength="2000"></label>
+      <label class="wide-field">İlgili maddeler / not<input name="note" maxlength="1000"></label></div><button type="submit">+ Mevzuat ekle</button>
+    </form>
+  </section>
+</main>
+<dialog id="data-sidebar" aria-labelledby="data-title">
+  <div class="sidebar-head"><div><h2 id="data-title">Teknik veriler</h2><p>Değişiklikler yalnızca sizin hesabınızda kullanılır.</p></div><div class="sidebar-head-actions"><button id="fullscreen-data" type="button" class="quiet" aria-pressed="false" aria-label="Tam ekran aç"><span data-icon="expand"></span><span id="fullscreen-data-text">Tam ekran</span></button><button id="close-data" class="icon-button" aria-label="Teknik verileri kapat"><span data-icon="close"></span></button></div></div>
+  <div class="sidebar-filters"><label>Tablo<select id="data-table"></select></label></div>
+  <div class="sidebar-search"><label>Tabloda ara<input id="data-search" type="search" placeholder="Yaş, yıl, tablo veya değer"></label></div>
+  <div class="sidebar-tools data-edit-actions"><button id="save-data" class="primary"><span data-icon="save"></span>Değişiklikleri kaydet</button><button id="add-data"><span data-icon="plus"></span>Satır ekle</button><button id="reload-data"><span data-icon="refresh"></span>Yeniden yükle</button></div>
+  <p id="data-status" role="status" aria-live="polite"></p>
+  <div id="technical-table-help" class="technical-help"></div>
+  <div id="data-rows" class="table-scroll"></div>
+  <div class="sidebar-tools pagination"><button id="previous-page"><span data-icon="back"></span>Önceki</button><span id="page-label"></span><button id="next-page">Sonraki<span data-icon="chevron"></span></button></div>
+  <details class="reset-panel"><summary><span data-icon="history"></span>Başlangıç verisine dön</summary><p>Seçili tablodaki kişisel değişiklikleriniz kaldırılır.</p><button id="reset-data">Bu tabloyu sıfırla</button></details>
+</dialog>
+<dialog id="ggo-transfer-dialog" class="notice-dialog" aria-labelledby="ggo-transfer-title"><div class="notice-symbol">✓</div><h2 id="ggo-transfer-title">GGO aktarıldı</h2><p id="ggo-transfer-message"></p><button id="close-transfer" type="button" class="primary">Tamam</button></dialog>
+<dialog id="widow-group-dialog" class="notice-dialog" aria-labelledby="widow-group-title"><form id="widow-group-form"><h2 id="widow-group-title">Yeni grup adı</h2><label>Grup adı<input id="widow-group-name" required maxlength="100" placeholder="Kaynak / yöntem adı"></label><p>Grup, kaynağın adıdır. Yeni adı bir teknik veri satırında kullanıp kaydedebilirsiniz.</p><div class="act-actions"><button type="submit" class="primary">Grubu ekle</button><button id="widow-group-cancel" type="button">Vazgeç</button></div></form></dialog>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"d0b2d7b050b54b8bbf4e8583393770a1","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
+

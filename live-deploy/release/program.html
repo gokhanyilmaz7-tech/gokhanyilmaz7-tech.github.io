@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İSG Görev ve Program | İSG Mevzuat Rehberi</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style id="auth-cloak">body { display: none !important; }</style>
+    <script type="module" crossorigin src="/assets/program-DnUlQTpc.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/theme-Bw_c2Sos.js">
+    <link rel="modulepreload" crossorigin href="/assets/scroll-top-kTKu16Q1.js">
+    <link rel="modulepreload" crossorigin href="/assets/auth-pOM6EU60.js">
+    <link rel="stylesheet" crossorigin href="/assets/theme-VD4HX-0U.css">
+    <link rel="stylesheet" crossorigin href="/assets/auth-oz-wxfZa.css">
+    <link rel="stylesheet" crossorigin href="/assets/styles-Crvamc4p.css">
+    <link rel="stylesheet" crossorigin href="/assets/program-D-yx-5HF.css">
+  </head>
+<body class="program-page">
+            <header class="topbar">
+    <a href="/" class="back-link">&larr; Ana sayfaya dön</a>
+    
+    <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px; margin-left: auto; margin-right: 20px;">
+      <button id="btn-topbar-save" class="topbar-btn topbar-btn-save" title="Mevcut Görev Programını Kaydet">
+        <span class="btn-icon">💾</span> Programı Kaydet
+      </button>
+      <button id="btn-topbar-archive" class="topbar-btn topbar-btn-archive" title="Kaydedilmiş Program Arşivi">
+        <span class="btn-icon">📁</span> Arşiv
+      </button>
+    </div>
+
+    <div class="topbar-meta">
+      <span style="color: #b6c6ef; font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">Görev Programı</span>
+    </div>
+  </header>
+
+  <main class="program-layout">
+    
+    <div class="calendar-main">
+      <header class="cal-main-header">
+        <div class="main-month-display">
+          <h1 id="current-month-name">Ocak</h1>
+          <h2 id="current-year-name">2026</h2>
+        </div>
+        
+        <div class="mini-cals">
+          <div class="mini-cal-wrapper" id="prev-month-cal">
+             <!-- Rendered by JS -->
+          </div>
+          <div class="mini-cal-wrapper" id="next-month-cal">
+             <!-- Rendered by JS -->
+          </div>
+        </div>
+        
+        <div class="cal-nav-buttons">
+          <button id="btn-prev-month" class="nav-oval-btn"><span class="btn-icon">&larr;</span> Önceki Ay</button>
+          <button id="btn-next-month" class="nav-oval-btn">Sonraki Ay <span class="btn-icon">&rarr;</span></button>
+        </div>
+      </header>
+      
+      <div class="main-calendar-grid" id="main-calendar-grid">
+         <!-- Rendered by JS -->
+      </div>
+    </div>
+  </main>
+
+  
+
+  <div id="assign-modal" class="modal-overlay hidden">
+    <div class="modal modal-lg">
+      <div class="modal-header-flex">
+        <h3>Program Ekle</h3>
+        <button id="close-assign-x" class="close-modal-x" title="Kapat">&times;</button>
+      </div>
+      
+      <div class="form-group" style="margin-bottom: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+          <label style="margin: 0; font-size: 0.9rem; font-weight: 700; color: #1e293b;">Uygulanacak Günler</label>
+          <div class="md-quick-presets">
+            <button type="button" class="btn-xs" id="btn-md-all">Tümünü Seç</button>
+            <button type="button" class="btn-xs" id="btn-md-weekdays">Hafta İçi</button>
+            <button type="button" class="btn-xs" id="btn-md-weekends">Hafta Sonu</button>
+            <button type="button" class="btn-xs" id="btn-md-clear">Temizle</button>
+          </div>
+        </div>
+        <div id="multi-day-selector" class="multi-day-container"></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="from-tasks">Görev Seçi̇mi</button>
+        <button class="tab" data-tab="manual-task">Manuel Eklenti̇</button>
+      </div>
+      
+      <div class="tab-content active" id="tab-from-tasks">
+        <div class="form-group">
+          <label>Kayıtlı Görevlerden Seçin:</label>
+          <select id="assign-task-select"></select>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="tab-manual-task" style="display: none;">
+        <div class="form-group">
+          <label>Manuel Not / Görev:</label>
+          <textarea id="assign-manual-text" rows="3" placeholder="Örn: Denetim Toplantısı..."></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button class="btn secondary" id="close-assign-modal">İPTAL</button>
+        <button class="btn primary" id="save-assign-btn">GÜNE EKLE</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Archive Modal -->
+  <div id="archive-modal" class="modal-overlay hidden">
+    <div class="modal modal-lg">
+      <div class="modal-header-flex">
+        <h3>📁 Görev Programı Arşivi</h3>
+        <button id="close-archive-x" class="close-modal-x" title="Kapat">&times;</button>
+      </div>
+      <p class="archive-subtitle">Kaydedilmiş tüm görev programlarınız burada yer alır. İstediğiniz arşiv kaydını takvime yükleyebilirsiniz.</p>
+      
+      <div id="archive-list" class="archive-list-container">
+        <!-- Archive cards rendered by JS -->
+      </div>
+      
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button id="close-archive-btn" class="nav-oval-btn" style="padding: 8px 18px;">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+<!-- cache bust 2026-09-02-22-17 -->
+<!-- cache bust 2026-09-02-22-33 -->
+<!-- cache bust 2026-09-02-22-40 -->

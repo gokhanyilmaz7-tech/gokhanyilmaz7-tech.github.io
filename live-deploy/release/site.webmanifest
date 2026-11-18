@@ -1,0 +1,20 @@
+{
+  "name": "Mevzuat Rehberi",
+  "short_name": "Mevzuat",
+  "icons": [
+    {
+      "src": "/mevzuat-rehberi-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/mevzuat-rehberi-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#fdfbf7",
+  "theme_color": "#102a43"
+}

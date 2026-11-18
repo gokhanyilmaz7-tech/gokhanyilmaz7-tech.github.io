@@ -1,0 +1,14 @@
+name = "mevzuatrehberi"
+main = "./live-worker/index.js"
+compatibility_date = "2026-07-20"
+
+[assets]
+directory = "./release"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/aktuerya", "/aktuerya/", "/aktuerya.html"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mevzuatrehberi"
+database_id = "f826a842-a4d9-4f51-a623-77913c985445"
+migrations_dir = "repo/worker/migrations"

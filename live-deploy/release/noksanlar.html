@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102a43" />
+    <link rel="icon" href="/aktuer-logo.png" type="image/png" />
+    <title>İSG Noksanlık Listesi | Mevzuat Rehberi</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+      }
+            .ipc-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 70px;
+        padding: 0 clamp(18px, 5vw, 76px);
+        background: rgba(26,43,75,0.97);
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(8,27,58,0.16);
+        backdrop-filter: blur(14px);
+      }
+            .ipc-back {
+        background: transparent;
+        color: #b6c6ef;
+        padding: 0;
+        border-radius: 0;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+      .ipc-back:hover {
+        color: #fff;
+      }
+      .topbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.1rem;
+      }
+
+      .noksan-shell {
+        max-width: 1100px;
+        margin: 20px 284px 40px 16px;
+        padding: 0 16px;
+      }
+
+      /* Modern Top Controls Bar (Search + Export Menu) */
+      .top-controls-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        background: #ffffff;
+        padding: 16px 20px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        flex-wrap: wrap;
+      }
+      .search-box {
+        position: relative;
+        flex: 1;
+        min-width: 260px;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 10px 14px 10px 38px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        font-size: 0.92rem;
+        outline: none;
+        box-sizing: border-box;
+      }
+      .search-box input:focus {
+        border-color: #0284c7;
+        box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+      }
+      .search-icon-fixed {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+
+      /* Modern Export Dropdown Button */
+      .export-dropdown-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+      .btn-export-main {
+        background: #0f172a;
+        color: #ffffff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s, transform 0.1s;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+      }
+      .btn-export-main:hover {
+        background: #1e293b;
+        transform: translateY(-1px);
+      }
+      .export-menu {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 6px);
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        min-width: 220px;
+        z-index: 200;
+        overflow: hidden;
+        display: none;
+      }
+      .export-menu.show {
+        display: block;
+      }
+      .export-menu-item {
+        width: 100%;
+        padding: 11px 16px;
+        text-align: left;
+        background: transparent;
+        border: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #334155;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: background 0.15s;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .export-menu-item:last-child {
+        border-bottom: none;
+      }
+      .export-menu-item:hover {
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      .export-menu-item.danger {
+        color: #dc2626;
+      }
+      .export-menu-item.danger:hover {
+        background: #fef2f2;
+      }
+      .noksan-tools-card {
+        position: fixed;
+        top: 96px;
+        right: 20px;
+        z-index: 90;
+        width: 244px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid #d7e2ef;
+        border-radius: 22px;
+        box-shadow: 0 18px 44px rgba(26, 43, 75, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 22px 28px;
+        backdrop-filter: blur(12px);
+      }
+      .noksan-tools-title {
+        color: #7890a7;
+        font-size: 0.88rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        line-height: 1.2;
+        margin: 0;
+        padding: 0 6px 14px;
+        border-bottom: 1px solid #d9e3ee;
+        text-transform: uppercase;
+      }
+      .btn-reset-noksan-page {
+        align-self: stretch;
+        min-height: 54px;
+        background: #ffffff;
+        border: 1px solid #c8d7e5;
+        border-radius: 14px;
+        color: #b91c1c;
+        cursor: pointer;
+        font-size: 10pt;
+        font-weight: 400;
+        padding: 12px 16px;
+        text-align: center;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) inset;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+      }
+      .btn-reset-noksan-page:hover,
+      .btn-reset-noksan-page:focus-visible {
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #991b1b;
+        outline: none;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(185, 28, 28, 0.12);
+      }
+      .noksan-favorite-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        padding-top: 14px;
+        border-top: 1px solid #d9e3ee;
+      }
+      .noksan-favorite-title {
+        color: #7890a7;
+        font-size: 0.74rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        margin: 0;
+        text-transform: uppercase;
+      }
+      .noksan-favorite-list {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .noksan-favorite-list-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 6px;
+        align-items: center;
+        padding: 7px;
+        border: 1px solid #d7e2ef;
+        border-radius: 12px;
+        background: #ffffff;
+      }
+      .noksan-favorite-list-row.active {
+        border-color: #8cb5e6;
+        background: #eef6ff;
+      }
+      .noksan-favorite-list-name {
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        color: #36536d;
+        font: 700 0.78rem Inter, system-ui, sans-serif;
+        outline: none;
+      }
+      .noksan-favorite-list-name:focus { color: #185c9f; }
+      .noksan-favorite-list-count {
+        display: block;
+        color: #7890a7;
+        font: 600 0.68rem Inter, system-ui, sans-serif;
+      }
+      .noksan-favorite-list-icon {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #c8d7e5;
+        border-radius: 9px;
+        background: #ffffff;
+        color: #42637e;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: inline-grid;
+        place-items: center;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .noksan-favorite-list-icon:hover,
+      .noksan-favorite-list-icon:focus-visible {
+        border-color: #8caac2;
+        background: #f2f6fa;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .noksan-favorite-list-icon.danger { color: #b91c1c; }
+      .noksan-favorite-actions { display: flex; }
+      .noksan-favorite-btn {
+        min-height: 34px;
+        border: 1px solid #c8d7e5;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #42637e;
+        cursor: pointer;
+        font: 700 0.72rem Inter, system-ui, sans-serif;
+        padding: 8px 9px;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .noksan-favorite-btn:hover,
+      .noksan-favorite-btn:focus-visible {
+        border-color: #8caac2;
+        background: #f2f6fa;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .noksan-favorite-btn.primary {
+        border-color: #2679d0;
+        background: #2679d0;
+        color: #ffffff;
+      }
+      .noksan-favorite-btn.danger { color: #b91c1c; }
+      .noksan-favorite-status {
+        min-height: 16px;
+        color: #64748b;
+        font: 600 0.72rem Inter, system-ui, sans-serif;
+        margin: 0;
+      }
+      @media (max-width: 1100px) {
+        .noksan-shell {
+          max-width: 1100px;
+          margin: 20px auto 40px auto;
+        }
+        .noksan-tools-card {
+          position: static;
+          width: auto;
+          margin: 0 0 18px;
+        }
+      }
+
+      /* Single Column Category List */
+      .category-accordion-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .cat-accordion-item {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        transition: border-color 0.2s;
+      }
+      .cat-accordion-header {
+        background: #e2e8f0;
+        color: #0f172a;
+        padding: 14px 20px;
+        font-weight: 700;
+        font-size: 0.98rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        transition: background 0.2s;
+      }
+      .cat-accordion-header:hover {
+        background: #cbd5e1;
+      }
+      .cat-accordion-item.open .cat-accordion-header {
+        background: #334155;
+        color: #ffffff;
+      }
+      .cat-badge-count {
+        background: rgba(0, 0, 0, 0.08);
+        color: inherit;
+        padding: 2px 7px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-left: 0;
+        white-space: nowrap;
+      }
+      .cat-accordion-item.open .cat-badge-count {
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+      }
+      .accordion-arrow {
+        font-size: 0.8rem;
+        transition: transform 0.2s;
+      }
+      .cat-accordion-item.open .accordion-arrow {
+        transform: rotate(180deg);
+      }
+
+      /* Expanded Table Content */
+      .cat-accordion-body {
+        display: none;
+        padding: 0;
+        background: #ffffff;
+      }
+      .cat-accordion-item.open .cat-accordion-body {
+        display: block;
+      }
+      .inner-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      .sira-no-header {
+        width: 65px;
+        text-align: center !important;
+      }
+      .noksan-action-header {
+        width: 128px;
+        text-align: center !important;
+      }
+      .inner-table th {
+        background: #f8fafc;
+        color: #475569;
+        font-weight: 700;
+        padding: 10px 16px;
+        border-bottom: 2px solid #e2e8f0;
+        text-align: left;
+      }
+      .inner-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+      }
+      .noksan-row {
+        cursor: pointer;
+        transition: background-color 0.15s;
+      }
+      .noksan-row:hover {
+        background-color: #f0f9ff !important;
+      }
+      .noksan-row.selected {
+        background-color: #f0fdf4 !important;
+        border-left: 4px solid #16a34a;
+      }
+      .noksan-row.selected td,
+      .noksan-row.selected .noksan-text,
+      .noksan-row.selected .sira-no {
+        color: #16a34a !important;
+        font-weight: 700 !important;
+      }
+      .sira-no {
+        text-align: center;
+        font-weight: 700;
+        color: #64748b;
+        width: 65px;
+      }
+      .noksan-text {
+        color: #1e293b;
+        line-height: 1.45;
+      }
+      .noksan-action-cell {
+        text-align: right;
+        white-space: nowrap;
+      }
+      .noksan-row:not(.selected) .noksan-row-actions {
+        display: none;
+      }
+      .noksan-row-actions {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+      }
+      .btn-edit-noksan,
+      .btn-reset-noksan,
+      .btn-favorite-noksan {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 800;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      }
+      .btn-edit-noksan {
+        border: 1px solid #bfdbfe;
+        background: #eff6ff;
+        color: #1d4ed8;
+      }
+      .btn-reset-noksan {
+        border: 1px solid #fed7aa;
+        background: #fff7ed;
+        color: #c2410c;
+      }
+      .btn-favorite-noksan {
+        border: 1px solid #fde68a;
+        background: #fffbeb;
+        color: #b45309;
+      }
+      .btn-edit-noksan:hover,
+      .btn-edit-noksan:focus-visible {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .btn-reset-noksan:hover,
+      .btn-reset-noksan:focus-visible {
+        background: #ea580c;
+        border-color: #ea580c;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .btn-favorite-noksan:hover,
+      .btn-favorite-noksan:focus-visible,
+      .btn-favorite-noksan.active {
+        background: #f59e0b;
+        border-color: #f59e0b;
+        color: #ffffff;
+        outline: none;
+        transform: translateY(-1px);
+      }
+
+      /* Floating Counter Badge at bottom right */
+      .floating-selected-badge {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: #16a34a;
+        color: #ffffff;
+        padding: 12px 22px;
+        border-radius: 30px;
+        font-weight: 800;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: transform 0.15s, background 0.15s;
+        border: 2px solid #ffffff;
+      }
+      .floating-selected-badge:hover {
+        transform: scale(1.05);
+        background: #15803d;
+      }
+
+      /* Single item edit modal */
+      .edit-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.68);
+        backdrop-filter: blur(4px);
+        z-index: 1100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .edit-modal-content {
+        background: #ffffff;
+        width: 100%;
+        max-width: 720px;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 22px 46px rgba(15, 23, 42, 0.32);
+      }
+      .edit-modal-header {
+        padding: 16px 22px;
+        background: #1d4ed8;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .edit-modal-header h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 850;
+      }
+      .edit-modal-body {
+        padding: 20px 22px;
+        background: #f8fafc;
+      }
+      .edit-noksan-category {
+        color: #475569;
+        font-size: 0.82rem;
+        font-weight: 800;
+        margin: 0 0 10px;
+      }
+      .edit-noksan-textarea {
+        width: 100%;
+        min-height: 190px;
+        resize: vertical;
+        border: 1px solid #bfdbfe;
+        border-radius: 12px;
+        color: #0f172a;
+        font: 700 0.95rem/1.55 Arial, sans-serif;
+        padding: 14px 16px;
+        box-sizing: border-box;
+      }
+      .edit-noksan-textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+        outline: none;
+      }
+      .edit-modal-footer {
+        padding: 16px 22px;
+        background: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .listless-confirm-content {
+        max-width: 420px;
+      }
+      .listless-confirm-body {
+        color: #0f172a;
+        font: 800 1rem/1.45 Arial, sans-serif;
+        text-align: center;
+      }
+      .listless-confirm-body p {
+        margin: 0;
+      }
+      .btn-listless-delete {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .btn-listless-keep {
+        background: #2563eb;
+        color: #ffffff;
+      }
+      .tedbirler-success-content {
+        max-width: 460px;
+      }
+      .tedbirler-success-body {
+        color: #0f172a;
+        font: 800 1rem/1.45 Arial, sans-serif;
+        text-align: center;
+      }
+      .tedbirler-success-body p {
+        margin: 0;
+      }
+      .btn-stay-page {
+        background: #e2e8f0;
+        color: #334155;
+      }
+      .btn-go-tedbirler {
+        background: #5b21b6;
+        color: #ffffff;
+      }
+      .btn-edit-action {
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 800;
+        padding: 10px 16px;
+      }
+      .btn-edit-save {
+        background: #16a34a;
+        color: #ffffff;
+      }
+      .btn-edit-cancel {
+        background: #e2e8f0;
+        color: #334155;
+      }
+
+      /* Preview Modal */
+      .preview-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .preview-modal-content {
+        background: #ffffff;
+        width: 100%;
+        max-width: 820px;
+        max-height: 85vh;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      }
+      .preview-modal-header {
+        padding: 16px 24px;
+        background: #0f172a;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .preview-modal-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-close-modal {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 1.8rem;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+      }
+      .btn-close-modal:hover {
+        color: #ffffff;
+      }
+      .preview-modal-body {
+        padding: 20px;
+        overflow-y: auto;
+        flex: 1;
+        background: #f8fafc;
+      }
+      .preview-empty-state {
+        color: #64748b;
+        text-align: center;
+        padding: 30px;
+        font-weight: 600;
+      }
+      .preview-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      }
+      .preview-item-main {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        flex: 1;
+      }
+      .preview-item-number {
+        color: #64748b;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+      .preview-item-text[contenteditable="true"] {
+        cursor: text;
+        padding: 4px 6px;
+        border-radius: 4px;
+        background-color: transparent;
+        border: 1px dotted transparent;
+        transition: all 0.2s;
+      }
+      .preview-item-text[contenteditable="true"]:hover {
+        background-color: #f0fdf4;
+        border-color: #bbf7d0;
+      }
+      .preview-item-text[contenteditable="true"]:focus {
+        background-color: #fff;
+        border-color: #22c55e;
+        outline: none;
+      }
+      .preview-item-text {
+        font-size: 0.9rem;
+        color: #15803d;
+        font-weight: 700;
+        line-height: 1.45;
+        flex: 1;
+      }
+      .btn-remove-item {
+        background: #fef2f2;
+        color: #ef4444;
+        border: 1px solid #fecaca;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 700;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .btn-remove-item:hover {
+        background: #ef4444;
+        color: #ffffff;
+      }
+      @media (max-width: 640px) {
+        .inner-table th:nth-child(1),
+        .inner-table td:nth-child(1) {
+          width: 46px;
+          padding-left: 8px;
+          padding-right: 8px;
+        }
+        .noksan-action-header {
+          width: 92px;
+        }
+        .noksan-action-cell {
+          padding-left: 6px;
+          padding-right: 8px;
+        }
+        .btn-edit-noksan,
+        .btn-reset-noksan,
+        .btn-favorite-noksan {
+          width: 32px;
+          height: 32px;
+          font-size: 0.95rem;
+        }
+        .preview-item-row,
+        .preview-item-main {
+          flex-direction: column;
+        }
+        .noksan-tools-card {
+          align-items: stretch;
+          flex-direction: column;
+        }
+        .btn-reset-noksan-page {
+          width: 100%;
+        }
+      }
+      .preview-modal-footer {
+        padding: 16px 20px;
+        background: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .btn-modal-action {
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-word { background: #2563eb; color: white; }
+      .btn-pdf { background: #dc2626; color: white; }
+      .btn-csv { background: #059669; color: white; }
+      .btn-copy { background: #4f46e5; color: white; }
+      .btn-clear { background: #64748b; color: white; }
+
+      .hidden { display: none !important; }
+    </style>
+    <style id="auth-cloak">body { display: none !important; }</style>
+    <script type="module" crossorigin src="/assets/noksanlar-5ibW6xI2.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/theme-Bw_c2Sos.js">
+    <link rel="modulepreload" crossorigin href="/assets/auth-pOM6EU60.js">
+    <link rel="modulepreload" crossorigin href="/assets/scroll-top-kTKu16Q1.js">
+    <link rel="stylesheet" crossorigin href="/assets/theme-VD4HX-0U.css">
+    <link rel="stylesheet" crossorigin href="/assets/auth-oz-wxfZa.css">
+    <link rel="stylesheet" crossorigin href="/assets/styles-Crvamc4p.css">
+  </head>
+  <body class="noksan-page">
+    <!-- Topbar Navigation -->
+                <header class="ipc-topbar">
+      <a class="ipc-back" href="/">← Ana sayfaya dön</a>
+      <span class="topbar-label" style="position: absolute; left: 50%; transform: translateX(-50%); font-size: 13px; color: #b6c6ef; font-weight: 700; letter-spacing: 0.14em;">İSG NOKSANLAR</span>
+    </header>
+
+    <main class="noksan-shell">
+      <!-- Modern Top Bar (Search + Modern Export Button) -->
+      <div class="top-controls-bar">
+        <div class="search-box">
+          <span class="search-icon-fixed">🔍</span>
+          <input type="search" id="noksan-search" placeholder="Noksanlık maddesi veya kelime ara..." autocomplete="off" />
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-export-tedbirler-main" class="btn-export-main" style="background:#5b21b6; color:white; display:flex; align-items:center; gap:5px;" type="button">
+            📌 Tedbirlere Aktar
+          </button>
+          <div class="export-dropdown-wrapper">
+          <button id="btn-export-dropdown" class="btn-export-main" type="button">
+            📥 Dışa Aktar <span id="export-count-badge" style="background: #16a34a; color: white; padding: 2px 7px; border-radius: 10px; font-size: 0.75rem;">0</span> ▼
+          </button>
+
+          <div id="export-menu" class="export-menu">
+            <button id="btn-export-word" class="export-menu-item" type="button">
+              📝 Word (.docx) İndir
+            </button>
+            <button id="btn-export-pdf" class="export-menu-item" type="button">
+              📕 PDF İndir / Yazdır
+            </button>
+            <button id="btn-export-csv" class="export-menu-item" type="button">
+              📊 CSV (Excel) İndir
+            </button>
+            <button id="btn-export-tedbirler" class="export-menu-item" type="button">
+              📌 Tedbirlere Aktar
+            </button>
+            <button id="btn-copy-clipboard" class="export-menu-item" type="button">
+              📋 Panoya Kopyala
+            </button>
+            <button id="btn-clear-basket" class="export-menu-item danger" type="button">
+              🗑️ Seçimleri Temizle
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <section class="noksan-tools-card" aria-label="Noksanlık araçları">
+        <div>
+          <h2 class="noksan-tools-title">NOKSANLIK ARAÇLARI</h2>
+        </div>
+        <button id="btn-reset-noksan-page" class="btn-reset-noksan-page" type="button">Noksanlık listesini Sıfırla</button>
+        <div class="noksan-favorite-tools" aria-label="Favori noksan listeleri">
+          <p class="noksan-favorite-title">Favori Noksanlar</p>
+          <div id="favorite-noksan-list" class="noksan-favorite-list" aria-label="Favori noksan listeleri"></div>
+          <div class="noksan-favorite-actions">
+            <button id="btn-create-favorite-noksan-list" class="noksan-favorite-btn primary" type="button">Liste oluştur</button>
+            <button id="btn-save-selected-to-favorite-list" class="noksan-favorite-btn" type="button">Seçilenleri kaydet</button>
+          </div>
+          <p id="favorite-noksan-status" class="noksan-favorite-status"></p>
+        </div>
+      </section>
+
+      <!-- Single Column Category Accordion List -->
+      <div id="category-accordion-list" class="category-accordion-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </main>
+
+    <!-- Floating selected count indicator (Clickable to open preview) -->
+    <div id="floating-selected-badge" class="floating-selected-badge hidden">
+      👁️ Önizle<span id="floating-count" style="display:none;">0</span>
+    </div>
+
+    <!-- Single selected item edit modal -->
+    <div id="edit-modal" class="edit-modal hidden">
+      <div class="edit-modal-content">
+        <div class="edit-modal-header">
+          <h3>✏️ Seçili Noksanlığı Düzenle</h3>
+          <button id="btn-close-edit" class="btn-close-modal" type="button">&times;</button>
+        </div>
+        <div class="edit-modal-body">
+          <p id="edit-noksan-category" class="edit-noksan-category">Seçili noksanlık</p>
+          <textarea id="edit-noksan-text" class="edit-noksan-textarea" spellcheck="false"></textarea>
+        </div>
+        <div class="edit-modal-footer">
+          <button id="btn-cancel-edit" class="btn-edit-action btn-edit-cancel" type="button">Vazgeç</button>
+          <button id="btn-save-edit" class="btn-edit-action btn-edit-save" type="button">Kaydet</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Listesiz işlem seçim modalı -->
+    <div id="listless-confirm-modal" class="edit-modal hidden">
+      <div class="edit-modal-content listless-confirm-content">
+        <div class="edit-modal-body listless-confirm-body">
+          <p id="listless-confirm-message"></p>
+        </div>
+        <div class="edit-modal-footer">
+          <button id="btn-listless-delete" class="btn-edit-action btn-listless-delete" type="button">SİL</button>
+          <button id="btn-listless-keep" class="btn-edit-action btn-listless-keep" type="button">KORU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tedbirlere aktarım başarı modalı -->
+    <div id="tedbirler-success-modal" class="edit-modal hidden">
+      <div class="edit-modal-content tedbirler-success-content">
+        <div class="edit-modal-body tedbirler-success-body">
+          <p>Noksanlıklar tedbirlere aktarıldı.</p>
+        </div>
+        <div class="edit-modal-footer">
+          <button id="btn-stay-on-noksanlar" class="btn-edit-action btn-stay-page" type="button">Sayfada kal</button>
+          <button id="btn-go-tedbirler-page" class="btn-edit-action btn-go-tedbirler" type="button">Tedbirler Sayfasına git</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favori liste seçimi modalı -->
+    <div id="favorite-picker-modal" class="edit-modal hidden">
+      <div class="edit-modal-content">
+        <div class="edit-modal-header">
+          <h3>⭐ Favori Liste Seç</h3>
+          <button id="btn-close-favorite-picker" class="btn-close-modal" type="button">&times;</button>
+        </div>
+        <div id="favorite-picker-body" class="edit-modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="preview-modal hidden">
+      <div class="preview-modal-content">
+        <div class="preview-modal-header">
+          <h3>📋 Seçilen Noksanlıklar Önizleme (<span id="modal-selected-count">0</span> Adet)<span id="preview-favorite-list-name"></span></h3>
+          <button id="btn-close-preview" class="btn-close-modal" type="button">&times;</button>
+        </div>
+        <div id="preview-modal-body" class="preview-modal-body">
+          <!-- Dynamic list of selected items -->
+        </div>
+        <div class="preview-modal-footer">
+          <button id="modal-export-word" class="btn-modal-action btn-word" type="button">📝 Word</button>
+          <button id="modal-export-pdf" class="btn-modal-action btn-pdf" type="button">📕 PDF</button>
+          <button id="modal-export-csv" class="btn-modal-action btn-csv" type="button">📊 CSV</button>
+          <button id="modal-export-tedbirler" class="btn-modal-action btn-copy" style="background:#5b21b6;color:white;" type="button">📌 Aktar</button>
+          <button id="modal-copy-clipboard" class="btn-modal-action btn-copy" type="button">📋 Panoya Kopyala</button>
+          <button id="modal-clear-all" class="btn-modal-action btn-clear" type="button">🗑️ Temizle</button>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html><!-- cache bust 2026-09-02-22-17 -->
+<!-- cache bust 2026-09-02-22-33 -->
+<!-- cache bust 2026-09-02-22-40 -->
